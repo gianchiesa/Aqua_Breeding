@@ -27,8 +27,8 @@ class GradingController extends GetxController {
     GradingNilaHitamData(210, '08-11-2022'),
   ].obs;
   var isLoading = false.obs;
-  Activation activation = Get.arguments["activation"];
-  Pond pond = Get.arguments["pond"];
+  Activation activation = Get.arguments()["activation"];
+  Pond pond = Get.arguments()["pond"];
   final list_fishGrading = <FishGrading>[].obs;
 
   @override

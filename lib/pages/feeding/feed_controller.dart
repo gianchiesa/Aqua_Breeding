@@ -16,8 +16,8 @@ class FeedController extends GetxController {
     FeedData(8, 'Hari Ke-9'),
   ].obs;
   var isLoading = false.obs;
-  Activation activation = Get.arguments["activation"];
-  Pond pond = Get.arguments["pond"];
+  Activation activation = Get.arguments()["activation"];
+  Pond pond = Get.arguments()["pond"];
   final list_feedHistoryMonthly = <FeedHistoryMonthly>[].obs;
 
   @override

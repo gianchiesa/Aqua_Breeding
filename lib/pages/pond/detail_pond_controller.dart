@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:fish/models/activation_model.dart';
 import 'package:fish/models/pond_model.dart';
@@ -7,7 +8,7 @@ import 'package:get/get.dart';
 
 class DetailPondController extends GetxController {
   var isLoading = false.obs;
-  Pond pond = Get.arguments;
+  Pond pond = Get.arguments();
   final activations = <Activation>[].obs;
 
   @override
@@ -23,6 +24,7 @@ class DetailPondController extends GetxController {
     List<Activation> activationsData =
         await ActivationService().getActivations(pondId: pondId);
     activations.addAll(activationsData);
+    inspect(activations);
     isLoading.value = false;
   }
 }

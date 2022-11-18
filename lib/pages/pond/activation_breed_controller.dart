@@ -1,11 +1,15 @@
 import 'dart:convert';
 
+import 'package:fish/models/activation_model.dart';
+import 'package:fish/pages/pond/detail_pond_page.dart';
 import 'package:fish/models/pond_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../service/activation_service.dart';
+
 class ActivationBreedController extends GetxController {
-  Pond pond = Get.arguments;
+  Pond pond = Get.arguments();
   TextEditingController waterHeightController = TextEditingController(text: '');
   TextEditingController nilaMerahAmountController =
       TextEditingController(text: '');
@@ -93,15 +97,37 @@ class ActivationBreedController extends GetxController {
     return data;
   }
 
-  Future<void> pondActivation() async {
+  Future<void> getAllData() async {
+    await ActivationService().getActivations(pondId: pond.id.toString());
+  }
+
+  Future<void> pondActivation(Function doInPost) async {
     print(buildJsonFish());
-    // bool value = await ActivationService().postActivation(
-    //   pondId: pond.id,
-    //   fish: buildJsonFish(),
-    //   isWaterPreparation: false,
-    //   waterLevel: waterHeightController.value.text,
-    // );
-    // print(value);
-    // Get.to(() => DashboardPage());
+    isLoading.value = true;
+
+    // isLoading.value = true;
+    // // // List<Activation> activation =
+    // // //     await ActivationService().getActivations(pondId: pond.id.toString());
+    await ActivationService().postActivation(
+      pondId: pond.id,
+      fish: buildJsonFish(),
+      isWaterPreparation: false,
+      waterLevel: waterHeightController.value.text,
+    );
+    // // print(value);
+    // // // isLoading.value = true;
+    // getAllData();
+    isLoading.value = false;
+    doInPost();
+    // // Get.to(() => DetailPondPage(),
+    // //     arguments: Pond(
+    // //         id: pond.id,
+    // //         idInt: pond.idInt,
+    // //         alias: pond.alias,
+    // //         location: pond.location,
+    // //         shape: pond.shape,
+    // //         material: pond.material,
+    // //         isActive: true,
+    // //         pondStatus: PondStatus.active));
   }
 }

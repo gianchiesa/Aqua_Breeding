@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:fish/pages/component/activation_card.dart';
 import 'package:fish/pages/pond/activation_breed_page.dart';
 import 'package:fish/pages/pond/add_pond_page.dart';
@@ -7,13 +9,27 @@ import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
 import 'package:get/get.dart';
 
-class DetailPondPage extends StatelessWidget {
+class DetailPondPage extends StatefulWidget {
   const DetailPondPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final DetailPondController controller = Get.put(DetailPondController());
+  State<DetailPondPage> createState() => _DetailPondPageState();
+}
 
+class _DetailPondPageState extends State<DetailPondPage> {
+  final DetailPondController controller = Get.put(DetailPondController());
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await DetailPondController()
+          .getPondActivations(pondId: controller.pond.id.toString());
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // inspect(controller.activations);
     Widget pondStatus() {
       return Container(
         margin: EdgeInsets.only(
@@ -108,7 +124,10 @@ class DetailPondPage extends StatelessWidget {
             top: defaultSpace, right: defaultMargin, left: defaultMargin),
         child: TextButton(
           onPressed: () {
-            Get.to(() => DeactivationBreedPage(), arguments: controller.pond);
+            Get.to(() => const DeactivationBreedPage(), arguments: {
+              "activation": controller.activations,
+              "pond": controller.pond
+            });
           },
           style: TextButton.styleFrom(
             backgroundColor: Colors.amber,
@@ -261,6 +280,15 @@ class DetailPondPage extends StatelessWidget {
           ));
     }
 
+    Widget testis() {
+      return controller.activations.isNotEmpty
+          ? Text(controller.activations[0].fishAmount.toString())
+          : Text(
+              'PELIR',
+              style: TextStyle(color: Colors.white),
+            );
+    }
+
     Widget emptyListActivation() {
       return Container(
           width: double.infinity,
@@ -302,6 +330,7 @@ class DetailPondPage extends StatelessWidget {
 
     return Obx(() {
       if (controller.isLoading.value == false) {
+        print('ini jalan mas');
         return Scaffold(
           appBar: AppBar(
             backgroundColor: backgroundColor2,
@@ -319,6 +348,8 @@ class DetailPondPage extends StatelessWidget {
               controller.activations.isEmpty
                   ? emptyListActivation()
                   : listActivation(),
+              // listActivation(),
+              testis(),
               SizedBox(
                 height: 10,
               )

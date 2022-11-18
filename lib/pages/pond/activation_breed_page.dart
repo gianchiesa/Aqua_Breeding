@@ -1,4 +1,9 @@
+import 'dart:developer';
+
 import 'package:fish/pages/pond/activation_breed_controller.dart';
+import 'package:fish/pages/pond/detail_pond_page.dart';
+import 'package:fish/service/pond_service.dart';
+import 'package:fish/service/activation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
 import 'package:flutter/services.dart';
@@ -541,14 +546,24 @@ class ActivationBreedPage extends StatelessWidget {
     }
 
     Widget activationButton() {
+      // return Obx(() {
+      //   if (controller.isLoading.value == true) {
+      //     return CircularProgressIndicator();
+      //   }
       return Container(
         height: 50,
         width: double.infinity,
         margin: EdgeInsets.only(
             top: defaultSpace * 3, right: defaultMargin, left: defaultMargin),
         child: TextButton(
-          onPressed: () {
-            controller.pondActivation();
+          onPressed: () async {
+            await controller.pondActivation(() {
+              Navigator.pop(context);
+              // Get.to(() => DetailPondPage(), arguments: controller.pond);
+            });
+            ActivationBreedController().getAllData();
+
+            // Get.back();
           },
           style: TextButton.styleFrom(
             backgroundColor: primaryColor,
@@ -565,6 +580,7 @@ class ActivationBreedPage extends StatelessWidget {
           ),
         ),
       );
+      // };
     }
 
     return Obx(() {

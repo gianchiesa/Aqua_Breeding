@@ -1,3 +1,4 @@
+import 'package:fish/pages/component/deactivation_list_input.dart';
 import 'package:fish/pages/pond/deactivation_breed_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
@@ -567,6 +568,20 @@ class DeactivationBreedPage extends StatelessWidget {
       );
     }
 
+    Widget DeactivationInput() {
+      return Container(
+        margin: EdgeInsets.only(
+            top: defaultSpace, right: defaultMargin, left: defaultMargin),
+        child: Column(
+          children: controller.activation.fishLive!
+              .map(
+                (fish) => DeactivationListCard(fish: fish),
+              )
+              .toList(),
+        ),
+      );
+    }
+
     return Obx(() {
       if (controller.isLoading.value == false) {
         return Scaffold(
@@ -577,12 +592,7 @@ class DeactivationBreedPage extends StatelessWidget {
           backgroundColor: backgroundColor1,
           body: ListView(
             children: [
-              checkBoxFish(),
-              controller.isNilaHitam == true ? nilaHitamInput() : Container(),
-              controller.isNilaMerah == true ? nilaMerahInput() : Container(),
-              controller.isLele == true ? leleInput() : Container(),
-              controller.isPatin == true ? patinInput() : Container(),
-              controller.isMas == true ? masInput() : Container(),
+              DeactivationInput(),
               // waterHeightInput(),
               activationButton(),
               SizedBox(

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fish/models/activation_model.dart';
 import 'package:fish/models/pond_model.dart';
 import 'package:fish/pages/dashboard.dart';
 import 'package:fish/service/activation_service.dart';
@@ -7,7 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DeactivationBreedController extends GetxController {
-  Pond pond = Get.arguments;
+  Pond pond = Get.arguments()["pond"];
+  Activation activation = Get.arguments()["activation"][0];
+  // Activation activation = Get.arguments()["activation"];
+  // Future<List<Activation>> activationsData =
+  //       ActivationService().getActivations(pondId: pond.id!);
   // TextEditingController waterHeightController = TextEditingController(text: '');
   TextEditingController nilaMerahAmountController =
       TextEditingController(text: '');
