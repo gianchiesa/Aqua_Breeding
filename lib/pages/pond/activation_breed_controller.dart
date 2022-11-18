@@ -36,6 +36,7 @@ class ActivationBreedController extends GetxController {
   var isPatin = false.obs;
   var isMas = false.obs;
   var isActivationProgress = false.obs;
+  var isPondActive = false.obs;
 
   List activations = [];
 
@@ -109,9 +110,11 @@ class ActivationBreedController extends GetxController {
     activations.clear();
     try {
       var result = await service.getActivations(pondId: pond.id.toString());
-      inspect(result);
       for (var i in result) {
         activations.add(i);
+        if (i.isFinish == false) {
+          isPondActive.value = true;
+        }
       }
     } catch (e) {
       //

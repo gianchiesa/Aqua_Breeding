@@ -73,12 +73,18 @@ class _DetailPondPageState extends State<DetailPondPage> {
               height: 40,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                border: Border.all(color: detailController.pond.getColor()),
+                // border: Border.all(color: detailController.pond.getColor()),
+                border: Border.all(
+                    color: activationController.isPondActive.value
+                        ? Colors.green
+                        : Colors.red.shade300),
                 color: transparentColor,
               ),
               child: Center(
                 child: Text(
-                  detailController.pond.pondStatusStr!,
+                  activationController.isPondActive.value
+                      ? "Aktif"
+                      : "Tidak Aktif",
                   style: primaryTextStyle.copyWith(
                     fontSize: 14,
                     fontWeight: heavy,
@@ -340,9 +346,9 @@ class _DetailPondPageState extends State<DetailPondPage> {
             : ListView(
                 children: [
                   pondStatus(),
-                  detailController.pond.isActive == true
-                      ? deactivationButton()
-                      : activationButton(),
+                  activationController.isPondActive.value == false
+                      ? activationButton()
+                      : deactivationButton(),
                   detail(),
                   activationTitle(),
                   activationController.activations.isEmpty
