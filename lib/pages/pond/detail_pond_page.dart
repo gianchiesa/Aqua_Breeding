@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:fish/pages/component/activation_card.dart';
+import 'package:fish/pages/pond/activation_breed_controller.dart';
 import 'package:fish/pages/pond/activation_breed_page.dart';
 import 'package:fish/pages/pond/add_pond_page.dart';
 import 'package:fish/pages/pond/deactivation_breed_page.dart';
@@ -17,14 +18,17 @@ class DetailPondPage extends StatefulWidget {
 }
 
 class _DetailPondPageState extends State<DetailPondPage> {
-  final DetailPondController controller = Get.put(DetailPondController());
+  final detailController = Get.put(DetailPondController());
+  final activationController = Get.put(ActivationBreedController());
+
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      await DetailPondController()
-          .getPondActivations(pondId: controller.pond.id.toString());
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+    //   await controller.getPondActivations(
+    //       pondId: controller.pond.id.toString());
+    // });
+    activationController.getPondActivation(context);
   }
 
   @override
@@ -42,7 +46,7 @@ class _DetailPondPageState extends State<DetailPondPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "kolam ${controller.pond.alias}",
+                  "kolam ${detailController.pond.alias}",
                   style: primaryTextStyle.copyWith(
                     fontSize: 18,
                     fontWeight: heavy,
@@ -54,7 +58,7 @@ class _DetailPondPageState extends State<DetailPondPage> {
                   height: 5,
                 ),
                 Text(
-                  controller.pond.getGmtToNormalDate(),
+                  detailController.pond.getGmtToNormalDate(),
                   style: secondaryTextStyle.copyWith(
                     fontSize: 16,
                     fontWeight: medium,
@@ -69,12 +73,12 @@ class _DetailPondPageState extends State<DetailPondPage> {
               height: 40,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                border: Border.all(color: controller.pond.getColor()),
+                border: Border.all(color: detailController.pond.getColor()),
                 color: transparentColor,
               ),
               child: Center(
                 child: Text(
-                  controller.pond.pondStatusStr!,
+                  detailController.pond.pondStatusStr!,
                   style: primaryTextStyle.copyWith(
                     fontSize: 14,
                     fontWeight: heavy,
@@ -97,7 +101,8 @@ class _DetailPondPageState extends State<DetailPondPage> {
             top: defaultSpace, right: defaultMargin, left: defaultMargin),
         child: TextButton(
           onPressed: () {
-            Get.to(() => ActivationBreedPage(), arguments: controller.pond);
+            Get.to(() => ActivationBreedPage(),
+                arguments: detailController.pond);
           },
           style: TextButton.styleFrom(
             backgroundColor: Colors.green.shade400,
@@ -125,8 +130,8 @@ class _DetailPondPageState extends State<DetailPondPage> {
         child: TextButton(
           onPressed: () {
             Get.to(() => const DeactivationBreedPage(), arguments: {
-              "activation": controller.activations,
-              "pond": controller.pond
+              "activation": detailController.activations,
+              "pond": detailController.pond
             });
           },
           style: TextButton.styleFrom(
@@ -167,7 +172,7 @@ class _DetailPondPageState extends State<DetailPondPage> {
                   maxLines: 1,
                 ),
                 Text(
-                  controller.pond.location!,
+                  detailController.pond.location!,
                   style: secondaryTextStyle.copyWith(
                     fontSize: 13,
                     fontWeight: medium,
@@ -188,7 +193,7 @@ class _DetailPondPageState extends State<DetailPondPage> {
                   maxLines: 1,
                 ),
                 Text(
-                  controller.pond.shape!,
+                  detailController.pond.shape!,
                   style: secondaryTextStyle.copyWith(
                     fontSize: 13,
                     fontWeight: medium,
@@ -211,7 +216,7 @@ class _DetailPondPageState extends State<DetailPondPage> {
                   maxLines: 1,
                 ),
                 Text(
-                  controller.pond.material!,
+                  detailController.pond.material!,
                   style: secondaryTextStyle.copyWith(
                     fontSize: 13,
                     fontWeight: medium,
@@ -232,9 +237,9 @@ class _DetailPondPageState extends State<DetailPondPage> {
                   maxLines: 1,
                 ),
                 Text(
-                  controller.pond.shape! == "persegi"
-                      ? "${controller.pond.length}m x ${controller.pond.width}m"
-                      : "${controller.pond.diameter}m\u00B2",
+                  detailController.pond.shape! == "persegi"
+                      ? "${detailController.pond.length}m x ${detailController.pond.width}m"
+                      : "${detailController.pond.diameter}m\u00B2",
                   style: secondaryTextStyle.copyWith(
                     fontSize: 13,
                     fontWeight: medium,
@@ -271,22 +276,13 @@ class _DetailPondPageState extends State<DetailPondPage> {
           width: double.infinity,
           margin: EdgeInsets.only(right: defaultMargin, left: defaultMargin),
           child: Column(
-            children: controller.activations
+            children: activationController.activations
                 .map(
                   (activation) => ActivationCard(
-                      activation: activation, pond: controller.pond),
+                      activation: activation, pond: detailController.pond),
                 )
                 .toList(),
           ));
-    }
-
-    Widget testis() {
-      return controller.activations.isNotEmpty
-          ? Text(controller.activations[0].fishAmount.toString())
-          : Text(
-              'PELIR',
-              style: TextStyle(color: Colors.white),
-            );
     }
 
     Widget emptyListActivation() {
@@ -328,41 +324,36 @@ class _DetailPondPageState extends State<DetailPondPage> {
           ));
     }
 
-    return Obx(() {
-      if (controller.isLoading.value == false) {
-        print('ini jalan mas');
-        return Scaffold(
-          appBar: AppBar(
-            backgroundColor: backgroundColor2,
-            title: const Text("Detail Kolam"),
-          ),
-          backgroundColor: backgroundColor1,
-          body: ListView(
-            children: [
-              pondStatus(),
-              controller.pond.isActive == true
-                  ? deactivationButton()
-                  : activationButton(),
-              detail(),
-              activationTitle(),
-              controller.activations.isEmpty
-                  ? emptyListActivation()
-                  : listActivation(),
-              // listActivation(),
-              testis(),
-              SizedBox(
-                height: 10,
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: backgroundColor2,
+        title: const Text("Detail Kolam"),
+      ),
+      backgroundColor: backgroundColor1,
+      body: Obx(
+        () => activationController.isActivationProgress.value
+            ? Center(
+                child: CircularProgressIndicator(
+                  color: secondaryColor,
+                ),
               )
-            ],
-          ),
-        );
-      } else {
-        return Center(
-          child: CircularProgressIndicator(
-            color: secondaryColor,
-          ),
-        );
-      }
-    });
+            : ListView(
+                children: [
+                  pondStatus(),
+                  detailController.pond.isActive == true
+                      ? deactivationButton()
+                      : activationButton(),
+                  detail(),
+                  activationTitle(),
+                  activationController.activations.isEmpty
+                      ? emptyListActivation()
+                      : listActivation(),
+                  SizedBox(
+                    height: 10,
+                  )
+                ],
+              ),
+      ),
+    );
   }
 }

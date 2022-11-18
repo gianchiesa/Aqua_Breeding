@@ -10,7 +10,7 @@ class ActivationService {
 
     var response = await http.get(url, headers: headers);
 
-    print(response.body);
+    // print(response.body);
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -20,7 +20,7 @@ class ActivationService {
         activations.add(Activation.fromJson(item));
       }
 
-      print("success add activations");
+      print("success get activations");
 
       return activations;
     } else {

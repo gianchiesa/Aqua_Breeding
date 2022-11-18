@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:fish/models/activation_model.dart';
 import 'package:fish/pages/pond/detail_pond_page.dart';
@@ -9,7 +10,9 @@ import 'package:get/get.dart';
 import '../../service/activation_service.dart';
 
 class ActivationBreedController extends GetxController {
-  Pond pond = Get.arguments();
+  Pond pond = Get.arguments;
+  ActivationService service = ActivationService();
+
   TextEditingController waterHeightController = TextEditingController(text: '');
   TextEditingController nilaMerahAmountController =
       TextEditingController(text: '');
@@ -25,12 +28,16 @@ class ActivationBreedController extends GetxController {
   TextEditingController patinWeightController = TextEditingController(text: '');
   TextEditingController masAmountController = TextEditingController(text: '');
   TextEditingController masWeightController = TextEditingController(text: '');
+
   var isLoading = false.obs;
   var isNilaMerah = false.obs;
   var isNilaHitam = false.obs;
   var isLele = false.obs;
   var isPatin = false.obs;
   var isMas = false.obs;
+  var isActivationProgress = false.obs;
+
+  List activations = [];
 
   void setLele(bool value) {
     isLele.value = value;
@@ -97,28 +104,36 @@ class ActivationBreedController extends GetxController {
     return data;
   }
 
-  Future<void> getAllData() async {
-    await ActivationService().getActivations(pondId: pond.id.toString());
+  Future<void> getPondActivation(BuildContext context) async {
+    isActivationProgress.value = true;
+    activations.clear();
+    try {
+      var result = await service.getActivations(pondId: pond.id.toString());
+      inspect(result);
+      for (var i in result) {
+        activations.add(i);
+      }
+    } catch (e) {
+      //
+    }
+    isActivationProgress.value = false;
   }
 
-  Future<void> pondActivation(Function doInPost) async {
-    print(buildJsonFish());
-    isLoading.value = true;
-
-    // isLoading.value = true;
-    // // // List<Activation> activation =
-    // // //     await ActivationService().getActivations(pondId: pond.id.toString());
-    await ActivationService().postActivation(
-      pondId: pond.id,
-      fish: buildJsonFish(),
-      isWaterPreparation: false,
-      waterLevel: waterHeightController.value.text,
-    );
-    // // print(value);
-    // // // isLoading.value = true;
-    // getAllData();
-    isLoading.value = false;
-    doInPost();
+  Future<void> pondActivation(BuildContext context, Function doInPost) async {
+    // print(buildJsonFish());
+    isActivationProgress.value = true;
+    try {
+      await service.postActivation(
+        pondId: pond.id,
+        fish: buildJsonFish(),
+        isWaterPreparation: false,
+        waterLevel: waterHeightController.value.text,
+      );
+      doInPost();
+    } catch (e) {
+      //
+    }
+    isActivationProgress.value = false;
     // // Get.to(() => DetailPondPage(),
     // //     arguments: Pond(
     // //         id: pond.id,

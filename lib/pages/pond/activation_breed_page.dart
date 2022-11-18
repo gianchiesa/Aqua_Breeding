@@ -557,13 +557,13 @@ class ActivationBreedPage extends StatelessWidget {
             top: defaultSpace * 3, right: defaultMargin, left: defaultMargin),
         child: TextButton(
           onPressed: () async {
-            await controller.pondActivation(() {
-              Navigator.pop(context);
-              // Get.to(() => DetailPondPage(), arguments: controller.pond);
-            });
-            ActivationBreedController().getAllData();
-
-            // Get.back();
+            await controller.pondActivation(
+              context,
+              () {
+                Navigator.pop(context);
+              },
+            );
+            controller.getPondActivation(context);
           },
           style: TextButton.styleFrom(
             backgroundColor: primaryColor,
