@@ -1,4 +1,5 @@
 import 'package:fish/pages/component/fish_list_card.dart';
+import 'package:fish/pages/component/fish_harvest_card.dart';
 import 'package:fish/pages/pond/breed_controller.dart';
 import 'package:fish/pages/grading/grading_page.dart';
 import 'package:fish/pages/feeding/detail_feed_page.dart';
@@ -277,7 +278,9 @@ class DetailBreedPage extends StatelessWidget {
               height: 30,
             ),
             Text(
-              "Jumlah Ikan (${controller.activation.fishAmount.toString()} Ekor)",
+              controller.activation.isFinish == false
+                  ? "Jumlah Ikan (${controller.activation.fishAmount.toString()} Ekor)"
+                  : "Data Panen Ikan (${controller.activation.fishAmount.toString()} Ekor)",
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -286,11 +289,17 @@ class DetailBreedPage extends StatelessWidget {
               maxLines: 1,
             ),
             Column(
-              children: controller.activation.fishLive!
-                  .map(
-                    (fish) => FishListCard(fish: fish),
-                  )
-                  .toList(),
+              children: controller.activation.isFinish == false
+                  ? controller.activation.fishLive!
+                      .map(
+                        (fish) => FishListCard(fish: fish),
+                      )
+                      .toList()
+                  : controller.activation.fishLive!
+                      .map(
+                        (fish) => FishHarvestCard(fish: fish),
+                      )
+                      .toList(),
             ),
             SizedBox(
               height: 10,
@@ -326,7 +335,7 @@ class DetailBreedPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Panen",
+              "Rating Musim Budidaya",
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -350,7 +359,7 @@ class DetailBreedPage extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        "Total Jumlah Ikan",
+                        "Food Conversion Rate",
                         style: primaryTextStyle.copyWith(
                           fontSize: 14,
                           fontWeight: medium,
@@ -359,7 +368,7 @@ class DetailBreedPage extends StatelessWidget {
                         maxLines: 1,
                       ),
                       Text(
-                        "${controller.activation.totalFishHarvested.toString()} Ekor",
+                        "0.4",
                         style: secondaryTextStyle.copyWith(
                           fontSize: 13,
                           fontWeight: medium,
@@ -372,7 +381,7 @@ class DetailBreedPage extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        "Total Berat Ikan",
+                        "Survival Rate",
                         style: primaryTextStyle.copyWith(
                           fontSize: 14,
                           fontWeight: medium,
@@ -381,7 +390,7 @@ class DetailBreedPage extends StatelessWidget {
                         maxLines: 1,
                       ),
                       Text(
-                        "${controller.activation.totalWeightHarvested.toString()} Kg",
+                        "1.0",
                         style: secondaryTextStyle.copyWith(
                           fontSize: 13,
                           fontWeight: medium,

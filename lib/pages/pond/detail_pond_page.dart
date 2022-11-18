@@ -136,7 +136,7 @@ class _DetailPondPageState extends State<DetailPondPage> {
         child: TextButton(
           onPressed: () {
             Get.to(() => const DeactivationBreedPage(), arguments: {
-              "activation": detailController.activations,
+              "activation": activationController.activations,
               "pond": detailController.pond
             });
           },

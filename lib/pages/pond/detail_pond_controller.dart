@@ -11,7 +11,7 @@ class DetailPondController extends GetxController {
 
   var isLoading = false.obs;
 
-  Pond pond = Get.arguments;
+  Pond pond = Get.arguments();
   final activations = <Activation>[].obs;
 
   // @override
