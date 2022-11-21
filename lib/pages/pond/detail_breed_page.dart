@@ -368,7 +368,7 @@ class DetailBreedPage extends StatelessWidget {
                         maxLines: 1,
                       ),
                       Text(
-                        "0.4",
+                        controller.activation.fcr!.toStringAsFixed(3),
                         style: secondaryTextStyle.copyWith(
                           fontSize: 13,
                           fontWeight: medium,
@@ -390,7 +390,7 @@ class DetailBreedPage extends StatelessWidget {
                         maxLines: 1,
                       ),
                       Text(
-                        "1.0",
+                        "${controller.activation.survivalRate!.toStringAsFixed(2)} %",
                         style: secondaryTextStyle.copyWith(
                           fontSize: 13,
                           fontWeight: medium,

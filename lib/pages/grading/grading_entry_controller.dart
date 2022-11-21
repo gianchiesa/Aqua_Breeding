@@ -15,7 +15,7 @@ class GradingEntryController extends GetxController {
       TextEditingController(text: '');
   FishTypeController fishTypeController = FishTypeController();
   var isLoading = false.obs;
-  Pond pond = Get.arguments();
+  Pond pond = Get.arguments;
 
   Future<void> postFishGrading() async {
     bool value = await FishGradingService().postFishGrading(

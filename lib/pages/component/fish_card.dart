@@ -61,7 +61,7 @@ class FishCard extends StatelessWidget {
                   height: 6,
                 ),
                 Text(
-                  '${this.value.toString()} Kg',
+                  '${this.value!.toStringAsFixed(3)} Kg',
                   style: priceTextStyle.copyWith(
                     fontSize: 18,
                     fontWeight: bold,

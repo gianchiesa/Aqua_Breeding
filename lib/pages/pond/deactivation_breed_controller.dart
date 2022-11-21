@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DeactivationBreedController extends GetxController {
-  Pond pond = Get.arguments()["pond"];
-  Activation activation = Get.arguments()["activation"][0];
-  // Activation activation = Get.arguments()["activation"];
+  Pond pond = Get.arguments["pond"];
+  Activation activation = Get.arguments["activation"][0];
+  // Activation activation = Get.arguments["activation"];
   // Future<List<Activation>> activationsData =
   //       ActivationService().getActivations(pondId: pond.id!);
   // TextEditingController waterHeightController = TextEditingController(text: '');

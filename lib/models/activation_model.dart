@@ -16,6 +16,8 @@ class Activation {
   int? fishAmount;
   List<Fish>? fishLive;
   List<Fish>? fishDeath;
+  num? survivalRate;
+  num? fcr;
 
   Activation({
     required this.id,
@@ -31,27 +33,32 @@ class Activation {
     this.fishAmount,
     this.fishLive,
     this.fishDeath,
+    this.survivalRate,
+    this.fcr,
   });
 
   factory Activation.fromJson(Map<String, dynamic> json) {
     print(json);
     return Activation(
-        id: json['_id'],
-        idInt: json['id_int'],
-        isFinish: json['isFinish'],
-        waterLevel: json['water_level'],
-        activationAt:
-            DateFormat("yyyy-MM-dd hh:mm:ss").parse(json['activated_at']),
-        deactivationAt: json['isFinish'] == true
-            ? DateFormat("yyyy-MM-dd hh:mm:ss").parse(json['deactivated_at'])
-            : null,
-        totalFishHarvested: json['total_fish_harvested'],
-        totalWeightHarvested: json['total_weight_harvested'],
-        consOver: json['constanta_oversize'],
-        consUnder: json['constanta_undersize'],
-        fishAmount: json['total_fish'],
-        fishLive: Fish.fromJsonList(json['fish_live']),
-        fishDeath: Fish.fromJsonList(json['fish_death']));
+      id: json['_id'],
+      idInt: json['id_int'],
+      isFinish: json['isFinish'],
+      waterLevel: json['water_level'],
+      activationAt:
+          DateFormat("yyyy-MM-dd hh:mm:ss").parse(json['activated_at']),
+      deactivationAt: json['isFinish'] == true
+          ? DateFormat("yyyy-MM-dd hh:mm:ss").parse(json['deactivated_at'])
+          : null,
+      totalFishHarvested: json['total_fish_harvested'],
+      totalWeightHarvested: json['total_weight_harvested'],
+      consOver: json['constanta_oversize'],
+      consUnder: json['constanta_undersize'],
+      fishAmount: json['total_fish'],
+      fishLive: Fish.fromJsonList(json['fish_live']),
+      fishDeath: Fish.fromJsonList(json['fish_death']),
+      survivalRate: json['survival_rate'],
+      fcr: json['fcr'],
+    );
   }
 
   static DateTime stringToDate(String dateString) {
@@ -95,6 +102,8 @@ class Activation {
   num getRangeActivation() {
     print(deactivationAt);
     if (isFinish == false) {
+      print(DateTime.now());
+      print(activationAt);
       return DateTime.now().difference(activationAt!).inDays;
     }
     return deactivationAt!.difference(activationAt!).inDays;
