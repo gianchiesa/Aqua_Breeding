@@ -1,4 +1,5 @@
 import 'package:fish/pages/component/deactivation_list_input.dart';
+import 'package:fish/pages/dashboard.dart';
 import 'package:fish/pages/pond/deactivation_breed_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
@@ -549,7 +550,7 @@ class DeactivationBreedPage extends StatelessWidget {
             top: defaultSpace * 3, right: defaultMargin, left: defaultMargin),
         child: TextButton(
           onPressed: () {
-            controller.pondDeactivation();
+            Get.to(() => DashboardPage());
           },
           style: TextButton.styleFrom(
             backgroundColor: primaryColor,
