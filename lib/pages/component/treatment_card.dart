@@ -1,37 +1,27 @@
-import 'package:fish/models/activation_model.dart';
-import 'package:fish/models/pond_model.dart';
-import 'package:fish/pages/component/tabview.dart';
+import 'package:fish/pages/treatment/treatment_controller.dart';
+import 'package:fish/pages/treatment/treatment_detail_page.dart';
 import 'package:flutter/material.dart';
-
 import 'package:fish/theme.dart';
 import 'package:get/get.dart';
+import 'package:fish/models/treatment_model.dart';
 
-import '../pond/detail_Breed_page.dart';
-
-class ActivationCard extends StatelessWidget {
-  final Activation? activation;
-  final Pond? pond;
-
-  const ActivationCard({Key? key, this.activation, this.pond})
-      : super(key: key);
+class TreatmentCard extends StatelessWidget {
+  final Treatment? treatmentList;
+  const TreatmentCard({Key? key, this.treatmentList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => const MyTabScreen(),
-            arguments: {"activation": activation, "pond": pond});
+        Get.to(() => DetailTreatmentPage(),
+            arguments: {"treatment": treatmentList});
       },
-      // onTap: () {
-      //   Get.to(() => const DetailBreedPage(),
-      //       arguments: {"activation": activation, "pond": pond});
-      // },
       child: Container(
         width: double.infinity,
         margin: EdgeInsets.only(
           top: defaultMargin,
         ),
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: primaryColor),
@@ -43,30 +33,11 @@ class ActivationCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  width: 90,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: activation!.getColor(),
-                  ),
-                  child: Center(
-                    child: Text(
-                      activation!.getStatus(),
-                      style: blackTextStyle.copyWith(
-                        fontSize: 13,
-                        fontWeight: heavy,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
-                  ),
-                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Mulai Pada",
+                      "Tanggal",
                       style: primaryTextStyle.copyWith(
                         fontSize: 14,
                         fontWeight: bold,
@@ -75,7 +46,7 @@ class ActivationCard extends StatelessWidget {
                       maxLines: 1,
                     ),
                     Text(
-                      activation!.getStringActivationDate(),
+                      '10-12-2022',
                       style: secondaryTextStyle.copyWith(
                         fontSize: 14,
                         fontWeight: medium,
@@ -89,7 +60,7 @@ class ActivationCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Ikan",
+                      "Jenis Treatment",
                       style: primaryTextStyle.copyWith(
                         fontSize: 14,
                         fontWeight: bold,
@@ -98,7 +69,7 @@ class ActivationCard extends StatelessWidget {
                       maxLines: 1,
                     ),
                     Text(
-                      "${activation!.fishAmount} Ekor",
+                      treatmentList!.type.toString(),
                       style: secondaryTextStyle.copyWith(
                         fontSize: 14,
                         fontWeight: medium,
@@ -106,6 +77,35 @@ class ActivationCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                     ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 40,
+                      width: 80,
+                      // margin: EdgeInsets.only(
+                      //     top: defaultMargin,
+                      //     right: defaultMargin,
+                      //     left: defaultMargin),
+                      child: TextButton(
+                        onPressed: () {},
+                        style: TextButton.styleFrom(
+                          backgroundColor: primaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: Text(
+                          'Detail',
+                          style: primaryTextStyle.copyWith(
+                            fontSize: 16,
+                            fontWeight: medium,
+                          ),
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ],

@@ -25,16 +25,17 @@ class SplashPage extends StatelessWidget {
             ),
           ),
           Text(
-            "Fishery+",
+            "Assistive Aquaculture Breeding Management",
+            textAlign: TextAlign.center,
             style: blueTextStyle.copyWith(
-              fontSize: 26,
+              fontSize: 16,
               fontWeight: bold,
             ),
           ),
           Text(
-            "by JFT",
+            "by Aquaculture Tech",
             style: secondaryTextStyle.copyWith(
-              fontSize: 18,
+              fontSize: 14,
               fontWeight: medium,
             ),
           ),

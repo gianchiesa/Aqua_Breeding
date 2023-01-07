@@ -420,10 +420,6 @@ class DetailBreedPage extends StatelessWidget {
     return Obx(() {
       if (controller.isLoading.value == false) {
         return Scaffold(
-          appBar: AppBar(
-            backgroundColor: backgroundColor2,
-            title: const Text("Detail Masa Budidaya"),
-          ),
           backgroundColor: backgroundColor1,
           body: ListView(
             children: [

@@ -53,4 +53,30 @@ class ActivationService {
       return false;
     }
   }
+
+  Future<bool> postDeactivation({
+    required String? pondId,
+    required List? fish,
+    required bool? isWaterPreparation,
+    required String? waterLevel,
+  }) async {
+    final response = await http.post(Uri.parse(Urls.pondActivation(pondId)),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        encoding: Encoding.getByName('utf-8'),
+        body: {
+          "fish": fish.toString(),
+          "isWaterPreparation": false.toString(),
+          "water_level": waterLevel,
+        });
+
+    if (response.statusCode == 200) {
+      print(response.body);
+      return true;
+    } else {
+      print(response.body);
+      return false;
+    }
+  }
 }

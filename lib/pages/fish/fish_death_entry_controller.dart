@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 class FishDeathEntryController extends GetxController {
   TextEditingController formDeathController = TextEditingController(text: '');
   FishTypeController fishTypeController = FishTypeController();
-  Pond pond = Get.arguments;
+  Pond pond = Get.arguments();
 
   var isLoading = false.obs;
 

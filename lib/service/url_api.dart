@@ -38,4 +38,9 @@ class Urls {
   static const String fishDeaths = '$baseUrl/fishdeath';
   static String fishDeath(String? activationId) =>
       '$baseUrl/fishdeath/activation/$activationId';
+
+  //Treatment
+  static const String treatment = '$baseUrl/pondtreatment';
+  static String pondTreatment(String? activationId) =>
+      '$baseUrl/fishdeath/activation/$activationId';
 }
