@@ -1,9 +1,9 @@
-import 'dart:async';
 import 'dart:developer';
 
 import 'package:fish/models/activation_model.dart';
 import 'package:fish/models/pond_model.dart';
 import 'package:fish/service/activation_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class DetailPondController extends GetxController {
@@ -11,8 +11,28 @@ class DetailPondController extends GetxController {
 
   var isLoading = false.obs;
 
-  Pond pond = Get.arguments();
-  final activations = <Activation>[].obs;
+  Pond pond = Get.arguments['pond'];
+  RxList activations = List<Activation>.empty().obs;
+  var isPondActive = false.obs;
+
+  Future getPondActivation(BuildContext context) async {
+    isLoading.value = true;
+    activations.clear();
+    try {
+      var result = await service.getActivations(pondId: pond.id.toString());
+
+      for (var i in result) {
+        activations.add(i);
+        if (i.isFinish == false) {
+          isPondActive.value = true;
+        }
+      }
+      inspect(isPondActive.value);
+    } catch (e) {
+      //
+    }
+    isLoading.value = false;
+  }
 
   // @override
   // void onInit() async {

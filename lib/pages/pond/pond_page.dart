@@ -6,12 +6,12 @@ import 'package:fish/theme.dart';
 import 'package:get/get.dart';
 
 class PondPage extends StatelessWidget {
-  const PondPage({Key? key}) : super(key: key);
+  PondPage({Key? key}) : super(key: key);
+
+  final PondController controller = Get.put(PondController());
 
   @override
   Widget build(BuildContext context) {
-    final PondController controller = Get.put(PondController());
-
     Widget title() {
       return Container(
         margin: EdgeInsets.only(

@@ -43,4 +43,7 @@ class Urls {
   static const String treatment = '$baseUrl/pondtreatment';
   static String pondTreatment(String? activationId) =>
       '$baseUrl/fishdeath/activation/$activationId';
+
+  static String pondDeactivation(String? pondId) =>
+      '$baseUrl/ponds/$pondId/closing';
 }

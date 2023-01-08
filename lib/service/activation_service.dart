@@ -54,28 +54,28 @@ class ActivationService {
     }
   }
 
-  Future<bool> postDeactivation({
-    required String? pondId,
-    required List? fish,
-    required bool? isWaterPreparation,
-    required String? waterLevel,
-  }) async {
-    final response = await http.post(Uri.parse(Urls.pondActivation(pondId)),
+  Future<bool> postDeactivation(
+      {required String? pondId,
+      required num? total_fish_harvested,
+      required num? total_weight_harvested,
+      String? diactived_at,
+      List? fish_harvested,
+      bool? isFinish}) async {
+    final response = await http.post(Uri.parse(Urls.pondDeactivation(pondId)),
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
         encoding: Encoding.getByName('utf-8'),
         body: {
-          "fish": fish.toString(),
-          "isWaterPreparation": false.toString(),
-          "water_level": waterLevel,
+          "total_weight_harvested": total_weight_harvested.toString(),
+          "total_fish_harvested": total_fish_harvested.toString(),
         });
 
     if (response.statusCode == 200) {
       print(response.body);
       return true;
     } else {
-      print(response.body);
+      print('gagal deaktifasi');
       return false;
     }
   }

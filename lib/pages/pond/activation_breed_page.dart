@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:fish/pages/pond/activation_breed_controller.dart';
+import 'package:fish/pages/pond/detail_pond_controller.dart';
 import 'package:fish/pages/pond/detail_pond_page.dart';
 import 'package:fish/service/pond_service.dart';
 import 'package:fish/service/activation_service.dart';
@@ -10,13 +11,16 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class ActivationBreedPage extends StatelessWidget {
-  const ActivationBreedPage({Key? key}) : super(key: key);
+  ActivationBreedPage({Key? key}) : super(key: key);
+
+  final ActivationBreedController controller =
+      Get.put(ActivationBreedController());
+
+  final DetailPondController detailPondController =
+      Get.put(DetailPondController());
 
   @override
   Widget build(BuildContext context) {
-    final ActivationBreedController controller =
-        Get.put(ActivationBreedController());
-
     Widget checkBoxFish() {
       return Container(
         margin: EdgeInsets.only(
@@ -563,7 +567,7 @@ class ActivationBreedPage extends StatelessWidget {
                 Navigator.pop(context);
               },
             );
-            controller.getPondActivation(context);
+            detailPondController.getPondActivation(context);
           },
           style: TextButton.styleFrom(
             backgroundColor: primaryColor,
@@ -584,7 +588,7 @@ class ActivationBreedPage extends StatelessWidget {
     }
 
     return Obx(() {
-      if (controller.isLoading.value == false) {
+      if (controller.isActivationProgress.value == false) {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: backgroundColor2,

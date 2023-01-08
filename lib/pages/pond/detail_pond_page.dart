@@ -28,12 +28,11 @@ class _DetailPondPageState extends State<DetailPondPage> {
     //   await controller.getPondActivations(
     //       pondId: controller.pond.id.toString());
     // });
-    activationController.getPondActivation(context);
+    detailController.getPondActivation(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    // inspect(controller.activations);
     Widget pondStatus() {
       return Container(
         margin: EdgeInsets.only(
@@ -75,16 +74,14 @@ class _DetailPondPageState extends State<DetailPondPage> {
                 borderRadius: BorderRadius.circular(15),
                 // border: Border.all(color: detailController.pond.getColor()),
                 border: Border.all(
-                    color: activationController.isPondActive.value
+                    color: detailController.isPondActive.value
                         ? Colors.green
                         : Colors.red.shade300),
                 color: transparentColor,
               ),
               child: Center(
                 child: Text(
-                  activationController.isPondActive.value
-                      ? "Aktif"
-                      : "Tidak Aktif",
+                  detailController.isPondActive.value ? "Aktif" : "Tidak Aktif",
                   style: primaryTextStyle.copyWith(
                     fontSize: 14,
                     fontWeight: heavy,
@@ -107,8 +104,9 @@ class _DetailPondPageState extends State<DetailPondPage> {
             top: defaultSpace, right: defaultMargin, left: defaultMargin),
         child: TextButton(
           onPressed: () {
-            Get.to(() => ActivationBreedPage(),
-                arguments: detailController.pond);
+            Get.to(() => ActivationBreedPage(), arguments: {
+              'pond': detailController.pond,
+            });
           },
           style: TextButton.styleFrom(
             backgroundColor: Colors.green.shade400,
@@ -135,10 +133,8 @@ class _DetailPondPageState extends State<DetailPondPage> {
             top: defaultSpace, right: defaultMargin, left: defaultMargin),
         child: TextButton(
           onPressed: () {
-            Get.to(() => const DeactivationBreedPage(), arguments: {
-              "activation": activationController.activations,
-              "pond": detailController.pond
-            });
+            Get.to(() => DeactivationBreedPage(),
+                arguments: {"pond": detailController.pond});
           },
           style: TextButton.styleFrom(
             backgroundColor: Colors.amber,
@@ -282,7 +278,7 @@ class _DetailPondPageState extends State<DetailPondPage> {
           width: double.infinity,
           margin: EdgeInsets.only(right: defaultMargin, left: defaultMargin),
           child: Column(
-            children: activationController.activations
+            children: detailController.activations
                 .map(
                   (activation) => ActivationCard(
                       activation: activation, pond: detailController.pond),
@@ -337,7 +333,7 @@ class _DetailPondPageState extends State<DetailPondPage> {
       ),
       backgroundColor: backgroundColor1,
       body: Obx(
-        () => activationController.isActivationProgress.value
+        () => detailController.isLoading.value
             ? Center(
                 child: CircularProgressIndicator(
                   color: secondaryColor,
@@ -346,12 +342,12 @@ class _DetailPondPageState extends State<DetailPondPage> {
             : ListView(
                 children: [
                   pondStatus(),
-                  activationController.isPondActive.value == false
+                  detailController.isPondActive.value == false
                       ? activationButton()
                       : deactivationButton(),
                   detail(),
                   activationTitle(),
-                  activationController.activations.isEmpty
+                  detailController.activations.isEmpty
                       ? emptyListActivation()
                       : listActivation(),
                   SizedBox(

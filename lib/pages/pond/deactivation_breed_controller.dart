@@ -8,8 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DeactivationBreedController extends GetxController {
-  Pond pond = Get.arguments()["pond"];
-  Activation activation = Get.arguments()["activation"][0];
+  Pond pond = Get.arguments['pond'];
+  // Activation activation = Get.arguments["activation"][0];
+  ActivationService service = ActivationService();
   // Activation activation = Get.arguments["activation"];
   // Future<List<Activation>> activationsData =
   //       ActivationService().getActivations(pondId: pond.id!);
@@ -34,6 +35,7 @@ class DeactivationBreedController extends GetxController {
   var isLele = false.obs;
   var isPatin = false.obs;
   var isMas = false.obs;
+  var isDeactivationProgress = false.obs;
 
   void setLele(bool value) {
     isLele.value = value;
@@ -100,15 +102,21 @@ class DeactivationBreedController extends GetxController {
     return data;
   }
 
-  Future<void> pondDeactivation() async {
-    print(buildJsonFish());
-    // bool value = await ActivationService().postActivation(
-    //   pondId: pond.id,
-    //   fish: buildJsonFish(),
-    //   isWaterPreparation: false,
-    //   waterLevel: waterHeightController.value.text,
-    // );
-    // print(value);
-    // Get.to(() => DashboardPage());
+  Future<void> pondDeactivation(BuildContext context, Function doInPost) async {
+    // print(buildJsonFish());
+    isDeactivationProgress.value = true;
+    try {
+      await service.postDeactivation(
+          pondId: pond.id,
+          total_fish_harvested: 90,
+          total_weight_harvested: 90,
+          isFinish: true,
+          diactived_at: '',
+          fish_harvested: buildJsonFish());
+      doInPost();
+    } catch (e) {
+      //
+    }
+    isDeactivationProgress.value = false;
   }
 }

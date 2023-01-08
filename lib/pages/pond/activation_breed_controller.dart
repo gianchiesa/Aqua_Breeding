@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import '../../service/activation_service.dart';
 
 class ActivationBreedController extends GetxController {
-  Pond pond = Get.arguments();
+  Pond pond = Get.arguments['pond'];
   ActivationService service = ActivationService();
 
   TextEditingController waterHeightController = TextEditingController(text: '');
@@ -29,7 +29,6 @@ class ActivationBreedController extends GetxController {
   TextEditingController masAmountController = TextEditingController(text: '');
   TextEditingController masWeightController = TextEditingController(text: '');
 
-  var isLoading = false.obs;
   var isNilaMerah = false.obs;
   var isNilaHitam = false.obs;
   var isLele = false.obs;
@@ -103,23 +102,6 @@ class ActivationBreedController extends GetxController {
       data.add(jsonEncode(fishData));
     }
     return data;
-  }
-
-  Future<void> getPondActivation(BuildContext context) async {
-    isActivationProgress.value = true;
-    activations.clear();
-    try {
-      var result = await service.getActivations(pondId: pond.id.toString());
-      for (var i in result) {
-        activations.add(i);
-        if (i.isFinish == false) {
-          isPondActive.value = true;
-        }
-      }
-    } catch (e) {
-      //
-    }
-    isActivationProgress.value = false;
   }
 
   Future<void> pondActivation(BuildContext context, Function doInPost) async {
