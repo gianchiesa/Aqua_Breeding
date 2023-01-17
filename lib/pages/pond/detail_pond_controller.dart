@@ -11,7 +11,7 @@ class DetailPondController extends GetxController {
 
   var isLoading = false.obs;
 
-  Pond pond = Get.arguments['pond'];
+  Pond pond = Get.arguments()['pond'];
   RxList activations = List<Activation>.empty().obs;
   var isPondActive = false.obs;
 

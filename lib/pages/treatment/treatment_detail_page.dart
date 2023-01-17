@@ -185,7 +185,7 @@ class DetailTreatmentPage extends StatelessWidget {
                   maxLines: 1,
                 ),
                 Text(
-                  controller.treatment.water.toString(),
+                  "${controller.treatment.water.toString()} %",
                   style: secondaryTextStyle.copyWith(
                     fontSize: 13,
                     fontWeight: medium,
@@ -206,7 +206,7 @@ class DetailTreatmentPage extends StatelessWidget {
                   maxLines: 1,
                 ),
                 Text(
-                  controller.treatment.carbohydrate.toString(),
+                  "${controller.treatment.carbohydrate.toString()} gram",
                   style: secondaryTextStyle.copyWith(
                     fontSize: 13,
                     fontWeight: medium,
@@ -220,7 +220,7 @@ class DetailTreatmentPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Dosis Garam",
+                  "Dosis Garam (Kg)",
                   style: primaryTextStyle.copyWith(
                     fontSize: 14,
                     fontWeight: medium,
@@ -229,7 +229,9 @@ class DetailTreatmentPage extends StatelessWidget {
                   maxLines: 1,
                 ),
                 Text(
-                  controller.treatment.salt.toString(),
+                  controller.treatment.salt == null
+                      ? '-'
+                      : controller.treatment.salt.toString(),
                   style: secondaryTextStyle.copyWith(
                     fontSize: 13,
                     fontWeight: medium,
@@ -250,7 +252,7 @@ class DetailTreatmentPage extends StatelessWidget {
                   maxLines: 1,
                 ),
                 Text(
-                  controller.treatment.probiotic.toString(),
+                  "${controller.treatment.probiotic.toString()} g/mL",
                   style: secondaryTextStyle.copyWith(
                     fontSize: 13,
                     fontWeight: medium,

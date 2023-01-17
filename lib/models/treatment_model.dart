@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 class Treatment {
   String? id;
+  String? activation_id;
   num? salt;
   String? type;
   num? probiotic;
@@ -20,7 +21,8 @@ class Treatment {
       this.water,
       this.carbohydrate,
       this.desc,
-      this.carbohydrate_type});
+      this.carbohydrate_type,
+      this.activation_id});
 
   // Treatment.fromJson(Map<String, dynamic> json) {
   //   salt = json['salt'];
@@ -36,7 +38,8 @@ class Treatment {
         water: json['water_change'],
         desc: json['description'],
         carbohydrate: json['carbohydrate'],
-        carbohydrate_type: json['carbohydrate_type']);
+        carbohydrate_type: json['carbohydrate_type'],
+        activation_id: json['pond_activation_id']);
   }
 
   // static List<Treatment> fromJsonList(List<dynamic> list) {

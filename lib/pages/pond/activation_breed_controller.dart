@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import '../../service/activation_service.dart';
 
 class ActivationBreedController extends GetxController {
-  Pond pond = Get.arguments['pond'];
+  Pond pond = Get.arguments()['pond'];
   ActivationService service = ActivationService();
 
   TextEditingController waterHeightController = TextEditingController(text: '');

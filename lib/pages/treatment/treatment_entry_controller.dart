@@ -1,40 +1,46 @@
 import 'dart:async';
 
+import 'package:fish/pages/treatment/carbon_type_controller.dart';
 import 'package:fish/service/treatment_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'treatment_type_controller.dart';
 import 'package:fish/models/pond_model.dart';
+import 'package:fish/models/activation_model.dart';
 
 class TreatmentEntryController extends GetxController {
   var isLoading = false.obs;
   // final ponds = <Pond>[].obs;
 
   TextEditingController descController = TextEditingController(text: '');
-  TextEditingController carbonTypeController = TextEditingController(text: '');
   // MaterialController materialController = MaterialController();
   // ShapeController shapeController = ShapeController();
   TypeController typeController = TypeController();
+  CarbonTypeController carbonTypeController = CarbonTypeController();
+  TextEditingController carbonTypeNullController =
+      TextEditingController(text: '');
   TextEditingController waterController = TextEditingController(text: '0');
   TextEditingController saltController = TextEditingController(text: '0');
   TextEditingController probioticController = TextEditingController(text: '0');
   TextEditingController carbonController = TextEditingController(text: '0');
-  Pond pond = Get.arguments();
+  Activation activation = Get.arguments()["activation"];
+  Pond pond = Get.arguments()["pond"];
 
-  Future<void> postFishGrading() async {
+  Future<void> postFishGrading(BuildContext context, Function doInPost) async {
     bool value = await TreatmentService().postPondTreatment(
-      pondId: pond.id,
-      salt: saltController.value.text,
-      type: typeController.selected.value,
-      probiotic: probioticController.value.text,
-      desc: descController.value.text,
-      water: waterController.value.text,
-      carbohydrate: carbonController.value.text,
-      carbohydrate_type: carbonTypeController.value.text,
-    );
+        pondId: pond.id,
+        salt: saltController.value.text,
+        type: typeController.selected.value,
+        probiotic: probioticController.value.text,
+        desc: descController.value.text,
+        water: waterController.value.text,
+        carbohydrate: carbonController.value.text,
+        carbohydrate_type: carbonTypeController.selected.value == "tidak ada"
+            ? carbonTypeNullController.value.text
+            : carbonTypeController.selected.value);
     print(value);
-    Get.back();
+    doInPost();
   }
   // @override
   // void onInit() async {

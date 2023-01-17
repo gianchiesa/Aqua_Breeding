@@ -4,9 +4,8 @@ import 'package:fish/service/url_api.dart';
 import 'package:http/http.dart' as http;
 
 class TreatmentService {
-  Future<List<Treatment>> getTreatmentList(
-      {required String activationId}) async {
-    var url = Uri.parse(Urls.pondTreatment(activationId));
+  Future<List<Treatment>> getTreatmentList() async {
+    var url = Uri.parse(Urls.treatment);
     var headers = {'Content-Type': 'application/json'};
 
     var response = await http.get(url, headers: headers);

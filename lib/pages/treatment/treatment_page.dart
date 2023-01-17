@@ -6,13 +6,28 @@ import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
 import 'package:get/get.dart';
 
-class TreatmentpPage extends StatelessWidget {
-  const TreatmentpPage({Key? key}) : super(key: key);
+class TreatmentpPage extends StatefulWidget {
+  TreatmentpPage({Key? key}) : super(key: key);
+
+  @override
+  State<TreatmentpPage> createState() => _TreatmentPageState();
+}
+
+class _TreatmentPageState extends State<TreatmentpPage> {
+  final TreatmentController controller = Get.put(TreatmentController());
+
+  @override
+  void initState() {
+    super.initState();
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+    //   await controller.getPondActivations(
+    //       pondId: controller.pond.id.toString());
+    // });
+    controller.getTreatmentData(context);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final TreatmentController controller = Get.put(TreatmentController());
-
     Widget fishDataRecap() {
       return Container(
         margin: EdgeInsets.only(
@@ -48,7 +63,7 @@ class TreatmentpPage extends StatelessWidget {
           width: double.infinity,
           margin: EdgeInsets.only(right: defaultMargin, left: defaultMargin),
           child: Column(
-            children: controller.listTreatment
+            children: controller.listTreatmentTest
                 .map(
                   (treatmentList) => TreatmentCard(
                     treatmentList: treatmentList,
@@ -58,12 +73,54 @@ class TreatmentpPage extends StatelessWidget {
           ));
     }
 
+    Widget emptyListTreatment() {
+      return Container(
+          width: double.infinity,
+          margin: EdgeInsets.only(right: defaultMargin, left: defaultMargin),
+          child: Center(
+            child: Column(children: [
+              SizedBox(height: 35),
+              Image(
+                image: AssetImage("assets/unavailable_icon.png"),
+                width: 100,
+                height: 100,
+                fit: BoxFit.fitWidth,
+              ),
+              SizedBox(height: 20),
+              Text(
+                "Kolam belum pernah dilakukan treatment",
+                style: primaryTextStyle.copyWith(
+                  fontSize: 14,
+                  fontWeight: bold,
+                ),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+              SizedBox(height: 10),
+              Text(
+                "Silahkan masukan treatment",
+                style: secondaryTextStyle.copyWith(
+                  fontSize: 13,
+                  fontWeight: bold,
+                ),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+            ]),
+          ));
+    }
+
     return Obx(() {
       if (controller.isLoading.value == false) {
         return Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              Get.to(() => TreatmentEntryPage(), arguments: controller.pond);
+              Get.to(() => TreatmentEntryPage(), arguments: {
+                "pond": controller.pond,
+                "activation": controller.activation
+              });
             },
             backgroundColor: primaryColor,
             child: const Icon(Icons.add),
@@ -72,7 +129,9 @@ class TreatmentpPage extends StatelessWidget {
           body: ListView(
             children: [
               fishDataRecap(),
-              listTreatment(),
+              controller.listTreatmentTest.isEmpty
+                  ? emptyListTreatment()
+                  : listTreatment(),
               SizedBox(
                 height: 10,
               )

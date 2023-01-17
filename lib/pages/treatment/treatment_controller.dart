@@ -4,18 +4,14 @@ import 'package:fish/models/pond_model.dart';
 import 'package:fish/models/treatment_model.dart';
 import 'package:fish/service/treatment_service.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 
 class TreatmentController extends GetxController {
   Activation activation = Get.arguments()["activation"];
   Pond pond = Get.arguments()["pond"];
   var isLoading = false.obs;
   final listTreatment = <Treatment>[].obs;
-
-  @override
-  void onInit() async {
-    await getTreatmentData(activation_id: '62d3f2180d7265ab60f9cb83');
-    super.onInit();
-  }
+  final listTreatmentTest = <Treatment>[].obs;
 
   // @override
   // void onReady() async {
@@ -31,12 +27,18 @@ class TreatmentController extends GetxController {
   //   isLoading.value = false;
   // }
 
-  Future<void> getTreatmentData({required String activation_id}) async {
+  Future<void> getTreatmentData(BuildContext context) async {
     isLoading.value = true;
-    listTreatment.clear();
-    List<Treatment> treatmentData = await TreatmentService()
-        .getTreatmentList(activationId: '62d3f2180d7265ab60f9cb83');
+    listTreatmentTest.clear();
+    List<Treatment> treatmentData = await TreatmentService().getTreatmentList();
     listTreatment.addAll(treatmentData);
+    for (var i in treatmentData) {
+      if (i.activation_id == activation.id) {
+        print('treatment get test');
+        listTreatmentTest.add(i);
+      }
+    }
+    print(listTreatmentTest);
     // print(listTreatment.value);
     isLoading.value = false;
   }
