@@ -1,7 +1,8 @@
+import 'package:fish/pages/component/tabviewwater.dart';
 import 'package:fish/pages/dashboard_controller.dart';
-import 'package:fish/pages/fish/fish_page.dart';
-import 'package:fish/pages/grading/grading.dart';
+
 import 'package:fish/pages/home/home_page.dart';
+import 'package:fish/pages/component/tabviewwater.dart';
 import 'package:fish/pages/pond/pond_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,8 +24,8 @@ class DashboardPage extends StatelessWidget {
               children: [
                 HomePage(),
                 PondPage(),
-                FishPage(),
-                GradingPage(),
+                MyWaterTabScreen(),
+                // GradingPage(),
               ],
             ),
           ),
@@ -48,7 +49,7 @@ class DashboardPage extends StatelessWidget {
                         : Color(0xff808191),
                   ),
                 ),
-                label: '',
+                label: 'Home',
               ),
               BottomNavigationBarItem(
                 icon: Container(
@@ -64,24 +65,24 @@ class DashboardPage extends StatelessWidget {
                         : Color(0xff808191),
                   ),
                 ),
-                label: '',
+                label: 'Kolam',
               ),
-              // BottomNavigationBarItem(
-              //   icon: Container(
-              //     margin: EdgeInsets.only(
-              //       top: 20,
-              //       bottom: 5,
-              //     ),
-              //     child: Image.asset(
-              //       'assets/fish_secondary.png',
-              //       width: 25,
-              //       color: controller.tabIndex == 2
-              //           ? primaryColor
-              //           : Color(0xff808191),
-              //     ),
-              //   ),
-              //   label: '',
-              // ),
+              BottomNavigationBarItem(
+                icon: Container(
+                  margin: EdgeInsets.only(
+                    top: 20,
+                    bottom: 5,
+                  ),
+                  child: Image.asset(
+                    'assets/water_secondary.png',
+                    width: 25,
+                    color: controller.tabIndex == 2
+                        ? primaryColor
+                        : Color(0xff808191),
+                  ),
+                ),
+                label: 'Air',
+              ),
               // BottomNavigationBarItem(
               //   icon: Container(
               //     margin: EdgeInsets.only(

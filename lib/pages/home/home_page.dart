@@ -1,7 +1,7 @@
 import 'package:fish/pages/component/fish_card.dart';
 import 'package:fish/pages/component/statistic_card.dart';
 import 'package:fish/pages/component/water_card.dart';
-import 'package:fish/pages/home/home_controller.dart';
+import 'package:fish/controllers/home/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:fish/theme.dart';

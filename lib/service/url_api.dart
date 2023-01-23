@@ -46,4 +46,6 @@ class Urls {
 
   static String pondDeactivation(String? pondId) =>
       '$baseUrl/ponds/$pondId/closing';
+
+  static String dailyWater = '$baseUrl/dailywaterquality';
 }
