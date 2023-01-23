@@ -71,14 +71,9 @@ class DailyWaterPondListController extends GetxController {
               waters.firstWhereOrNull((element) => element.pondId == i.pondId);
           // print(testing.toString());
           indicatorWater.add(testing!);
-          print(indicatorWater);
-          // log(i.toString());
-          print('WOY KONTOL');
           waterindex++;
-          print(waterindex);
         } else {
           print('dummy');
-          // print(idStore[waterindex]);
         }
       }
     }
