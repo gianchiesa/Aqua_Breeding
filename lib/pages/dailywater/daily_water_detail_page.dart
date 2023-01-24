@@ -92,7 +92,7 @@ class DailyWaterDetailPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Data Treatment",
+                  "Data Kondisi Air",
                   style: primaryTextStyle.copyWith(
                     fontSize: 18,
                     fontWeight: heavy,
