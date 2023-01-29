@@ -1,8 +1,10 @@
 import 'dart:developer';
 
+import 'package:fish/models/pond_model.dart';
 import 'package:fish/pages/component/activation_card.dart';
 import 'package:fish/pages/pond/activation_breed_controller.dart';
 import 'package:fish/pages/pond/activation_breed_page.dart';
+import 'package:fish/pages/pond/pond_controller.dart';
 import 'package:fish/pages/pond/add_pond_page.dart';
 import 'package:fish/pages/pond/deactivation_breed_page.dart';
 import 'package:fish/pages/pond/detail_pond_controller.dart';
@@ -20,6 +22,7 @@ class DetailPondPage extends StatefulWidget {
 class _DetailPondPageState extends State<DetailPondPage> {
   final detailController = Get.put(DetailPondController());
   final activationController = Get.put(ActivationBreedController());
+  final pondController = Get.put(PondController());
 
   @override
   void initState() {
@@ -330,6 +333,16 @@ class _DetailPondPageState extends State<DetailPondPage> {
       appBar: AppBar(
         backgroundColor: backgroundColor2,
         title: const Text("Detail Kolam"),
+        leading: new IconButton(
+          icon: new Icon(Icons.arrow_back),
+          onPressed: () async {
+            // Get.back();
+
+            Navigator.pop(context);
+
+            pondController.getPondsData(context);
+          },
+        ),
       ),
       backgroundColor: backgroundColor1,
       body: Obx(

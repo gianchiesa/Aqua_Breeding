@@ -7,6 +7,8 @@ enum PondStatus {
   close,
 }
 
+class string {}
+
 class Pond {
   String? id;
   int? idInt;
@@ -28,6 +30,12 @@ class Pond {
   String? rangeFromLastActivation;
   PondStatus pondStatus;
   String? pondStatusStr;
+  String? pondPhDesc;
+  num? pondPh;
+  String? pondDoDesc;
+  num? pondDo;
+  num? pondTemp;
+  String? status;
 
   Pond({
     required this.id,
@@ -50,36 +58,47 @@ class Pond {
     this.lastActivationDate,
     this.rangeFromLastActivation,
     this.pondStatusStr,
+    this.pondPh,
+    this.pondPhDesc,
+    this.pondDo,
+    this.pondDoDesc,
+    this.pondTemp,
+    this.status,
   });
 
   factory Pond.fromJson(Map<String, dynamic> json) {
     return Pond(
-      id: json['_id'],
-      idInt: json['id_int'],
-      alias: json['alias'],
-      location: json['location'],
-      shape: json['shape'],
-      material: json['material'],
-      length: json['length'],
-      width: json['width'],
-      diameter: json['diameter'],
-      height: json['height'],
-      area: json['area'],
-      volume: json['volume'],
-      buildAt: json['build_at'],
-      imageLink: json['image_link'],
-      isActive: json['isActive'],
-      fishAlive: json['fish_alive'] ?? 0,
-      lastActivationDate: json['activation_date'] ?? "-",
-      rangeFromLastActivation: json['isActive'] == false
-          ? "-"
-          : (DateTime.now()
-                  .difference(stringToDate(json['activation_date']))
-                  .inDays)
-              .toString(),
-      pondStatus: PondStatusConverter.toEnum(json["status"]),
-      pondStatusStr: json["status"],
-    );
+        id: json['_id'],
+        idInt: json['id_int'],
+        alias: json['alias'],
+        location: json['location'],
+        shape: json['shape'],
+        material: json['material'],
+        length: json['length'],
+        width: json['width'],
+        diameter: json['diameter'],
+        height: json['height'],
+        area: json['area'],
+        volume: json['volume'],
+        buildAt: json['build_at'],
+        imageLink: json['image_link'],
+        isActive: json['isActive'],
+        fishAlive: json['fish_alive'] ?? 0,
+        lastActivationDate: json['activation_date'] ?? "-",
+        rangeFromLastActivation: json['isActive'] == false
+            ? "-"
+            : (DateTime.now()
+                    .difference(stringToDate(json['activation_date']))
+                    .inDays)
+                .toString(),
+        pondStatus: PondStatusConverter.toEnum(json["status"]),
+        pondStatusStr: json["status"],
+        pondPh: json["pondPh"],
+        pondPhDesc: json["pondPhDesc"],
+        pondDo: json["pondDo"],
+        pondDoDesc: json["pondDoDesc"],
+        pondTemp: json["pondTemp"],
+        status: json["status"]);
   }
 
   static DateTime stringToDate(String dateString) {

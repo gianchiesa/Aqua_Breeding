@@ -1,3 +1,4 @@
+import 'package:fish/models/fish_harvested.dart';
 import 'package:fish/models/fish_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -16,6 +17,7 @@ class Activation {
   int? fishAmount;
   List<Fish>? fishLive;
   List<Fish>? fishDeath;
+  List<FishHarvest>? fishHarvested;
   num? survivalRate;
   num? fcr;
 
@@ -28,6 +30,7 @@ class Activation {
     this.deactivationAt,
     this.totalFishHarvested,
     this.totalWeightHarvested,
+    this.fishHarvested,
     this.consOver,
     this.consUnder,
     this.fishAmount,
@@ -51,6 +54,7 @@ class Activation {
           : null,
       totalFishHarvested: json['total_fish_harvested'],
       totalWeightHarvested: json['total_weight_harvested'],
+      fishHarvested: FishHarvest.fromJsonList(json['fish_harvested']),
       consOver: json['constanta_oversize'],
       consUnder: json['constanta_undersize'],
       fishAmount: json['total_fish'],

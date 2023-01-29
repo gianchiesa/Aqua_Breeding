@@ -295,7 +295,7 @@ class DetailBreedPage extends StatelessWidget {
                         (fish) => FishListCard(fish: fish),
                       )
                       .toList()
-                  : controller.activation.fishLive!
+                  : controller.activation.fishHarvested!
                       .map(
                         (fish) => FishHarvestCard(fish: fish),
                       )

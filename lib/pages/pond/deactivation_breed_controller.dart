@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:fish/models/activation_model.dart';
+import 'package:fish/models/fish_model.dart';
 import 'package:fish/models/pond_model.dart';
 import 'package:fish/pages/dashboard.dart';
 import 'package:fish/service/activation_service.dart';
@@ -11,23 +13,20 @@ class DeactivationBreedController extends GetxController {
   Pond pond = Get.arguments()['pond'];
   // Activation activation = Get.arguments["activation"][0];
   ActivationService service = ActivationService();
+
   // Activation activation = Get.arguments["activation"];
   // Future<List<Activation>> activationsData =
   //       ActivationService().getActivations(pondId: pond.id!);
   // TextEditingController waterHeightController = TextEditingController(text: '');
-  TextEditingController nilaMerahAmountController =
-      TextEditingController(text: '');
+
   TextEditingController nilaMerahWeightController =
       TextEditingController(text: '');
-  TextEditingController nilaHitamAmountController =
-      TextEditingController(text: '');
+
   TextEditingController nilaHitamWeightController =
       TextEditingController(text: '');
-  TextEditingController leleAmountController = TextEditingController(text: '');
   TextEditingController leleWeightController = TextEditingController(text: '');
-  TextEditingController patinAmountController = TextEditingController(text: '');
+
   TextEditingController patinWeightController = TextEditingController(text: '');
-  TextEditingController masAmountController = TextEditingController(text: '');
   TextEditingController masWeightController = TextEditingController(text: '');
   var isLoading = false.obs;
   var isNilaMerah = false.obs;
@@ -35,26 +34,41 @@ class DeactivationBreedController extends GetxController {
   var isLele = false.obs;
   var isPatin = false.obs;
   var isMas = false.obs;
+  var nilamerahAmount = 0.obs;
+  var nilahitamAmount = 0.obs;
+  var leleAmount = 0.obs;
+  var patinAmount = 0.obs;
+  var masAmount = 0.obs;
+  var nilamerahWeight = 0.obs;
+  var nilahitamWeight = 0.obs;
+  var leleWeight = 0.obs;
+  var patinWeight = 0.obs;
+  var masWeight = 0.obs;
   var isDeactivationProgress = false.obs;
 
-  void setLele(bool value) {
-    isLele.value = value;
-  }
-
-  void setNilaMerah(bool value) {
-    isNilaMerah.value = value;
-  }
-
-  void setNilaHitam(bool value) {
-    isNilaHitam.value = value;
-  }
-
-  void setPatin(bool value) {
-    isPatin.value = value;
-  }
-
-  void setMas(bool value) {
-    isMas.value = value;
+  Future<void> getHarvestedBool(Activation activation) async {
+    for (var i in activation.fishLive!) {
+      if (i.type == 'lele') {
+        isLele.value = true;
+        leleAmount.value = i.amount!;
+      }
+      if (i.type == 'patin') {
+        isPatin.value = true;
+        patinAmount.value = i.amount!;
+      }
+      if (i.type == 'mas') {
+        isMas.value = true;
+        masAmount.value = i.amount!;
+      }
+      if (i.type == 'nila hitam') {
+        isNilaHitam.value = true;
+        nilahitamAmount.value = i.amount!;
+      }
+      if (i.type == 'nila merah') {
+        isNilaMerah.value = true;
+        nilamerahAmount.value = i.amount!;
+      }
+    }
   }
 
   List buildJsonFish() {
@@ -62,7 +76,7 @@ class DeactivationBreedController extends GetxController {
     if (isNilaMerah.value == true) {
       var fishData = {
         "type": "nila merah",
-        "amount": nilaMerahAmountController.value.text,
+        "amount": nilamerahAmount.toString(),
         "weight": nilaMerahWeightController.value.text,
       };
       data.add(jsonEncode(fishData));
@@ -70,7 +84,7 @@ class DeactivationBreedController extends GetxController {
     if (isNilaHitam.value == true) {
       var fishData = {
         "type": "nila hitam",
-        "amount": nilaHitamAmountController.value.text,
+        "amount": nilahitamAmount.toString(),
         "weight": nilaHitamWeightController.value.text,
       };
       data.add(jsonEncode(fishData));
@@ -78,7 +92,7 @@ class DeactivationBreedController extends GetxController {
     if (isLele.value == true) {
       var fishData = {
         "type": "lele",
-        "amount": leleAmountController.value.text,
+        "amount": leleAmount.toString(),
         "weight": leleWeightController.value.text,
       };
       data.add(jsonEncode(fishData));
@@ -86,7 +100,7 @@ class DeactivationBreedController extends GetxController {
     if (isPatin.value == true) {
       var fishData = {
         "type": "patin",
-        "amount": patinAmountController.value.text,
+        "amount": patinAmount.toString(),
         "weight": patinWeightController.value.text,
       };
       data.add(jsonEncode(fishData));
@@ -94,12 +108,32 @@ class DeactivationBreedController extends GetxController {
     if (isMas.value == true) {
       var fishData = {
         "type": "mas",
-        "amount": masAmountController.value.text,
+        "amount": masAmount.toString(),
         "weight": masWeightController.value.text,
       };
       data.add(jsonEncode(fishData));
     }
     return data;
+  }
+
+  int getWeight() {
+    int weightTotal = 0;
+    if (isNilaMerah.value == true) {
+      weightTotal += int.parse(nilaMerahWeightController.value.text);
+    }
+    if (isNilaHitam.value == true) {
+      weightTotal += int.parse(nilaHitamWeightController.value.text);
+    }
+    if (isLele.value == true) {
+      weightTotal += int.parse(leleWeightController.value.text);
+    }
+    if (isPatin.value == true) {
+      weightTotal += int.parse(patinWeightController.value.text);
+    }
+    if (isMas.value == true) {
+      weightTotal += int.parse(masWeightController.value.text);
+    }
+    return weightTotal;
   }
 
   Future<void> pondDeactivation(BuildContext context, Function doInPost) async {
@@ -108,12 +142,16 @@ class DeactivationBreedController extends GetxController {
     try {
       await service.postDeactivation(
           pondId: pond.id,
-          total_fish_harvested: 90,
-          total_weight_harvested: 90,
+          total_fish_harvested: leleAmount.toInt() +
+              patinAmount.toInt() +
+              masAmount.toInt() +
+              nilahitamAmount.toInt() +
+              nilamerahAmount.toInt(),
+          total_weight_harvested: getWeight(),
           isFinish: true,
-          diactived_at: '',
           fish_harvested: buildJsonFish());
       doInPost();
+      print(buildJsonFish());
     } catch (e) {
       //
     }

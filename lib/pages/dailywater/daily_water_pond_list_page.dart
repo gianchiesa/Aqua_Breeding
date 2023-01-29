@@ -59,9 +59,9 @@ class DailyWaterPondPage extends StatelessWidget {
           shrinkWrap: true,
           primary: false,
           itemBuilder: ((context, index) {
-            return DailyWaterListPondCard(
-                pond: controller.ponds[index],
-                indicatorWater: controller.indicatorWater[index]);
+            return DailyWaterListPondCard(pond: controller.ponds[index]
+                // indicatorWater: controller.indicatorWater[index]);
+                );
           }),
           itemCount: controller.ponds.length,
         ),

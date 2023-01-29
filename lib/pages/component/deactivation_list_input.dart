@@ -7,12 +7,12 @@ import 'package:get/get.dart';
 class DeactivationListCard extends StatelessWidget {
   final Fish fish;
 
-  const DeactivationListCard({Key? key, required this.fish}) : super(key: key);
+  DeactivationListCard({Key? key, required this.fish}) : super(key: key);
+  final DeactivationBreedController controller =
+      Get.put(DeactivationBreedController());
 
   @override
   Widget build(BuildContext context) {
-    final DeactivationBreedController controller =
-        Get.put(DeactivationBreedController());
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(

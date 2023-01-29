@@ -10,11 +10,12 @@ import '../pond/detail_pond_page.dart';
 
 class DailyWaterListPondCard extends StatelessWidget {
   final Pond pond;
-  final DailyWater indicatorWater;
+  // final DailyWater indicatorWater
 
-  const DailyWaterListPondCard(
-      {Key? key, required this.pond, required this.indicatorWater})
-      : super(key: key);
+  const DailyWaterListPondCard({
+    Key? key,
+    required this.pond,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -88,28 +89,28 @@ class DailyWaterListPondCard extends StatelessWidget {
                   SizedBox(
                     width: 10,
                   ),
-                  pond.id == indicatorWater.pondId
-                      ? Text(
-                          "${indicatorWater.ph} " + "${indicatorWater.ph_desc}",
-                          style: subtitleTextStyle.copyWith(
-                            color: indicatorWater.ph_desc == "normal"
-                                ? Colors.green
-                                : Colors.red.shade300,
-                            fontSize: 16,
-                            fontWeight: bold,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        )
-                      : Text(
-                          'Belum Diukur',
-                          style: subtitleTextStyle.copyWith(
-                            fontSize: 16,
-                            fontWeight: regular,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        )
+                  // pond.id == indicatorWater.pondId
+                  //     ? Text(
+                  //         "${indicatorWater.ph} " + "${indicatorWater.ph_desc}",
+                  //         style: subtitleTextStyle.copyWith(
+                  //           color: indicatorWater.ph_desc == "normal"
+                  //               ? Colors.green
+                  //               : Colors.red.shade300,
+                  //           fontSize: 16,
+                  //           fontWeight: bold,
+                  //         ),
+                  //         overflow: TextOverflow.ellipsis,
+                  //         maxLines: 1,
+                  //       )
+                  //     : Text(
+                  //         'Belum Diukur',
+                  //         style: subtitleTextStyle.copyWith(
+                  //           fontSize: 16,
+                  //           fontWeight: regular,
+                  //         ),
+                  //         overflow: TextOverflow.ellipsis,
+                  //         maxLines: 1,
+                  //       )
                 ],
               ),
             ),
@@ -129,31 +130,31 @@ class DailyWaterListPondCard extends StatelessWidget {
                   SizedBox(
                     width: 10,
                   ),
-                  pond.id == indicatorWater.pondId
-                      ? Text(
-                          "${indicatorWater.numDo} " +
-                              "${indicatorWater.numDo_desc}",
-                          style: subtitleTextStyle.copyWith(
-                            color: indicatorWater.numDo_desc == "normal"
-                                ? Colors.green
-                                : indicatorWater.numDo_desc == "berbahaya"
-                                    ? Colors.red.shade300
-                                    : Colors.amber,
-                            fontSize: 16,
-                            fontWeight: bold,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        )
-                      : Text(
-                          'Belum Diukur',
-                          style: subtitleTextStyle.copyWith(
-                            fontSize: 16,
-                            fontWeight: regular,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        )
+                  // pond.id == indicatorWater.pondId
+                  //     ? Text(
+                  //         "${indicatorWater.numDo} " +
+                  //             "${indicatorWater.numDo_desc}",
+                  //         style: subtitleTextStyle.copyWith(
+                  //           color: indicatorWater.numDo_desc == "normal"
+                  //               ? Colors.green
+                  //               : indicatorWater.numDo_desc == "berbahaya"
+                  //                   ? Colors.red.shade300
+                  //                   : Colors.amber,
+                  //           fontSize: 16,
+                  //           fontWeight: bold,
+                  //         ),
+                  //         overflow: TextOverflow.ellipsis,
+                  //         maxLines: 1,
+                  //       )
+                  //     : Text(
+                  //         'Belum Diukur',
+                  //         style: subtitleTextStyle.copyWith(
+                  //           fontSize: 16,
+                  //           fontWeight: regular,
+                  //         ),
+                  //         overflow: TextOverflow.ellipsis,
+                  //         maxLines: 1,
+                  //       )
                 ],
               ),
             ),
@@ -173,25 +174,25 @@ class DailyWaterListPondCard extends StatelessWidget {
                   SizedBox(
                     width: 10,
                   ),
-                  pond.id == indicatorWater.pondId
-                      ? Text(
-                          "${indicatorWater.temperature} " + "°C",
-                          style: subtitleTextStyle.copyWith(
-                            fontSize: 16,
-                            fontWeight: bold,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        )
-                      : Text(
-                          'Belum Diukur',
-                          style: subtitleTextStyle.copyWith(
-                            fontSize: 16,
-                            fontWeight: regular,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        )
+                  // pond.id == indicatorWater.pondId
+                  //     ? Text(
+                  //         "${indicatorWater.temperature} " + "°C",
+                  //         style: subtitleTextStyle.copyWith(
+                  //           fontSize: 16,
+                  //           fontWeight: bold,
+                  //         ),
+                  //         overflow: TextOverflow.ellipsis,
+                  //         maxLines: 1,
+                  //       )
+                  //     : Text(
+                  //         'Belum Diukur',
+                  //         style: subtitleTextStyle.copyWith(
+                  //           fontSize: 16,
+                  //           fontWeight: regular,
+                  //         ),
+                  //         overflow: TextOverflow.ellipsis,
+                  //         maxLines: 1,
+                  //       )
                 ],
               ),
             ),

@@ -388,7 +388,16 @@ class AddPondPage extends StatelessWidget {
         margin: EdgeInsets.only(
             top: defaultSpace * 3, right: defaultMargin, left: defaultMargin),
         child: TextButton(
-          onPressed: () => controller.pondRegister(),
+          onPressed: () async {
+            // Get.back();
+            await controller.pondRegister(
+              context,
+              () {
+                Navigator.pop(context);
+              },
+            );
+            controller.getPondsData(context);
+          },
           style: TextButton.styleFrom(
             backgroundColor: primaryColor,
             shape: RoundedRectangleBorder(

@@ -29,7 +29,6 @@ class DailyWaterPondListController extends GetxController {
     idStore.clear();
     ponds.clear();
     var index = 0;
-    var waterindex = 0;
     List<Pond> pondsData = await PondService().getPonds();
     ponds.addAll(pondsData);
     for (var i in pondsData) {
@@ -37,23 +36,7 @@ class DailyWaterPondListController extends GetxController {
       index++;
       print(idStore);
     }
-    // List<DailyWater> watersData = await DailyWaterService().getPonds();
-    // for (var i in watersData) {
-    //   if (waterindex < idStore.length) {
-    //     if (i.pondId == idStore[waterindex]) {
-    //       indicatorWater.add(i);
-
-    //       print('WOY KONTOL');
-    //       waterindex++;
-    //     } else {
-    //       indicatorWater.add(i);
-    //       waterindex++;
-    //     }
-    //   }
-    // }
-    // print(indicatorWater.length);
     index = 0;
-    waterindex = 0;
     isLoading.value = false;
   }
 
@@ -77,21 +60,14 @@ class DailyWaterPondListController extends GetxController {
         }
       }
     }
+    print(waterindex);
     for (var j in watersData) {
-      if (indicatorWater.length < idStore.length) {
+      if (indicatorWater.length < idStore.length + 1) {
         indicatorWater.add(j);
+        print(indicatorWater.length);
       }
     }
     waterindex = 0;
-    // print(indicatorWater.length);
-    // print(indicatorWater[1].pondId);
-    // for (var i in watersData) {
-    //   if (i.pondId == ponds.id) {
-    //     print('treatment get test');
-    //     listTreatmentTest.add(i);
-    //   }
-    // }
-
     isLoading.value = false;
   }
 }

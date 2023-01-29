@@ -70,63 +70,153 @@ class PondCard extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: 5),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Image.asset('assets/calendar_plus.png',
-                      width: 25, color: blackColor),
-                  SizedBox(
-                    width: 10,
+                  Row(
+                    children: [
+                      Image.asset('assets/calendar_plus.png',
+                          width: 25, color: blackColor),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        pond.getLastActivationDate(),
+                        style: subtitleTextStyle.copyWith(
+                          fontSize: 16,
+                          fontWeight: regular,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                    ],
                   ),
-                  Text(
-                    pond.getLastActivationDate(),
-                    style: subtitleTextStyle.copyWith(
-                      fontSize: 16,
-                      fontWeight: regular,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "pH:",
+                        style: subtitleTextStyle.copyWith(
+                          fontSize: 16,
+                          fontWeight: heavy,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        pond.pondPhDesc!.capitalize!,
+                        style: subtitleTextStyle.copyWith(
+                          fontSize: 16,
+                          fontWeight: regular,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
             Container(
               margin: EdgeInsets.only(top: 5),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Image.asset('assets/timesheet.png',
-                      width: 25, color: blackColor),
-                  SizedBox(
-                    width: 10,
+                  Row(
+                    children: [
+                      Image.asset('assets/timesheet.png',
+                          width: 25, color: blackColor),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "${pond.rangeFromLastActivation} Hari",
+                        style: subtitleTextStyle.copyWith(
+                          fontSize: 16,
+                          fontWeight: regular,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                    ],
                   ),
-                  Text(
-                    "${pond.rangeFromLastActivation} Hari",
-                    style: subtitleTextStyle.copyWith(
-                      fontSize: 16,
-                      fontWeight: regular,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "Do:",
+                        style: subtitleTextStyle.copyWith(
+                          fontSize: 16,
+                          fontWeight: heavy,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        pond.pondDoDesc!.capitalize!,
+                        style: subtitleTextStyle.copyWith(
+                          fontSize: 16,
+                          fontWeight: regular,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
             Container(
               margin: EdgeInsets.only(top: 5),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Image.asset('assets/fish_transparent.png',
-                      width: 25, color: blackColor),
-                  SizedBox(
-                    width: 10,
+                  Row(
+                    children: [
+                      Image.asset('assets/fish_transparent.png',
+                          width: 25, color: blackColor),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        pond.getFishAlive() + " Ekor",
+                        style: subtitleTextStyle.copyWith(
+                          fontSize: 16,
+                          fontWeight: regular,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                    ],
                   ),
-                  Text(
-                    pond.getFishAlive() + " Ekor",
-                    style: subtitleTextStyle.copyWith(
-                      fontSize: 16,
-                      fontWeight: regular,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "Suhu:",
+                        style: subtitleTextStyle.copyWith(
+                          fontSize: 16,
+                          fontWeight: heavy,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "${pond.pondTemp} " + "°C",
+                        style: subtitleTextStyle.copyWith(
+                          fontSize: 16,
+                          fontWeight: regular,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),

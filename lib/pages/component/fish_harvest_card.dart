@@ -1,10 +1,11 @@
 import 'package:fish/models/fish_model.dart';
+import 'package:fish/models/fish_harvested.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fish/theme.dart';
 
 class FishHarvestCard extends StatelessWidget {
-  final Fish fish;
+  final FishHarvest fish;
 
   const FishHarvestCard({Key? key, required this.fish}) : super(key: key);
 
@@ -37,7 +38,7 @@ class FishHarvestCard extends StatelessWidget {
                 maxLines: 1,
               ),
               Text(
-                "50 Kg",
+                "${fish.weight.toString()} Kg",
                 style: secondaryTextStyle.copyWith(
                   fontSize: 14,
                   fontWeight: bold,
