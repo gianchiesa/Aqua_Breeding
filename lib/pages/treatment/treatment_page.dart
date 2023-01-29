@@ -66,8 +66,9 @@ class _TreatmentPageState extends State<TreatmentpPage> {
             children: controller.listTreatmentTest
                 .map(
                   (treatmentList) => TreatmentCard(
-                    treatmentList: treatmentList,
-                  ),
+                      treatmentList: treatmentList,
+                      activation: controller.activation,
+                      pond: controller.pond),
                 )
                 .toList(),
           ));

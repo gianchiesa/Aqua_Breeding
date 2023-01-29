@@ -23,7 +23,7 @@ class DetailTreatmentPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "kolam Dummy",
+                  "Kolam ${controller.pond.alias}",
                   style: primaryTextStyle.copyWith(
                     fontSize: 18,
                     fontWeight: heavy,
@@ -62,7 +62,7 @@ class DetailTreatmentPage extends StatelessWidget {
                   maxLines: 1,
                 ),
                 Text(
-                  "Dummy sampai Dummy",
+                  controller.activation.getStringActivationDate(),
                   style: secondaryTextStyle.copyWith(
                     fontSize: 13,
                     fontWeight: medium,
@@ -128,7 +128,7 @@ class DetailTreatmentPage extends StatelessWidget {
                   maxLines: 1,
                 ),
                 Text(
-                  "Dummy",
+                  controller.treatment.getGmtToNormalDate(),
                   style: secondaryTextStyle.copyWith(
                     fontSize: 13,
                     fontWeight: medium,

@@ -1,21 +1,35 @@
 import 'package:fish/models/fish_model.dart';
+import 'package:fish/pages/component/treatment_berat_input_card.dart';
 import 'package:fish/pages/treatment/treatment_entry_controller.dart';
 import 'package:fish/pages/treatment/treatment_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:fish/pages/pond/detail_pond_controller.dart';
 import 'package:fish/theme.dart';
 
 import 'package:fish/pages/component/deactivation_list_input.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-class TreatmentEntryPage extends StatelessWidget {
+class TreatmentEntryPage extends StatefulWidget {
   TreatmentEntryPage({Key? key}) : super(key: key);
+  @override
+  State<TreatmentEntryPage> createState() => _TreatmentEntryPageState();
+}
 
+class _TreatmentEntryPageState extends State<TreatmentEntryPage> {
   final TreatmentEntryController controller =
       Get.put(TreatmentEntryController());
 
   final TreatmentController treatmentTontroller =
       Get.put(TreatmentController());
+  void initState() {
+    super.initState();
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+    //   await controller.getPondActivations(
+    //       pondId: controller.pond.id.toString());
+    // });
+    controller.getHarvestedBool(controller.activation);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -240,17 +254,18 @@ class TreatmentEntryPage extends StatelessWidget {
 
     Widget listTreatmentBeratInput() {
       return Container(
-          width: double.infinity,
-          margin: EdgeInsets.only(right: defaultMargin, left: defaultMargin),
-          child: Column(
-            children: controller.activation.fishLive!
-                .map(
-                  (fish) => DeactivationListCard(
-                    fish: fish,
-                  ),
-                )
-                .toList(),
-          ));
+        width: double.infinity,
+        margin: EdgeInsets.only(right: defaultMargin, left: defaultMargin),
+        child: ListView.builder(
+          shrinkWrap: true,
+          primary: false,
+          itemBuilder: ((context, index) {
+            return TreatmentBeratCard(
+                fish: controller.activation.fishLive![index]);
+          }),
+          itemCount: controller.activation.fishLive!.length,
+        ),
+      );
     }
 
     Widget probioticInput() {
@@ -261,7 +276,7 @@ class TreatmentEntryPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Kultur Probiotik g/mL',
+              'Kultur Probiotik (g/mL)',
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -567,6 +582,40 @@ class TreatmentEntryPage extends StatelessWidget {
       );
     }
 
+    Widget submitBeratButton() {
+      return Container(
+        height: 50,
+        width: double.infinity,
+        margin: EdgeInsets.only(
+            top: defaultSpace * 3, right: defaultMargin, left: defaultMargin),
+        child: TextButton(
+          onPressed: () async {
+            // Get.back();
+            await controller.postTreatmentBerat(
+              context,
+              () {
+                Navigator.pop(context);
+              },
+            );
+            treatmentTontroller.getTreatmentData(context);
+          },
+          style: TextButton.styleFrom(
+            backgroundColor: primaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          child: Text(
+            'Submit',
+            style: primaryTextStyle.copyWith(
+              fontSize: 16,
+              fontWeight: medium,
+            ),
+          ),
+        ),
+      );
+    }
+
     // Widget persegiInput() {
     //   return Container(
     //       child: Column(
@@ -600,6 +649,9 @@ class TreatmentEntryPage extends StatelessWidget {
                   : waterChangeInput(),
               controller.typeController.selected.value == "berat"
                   ? Container()
+                  : probioticInput(),
+              controller.typeController.selected.value == "berat"
+                  ? Container()
                   : carbonTypeInput(),
               controller.carbonTypeController.selected.value == "tidak ada"
                   ? Container()
@@ -607,7 +659,9 @@ class TreatmentEntryPage extends StatelessWidget {
               controller.typeController.selected.value == "berat"
                   ? Container()
                   : saltDosisInput(),
-              submitButton(),
+              controller.typeController.selected.value == "berat"
+                  ? submitBeratButton()
+                  : submitButton(),
               SizedBox(
                 height: 8,
               )

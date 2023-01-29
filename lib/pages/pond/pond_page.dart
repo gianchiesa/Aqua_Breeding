@@ -15,7 +15,7 @@ class PondPage extends StatefulWidget {
 
 class _PondPageState extends State<PondPage> {
   final PondController controller = Get.put(PondController());
-  int? _value = 1;
+  int? _value = null;
   final chip = ["Aktif", "Panen", "Tidak Aktif"];
   @override
   void initState() {

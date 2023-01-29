@@ -104,15 +104,35 @@ class PondCard extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      Text(
-                        pond.pondPhDesc!.capitalize!,
-                        style: subtitleTextStyle.copyWith(
-                          fontSize: 16,
-                          fontWeight: regular,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                      ),
+                      pond.status! == "Tidak Aktif"
+                          ? Text(
+                              "-",
+                              style: subtitleTextStyle.copyWith(
+                                fontSize: 16,
+                                fontWeight: regular,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            )
+                          : pond.pondPhDesc!.capitalize == "Normal"
+                              ? Text(
+                                  pond.pondPhDesc!.capitalize!,
+                                  style: subtitleTextStyle.copyWith(
+                                      fontSize: 16,
+                                      fontWeight: bold,
+                                      color: Colors.green),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                )
+                              : Text(
+                                  pond.pondPhDesc!.capitalize!,
+                                  style: subtitleTextStyle.copyWith(
+                                      fontSize: 16,
+                                      fontWeight: bold,
+                                      color: Colors.red.shade300),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                )
                     ],
                   )
                 ],
@@ -155,15 +175,56 @@ class PondCard extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      Text(
-                        pond.pondDoDesc!.capitalize!,
-                        style: subtitleTextStyle.copyWith(
-                          fontSize: 16,
-                          fontWeight: regular,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                      ),
+                      pond.status! == "Tidak Aktif"
+                          ? Text(
+                              "-",
+                              style: subtitleTextStyle.copyWith(
+                                fontSize: 16,
+                                fontWeight: regular,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            )
+                          : pond.pondDoDesc!.capitalize == "Normal"
+                              ? Text(
+                                  pond.pondDoDesc!.capitalize!,
+                                  style: subtitleTextStyle.copyWith(
+                                      fontSize: 16,
+                                      fontWeight: bold,
+                                      color: Colors.green),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                )
+                              : pond.pondDoDesc!.capitalize == "Berbahaya"
+                                  ? Text(
+                                      pond.pondDoDesc!.capitalize!,
+                                      style: subtitleTextStyle.copyWith(
+                                          fontSize: 16,
+                                          fontWeight: bold,
+                                          color: Colors.red.shade300),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                    )
+                                  : pond.pondDoDesc!.capitalize ==
+                                          "Semi Berbahaya"
+                                      ? Text(
+                                          pond.pondDoDesc!.capitalize!,
+                                          style: subtitleTextStyle.copyWith(
+                                              fontSize: 16,
+                                              fontWeight: bold,
+                                              color: Colors.amber),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                        )
+                                      : Text(
+                                          pond.pondDoDesc!.capitalize!,
+                                          style: subtitleTextStyle.copyWith(
+                                            fontSize: 16,
+                                            fontWeight: regular,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                        )
                     ],
                   )
                 ],
@@ -206,15 +267,35 @@ class PondCard extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      Text(
-                        "${pond.pondTemp} " + "°C",
-                        style: subtitleTextStyle.copyWith(
-                          fontSize: 16,
-                          fontWeight: regular,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                      ),
+                      pond.status == "Tidak Aktif"
+                          ? Text(
+                              "-",
+                              style: subtitleTextStyle.copyWith(
+                                fontSize: 16,
+                                fontWeight: regular,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            )
+                          : pond.pondTemp == 0
+                              ? Text(
+                                  "Belum Diukur",
+                                  style: subtitleTextStyle.copyWith(
+                                    fontSize: 16,
+                                    fontWeight: bold,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                )
+                              : Text(
+                                  "${pond.pondTemp} " + "°C",
+                                  style: subtitleTextStyle.copyWith(
+                                    fontSize: 16,
+                                    fontWeight: bold,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                ),
                     ],
                   )
                 ],

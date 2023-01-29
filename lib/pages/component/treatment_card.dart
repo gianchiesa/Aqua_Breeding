@@ -5,16 +5,27 @@ import 'package:fish/theme.dart';
 import 'package:get/get.dart';
 import 'package:fish/models/treatment_model.dart';
 
+import 'package:fish/models/pond_model.dart';
+
+import 'package:fish/models/activation_model.dart';
+
 class TreatmentCard extends StatelessWidget {
+  final Activation? activation;
+  final Pond? pond;
   final Treatment? treatmentList;
-  const TreatmentCard({Key? key, this.treatmentList}) : super(key: key);
+  const TreatmentCard(
+      {Key? key, this.treatmentList, this.activation, this.pond})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => DetailTreatmentPage(),
-            arguments: {"treatment": treatmentList});
+        Get.to(() => DetailTreatmentPage(), arguments: {
+          "treatment": treatmentList,
+          "activation": activation,
+          "pond": pond,
+        });
       },
       child: Container(
         width: double.infinity,
@@ -46,7 +57,7 @@ class TreatmentCard extends StatelessWidget {
                       maxLines: 1,
                     ),
                     Text(
-                      '10-12-2022',
+                      treatmentList!.getGmtToNormalDate(),
                       style: secondaryTextStyle.copyWith(
                         fontSize: 14,
                         fontWeight: medium,

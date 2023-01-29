@@ -12,6 +12,7 @@ class Treatment {
   num? carbohydrate;
   String? carbohydrate_type;
   String? desc;
+  String? treatmentAt;
 
   Treatment(
       {this.id,
@@ -22,7 +23,8 @@ class Treatment {
       this.carbohydrate,
       this.desc,
       this.carbohydrate_type,
-      this.activation_id});
+      this.activation_id,
+      this.treatmentAt});
 
   // Treatment.fromJson(Map<String, dynamic> json) {
   //   salt = json['salt'];
@@ -39,7 +41,14 @@ class Treatment {
         desc: json['description'],
         carbohydrate: json['carbohydrate'],
         carbohydrate_type: json['carbohydrate_type'],
-        activation_id: json['pond_activation_id']);
+        activation_id: json['pond_activation_id'],
+        treatmentAt: json["treatment_at"]);
+  }
+  String getGmtToNormalDate() {
+    String stringDate = treatmentAt!;
+    DateTime dateTime = DateFormat("yyyy-MM-dd hh:mm:ss").parse(stringDate);
+    String newStringDate = DateFormat("dd-MM-yyyy").format(dateTime);
+    return newStringDate;
   }
 
   // static List<Treatment> fromJsonList(List<dynamic> list) {
