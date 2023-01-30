@@ -19,7 +19,7 @@ class ActivationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => const MyTabScreen(),
+        Get.to(() => MyTabScreen(),
             arguments: {"activation": activation, "pond": pond});
       },
       // onTap: () {

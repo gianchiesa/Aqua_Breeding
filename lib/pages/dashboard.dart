@@ -24,7 +24,6 @@ class DashboardPage extends StatelessWidget {
               children: [
                 HomePage(),
                 PondPage(),
-                MyWaterTabScreen(),
                 // GradingPage(),
               ],
             ),
@@ -69,22 +68,22 @@ class DashboardPage extends StatelessWidget {
                 ),
                 label: 'Kolam',
               ),
-              BottomNavigationBarItem(
-                icon: Container(
-                  margin: EdgeInsets.only(
-                    top: 20,
-                    bottom: 5,
-                  ),
-                  child: Image.asset(
-                    'assets/water_secondary.png',
-                    width: 25,
-                    color: controller.tabIndex == 2
-                        ? primaryColor
-                        : Color(0xff808191),
-                  ),
-                ),
-                label: 'Air',
-              ),
+              // BottomNavigationBarItem(
+              //   icon: Container(
+              //     margin: EdgeInsets.only(
+              //       top: 20,
+              //       bottom: 5,
+              //     ),
+              //     child: Image.asset(
+              //       'assets/water_secondary.png',
+              //       width: 25,
+              //       color: controller.tabIndex == 2
+              //           ? primaryColor
+              //           : Color(0xff808191),
+              //     ),
+              //   ),
+              //   label: 'Air',
+              // ),
               // BottomNavigationBarItem(
               //   icon: Container(
               //     margin: EdgeInsets.only(

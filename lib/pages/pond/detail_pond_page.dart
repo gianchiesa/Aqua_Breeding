@@ -330,20 +330,6 @@ class _DetailPondPageState extends State<DetailPondPage> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: backgroundColor2,
-        title: const Text("Detail Kolam"),
-        leading: new IconButton(
-          icon: new Icon(Icons.arrow_back),
-          onPressed: () async {
-            // Get.back();
-
-            Navigator.pop(context);
-
-            pondController.getPondsData(context);
-          },
-        ),
-      ),
       backgroundColor: backgroundColor1,
       body: Obx(
         () => detailController.isLoading.value

@@ -6,21 +6,23 @@ import 'package:get/get.dart';
 import 'package:fish/models/activation_model.dart';
 import 'package:fish/models/pond_model.dart';
 import 'package:fish/pages/pond/detail_pond_controller.dart';
+import 'package:fish/pages/pond/pond_controller.dart';
+import 'package:fish/pages/pond/detail_pond_page.dart';
 
+import 'package:fish/pages/dailywater/daily_water_pond_detail_page.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 
-class MyTabs extends GetxController with GetSingleTickerProviderStateMixin {
+class MyTabsPond extends GetxController with GetSingleTickerProviderStateMixin {
   var isLoading = false.obs;
 
   late TabController controller;
-  Activation activation = Get.arguments()["activation"];
   Pond pond = Get.arguments()["pond"];
   final List<Tab> myTabs = <Tab>[
     Tab(
-      text: 'Rekap Data',
+      text: 'Musim Budidaya',
     ),
     Tab(
-      text: 'Treatment',
+      text: 'Kondisi Air',
     )
   ];
 
@@ -39,17 +41,16 @@ class MyTabs extends GetxController with GetSingleTickerProviderStateMixin {
   }
 }
 
-class MyTabScreen extends StatelessWidget {
-  MyTabScreen({Key? key}) : super(key: key);
-  final DetailPondController detailPondController =
-      Get.put(DetailPondController());
+class MyTabPondScreen extends StatelessWidget {
+  MyTabPondScreen({Key? key}) : super(key: key);
+  final pondController = Get.put(PondController());
   @override
   Widget build(BuildContext context) {
-    final MyTabs _tabs = Get.put(MyTabs());
+    final MyTabsPond _tabs = Get.put(MyTabsPond());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: backgroundColor2,
-        title: const Text('Detail Musim Budidaya'),
+        title: const Text('Detail Kolam'),
         bottom: TabBar(
           indicatorColor: Colors.white,
           tabs: _tabs.myTabs,
@@ -62,13 +63,13 @@ class MyTabScreen extends StatelessWidget {
 
             Navigator.pop(context);
 
-            detailPondController.getPondActivation(context);
+            pondController.getPondsData(context);
           },
         ),
       ),
       body: TabBarView(
         controller: _tabs.controller,
-        children: [DetailBreedPage(), TreatmentpPage()],
+        children: [DetailPondPage(), DailyWaterDetailPondPage()],
       ),
     );
   }

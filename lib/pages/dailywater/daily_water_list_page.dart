@@ -114,10 +114,6 @@ class _DailyWaterPageState extends State<DailyWaterPage> {
     return Obx(() {
       if (controller.isLoading.value == false) {
         return Scaffold(
-          appBar: AppBar(
-            backgroundColor: backgroundColor2,
-            title: const Text("Kondisi Air Harian"),
-          ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
               Get.to(() => DailyWaterEntryPage(), arguments: {

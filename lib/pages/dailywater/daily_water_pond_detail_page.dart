@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:fish/pages/component/activation_for_water_card.dart';
 import 'package:fish/pages/pond/deactivation_breed_page.dart';
 import 'package:fish/pages/pond/detail_pond_controller.dart';
+
+import 'package:fish/controllers/daily_water/daily_water_breed_list_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
 import 'package:get/get.dart';
@@ -16,7 +18,7 @@ class DailyWaterDetailPondPage extends StatefulWidget {
 }
 
 class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
-  final detailController = Get.put(DetailPondController());
+  final detailController = Get.put(DailyWaterBreedListController());
 
   @override
   void initState() {
@@ -105,7 +107,7 @@ class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Lokasi Kolam",
+                  "Kondisi pH",
                   style: primaryTextStyle.copyWith(
                     fontSize: 14,
                     fontWeight: medium,
@@ -113,20 +115,51 @@ class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
-                Text(
-                  detailController.pond.location!,
-                  style: secondaryTextStyle.copyWith(
-                    fontSize: 13,
-                    fontWeight: medium,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                ),
+                detailController.pond.status! != "Aktif"
+                    ? Text(
+                        "-",
+                        style: subtitleTextStyle.copyWith(
+                          fontSize: 13,
+                          fontWeight: regular,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      )
+                    : detailController.pond.pondPhDesc!.capitalize == "Normal"
+                        ? Text(
+                            detailController.pond.pondPhDesc!.capitalize!,
+                            style: subtitleTextStyle.copyWith(
+                                fontSize: 13,
+                                fontWeight: bold,
+                                color: Colors.green),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          )
+                        : detailController.pond.pondPhDesc!.capitalize ==
+                                "Berbahaya"
+                            ? Text(
+                                detailController.pond.pondPhDesc!.capitalize!,
+                                style: subtitleTextStyle.copyWith(
+                                    fontSize: 13,
+                                    fontWeight: bold,
+                                    color: Colors.red.shade300),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              )
+                            : Text(
+                                detailController.pond.pondPhDesc!.capitalize!,
+                                style: subtitleTextStyle.copyWith(
+                                  fontSize: 13,
+                                  fontWeight: regular,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              ),
                 SizedBox(
                   height: 20,
                 ),
                 Text(
-                  "Bentuk Kolam",
+                  "Suhu Air",
                   style: primaryTextStyle.copyWith(
                     fontSize: 14,
                     fontWeight: medium,
@@ -134,22 +167,42 @@ class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
-                Text(
-                  detailController.pond.shape!,
-                  style: secondaryTextStyle.copyWith(
-                    fontSize: 13,
-                    fontWeight: medium,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                ),
+                detailController.pond.status != "Aktif"
+                    ? Text(
+                        "-",
+                        style: subtitleTextStyle.copyWith(
+                          fontSize: 16,
+                          fontWeight: regular,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      )
+                    : detailController.pond.pondTemp == null
+                        ? Text(
+                            "Belum Diukur",
+                            style: subtitleTextStyle.copyWith(
+                              fontSize: 16,
+                              fontWeight: regular,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          )
+                        : Text(
+                            "${detailController.pond.pondTemp} " + "°C",
+                            style: subtitleTextStyle.copyWith(
+                              fontSize: 16,
+                              fontWeight: bold,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
               ],
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Material Kolam",
+                  "Kondisi Do",
                   style: primaryTextStyle.copyWith(
                     fontSize: 14,
                     fontWeight: medium,
@@ -157,20 +210,64 @@ class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
-                Text(
-                  detailController.pond.material!,
-                  style: secondaryTextStyle.copyWith(
-                    fontSize: 13,
-                    fontWeight: medium,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                ),
+                detailController.pond.status! != "Aktif"
+                    ? Text(
+                        "-",
+                        style: subtitleTextStyle.copyWith(
+                          fontSize: 13,
+                          fontWeight: regular,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      )
+                    : detailController.pond.pondDoDesc!.capitalize == "Normal"
+                        ? Text(
+                            detailController.pond.pondDoDesc!.capitalize!,
+                            style: subtitleTextStyle.copyWith(
+                                fontSize: 13,
+                                fontWeight: bold,
+                                color: Colors.green),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          )
+                        : detailController.pond.pondDoDesc!.capitalize ==
+                                "Berbahaya"
+                            ? Text(
+                                detailController.pond.pondDoDesc!.capitalize!,
+                                style: subtitleTextStyle.copyWith(
+                                    fontSize: 13,
+                                    fontWeight: bold,
+                                    color: Colors.red.shade300),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              )
+                            : detailController.pond.pondDoDesc!.capitalize ==
+                                    "Semi Berbahaya"
+                                ? Text(
+                                    detailController
+                                        .pond.pondDoDesc!.capitalize!,
+                                    style: subtitleTextStyle.copyWith(
+                                        fontSize: 13,
+                                        fontWeight: bold,
+                                        color: Colors.amber),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                  )
+                                : Text(
+                                    detailController
+                                        .pond.pondDoDesc!.capitalize!,
+                                    style: subtitleTextStyle.copyWith(
+                                      fontSize: 13,
+                                      fontWeight: regular,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                  ),
                 SizedBox(
                   height: 20,
                 ),
                 Text(
-                  "Ukuran Kolam",
+                  "",
                   style: primaryTextStyle.copyWith(
                     fontSize: 14,
                     fontWeight: medium,
@@ -179,11 +276,9 @@ class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
                   maxLines: 1,
                 ),
                 Text(
-                  detailController.pond.shape! == "persegi"
-                      ? "${detailController.pond.length}m x ${detailController.pond.width}m"
-                      : "${detailController.pond.diameter}m\u00B2",
-                  style: secondaryTextStyle.copyWith(
-                    fontSize: 13,
+                  "",
+                  style: primaryTextStyle.copyWith(
+                    fontSize: 14,
                     fontWeight: medium,
                   ),
                   overflow: TextOverflow.ellipsis,
@@ -202,7 +297,7 @@ class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
         margin: EdgeInsets.only(
             top: defaultSpace * 2, right: defaultMargin, left: defaultMargin),
         child: Text(
-          "List Musim Budidaya",
+          "Musim Budidaya",
           style: primaryTextStyle.copyWith(
             fontSize: 14,
             fontWeight: bold,
@@ -267,10 +362,6 @@ class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: backgroundColor2,
-        title: const Text("Detail Kolam"),
-      ),
       backgroundColor: backgroundColor1,
       body: Obx(
         () => detailController.isLoading.value

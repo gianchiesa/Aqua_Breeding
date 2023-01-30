@@ -1,4 +1,5 @@
 import 'package:fish/models/pond_model.dart';
+import 'package:fish/pages/component/detail_pond_tabview.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fish/theme.dart';
@@ -15,7 +16,7 @@ class PondCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => DetailPondPage(), arguments: {
+        Get.to(() => MyTabPondScreen(), arguments: {
           'pond': pond,
         });
       },
@@ -104,7 +105,7 @@ class PondCard extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      pond.status! == "Tidak Aktif"
+                      pond.status! != "Aktif"
                           ? Text(
                               "-",
                               style: subtitleTextStyle.copyWith(
@@ -124,15 +125,25 @@ class PondCard extends StatelessWidget {
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                 )
-                              : Text(
-                                  pond.pondPhDesc!.capitalize!,
-                                  style: subtitleTextStyle.copyWith(
-                                      fontSize: 16,
-                                      fontWeight: bold,
-                                      color: Colors.red.shade300),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                )
+                              : pond.pondPhDesc!.capitalize == "Berbahaya"
+                                  ? Text(
+                                      pond.pondPhDesc!.capitalize!,
+                                      style: subtitleTextStyle.copyWith(
+                                          fontSize: 16,
+                                          fontWeight: bold,
+                                          color: Colors.red.shade300),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                    )
+                                  : Text(
+                                      pond.pondPhDesc!.capitalize!,
+                                      style: subtitleTextStyle.copyWith(
+                                        fontSize: 16,
+                                        fontWeight: regular,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                    )
                     ],
                   )
                 ],
@@ -175,7 +186,7 @@ class PondCard extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      pond.status! == "Tidak Aktif"
+                      pond.status! != "Aktif"
                           ? Text(
                               "-",
                               style: subtitleTextStyle.copyWith(
@@ -267,7 +278,7 @@ class PondCard extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      pond.status == "Tidak Aktif"
+                      pond.status != "Aktif"
                           ? Text(
                               "-",
                               style: subtitleTextStyle.copyWith(
@@ -277,12 +288,12 @@ class PondCard extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                             )
-                          : pond.pondTemp == 0
+                          : pond.pondTemp == null
                               ? Text(
                                   "Belum Diukur",
                                   style: subtitleTextStyle.copyWith(
                                     fontSize: 16,
-                                    fontWeight: bold,
+                                    fontWeight: regular,
                                   ),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
