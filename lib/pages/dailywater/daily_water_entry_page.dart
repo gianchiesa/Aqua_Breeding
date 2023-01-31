@@ -66,7 +66,7 @@ class DailyWaterEntryPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Dosis Garam (Kg)',
+              'Do Air',
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -154,7 +154,7 @@ class DailyWaterEntryPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Derajar Celcius',
+              'Suhu Air',
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -191,143 +191,6 @@ class DailyWaterEntryPage extends StatelessWidget {
         ),
       );
     }
-
-    // Widget carbonTypeInput() {
-    //   return Container(
-    //     margin: EdgeInsets.only(
-    //         top: defaultSpace, right: defaultMargin, left: defaultMargin),
-    //     child: Column(
-    //       crossAxisAlignment: CrossAxisAlignment.start,
-    //       children: [
-    //         Text(
-    //           'Jenis Karbon',
-    //           style: primaryTextStyle.copyWith(
-    //             fontSize: 16,
-    //             fontWeight: medium,
-    //           ),
-    //         ),
-    //         SizedBox(
-    //           height: 12,
-    //         ),
-    //         Container(
-    //           height: 50,
-    //           padding: EdgeInsets.symmetric(
-    //             horizontal: 16,
-    //           ),
-    //           decoration: BoxDecoration(
-    //             color: backgroundColor2,
-    //             borderRadius: BorderRadius.circular(12),
-    //           ),
-    //           child: Center(
-    //             child: TextFormField(
-    //               style: primaryTextStyle,
-    //               inputFormatters: <TextInputFormatter>[
-    //                 FilteringTextInputFormatter.digitsOnly
-    //               ],
-    //               controller: controller.carbonTypeController,
-    //               decoration: InputDecoration.collapsed(
-    //                 hintText: 'ex: molase',
-    //                 hintStyle: subtitleTextStyle,
-    //               ),
-    //             ),
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //   );
-    // }
-
-    // Widget widthInput() {
-    //   return Container(
-    //     margin: EdgeInsets.only(
-    //         top: defaultSpace, right: defaultMargin, left: defaultMargin),
-    //     child: Column(
-    //       crossAxisAlignment: CrossAxisAlignment.start,
-    //       children: [
-    //         Text(
-    //           'Lebar (meter)',
-    //           style: primaryTextStyle.copyWith(
-    //             fontSize: 16,
-    //             fontWeight: medium,
-    //           ),
-    //         ),
-    //         SizedBox(
-    //           height: 12,
-    //         ),
-    //         Container(
-    //           height: 50,
-    //           padding: EdgeInsets.symmetric(
-    //             horizontal: 16,
-    //           ),
-    //           decoration: BoxDecoration(
-    //             color: backgroundColor2,
-    //             borderRadius: BorderRadius.circular(12),
-    //           ),
-    //           child: Center(
-    //             child: TextFormField(
-    //               style: primaryTextStyle,
-    //               inputFormatters: <TextInputFormatter>[
-    //                 FilteringTextInputFormatter.digitsOnly
-    //               ],
-    //               keyboardType: TextInputType.number,
-    //               controller: controller.widthController,
-    //               decoration: InputDecoration.collapsed(
-    //                 hintText: 'ex: 2',
-    //                 hintStyle: subtitleTextStyle,
-    //               ),
-    //             ),
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //   );
-    // }
-
-    // Widget diameterInput() {
-    //   return Container(
-    //     margin: EdgeInsets.only(
-    //         top: defaultSpace, right: defaultMargin, left: defaultMargin),
-    //     child: Column(
-    //       crossAxisAlignment: CrossAxisAlignment.start,
-    //       children: [
-    //         Text(
-    //           'Diameter (meter)',
-    //           style: primaryTextStyle.copyWith(
-    //             fontSize: 16,
-    //             fontWeight: medium,
-    //           ),
-    //         ),
-    //         SizedBox(
-    //           height: 12,
-    //         ),
-    //         Container(
-    //           height: 50,
-    //           padding: EdgeInsets.symmetric(
-    //             horizontal: 16,
-    //           ),
-    //           decoration: BoxDecoration(
-    //             color: backgroundColor2,
-    //             borderRadius: BorderRadius.circular(12),
-    //           ),
-    //           child: Center(
-    //             child: TextFormField(
-    //               style: primaryTextStyle,
-    //               inputFormatters: <TextInputFormatter>[
-    //                 FilteringTextInputFormatter.digitsOnly
-    //               ],
-    //               keyboardType: TextInputType.number,
-    //               controller: controller.diameterController,
-    //               decoration: InputDecoration.collapsed(
-    //                 hintText: 'ex: 2',
-    //                 hintStyle: subtitleTextStyle,
-    //               ),
-    //             ),
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //   );
-    // }
 
     Widget submitButton() {
       return Container(
