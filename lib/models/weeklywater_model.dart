@@ -65,4 +65,11 @@ class WeeklyWater {
     String newStringDate = DateFormat("dd-MM-yyyy").format(dateTime);
     return newStringDate;
   }
+
+  String getDayNameDate() {
+    String stringDate = weeklywater_at!;
+    DateTime dateTime = DateFormat("yyyy-MM-dd hh:mm:ss").parse(stringDate);
+    String newStringDate = DateFormat("EEEE").format(dateTime);
+    return newStringDate;
+  }
 }

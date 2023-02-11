@@ -56,6 +56,15 @@ class WeeklyWaterCard extends StatelessWidget {
                       maxLines: 1,
                     ),
                     Text(
+                      weeklyWaterList!.getDayNameDate(),
+                      style: secondaryTextStyle.copyWith(
+                        fontSize: 14,
+                        fontWeight: medium,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                    Text(
                       weeklyWaterList!.getGmtToNormalDate(),
                       style: secondaryTextStyle.copyWith(
                         fontSize: 14,

@@ -51,6 +51,12 @@ class DailyWater {
     return newStringDate;
   }
 
+  String getDayNameDate() {
+    String stringDate = dailywater_at!;
+    DateTime dateTime = DateFormat("yyyy-MM-dd hh:mm:ss").parse(stringDate);
+    String newStringDate = DateFormat("EEEE").format(dateTime);
+    return newStringDate;
+  }
 //   static DateTime stringToDate(String dateString) {
 //     DateTime parseDate = DateFormat("dd-MM-yyyy").parse(dateString);
 //     return parseDate;
