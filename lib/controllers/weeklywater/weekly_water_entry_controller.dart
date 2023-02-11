@@ -1,22 +1,25 @@
 import 'dart:async';
-import 'package:fish/service/daily_water_service.dart';
+import 'package:fish/service/weekly_water_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:fish/models/pond_model.dart';
 import 'package:fish/models/activation_model.dart';
 
-class DailyWaterEntryController extends GetxController {
+class WeeklyWaterEntryController extends GetxController {
   var isLoading = false.obs;
   // final ponds = <Pond>[].obs;
 
-  TextEditingController descController = TextEditingController(text: '');
   // MaterialController materialController = MaterialController();
   // ShapeController shapeController = ShapeController();
 
-  TextEditingController temperatureController =
-      TextEditingController(text: '0');
-  TextEditingController phController = TextEditingController(text: '0');
-  TextEditingController doController = TextEditingController(text: '0');
+  TextEditingController flocController = TextEditingController(text: '0');
+  TextEditingController nitriteController = TextEditingController(text: '0');
+
+  TextEditingController nitrateController = TextEditingController(text: '0');
+
+  TextEditingController amoniaController = TextEditingController(text: '0');
+
+  TextEditingController hardnessController = TextEditingController(text: '0');
   Activation activation = Get.arguments()["activation"];
   Pond pond = Get.arguments()["pond"];
 
@@ -25,15 +28,25 @@ class DailyWaterEntryController extends GetxController {
     return week.ceil();
   }
 
-  Future<void> postDailyWaterData(
+  Future<void> postWeeklyWaterData(
       BuildContext context, Function doInPost) async {
-    bool value = await DailyWaterService().postDailyWater(
+    bool value = await WeeklyWaterService().postWeeklyWater(
         pondId: pond.id,
         activationId: activation.id,
-        ph: phController.value.text,
-        numDo: doController.value.text,
-        week: getWeek().toString(),
-        temperature: temperatureController.value.text);
+        floc: flocController.value.text,
+        nitrate: nitrateController.value.text == ''
+            ? 0.toString()
+            : nitrateController.value.text,
+        nitrite: nitriteController.value.text == ''
+            ? 0.toString()
+            : nitriteController.value.text,
+        ammonia: amoniaController.value.text == ''
+            ? 0.toString()
+            : amoniaController.value.text,
+        hardness: hardnessController.value.text == ''
+            ? 0.toString()
+            : hardnessController.value.text,
+        week: getWeek().toString());
     print(value);
     doInPost();
   }

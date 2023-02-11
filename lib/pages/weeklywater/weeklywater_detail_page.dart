@@ -1,15 +1,15 @@
-import 'package:fish/controllers/daily_water/daily_water_detail_controller.dart';
+import 'package:fish/controllers/weeklywater/weekly_water_detail_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
 import 'package:get/get.dart';
 
-class DailyWaterDetailPage extends StatelessWidget {
-  const DailyWaterDetailPage({Key? key}) : super(key: key);
+class WeeklyWaterDetailPage extends StatelessWidget {
+  const WeeklyWaterDetailPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final DailyWaterDetailController controller =
-        Get.put(DailyWaterDetailController());
+    final WeeklyWaterDetailController controller =
+        Get.put(WeeklyWaterDetailController());
 
     Widget treatmentDataRecap() {
       return Container(
@@ -128,7 +128,7 @@ class DailyWaterDetailPage extends StatelessWidget {
                   maxLines: 1,
                 ),
                 Text(
-                  controller.dailyWater.getGmtToNormalDate(),
+                  controller.weeklyWater.getGmtToNormalDate(),
                   style: secondaryTextStyle.copyWith(
                     fontSize: 16,
                     fontWeight: medium,
@@ -156,7 +156,7 @@ class DailyWaterDetailPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "pH",
+                  "Floc",
                   style: primaryTextStyle.copyWith(
                     fontSize: 18,
                     fontWeight: medium,
@@ -165,10 +165,10 @@ class DailyWaterDetailPage extends StatelessWidget {
                   maxLines: 1,
                 ),
                 Text(
-                  "${controller.dailyWater.ph} " +
-                      "${controller.dailyWater.ph_desc}",
+                  "${controller.weeklyWater.floc} " +
+                      "(${controller.weeklyWater.floc_desc})",
                   style: secondaryTextStyle.copyWith(
-                    color: controller.dailyWater.ph_desc == "normal"
+                    color: controller.weeklyWater.floc_desc == "normal"
                         ? Colors.green
                         : Colors.red.shade300,
                     fontSize: 16,
@@ -181,7 +181,7 @@ class DailyWaterDetailPage extends StatelessWidget {
                   height: 20,
                 ),
                 Text(
-                  "Suhu Air",
+                  "Kadar Nitrit",
                   style: primaryTextStyle.copyWith(
                     fontSize: 18,
                     fontWeight: medium,
@@ -190,8 +190,41 @@ class DailyWaterDetailPage extends StatelessWidget {
                   maxLines: 1,
                 ),
                 Text(
-                  "${controller.dailyWater.temperature} " + "°C",
+                  "${controller.weeklyWater.nitrite} " +
+                      "(${controller.weeklyWater.nitrite_desc})",
                   style: secondaryTextStyle.copyWith(
+                    color: controller.weeklyWater.nitrite_desc == "aman"
+                        ? Colors.green
+                        : controller.weeklyWater.nitrite_desc == "berbahaya"
+                            ? Colors.red.shade300
+                            : Colors.amber,
+                    fontSize: 16,
+                    fontWeight: medium,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Nilai Hardness",
+                  style: primaryTextStyle.copyWith(
+                    fontSize: 18,
+                    fontWeight: medium,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+                Text(
+                  "${controller.weeklyWater.hardness} " +
+                      "(${controller.weeklyWater.hardness_desc})",
+                  style: secondaryTextStyle.copyWith(
+                    color: controller.weeklyWater.hardness_desc == "aman"
+                        ? Colors.green
+                        : controller.weeklyWater.hardness_desc == "berbahaya"
+                            ? Colors.red.shade300
+                            : Colors.amber,
                     fontSize: 16,
                     fontWeight: medium,
                   ),
@@ -204,7 +237,7 @@ class DailyWaterDetailPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Dissolved Oxygen",
+                  "Ammonia",
                   style: primaryTextStyle.copyWith(
                     fontSize: 18,
                     fontWeight: medium,
@@ -213,12 +246,12 @@ class DailyWaterDetailPage extends StatelessWidget {
                   maxLines: 1,
                 ),
                 Text(
-                  "${controller.dailyWater.numDo} " +
-                      "${controller.dailyWater.numDo_desc}",
+                  "${controller.weeklyWater.ammonia} " +
+                      "(${controller.weeklyWater.ammonia_desc})",
                   style: secondaryTextStyle.copyWith(
-                    color: controller.dailyWater.numDo_desc == "normal"
+                    color: controller.weeklyWater.ammonia_desc == "aman"
                         ? Colors.green
-                        : controller.dailyWater.numDo_desc == "berbahaya"
+                        : controller.weeklyWater.ammonia_desc == "berbahaya"
                             ? Colors.red.shade300
                             : Colors.amber,
                     fontSize: 16,
@@ -230,8 +263,29 @@ class DailyWaterDetailPage extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                SizedBox(
-                  height: 20,
+                Text(
+                  "Kadar Nitrat",
+                  style: primaryTextStyle.copyWith(
+                    fontSize: 18,
+                    fontWeight: medium,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+                Text(
+                  "${controller.weeklyWater.nitrate} " +
+                      "(${controller.weeklyWater.nitrate_desc})",
+                  style: secondaryTextStyle.copyWith(
+                    color: controller.weeklyWater.nitrate_desc == "aman"
+                        ? Colors.green
+                        : controller.weeklyWater.nitrate_desc == "berbahaya"
+                            ? Colors.red.shade300
+                            : Colors.amber,
+                    fontSize: 16,
+                    fontWeight: medium,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                 ),
               ],
             ),

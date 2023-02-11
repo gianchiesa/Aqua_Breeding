@@ -48,4 +48,5 @@ class Urls {
       '$baseUrl/ponds/$pondId/closing';
 
   static String dailyWater = '$baseUrl/dailywaterquality';
+  static String weeklyWater = '$baseUrl/weeklywaterquality';
 }

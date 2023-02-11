@@ -14,8 +14,10 @@ class DailyWater {
   num? ph;
   num? numDo;
   num? temperature;
+  num? week;
   String? ph_desc;
   String? numDo_desc;
+  String? dailywater_at;
 
   DailyWater(
       {required this.id,
@@ -24,8 +26,10 @@ class DailyWater {
       this.numDo,
       this.numDo_desc,
       this.temperature,
+      this.week,
       this.ph,
-      this.ph_desc});
+      this.ph_desc,
+      this.dailywater_at});
 
   factory DailyWater.fromJson(Map<String, dynamic> json) {
     return DailyWater(
@@ -35,8 +39,16 @@ class DailyWater {
         ph: json['ph'],
         numDo: json['do'],
         temperature: json['temperature'],
+        week: json['week'],
         ph_desc: json['ph_desc'],
-        numDo_desc: json['do_desc']);
+        numDo_desc: json['do_desc'],
+        dailywater_at: json['dailywater_at']);
+  }
+  String getGmtToNormalDate() {
+    String stringDate = dailywater_at!;
+    DateTime dateTime = DateFormat("yyyy-MM-dd hh:mm:ss").parse(stringDate);
+    String newStringDate = DateFormat("dd-MM-yyyy").format(dateTime);
+    return newStringDate;
   }
 
 //   static DateTime stringToDate(String dateString) {

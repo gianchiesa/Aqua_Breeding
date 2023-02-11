@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:fish/models/activation_model.dart';
 import 'package:fish/models/pond_model.dart';
 
+import '../weeklywater/weeklywater_list_page.dart';
+
 class MyWaterTabs extends GetxController
     with GetSingleTickerProviderStateMixin {
   Activation activation = Get.arguments()["activation"];
@@ -54,7 +56,7 @@ class MyWaterTabScreen extends StatelessWidget {
       ),
       body: TabBarView(
         controller: _tabs.controller,
-        children: [DailyWaterPage(), Text('test')],
+        children: [DailyWaterPage(), WeeklyWaterPage()],
       ),
     );
   }

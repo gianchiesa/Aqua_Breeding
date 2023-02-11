@@ -1,21 +1,23 @@
+import 'package:fish/pages/component/daily_water_avg_card.dart';
 import 'package:fish/pages/component/daily_water_card.dart';
-import 'package:fish/controllers/daily_water/daily_water_controller.dart';
+import 'package:fish/controllers/weeklywater/weekly_water_avg_controller.dart';
 import 'package:fish/pages/dailywater/daily_water_entry_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
 import 'package:get/get.dart';
 
-import 'daily_water_avg.dart';
+import '../component/weekly_water_avg_card.dart';
 
-class DailyWaterPage extends StatefulWidget {
-  DailyWaterPage({Key? key}) : super(key: key);
+class WeeklyWaterAvgPage extends StatefulWidget {
+  WeeklyWaterAvgPage({Key? key}) : super(key: key);
 
   @override
-  State<DailyWaterPage> createState() => _DailyWaterPageState();
+  State<WeeklyWaterAvgPage> createState() => _WeeklyWaterAvgPageState();
 }
 
-class _DailyWaterPageState extends State<DailyWaterPage> {
-  final DailyWaterController controller = Get.put(DailyWaterController());
+class _WeeklyWaterAvgPageState extends State<WeeklyWaterAvgPage> {
+  final WeeklyWaterAvgController controller =
+      Get.put(WeeklyWaterAvgController());
 
   @override
   void initState() {
@@ -37,35 +39,22 @@ class _DailyWaterPageState extends State<DailyWaterPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              "Kolam ${controller.pond.alias!}",
-              style: primaryTextStyle.copyWith(
-                fontSize: 18,
-                fontWeight: heavy,
-              ),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-            ),
-            TextButton(
-              onPressed: () {
-                Get.to(() => DailyWaterAvgPage(), arguments: {
-                  "pond": controller.pond,
-                  "activation": controller.activation
-                });
-              },
-              style: TextButton.styleFrom(
-                backgroundColor: primaryColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Kolam ${controller.pond.alias!}",
+                  style: primaryTextStyle.copyWith(
+                    fontSize: 18,
+                    fontWeight: heavy,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                 ),
-              ),
-              child: Text(
-                'Rata-Rata/Minggu ',
-                style: primaryTextStyle.copyWith(
-                  fontSize: 16,
-                  fontWeight: medium,
+                SizedBox(
+                  height: 5,
                 ),
-              ),
+              ],
             ),
           ],
         ),
@@ -76,15 +65,15 @@ class _DailyWaterPageState extends State<DailyWaterPage> {
       return Container(
           width: double.infinity,
           margin: EdgeInsets.only(right: defaultMargin, left: defaultMargin),
-          child: Column(
-            children: controller.listDailyWater
-                .map(
-                  (dailyWaterList) => DailyWaterCard(
-                      dailyWaterList: dailyWaterList,
-                      activation: controller.activation,
-                      pond: controller.pond),
-                )
-                .toList(),
+          child: ListView.builder(
+            shrinkWrap: true,
+            primary: false,
+            itemBuilder: ((context, index) {
+              return WeeklyWaterCardAvg(sol: controller.sol[index]
+                  // indicatorWater: controller.indicatorWater[index]);
+                  );
+            }),
+            itemCount: controller.sol.length,
           ));
     }
 
@@ -127,55 +116,18 @@ class _DailyWaterPageState extends State<DailyWaterPage> {
           ));
     }
 
-    Widget submitButton() {
-      return Container(
-        height: 50,
-        width: double.infinity,
-        margin: EdgeInsets.only(
-            top: defaultSpace * 3, right: defaultMargin, left: defaultMargin),
-        child: TextButton(
-          onPressed: () {
-            Get.to(() => DailyWaterAvgPage(), arguments: {
-              "pond": controller.pond,
-              "activation": controller.activation
-            });
-          },
-          style: TextButton.styleFrom(
-            backgroundColor: primaryColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-          child: Text(
-            'Submit',
-            style: primaryTextStyle.copyWith(
-              fontSize: 16,
-              fontWeight: medium,
-            ),
-          ),
-        ),
-      );
-    }
-
     return Obx(() {
       if (controller.isLoading.value == false) {
         return Scaffold(
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Get.to(() => DailyWaterEntryPage(), arguments: {
-                "pond": controller.pond,
-                "activation": controller.activation
-              });
-            },
-            backgroundColor: primaryColor,
-            child: const Icon(Icons.add),
+          appBar: AppBar(
+            backgroundColor: backgroundColor2,
+            title: const Text("Kondisi Air Rata-Rata/Minggu"),
           ),
           backgroundColor: backgroundColor1,
           body: ListView(
             children: [
               fishDataRecap(),
-              // submitButton(),
-              controller.listDailyWater.isEmpty
+              controller.listWeeklyWater.isEmpty
                   ? emptyList()
                   : listDailyWater(),
               SizedBox(

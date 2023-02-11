@@ -1,22 +1,22 @@
-import 'package:fish/controllers/daily_water/daily_water_entry_controller.dart';
-import 'package:fish/controllers/daily_water/daily_water_controller.dart';
+import 'package:fish/controllers/weeklywater/weekly_water_entry_controller.dart';
+import 'package:fish/controllers/weeklywater/weekly_water_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-class DailyWaterEntryPage extends StatelessWidget {
-  DailyWaterEntryPage({Key? key}) : super(key: key);
+class WeeklyWaterEntryPage extends StatelessWidget {
+  WeeklyWaterEntryPage({Key? key}) : super(key: key);
 
-  final DailyWaterEntryController controller =
-      Get.put(DailyWaterEntryController());
+  final WeeklyWaterEntryController controller =
+      Get.put(WeeklyWaterEntryController());
 
-  final DailyWaterController dailyWaterControlller =
-      Get.put(DailyWaterController());
+  final WeeklyWaterController weeklyWaterControlller =
+      Get.put(WeeklyWaterController());
 
   @override
   Widget build(BuildContext context) {
-    Widget descInput() {
+    Widget amoniaInput() {
       return Container(
         margin: EdgeInsets.only(
             top: defaultSpace, right: defaultMargin, left: defaultMargin),
@@ -24,49 +24,7 @@ class DailyWaterEntryPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Deskripsi',
-              style: primaryTextStyle.copyWith(
-                fontSize: 16,
-                fontWeight: medium,
-              ),
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            Container(
-              height: 50,
-              padding: EdgeInsets.symmetric(
-                horizontal: 16,
-              ),
-              decoration: BoxDecoration(
-                color: backgroundColor2,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Center(
-                child: TextFormField(
-                  style: primaryTextStyle,
-                  controller: controller.descController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'ex: Ikan Sakit',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    Widget doInput() {
-      return Container(
-        margin: EdgeInsets.only(
-            top: defaultSpace, right: defaultMargin, left: defaultMargin),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Do Air',
+              'ammonia Air',
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -88,7 +46,7 @@ class DailyWaterEntryPage extends StatelessWidget {
                 child: TextFormField(
                   style: primaryTextStyle,
                   keyboardType: TextInputType.number,
-                  controller: controller.doController,
+                  controller: controller.amoniaController,
                   decoration: InputDecoration.collapsed(
                     hintText: 'ex: 20',
                     hintStyle: subtitleTextStyle,
@@ -101,7 +59,7 @@ class DailyWaterEntryPage extends StatelessWidget {
       );
     }
 
-    Widget phInput() {
+    Widget flocInput() {
       return Container(
         margin: EdgeInsets.only(
             top: defaultSpace, right: defaultMargin, left: defaultMargin),
@@ -109,7 +67,7 @@ class DailyWaterEntryPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'pH Air',
+              'Floc Air',
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -131,7 +89,7 @@ class DailyWaterEntryPage extends StatelessWidget {
                 child: TextFormField(
                   style: primaryTextStyle,
                   keyboardType: TextInputType.number,
-                  controller: controller.phController,
+                  controller: controller.flocController,
                   decoration: InputDecoration.collapsed(
                     hintText: 'ex: 2',
                     hintStyle: subtitleTextStyle,
@@ -144,7 +102,7 @@ class DailyWaterEntryPage extends StatelessWidget {
       );
     }
 
-    Widget temperatureInput() {
+    Widget nitriteInput() {
       return Container(
         margin: EdgeInsets.only(
             top: defaultSpace, right: defaultMargin, left: defaultMargin),
@@ -152,7 +110,7 @@ class DailyWaterEntryPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Suhu Air',
+              'Kadar Nitrit',
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -174,7 +132,93 @@ class DailyWaterEntryPage extends StatelessWidget {
                 child: TextFormField(
                   style: primaryTextStyle,
                   keyboardType: TextInputType.number,
-                  controller: controller.temperatureController,
+                  controller: controller.nitriteController,
+                  decoration: InputDecoration.collapsed(
+                    hintText: 'ex: 2',
+                    hintStyle: subtitleTextStyle,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget nitrateInput() {
+      return Container(
+        margin: EdgeInsets.only(
+            top: defaultSpace, right: defaultMargin, left: defaultMargin),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Kadar Nitrat',
+              style: primaryTextStyle.copyWith(
+                fontSize: 16,
+                fontWeight: medium,
+              ),
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            Container(
+              height: 50,
+              padding: EdgeInsets.symmetric(
+                horizontal: 16,
+              ),
+              decoration: BoxDecoration(
+                color: backgroundColor2,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: TextFormField(
+                  style: primaryTextStyle,
+                  keyboardType: TextInputType.number,
+                  controller: controller.nitrateController,
+                  decoration: InputDecoration.collapsed(
+                    hintText: 'ex: 2',
+                    hintStyle: subtitleTextStyle,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget hardnessInput() {
+      return Container(
+        margin: EdgeInsets.only(
+            top: defaultSpace, right: defaultMargin, left: defaultMargin),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Nilai Hardness',
+              style: primaryTextStyle.copyWith(
+                fontSize: 16,
+                fontWeight: medium,
+              ),
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            Container(
+              height: 50,
+              padding: EdgeInsets.symmetric(
+                horizontal: 16,
+              ),
+              decoration: BoxDecoration(
+                color: backgroundColor2,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: TextFormField(
+                  style: primaryTextStyle,
+                  keyboardType: TextInputType.number,
+                  controller: controller.hardnessController,
                   decoration: InputDecoration.collapsed(
                     hintText: 'ex: 2',
                     hintStyle: subtitleTextStyle,
@@ -196,13 +240,13 @@ class DailyWaterEntryPage extends StatelessWidget {
         child: TextButton(
           onPressed: () async {
             // Get.back();
-            await controller.postDailyWaterData(
+            await controller.postWeeklyWaterData(
               context,
               () {
                 Navigator.pop(context);
               },
             );
-            dailyWaterControlller.getDailyWaterData(context);
+            weeklyWaterControlller.getWeeklyWaterData(context);
             // controller.getWeek();
           },
           style: TextButton.styleFrom(
@@ -248,9 +292,11 @@ class DailyWaterEntryPage extends StatelessWidget {
           backgroundColor: backgroundColor1,
           body: ListView(
             children: [
-              phInput(),
-              doInput(),
-              temperatureInput(),
+              flocInput(),
+              amoniaInput(),
+              nitriteInput(),
+              nitrateInput(),
+              hardnessInput(),
               submitButton(),
               SizedBox(
                 height: 8,

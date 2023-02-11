@@ -7,7 +7,9 @@ import 'package:get/get.dart';
 
 class DailyWaterDetailController extends GetxController {
   var isLoading = false.obs;
-  DailyWater dailyWater = Get.arguments();
+  DailyWater dailyWater = Get.arguments()["dailywater"];
+  Activation activation = Get.arguments()["activation"];
+  Pond pond = Get.arguments()["pond"];
 
   // Activation activation = Get.arguments()["activation"];
   // Pond pond = Get.arguments()["pond"];

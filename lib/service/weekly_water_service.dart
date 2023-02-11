@@ -1,11 +1,11 @@
 import 'dart:convert';
-import 'package:fish/models/daily_water_model.dart';
+import 'package:fish/models/weeklywater_model.dart';
 import 'package:fish/service/url_api.dart';
 import 'package:http/http.dart' as http;
 
-class DailyWaterService {
-  Future<List<DailyWater>> getPonds() async {
-    var url = Uri.parse(Urls.dailyWater);
+class WeeklyWaterService {
+  Future<List<WeeklyWater>> getDatas() async {
+    var url = Uri.parse(Urls.weeklyWater);
     var headers = {'Content-Type': 'application/json'};
 
     var response = await http.get(url, headers: headers);
@@ -14,10 +14,10 @@ class DailyWaterService {
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      List<DailyWater> ponds = [];
+      List<WeeklyWater> ponds = [];
 
       for (var item in data) {
-        ponds.add(DailyWater.fromJson(item));
+        ponds.add(WeeklyWater.fromJson(item));
       }
 
       print(ponds);
@@ -46,24 +46,28 @@ class DailyWaterService {
   //     throw Exception('Gagal Get Detial Pond!');
   //   }
   // }
-  Future<bool> postDailyWater({
+  Future<bool> postWeeklyWater({
     required String? pondId,
     required String? activationId,
-    required String? ph,
-    required String? numDo,
+    required String? floc,
+    String? ammonia,
+    String? nitrite,
+    String? nitrate,
+    String? hardness,
     String? week,
-    required String? temperature,
   }) async {
     print({
       "pond_id": pondId.toString(),
       "pond_activation_id": activationId.toString(),
-      "ph": ph,
-      "do": numDo,
+      "floc": floc,
+      "nitrite": nitrate,
+      "nitrate": nitrate,
+      "ammonia": ammonia,
+      "hardness": hardness,
       "week": week,
-      "temperature": temperature,
     });
     final response = await http.post(
-      Uri.parse(Urls.dailyWater),
+      Uri.parse(Urls.weeklyWater),
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
@@ -71,10 +75,12 @@ class DailyWaterService {
       body: {
         "pond_id": pondId.toString(),
         "pond_activation_id": activationId.toString(),
-        "ph": ph,
+        "floc": floc,
+        "nitrite": nitrate,
+        "nitrate": nitrate,
+        "ammonia": ammonia,
+        "hardness": hardness,
         "week": week,
-        "do": numDo,
-        "temperature": temperature,
       },
     );
 

@@ -1,27 +1,27 @@
-import 'package:fish/models/daily_water_model.dart';
+import 'package:fish/models/weeklywater_model.dart';
 import 'package:fish/models/pond_model.dart';
-import 'package:fish/pages/dailywater/daily_water_detail_page.dart';
 
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
 import 'package:get/get.dart';
 
 import '../../models/activation_model.dart';
+import '../weeklywater/weeklywater_detail_page.dart';
 
-class DailyWaterCard extends StatelessWidget {
-  final DailyWater? dailyWaterList;
+class WeeklyWaterCard extends StatelessWidget {
+  final WeeklyWater? weeklyWaterList;
   final Activation? activation;
   final Pond? pond;
-  const DailyWaterCard(
-      {Key? key, this.dailyWaterList, this.activation, this.pond})
+  const WeeklyWaterCard(
+      {Key? key, this.weeklyWaterList, this.activation, this.pond})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => DailyWaterDetailPage(), arguments: {
-          "dailywater": dailyWaterList,
+        Get.to(() => WeeklyWaterDetailPage(), arguments: {
+          "weeklywater": weeklyWaterList,
           "activation": activation,
           "pond": pond,
         });
@@ -56,7 +56,7 @@ class DailyWaterCard extends StatelessWidget {
                       maxLines: 1,
                     ),
                     Text(
-                      dailyWaterList!.getGmtToNormalDate(),
+                      weeklyWaterList!.getGmtToNormalDate(),
                       style: secondaryTextStyle.copyWith(
                         fontSize: 14,
                         fontWeight: medium,
@@ -70,7 +70,7 @@ class DailyWaterCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "pH",
+                      "floc",
                       style: primaryTextStyle.copyWith(
                         fontSize: 16,
                         fontWeight: bold,
@@ -79,9 +79,9 @@ class DailyWaterCard extends StatelessWidget {
                       maxLines: 1,
                     ),
                     Text(
-                      dailyWaterList!.ph_desc.toString(),
+                      weeklyWaterList!.floc_desc.toString(),
                       style: secondaryTextStyle.copyWith(
-                        color: dailyWaterList!.ph_desc == "normal"
+                        color: weeklyWaterList!.floc_desc == "normal"
                             ? Colors.green
                             : Colors.red.shade300,
                         fontSize: 14,
@@ -93,31 +93,32 @@ class DailyWaterCard extends StatelessWidget {
                   ],
                 ),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      "Do",
-                      style: primaryTextStyle.copyWith(
-                        fontSize: 16,
-                        fontWeight: bold,
+                    Container(
+                      height: 40,
+                      width: 80,
+                      // margin: EdgeInsets.only(
+                      //     top: defaultMargin,
+                      //     right: defaultMargin,
+                      //     left: defaultMargin),
+                      child: TextButton(
+                        onPressed: () {},
+                        style: TextButton.styleFrom(
+                          backgroundColor: primaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: Text(
+                          'Detail',
+                          style: primaryTextStyle.copyWith(
+                            fontSize: 16,
+                            fontWeight: medium,
+                          ),
+                        ),
                       ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
-                    Text(
-                      dailyWaterList!.numDo_desc.toString(),
-                      style: secondaryTextStyle.copyWith(
-                        color: dailyWaterList!.numDo_desc == "normal"
-                            ? Colors.green
-                            : dailyWaterList!.numDo_desc == "berbahaya"
-                                ? Colors.red.shade300
-                                : Colors.amber,
-                        fontSize: 14,
-                        fontWeight: medium,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
+                    )
                   ],
                 ),
               ],

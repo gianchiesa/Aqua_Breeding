@@ -1,21 +1,22 @@
 import 'package:fish/pages/component/daily_water_card.dart';
-import 'package:fish/controllers/daily_water/daily_water_controller.dart';
-import 'package:fish/pages/dailywater/daily_water_entry_page.dart';
+import 'package:fish/controllers/weeklywater/weekly_water_controller.dart';
+import 'package:fish/pages/component/weekly_water_card.dart';
+import 'package:fish/pages/weeklywater/weeklywater_avg.dart';
+import 'package:fish/pages/weeklywater/weeklywater_entry_page.dart';
+// import 'package:fish/pages/dailywater/daily_water_entry_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
 import 'package:get/get.dart';
 
-import 'daily_water_avg.dart';
-
-class DailyWaterPage extends StatefulWidget {
-  DailyWaterPage({Key? key}) : super(key: key);
+class WeeklyWaterPage extends StatefulWidget {
+  WeeklyWaterPage({Key? key}) : super(key: key);
 
   @override
-  State<DailyWaterPage> createState() => _DailyWaterPageState();
+  State<WeeklyWaterPage> createState() => _WeeklyWaterPageState();
 }
 
-class _DailyWaterPageState extends State<DailyWaterPage> {
-  final DailyWaterController controller = Get.put(DailyWaterController());
+class _WeeklyWaterPageState extends State<WeeklyWaterPage> {
+  final WeeklyWaterController controller = Get.put(WeeklyWaterController());
 
   @override
   void initState() {
@@ -24,7 +25,7 @@ class _DailyWaterPageState extends State<DailyWaterPage> {
     //   await controller.getPondActivations(
     //       pondId: controller.pond.id.toString());
     // });
-    controller.getDailyWaterData(context);
+    controller.getWeeklyWaterData(context);
   }
 
   @override
@@ -48,7 +49,7 @@ class _DailyWaterPageState extends State<DailyWaterPage> {
             ),
             TextButton(
               onPressed: () {
-                Get.to(() => DailyWaterAvgPage(), arguments: {
+                Get.to(() => WeeklyWaterAvgPage(), arguments: {
                   "pond": controller.pond,
                   "activation": controller.activation
                 });
@@ -72,15 +73,15 @@ class _DailyWaterPageState extends State<DailyWaterPage> {
       );
     }
 
-    Widget listDailyWater() {
+    Widget listWeeklyWater() {
       return Container(
           width: double.infinity,
           margin: EdgeInsets.only(right: defaultMargin, left: defaultMargin),
           child: Column(
-            children: controller.listDailyWater
+            children: controller.listWeeklyWater
                 .map(
-                  (dailyWaterList) => DailyWaterCard(
-                      dailyWaterList: dailyWaterList,
+                  (weeklyWaterList) => WeeklyWaterCard(
+                      weeklyWaterList: weeklyWaterList,
                       activation: controller.activation,
                       pond: controller.pond),
                 )
@@ -127,42 +128,12 @@ class _DailyWaterPageState extends State<DailyWaterPage> {
           ));
     }
 
-    Widget submitButton() {
-      return Container(
-        height: 50,
-        width: double.infinity,
-        margin: EdgeInsets.only(
-            top: defaultSpace * 3, right: defaultMargin, left: defaultMargin),
-        child: TextButton(
-          onPressed: () {
-            Get.to(() => DailyWaterAvgPage(), arguments: {
-              "pond": controller.pond,
-              "activation": controller.activation
-            });
-          },
-          style: TextButton.styleFrom(
-            backgroundColor: primaryColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-          child: Text(
-            'Submit',
-            style: primaryTextStyle.copyWith(
-              fontSize: 16,
-              fontWeight: medium,
-            ),
-          ),
-        ),
-      );
-    }
-
     return Obx(() {
       if (controller.isLoading.value == false) {
         return Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              Get.to(() => DailyWaterEntryPage(), arguments: {
+              Get.to(() => WeeklyWaterEntryPage(), arguments: {
                 "pond": controller.pond,
                 "activation": controller.activation
               });
@@ -174,10 +145,9 @@ class _DailyWaterPageState extends State<DailyWaterPage> {
           body: ListView(
             children: [
               fishDataRecap(),
-              // submitButton(),
-              controller.listDailyWater.isEmpty
+              controller.listWeeklyWater.isEmpty
                   ? emptyList()
-                  : listDailyWater(),
+                  : listWeeklyWater(),
               SizedBox(
                 height: 10,
               )
