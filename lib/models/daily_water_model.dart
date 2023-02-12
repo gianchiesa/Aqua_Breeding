@@ -57,6 +57,7 @@ class DailyWater {
     String newStringDate = DateFormat("EEEE").format(dateTime);
     return newStringDate;
   }
+
 //   static DateTime stringToDate(String dateString) {
 //     DateTime parseDate = DateFormat("dd-MM-yyyy").parse(dateString);
 //     return parseDate;

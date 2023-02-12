@@ -86,4 +86,72 @@ class DailyWaterService {
       return false;
     }
   }
+
+  Future<bool> editDailyWater(
+      {required String? dailywaterId,
+      required String? ph,
+      required String? numDo,
+      required String? temperature}) async {
+    print({
+      "ph": ph,
+      "do": numDo,
+      "temperature": temperature,
+    });
+    final response = await http.put(
+      Uri.parse(Urls.dailyWaterbyid(dailywaterId)),
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      encoding: Encoding.getByName('utf-8'),
+      body: {
+        "ph": ph,
+        "do": numDo,
+        "temperature": temperature,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      print(response.body);
+      return true;
+    } else {
+      print(response.body);
+      return false;
+    }
+  }
+
+  Future<DailyWater> DeleteDatas({required String dailywaterId}) async {
+    var url = Uri.parse(Urls.dailyWaterbyid(dailywaterId));
+    var headers = {'Content-Type': 'application/json'};
+
+    var response = await http.delete(url, headers: headers);
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      return DailyWater.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Gagal Get Ponds!');
+    }
+  }
+
+  Future<List<DailyWater>> getDatas({required String dailywaterId}) async {
+    var url = Uri.parse(Urls.dailyWaterbyid(dailywaterId));
+    var headers = {'Content-Type': 'application/json'};
+
+    var response = await http.get(url, headers: headers);
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      List<DailyWater> ponds = [];
+      ponds.add(DailyWater.fromJson(data));
+
+      print(ponds);
+
+      return ponds;
+    } else {
+      throw Exception('Gagal Get Ponds!');
+    }
+  }
 }

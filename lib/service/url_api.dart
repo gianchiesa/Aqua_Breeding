@@ -14,7 +14,8 @@ class Urls {
   // Post Activation
   static String pondActivation(String? pondId) =>
       '$baseUrl/ponds/$pondId/activation';
-
+  static String pondDeactivation(String? pondId) =>
+      '$baseUrl/ponds/$pondId/closing';
   // Feed Type
   static const String feedType = '$baseUrl/feedtypes';
 
@@ -44,9 +45,10 @@ class Urls {
   static String pondTreatment(String? activationId) =>
       '$baseUrl/fishdeath/activation/$activationId';
 
-  static String pondDeactivation(String? pondId) =>
-      '$baseUrl/ponds/$pondId/closing';
-
+  //Water Quality
   static String dailyWater = '$baseUrl/dailywaterquality';
   static String weeklyWater = '$baseUrl/weeklywaterquality';
+
+  static String dailyWaterbyid(String? dailywaterId) =>
+      '$baseUrl/dailywaterquality/$dailywaterId';
 }

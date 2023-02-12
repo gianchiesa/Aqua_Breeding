@@ -28,24 +28,6 @@ class WeeklyWaterService {
     }
   }
 
-  // Future<void> getPondDetail({required String pondId}) async {
-  //   var url = Uri.parse(Urls.pond(pondId));
-  //   var headers = {'Content-Type': 'application/json'};
-
-  //   var response = await http.get(url, headers: headers);
-
-  //   print(response.body);
-
-  //   if (response.statusCode == 200) {
-  //     var data = jsonDecode(response.body);
-  //     // Pond pond = Pond.fromJson(data);
-  //     // print(pond);
-
-  //     // return pond;
-  //   } else {
-  //     throw Exception('Gagal Get Detial Pond!');
-  //   }
-  // }
   Future<bool> postWeeklyWater({
     required String? pondId,
     required String? activationId,

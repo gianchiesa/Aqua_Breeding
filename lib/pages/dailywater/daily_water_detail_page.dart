@@ -1,16 +1,37 @@
 import 'package:fish/controllers/daily_water/daily_water_detail_controller.dart';
+import 'package:fish/pages/dailywater/daily_water_edit_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
 import 'package:get/get.dart';
 
-class DailyWaterDetailPage extends StatelessWidget {
+import '../../controllers/daily_water/daily_water_controller.dart';
+import '../../models/daily_water_model.dart';
+
+class DailyWaterDetailPage extends StatefulWidget {
   const DailyWaterDetailPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final DailyWaterDetailController controller =
-        Get.put(DailyWaterDetailController());
+  State<DailyWaterDetailPage> createState() => _DailyWaterDetailPageState();
+}
 
+@override
+class _DailyWaterDetailPageState extends State<DailyWaterDetailPage> {
+  final DailyWaterDetailController controller =
+      Get.put(DailyWaterDetailController());
+  final DailyWaterController dailyWaterControlller =
+      Get.put(DailyWaterController());
+  @override
+  void initState() {
+    super.initState();
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+    //   await controller.getPondActivations(
+    //       pondId: controller.pond.id.toString());
+    // });
+    controller.getDailyWaterData(context, controller.dailyWater.id.toString());
+  }
+
+  @override
+  Widget build(BuildContext context) {
     Widget treatmentDataRecap() {
       return Container(
         margin: EdgeInsets.only(
@@ -70,9 +91,6 @@ class DailyWaterDetailPage extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
-                SizedBox(
-                  height: 20,
-                ),
               ],
             ),
           ],
@@ -99,6 +117,54 @@ class DailyWaterDetailPage extends StatelessWidget {
                   ),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
+                ),
+                Row(
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Get.to(() => DailyWaterEditPage(), arguments: {
+                          'pond': controller.pond,
+                          'activation': controller.activation,
+                          'dailywater': controller.dailyWater
+                        });
+                      },
+                      style: TextButton.styleFrom(
+                        fixedSize: const Size(300, 40),
+                        backgroundColor: primaryColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      child: Text(
+                        'Edit Data',
+                        style: primaryTextStyle.copyWith(
+                          fontSize: 16,
+                          fontWeight: medium,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    TextButton(
+                        onPressed: () async {
+                          // Get.back();
+                          await controller.deleteDailyWaterData(
+                              context, controller.dailyWater.id.toString());
+                          // controller.getWeek();
+                          dailyWaterControlller.getDailyWaterData(context);
+                        },
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.red.shade400,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: Icon(
+                          Icons.restore_from_trash,
+                          color: Colors.white,
+                        )),
+                  ],
                 ),
               ],
             ),
@@ -128,7 +194,7 @@ class DailyWaterDetailPage extends StatelessWidget {
                   maxLines: 1,
                 ),
                 Text(
-                  controller.dailyWater.getGmtToNormalDate(),
+                  controller.dailyWaterfix[0].getGmtToNormalDate(),
                   style: secondaryTextStyle.copyWith(
                     fontSize: 16,
                     fontWeight: medium,
@@ -165,10 +231,10 @@ class DailyWaterDetailPage extends StatelessWidget {
                   maxLines: 1,
                 ),
                 Text(
-                  "${controller.dailyWater.ph} " +
-                      "${controller.dailyWater.ph_desc}",
+                  "${controller.dailyWaterfix[0].ph} " +
+                      "${controller.dailyWaterfix[0].ph_desc}",
                   style: secondaryTextStyle.copyWith(
-                    color: controller.dailyWater.ph_desc == "normal"
+                    color: controller.dailyWaterfix[0].ph_desc == "normal"
                         ? Colors.green
                         : Colors.red.shade300,
                     fontSize: 16,
@@ -190,7 +256,7 @@ class DailyWaterDetailPage extends StatelessWidget {
                   maxLines: 1,
                 ),
                 Text(
-                  "${controller.dailyWater.temperature} " + "°C",
+                  "${controller.dailyWaterfix[0].temperature} " + "°C",
                   style: secondaryTextStyle.copyWith(
                     fontSize: 16,
                     fontWeight: medium,
@@ -213,12 +279,12 @@ class DailyWaterDetailPage extends StatelessWidget {
                   maxLines: 1,
                 ),
                 Text(
-                  "${controller.dailyWater.numDo} " +
-                      "${controller.dailyWater.numDo_desc}",
+                  "${controller.dailyWaterfix[0].numDo} " +
+                      "${controller.dailyWaterfix[0].numDo_desc}",
                   style: secondaryTextStyle.copyWith(
-                    color: controller.dailyWater.numDo_desc == "normal"
+                    color: controller.dailyWaterfix[0].numDo_desc == "normal"
                         ? Colors.green
-                        : controller.dailyWater.numDo_desc == "berbahaya"
+                        : controller.dailyWaterfix[0].numDo_desc == "berbahaya"
                             ? Colors.red.shade300
                             : Colors.amber,
                     fontSize: 16,
@@ -246,6 +312,16 @@ class DailyWaterDetailPage extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: backgroundColor2,
             title: const Text("Detail Kondisi Air Harian"),
+            leading: new IconButton(
+              icon: new Icon(Icons.arrow_back),
+              onPressed: () async {
+                // Get.back();
+
+                Navigator.pop(context);
+
+                dailyWaterControlller.getDailyWaterData(context);
+              },
+            ),
           ),
           backgroundColor: backgroundColor1,
           body: ListView(
