@@ -51,4 +51,7 @@ class Urls {
 
   static String dailyWaterbyid(String? dailywaterId) =>
       '$baseUrl/dailywaterquality/$dailywaterId';
+
+  //Fish Transfer
+  static String fishtransfer = '$baseUrl/fishtransfer';
 }

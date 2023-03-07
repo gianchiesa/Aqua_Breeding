@@ -1,5 +1,6 @@
 import 'package:fish/pages/pond/detail_breed_page.dart';
 import 'package:fish/pages/treatment/treatment_page.dart';
+import 'package:fish/pages/fish_transfer/fish_transfer_list_page.dart';
 import 'package:fish/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,13 +22,16 @@ class MyTabs extends GetxController with GetSingleTickerProviderStateMixin {
     ),
     Tab(
       text: 'Treatment',
+    ),
+    Tab(
+      text: 'Riwayat Sortir',
     )
   ];
 
   @override
   void onInit() {
     // TODO: implement onInit
-    controller = TabController(length: 2, vsync: this);
+    controller = TabController(length: 3, vsync: this);
     super.onInit();
   }
 
@@ -68,7 +72,7 @@ class MyTabScreen extends StatelessWidget {
       ),
       body: TabBarView(
         controller: _tabs.controller,
-        children: [DetailBreedPage(), TreatmentpPage()],
+        children: [DetailBreedPage(), TreatmentpPage(), FishTransferListPage()],
       ),
     );
   }

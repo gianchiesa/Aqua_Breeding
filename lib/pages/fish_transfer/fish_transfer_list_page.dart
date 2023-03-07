@@ -1,20 +1,19 @@
-import 'package:fish/models/fishDeath_model.dart';
-import 'package:fish/pages/component/treatment_card.dart';
-import 'package:fish/pages/treatment/treatment_controller.dart';
-import 'package:fish/pages/treatment/treatment_entry_page.dart';
+import 'package:fish/pages/component/transfer_card.dart';
+import 'package:fish/controllers/fish_transfer/fish_transfer_list_controller.dart';
+import 'package:fish/pages/fish_transfer/fish_transfer_entry_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
 import 'package:get/get.dart';
 
-class TreatmentpPage extends StatefulWidget {
-  TreatmentpPage({Key? key}) : super(key: key);
+class FishTransferListPage extends StatefulWidget {
+  FishTransferListPage({Key? key}) : super(key: key);
 
   @override
-  State<TreatmentpPage> createState() => _TreatmentPageState();
+  State<FishTransferListPage> createState() => _FishTransferListPageState();
 }
 
-class _TreatmentPageState extends State<TreatmentpPage> {
-  final TreatmentController controller = Get.put(TreatmentController());
+class _FishTransferListPageState extends State<FishTransferListPage> {
+  final TransferController controller = Get.put(TransferController());
 
   @override
   void initState() {
@@ -23,7 +22,7 @@ class _TreatmentPageState extends State<TreatmentpPage> {
     //   await controller.getPondActivations(
     //       pondId: controller.pond.id.toString());
     // });
-    controller.getTreatmentData(context);
+    controller.getTransfertData(context);
   }
 
   @override
@@ -58,15 +57,15 @@ class _TreatmentPageState extends State<TreatmentpPage> {
       );
     }
 
-    Widget listTreatment() {
+    Widget listTransfer() {
       return Container(
           width: double.infinity,
           margin: EdgeInsets.only(right: defaultMargin, left: defaultMargin),
           child: Column(
-            children: controller.listTreatmentTest
+            children: controller.listTransfer
                 .map(
-                  (treatmentList) => TreatmentCard(
-                      treatmentList: treatmentList,
+                  (transferList) => TransferCard(
+                      transferList: transferList,
                       activation: controller.activation,
                       pond: controller.pond),
                 )
@@ -74,7 +73,7 @@ class _TreatmentPageState extends State<TreatmentpPage> {
           ));
     }
 
-    Widget emptyListTreatment() {
+    Widget emptyListTransfer() {
       return Container(
           width: double.infinity,
           margin: EdgeInsets.only(right: defaultMargin, left: defaultMargin),
@@ -89,7 +88,7 @@ class _TreatmentPageState extends State<TreatmentpPage> {
               ),
               SizedBox(height: 20),
               Text(
-                "Kolam belum pernah dilakukan treatment",
+                "Kolam belum pernah melakukan transfer ikan",
                 style: primaryTextStyle.copyWith(
                   fontSize: 14,
                   fontWeight: bold,
@@ -100,7 +99,7 @@ class _TreatmentPageState extends State<TreatmentpPage> {
               ),
               SizedBox(height: 10),
               Text(
-                "Silahkan masukan treatment",
+                "Silahkan masukan transfer ikan",
                 style: secondaryTextStyle.copyWith(
                   fontSize: 13,
                   fontWeight: bold,
@@ -118,7 +117,7 @@ class _TreatmentPageState extends State<TreatmentpPage> {
         return Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              Get.to(() => TreatmentEntryPage(), arguments: {
+              Get.to(() => FishTransferEntryPage(), arguments: {
                 "pond": controller.pond,
                 "activation": controller.activation
               });
@@ -130,9 +129,9 @@ class _TreatmentPageState extends State<TreatmentpPage> {
           body: ListView(
             children: [
               fishDataRecap(),
-              controller.listTreatmentTest.isEmpty
-                  ? emptyListTreatment()
-                  : listTreatment(),
+              controller.listTransfer.isEmpty
+                  ? emptyListTransfer()
+                  : listTransfer(),
               SizedBox(
                 height: 10,
               )
