@@ -223,7 +223,6 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
                       controller.pondlistController
                           .setSelected(value.toString());
                       controller.getDestinationId(value.toString());
-                      print("controller.pondSelected");
                     }),
                     value: controller.pondlistController.selected.value,
                     items: controller.listPondName.map((type) {

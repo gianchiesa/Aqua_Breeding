@@ -115,9 +115,9 @@ class PondCard extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                             )
-                          : pond.pondPhDesc!.capitalize == "Normal"
+                          : pond.pondPhDesc == null
                               ? Text(
-                                  pond.pondPhDesc!.capitalize!,
+                                  "Belum Diukur",
                                   style: subtitleTextStyle.copyWith(
                                       fontSize: 16,
                                       fontWeight: bold,
@@ -125,25 +125,35 @@ class PondCard extends StatelessWidget {
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                 )
-                              : pond.pondPhDesc!.capitalize == "Berbahaya"
+                              : pond.pondPhDesc!.capitalize == "Normal"
                                   ? Text(
                                       pond.pondPhDesc!.capitalize!,
                                       style: subtitleTextStyle.copyWith(
                                           fontSize: 16,
                                           fontWeight: bold,
-                                          color: Colors.red.shade300),
+                                          color: Colors.green),
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 1,
                                     )
-                                  : Text(
-                                      pond.pondPhDesc!.capitalize!,
-                                      style: subtitleTextStyle.copyWith(
-                                        fontSize: 16,
-                                        fontWeight: regular,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
-                                    )
+                                  : pond.pondPhDesc!.capitalize == "Berbahaya"
+                                      ? Text(
+                                          pond.pondPhDesc!.capitalize!,
+                                          style: subtitleTextStyle.copyWith(
+                                              fontSize: 16,
+                                              fontWeight: bold,
+                                              color: Colors.red.shade300),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                        )
+                                      : Text(
+                                          pond.pondPhDesc!.capitalize!,
+                                          style: subtitleTextStyle.copyWith(
+                                            fontSize: 16,
+                                            fontWeight: regular,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                        )
                     ],
                   )
                 ],
@@ -196,9 +206,9 @@ class PondCard extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                             )
-                          : pond.pondDoDesc!.capitalize == "Normal"
+                          : pond.pondDoDesc == null
                               ? Text(
-                                  pond.pondDoDesc!.capitalize!,
+                                  "Belum Diukur",
                                   style: subtitleTextStyle.copyWith(
                                       fontSize: 16,
                                       fontWeight: bold,
@@ -206,36 +216,46 @@ class PondCard extends StatelessWidget {
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                 )
-                              : pond.pondDoDesc!.capitalize == "Berbahaya"
+                              : pond.pondDoDesc!.capitalize == "Normal"
                                   ? Text(
                                       pond.pondDoDesc!.capitalize!,
                                       style: subtitleTextStyle.copyWith(
                                           fontSize: 16,
                                           fontWeight: bold,
-                                          color: Colors.red.shade300),
+                                          color: Colors.green),
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 1,
                                     )
-                                  : pond.pondDoDesc!.capitalize ==
-                                          "Semi Berbahaya"
+                                  : pond.pondDoDesc!.capitalize == "Berbahaya"
                                       ? Text(
                                           pond.pondDoDesc!.capitalize!,
                                           style: subtitleTextStyle.copyWith(
                                               fontSize: 16,
                                               fontWeight: bold,
-                                              color: Colors.amber),
+                                              color: Colors.red.shade300),
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 1,
                                         )
-                                      : Text(
-                                          pond.pondDoDesc!.capitalize!,
-                                          style: subtitleTextStyle.copyWith(
-                                            fontSize: 16,
-                                            fontWeight: regular,
-                                          ),
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                        )
+                                      : pond.pondDoDesc!.capitalize ==
+                                              "Semi Berbahaya"
+                                          ? Text(
+                                              pond.pondDoDesc!.capitalize!,
+                                              style: subtitleTextStyle.copyWith(
+                                                  fontSize: 16,
+                                                  fontWeight: bold,
+                                                  color: Colors.amber),
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                            )
+                                          : Text(
+                                              pond.pondDoDesc!.capitalize!,
+                                              style: subtitleTextStyle.copyWith(
+                                                fontSize: 16,
+                                                fontWeight: regular,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                            )
                     ],
                   )
                 ],

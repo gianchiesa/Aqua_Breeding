@@ -34,11 +34,9 @@ class DailyWaterController extends GetxController {
     List<DailyWater> dailyWaterData = await DailyWaterService().getPonds();
     for (var i in dailyWaterData) {
       if (i.activationId == activation.id) {
-        print('daily Water get test');
         listDailyWater.add(i);
       }
     }
-    print(listDailyWater);
     // print(listTreatment.value);
     isLoading.value = false;
   }
@@ -49,7 +47,6 @@ class DailyWaterController extends GetxController {
     List<DailyWater> dailyWaterData = await DailyWaterService().getPonds();
     for (var i in dailyWaterData) {
       if (i.activationId == activation.id) {
-        print('daily Water get test');
         listDailyWater.add(i);
       }
     }

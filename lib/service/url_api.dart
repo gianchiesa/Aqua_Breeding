@@ -1,5 +1,5 @@
 class Urls {
-  // static const String baseUrl = 'http://jft.web.id/fishapi/api';
+  // static const String baseUrl = 'http://jft.web.id/fishapiv2/api';
   static const String baseUrl = 'http://10.0.2.2:5000/api';
 
   // Home
@@ -54,4 +54,12 @@ class Urls {
 
   //Fish Transfer
   static String fishtransfer = '$baseUrl/fishtransfer';
+
+  //auth
+  static String authentication = '$baseUrl/login';
+  static String register = '$baseUrl/register';
+
+  //user
+  static String breeder = '$baseUrl/breeder';
+  static String farm = '$baseUrl/farm';
 }

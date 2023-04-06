@@ -22,9 +22,25 @@ class HomePage extends StatelessWidget {
           right: defaultMargin,
         ),
         child: Text(
-          'Home',
+          'Selamat Datang',
           style: primaryTextStyle.copyWith(
             fontSize: 24,
+            fontWeight: semiBold,
+          ),
+        ),
+      );
+    }
+
+    Widget username() {
+      return Container(
+        margin: EdgeInsets.only(
+          left: defaultMargin,
+          right: defaultMargin,
+        ),
+        child: Text(
+          controller.username,
+          style: secondaryTextStyle.copyWith(
+            fontSize: 20,
             fontWeight: semiBold,
           ),
         ),
@@ -224,14 +240,44 @@ class HomePage extends StatelessWidget {
       );
     }
 
+    Widget logoutButton() {
+      return Container(
+        height: 50,
+        width: double.infinity,
+        margin: EdgeInsets.only(
+            top: defaultSpace * 3, right: defaultMargin, left: defaultMargin),
+        child: TextButton(
+          onPressed: () {
+            // Get.back();
+            controller.deleteToken();
+            // controller.getWeek();
+          },
+          style: TextButton.styleFrom(
+            backgroundColor: primaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          child: Text(
+            'Submit',
+            style: primaryTextStyle.copyWith(
+              fontSize: 16,
+              fontWeight: medium,
+            ),
+          ),
+        ),
+      );
+    }
+
     return Obx(() {
       if (controller.isLoading.value == false) {
         return ListView(
           children: [
             title(),
+            username(),
             statistic(),
-            fishTitle(),
-            fish(),
+            // fishTitle(),
+            // fish(),
             waterTitle(),
             water(),
             SizedBox(

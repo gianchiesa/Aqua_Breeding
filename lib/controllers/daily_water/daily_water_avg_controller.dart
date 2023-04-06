@@ -34,11 +34,9 @@ class DailyWaterAvgController extends GetxController {
     List<DailyWater> dailyWaterData = await DailyWaterService().getPonds();
     for (var i in dailyWaterData) {
       if (i.activationId == activation.id) {
-        print('daily Water get test');
         listDailyWater.add(i);
       }
     }
-    print(listDailyWater);
     formattedList(listDailyWater);
     // print(listTreatment.value);
     isLoading.value = false;
@@ -50,7 +48,6 @@ class DailyWaterAvgController extends GetxController {
     List<DailyWater> dailyWaterData = await DailyWaterService().getPonds();
     for (var i in dailyWaterData) {
       if (i.activationId == activation.id) {
-        print('daily Water get test');
         listDailyWater.add(i);
       }
     }
@@ -87,7 +84,6 @@ class DailyWaterAvgController extends GetxController {
         "temperature": obj[key]["temperature"] / obj[key]["count"]
       });
     }
-    print(sol);
     return sol;
   }
 }

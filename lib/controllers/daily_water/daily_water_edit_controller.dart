@@ -29,13 +29,13 @@ class DailyWaterEditController extends GetxController {
 
   Future<void> editDailyWaterData(
       BuildContext context, Function doInPost) async {
+    // ignore: unused_local_variable
     bool value = await DailyWaterService().editDailyWater(
         dailywaterId: dailyWater.id,
         ph: phController.value.text,
         numDo: doController.value.text,
         // week: getWeek().toString(),
         temperature: temperatureController.value.text);
-    print(value);
     doInPost();
   }
   // @override

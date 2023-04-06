@@ -1,19 +1,16 @@
 import 'dart:convert';
+import 'package:fish/models/farm_model.dart';
 import 'package:fish/models/pond_model.dart';
 import 'package:fish/service/url_api.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-class PondService {
-  Future<List<Pond>> getPonds() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token = prefs.getString('token').toString();
-    var url = Uri.parse(Urls.ponds);
+class UserService {
+  Future<List<Farm>> getFarm() async {
+    var url = Uri.parse(Urls.farm);
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token'
     };
 
     var response = await http.get(url, headers: headers);
@@ -22,36 +19,17 @@ class PondService {
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      List<Pond> ponds = [];
+      List<Farm> farm = [];
 
       for (var item in data) {
-        ponds.add(Pond.fromJson(item));
+        farm.add(Farm.fromJson(item));
       }
 
-      print(ponds);
+      print(farm);
 
-      return ponds;
+      return farm;
     } else {
-      throw Exception('Gagal Get Ponds!');
-    }
-  }
-
-  Future<void> getPondDetail({required String pondId}) async {
-    var url = Uri.parse(Urls.pond(pondId));
-    var headers = {'Content-Type': 'application/json'};
-
-    var response = await http.get(url, headers: headers);
-
-    print(response.body);
-
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      // Pond pond = Pond.fromJson(data);
-      // print(pond);
-
-      // return pond;
-    } else {
-      throw Exception('Gagal Get Detial Pond!');
+      throw Exception('Gagal Get farm!');
     }
   }
 
