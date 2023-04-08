@@ -5,6 +5,7 @@ import 'package:fish/pages/dashboard.dart';
 import 'package:fish/service/pond_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'material_controller.dart';
 import 'shape_controller.dart';
@@ -13,9 +14,10 @@ class PondController extends GetxController {
   var isLoading = false.obs;
   final ponds = <Pond>[].obs;
   final pondFiltered = <Pond>[].obs;
+  String token = '';
   String status = "Tidak Aktif";
   bool chipSelected = false;
-
+  // SharedPreferences prefs = await SharedPreferences.getInstance();
   TextEditingController aliasController = TextEditingController(text: '');
   TextEditingController locationController = TextEditingController(text: '');
   MaterialController materialController = MaterialController();
@@ -26,6 +28,10 @@ class PondController extends GetxController {
   TextEditingController heightController = TextEditingController(text: '0');
 
   Future<void> getPondsData(BuildContext context) async {
+    WidgetsFlutterBinding.ensureInitialized();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString('token').toString();
+    print(token);
     isLoading.value = true;
     ponds.clear();
     List<Pond> pondsData = await PondService().getPonds();

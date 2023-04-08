@@ -74,9 +74,7 @@ class _RegisterPageState extends State<RegisterPage> {
       var myToken = data['access_token'];
       prefs.setString('token', myToken);
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => DashboardPage(token: myToken)));
+          context, MaterialPageRoute(builder: (context) => DashboardPage()));
       print(response.body);
     } else {
       print(response.body);

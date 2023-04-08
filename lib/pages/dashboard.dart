@@ -15,8 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'authentication/profile_page.dart';
 
 class DashboardPage extends StatefulWidget {
-  final token;
-  const DashboardPage({@required this.token, Key? key}) : super(key: key);
+  const DashboardPage({Key? key}) : super(key: key);
   @override
   State<DashboardPage> createState() => _DashboardPageState();
 }
@@ -26,8 +25,6 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   void initState() {
     super.initState();
-    Map<String, dynamic> jwtdecoderToken = JwtDecoder.decode(widget.token);
-    username = jwtdecoderToken['token'].toString();
   }
 
   @override

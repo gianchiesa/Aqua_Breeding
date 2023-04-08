@@ -44,8 +44,8 @@ class _LoginPageState extends State<LoginPage> {
       },
       encoding: Encoding.getByName('utf-8'),
       body: {
-        "username": "andriR",
-        "password": "12345678",
+        "username": controller.usernameController.text,
+        "password": controller.passwordController.text,
       },
     );
     var data = jsonDecode(response.body);
@@ -58,9 +58,7 @@ class _LoginPageState extends State<LoginPage> {
         myToken,
       );
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => DashboardPage(token: myToken)));
+          context, MaterialPageRoute(builder: (context) => DashboardPage()));
       print(response.body);
     } else {
       print(response.body);

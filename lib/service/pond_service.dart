@@ -65,10 +65,14 @@ class PondService {
       required String? diameter,
       required String? height,
       required String? status}) async {
+    WidgetsFlutterBinding.ensureInitialized();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('token').toString();
     final response = await http.post(
       Uri.parse(Urls.ponds),
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
+        'Authorization': 'Bearer $token'
       },
       encoding: Encoding.getByName('utf-8'),
       body: {

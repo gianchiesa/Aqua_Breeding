@@ -5,42 +5,15 @@ import 'package:fish/controllers/authentication/register_controller.dart';
 import 'package:fish/pages/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:fish/service/url_api.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import 'package:http/http.dart' as http;
-
 import '../../controllers/authentication/profile_controller.dart';
-import '../component/login_card_input.dart';
-import '../component/register_input.dart';
-import '../component/register_input_next.dart';
 import 'login_page.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends StatelessWidget {
   ProfilePage({Key? key}) : super(key: key);
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
-  late SharedPreferences prefs;
   final ProfileController controller = Get.put(ProfileController());
-
-  final pageController = PageController(initialPage: 0);
-  @override
-  void dispose() {
-    pageController.dispose();
-
-    super.dispose();
-  }
-
-  void initState() {
-    super.initState();
-    controller.getBreeder();
-  }
 
   @override
   Widget build(BuildContext context) {

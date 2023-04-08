@@ -25,9 +25,7 @@ class SplashController extends GetxController {
         bool hasExpired = JwtDecoder.isExpired(token);
         print(hasExpired);
         if (hasExpired != true) {
-          Get.off(DashboardPage(
-            token: token,
-          ));
+          Get.off(DashboardPage());
         } else {
           prefs.clear();
           Get.off(LoginPage());

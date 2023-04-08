@@ -73,6 +73,7 @@ class _PondPageState extends State<PondPage> {
                     _value = selected ? index : null;
                     if (_value == null) {
                       controller.getPondsData(context);
+                      // return null;
                     } else {
                       controller.getPondsFiltered(chip[index]);
                     }
@@ -103,6 +104,45 @@ class _PondPageState extends State<PondPage> {
       );
     }
 
+    Widget emptyListPond() {
+      return Container(
+          width: double.infinity,
+          margin: EdgeInsets.only(right: defaultMargin, left: defaultMargin),
+          child: Center(
+            child: Column(children: [
+              SizedBox(height: 35),
+              Image(
+                image: AssetImage("assets/unavailable_icon.png"),
+                width: 100,
+                height: 100,
+                fit: BoxFit.fitWidth,
+              ),
+              SizedBox(height: 20),
+              Text(
+                "Anda belum pernah melakukan registrasi kolam",
+                style: primaryTextStyle.copyWith(
+                  fontSize: 14,
+                  fontWeight: bold,
+                ),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+              SizedBox(height: 10),
+              Text(
+                "Silahkan registrasi kolam",
+                style: secondaryTextStyle.copyWith(
+                  fontSize: 13,
+                  fontWeight: bold,
+                ),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+            ]),
+          ));
+    }
+
     return Obx(() {
       if (controller.isLoading.value == false) {
         return Scaffold(
@@ -118,7 +158,7 @@ class _PondPageState extends State<PondPage> {
             children: [
               title(),
               filter(),
-              pondList(),
+              controller.ponds.isEmpty ? emptyListPond() : pondList(),
               SizedBox(
                 height: 10,
               )

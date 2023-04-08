@@ -10,6 +10,12 @@ class ProfileController extends GetxController {
   var isLoading = false.obs;
   final breeder = <Breeder>[].obs;
 
+  @override
+  void onInit() async {
+    getBreeder();
+    super.onInit();
+  }
+
   Future<void> deleteToken() async {
     WidgetsFlutterBinding.ensureInitialized();
     SharedPreferences prefs = await SharedPreferences.getInstance();
