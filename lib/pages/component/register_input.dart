@@ -63,16 +63,21 @@ class RegisterInputCard extends StatelessWidget {
               color: backgroundColor2,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Center(
-              child: TextFormField(
+            child: Center(child: Obx(() {
+              return TextFormField(
                 style: primaryTextStyle,
+                onChanged: controller.usernameChanged,
+                onTap: controller.valusername,
                 controller: controller.usernameController,
-                decoration: InputDecoration.collapsed(
-                  hintText: 'Username',
-                  hintStyle: subtitleTextStyle,
-                ),
-              ),
-            ),
+                decoration: controller.validateusername.value == true
+                    ? controller.username == ''
+                        ? InputDecoration(
+                            errorText: 'username tidak boleh kosong',
+                            isCollapsed: true)
+                        : null
+                    : null,
+              );
+            })),
           ),
           SizedBox(
             height: 10,
@@ -107,13 +112,22 @@ class RegisterInputCard extends StatelessWidget {
               color: backgroundColor2,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Center(
-              child: TextFormField(
+            child: Center(child: Obx(() {
+              return TextFormField(
                 style: primaryTextStyle,
-                controller: controller.passwordController,
+                onChanged: controller.passwordChanged,
+                onTap: controller.valpassword,
                 obscureText: true,
-              ),
-            ),
+                controller: controller.passwordController,
+                decoration: controller.validatepassword.value == true
+                    ? controller.password == ''
+                        ? InputDecoration(
+                            errorText: 'Password tidak boleh kosong',
+                            isCollapsed: true)
+                        : null
+                    : null,
+              );
+            })),
           ),
           SizedBox(
             height: 10,
@@ -148,12 +162,21 @@ class RegisterInputCard extends StatelessWidget {
               color: backgroundColor2,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Center(
-              child: TextFormField(
+            child: Center(child: Obx(() {
+              return TextFormField(
                 style: primaryTextStyle,
+                onChanged: controller.nameChanged,
+                onTap: controller.valname,
                 controller: controller.nameController,
-              ),
-            ),
+                decoration: controller.validatename.value == true
+                    ? controller.name == ''
+                        ? InputDecoration(
+                            errorText: 'Nama tidak boleh kosong',
+                            isCollapsed: true)
+                        : null
+                    : null,
+              );
+            })),
           ),
           SizedBox(
             height: 10,
@@ -188,12 +211,21 @@ class RegisterInputCard extends StatelessWidget {
               color: backgroundColor2,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Center(
-              child: TextFormField(
+            child: Center(child: Obx(() {
+              return TextFormField(
                 style: primaryTextStyle,
+                onChanged: controller.phoneChanged,
+                onTap: controller.valphone,
                 controller: controller.phoneController,
-              ),
-            ),
+                decoration: controller.validatephone.value == true
+                    ? controller.phone == ''
+                        ? InputDecoration(
+                            errorText: 'Phone tidak boleh kosong',
+                            isCollapsed: true)
+                        : null
+                    : null,
+              );
+            })),
           ),
           SizedBox(
             height: 10,
@@ -228,12 +260,21 @@ class RegisterInputCard extends StatelessWidget {
               color: backgroundColor2,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Center(
-              child: TextFormField(
+            child: Center(child: Obx(() {
+              return TextFormField(
                 style: primaryTextStyle,
+                onChanged: controller.nikChanged,
+                onTap: controller.valnik,
                 controller: controller.nikController,
-              ),
-            ),
+                decoration: controller.validatenik.value == true
+                    ? controller.nik == ''
+                        ? InputDecoration(
+                            errorText: 'NIK tidak boleh kosong',
+                            isCollapsed: true)
+                        : null
+                    : null,
+              );
+            })),
           ),
           SizedBox(
             height: 10,
@@ -247,9 +288,15 @@ class RegisterInputCard extends StatelessWidget {
             child: TextButton(
               onPressed: () {
                 // Get.back();
-                pageController.nextPage(
-                    duration: const Duration(seconds: 1),
-                    curve: Curves.easeInOut);
+                controller.usernameController.text == "" ||
+                        controller.passwordController.text == "" ||
+                        controller.phoneController.text == "" ||
+                        controller.nameController.text == "" ||
+                        controller.nikController.text == ""
+                    ? null
+                    : pageController.nextPage(
+                        duration: const Duration(seconds: 1),
+                        curve: Curves.easeInOut);
                 // controller.getWeek();
               },
               style: TextButton.styleFrom(

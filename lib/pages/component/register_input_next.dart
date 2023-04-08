@@ -200,12 +200,21 @@ class RegisterNextInputCard extends StatelessWidget {
                         color: backgroundColor2,
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Center(
-                        child: TextFormField(
+                      child: Center(child: Obx(() {
+                        return TextFormField(
                           style: primaryTextStyle,
+                          onChanged: controller.farmNameChanged,
+                          onTap: controller.valfarmName,
                           controller: controller.farmnameController,
-                        ),
-                      ),
+                          decoration: controller.validatefarmName.value == true
+                              ? controller.farmName == ''
+                                  ? InputDecoration(
+                                      errorText: 'farmName tidak boleh kosong',
+                                      isCollapsed: true)
+                                  : null
+                              : null,
+                        );
+                      })),
                     )
                   : SizedBox(
                       height: 0,
@@ -256,12 +265,21 @@ class RegisterNextInputCard extends StatelessWidget {
                         color: backgroundColor2,
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Center(
-                        child: TextFormField(
+                      child: Center(child: Obx(() {
+                        return TextFormField(
                           style: primaryTextStyle,
+                          onChanged: controller.addressChanged,
+                          onTap: controller.valaddress,
                           controller: controller.addressController,
-                        ),
-                      ),
+                          decoration: controller.validateaddress.value == true
+                              ? controller.address == ''
+                                  ? InputDecoration(
+                                      errorText: 'address tidak boleh kosong',
+                                      isCollapsed: true)
+                                  : null
+                              : null,
+                        );
+                      })),
                     )
                   : SizedBox(
                       height: 0,
@@ -279,7 +297,7 @@ class RegisterNextInputCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          'Jumlah Pembudidaya',
+                          'Jumlah Pembudidaya (Opsional)',
                           style: primaryTextStyle.copyWith(
                             fontSize: 16,
                             fontWeight: medium,
@@ -391,25 +409,63 @@ class RegisterNextInputCard extends StatelessWidget {
                 margin: EdgeInsets.only(
                   top: defaultMargin / 2,
                 ),
-                child: TextButton(
-                  onPressed: () {
-                    // Get.back();
-                    registerfunc.call();
-                    // controller.getWeek();
-                  },
-                  style: TextButton.styleFrom(
-                    backgroundColor: primaryColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () => pageController.previousPage(
+                            duration: const Duration(seconds: 1),
+                            curve: Curves.easeInOut),
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.red.shade400,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: Text(
+                          'Kembali',
+                          style: primaryTextStyle.copyWith(
+                            fontSize: 16,
+                            fontWeight: medium,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                  child: Text(
-                    'Register',
-                    style: primaryTextStyle.copyWith(
-                      fontSize: 16,
-                      fontWeight: medium,
-                    ),
-                  ),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () {
+                          controller.hasFarmController.selected.value ==
+                                      "Sudah" &&
+                                  controller
+                                          .farmlistController.selected.value ==
+                                      "Pilih Tempat Budidaya"
+                              ? null
+                              : controller.hasFarmController.selected.value ==
+                                              "Belum" &&
+                                          controller.farmnameController.text ==
+                                              '' ||
+                                      controller.addressController.text == ''
+                                  ? null
+                                  : registerfunc.call();
+                        },
+                        style: TextButton.styleFrom(
+                          backgroundColor: primaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: Text(
+                          'Register',
+                          style: primaryTextStyle.copyWith(
+                            fontSize: 16,
+                            fontWeight: medium,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
               SizedBox(

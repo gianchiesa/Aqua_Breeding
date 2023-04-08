@@ -276,8 +276,6 @@ class HomePage extends StatelessWidget {
             title(),
             username(),
             statistic(),
-            // fishTitle(),
-            // fish(),
             waterTitle(),
             water(),
             SizedBox(

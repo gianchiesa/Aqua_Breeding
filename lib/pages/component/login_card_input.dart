@@ -1,17 +1,8 @@
-import 'package:fish/models/fish_model.dart';
-import 'package:fish/pages/authentication/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:fish/service/url_api.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 
 import '../../controllers/authentication/login_controller.dart';
-import '../../controllers/fish_transfer/fish_transfer_entry_controller.dart';
-import '../dashboard.dart';
 
 class LoginInputCard extends StatelessWidget {
   final VoidCallback loginfunc;
@@ -70,16 +61,21 @@ class LoginInputCard extends StatelessWidget {
               color: backgroundColor2,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Center(
-              child: TextFormField(
+            child: Center(child: Obx(() {
+              return TextFormField(
                 style: primaryTextStyle,
+                onChanged: controller.usernameChanged,
+                onTap: controller.valusername,
                 controller: controller.usernameController,
-                decoration: InputDecoration.collapsed(
-                  hintText: 'Username',
-                  hintStyle: subtitleTextStyle,
-                ),
-              ),
-            ),
+                decoration: controller.validateusername.value == true
+                    ? controller.username == ''
+                        ? InputDecoration(
+                            errorText: 'username tidak boleh kosong',
+                            isCollapsed: true)
+                        : null
+                    : null,
+              );
+            })),
           ),
           SizedBox(
             height: 10,
@@ -114,13 +110,22 @@ class LoginInputCard extends StatelessWidget {
               color: backgroundColor2,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Center(
-              child: TextFormField(
+            child: Center(child: Obx(() {
+              return TextFormField(
                 style: primaryTextStyle,
+                onChanged: controller.passwordChanged,
+                onTap: controller.valpassword,
                 controller: controller.passwordController,
                 obscureText: true,
-              ),
-            ),
+                decoration: controller.validatepassword.value == true
+                    ? controller.password == ''
+                        ? InputDecoration(
+                            errorText: 'Password tidak boleh kosong',
+                            isCollapsed: true)
+                        : null
+                    : null,
+              );
+            })),
           ),
           SizedBox(
             height: 12,
@@ -134,7 +139,10 @@ class LoginInputCard extends StatelessWidget {
             child: TextButton(
               onPressed: () {
                 // Get.back();
-                loginfunc.call();
+                controller.usernameController.text == '' ||
+                        controller.passwordController.text == ''
+                    ? null
+                    : loginfunc.call();
                 // controller.getWeek();
               },
               style: TextButton.styleFrom(

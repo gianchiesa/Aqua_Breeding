@@ -197,7 +197,10 @@ class _ProfilePageState extends State<ProfilePage> {
         child: TextButton(
           onPressed: () {
             // Get.back();
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => LoginPage()));
             controller.deleteToken();
+
             // controller.getWeek();
           },
           style: TextButton.styleFrom(

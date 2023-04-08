@@ -26,6 +26,77 @@ class RegisterController extends GetxController {
   var farmIdSelected = "";
   bool farmRegistered = true;
 
+  final username = ''.obs;
+  final password = ''.obs;
+  final nik = ''.obs;
+  final phone = ''.obs;
+  final name = ''.obs;
+  final farmName = ''.obs;
+  final address = ''.obs;
+  final validateaddress = false.obs;
+  final validatefarmName = false.obs;
+  final validateusername = false.obs;
+  final validatepassword = false.obs;
+  final validatenik = false.obs;
+  final validatename = false.obs;
+  final validatephone = false.obs;
+
+  void passwordChanged(String val) {
+    password.value = val;
+  }
+
+  void usernameChanged(String val) {
+    username.value = val;
+  }
+
+  void valusername() {
+    validateusername.value = true;
+  }
+
+  void valpassword() {
+    validatepassword.value = true;
+  }
+
+  void nikChanged(String val) {
+    nik.value = val;
+  }
+
+  void nameChanged(String val) {
+    name.value = val;
+  }
+
+  void valname() {
+    validatename.value = true;
+  }
+
+  void valnik() {
+    validatenik.value = true;
+  }
+
+  void phoneChanged(String val) {
+    phone.value = val;
+  }
+
+  void valphone() {
+    validatephone.value = true;
+  }
+
+  void farmNameChanged(String val) {
+    farmName.value = val;
+  }
+
+  void valfarmName() {
+    validatefarmName.value = true;
+  }
+
+  void addressChanged(String val) {
+    address.value = val;
+  }
+
+  void valaddress() {
+    validateaddress.value = true;
+  }
+
   Future<void> getFarmData() async {
     isLoading.value = true;
     listFarmName.clear();

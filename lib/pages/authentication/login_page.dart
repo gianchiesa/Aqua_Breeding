@@ -44,8 +44,8 @@ class _LoginPageState extends State<LoginPage> {
       },
       encoding: Encoding.getByName('utf-8'),
       body: {
-        "username": controller.usernameController.text,
-        "password": controller.passwordController.text,
+        "username": "andriR",
+        "password": "12345678",
       },
     );
     var data = jsonDecode(response.body);
