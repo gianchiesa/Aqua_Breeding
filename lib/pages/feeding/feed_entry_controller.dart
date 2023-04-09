@@ -4,11 +4,24 @@ import 'package:fish/service/feed_history_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../models/activation_model.dart';
+
 class FeedEntryController extends GetxController {
   FeedTypeFormController feedTypeFormController = FeedTypeFormController();
   TextEditingController feedDosisController = TextEditingController(text: '');
   var isLoading = false.obs;
   Pond pond = Get.arguments()['pond'];
+  Activation activation = Get.arguments()["activation"];
+  final dose = ''.obs;
+  final validatedose = false.obs;
+
+  void doseChanged(String val) {
+    dose.value = val;
+  }
+
+  void valdose() {
+    validatedose.value = true;
+  }
 
   @override
   void onInit() async {

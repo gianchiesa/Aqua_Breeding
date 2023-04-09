@@ -23,6 +23,8 @@ class Urls {
   static const String feedhistorys = '$baseUrl/feedhistorys';
   static String feedHistoryMonthly(String? activationId) =>
       '$baseUrl/feedhistorys/month/$activationId';
+  static String feedChartApi(String? activationId) =>
+      '$baseUrl/feedhistoryforchart/$activationId';
   static String feedHistoryWeekly(String? activationId, month) =>
       '$baseUrl/feedhistorys/week/$activationId/$month';
   static String feedHistoryDaily(String? activationId, week) =>

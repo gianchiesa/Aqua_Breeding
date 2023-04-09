@@ -240,13 +240,20 @@ class WeeklyWaterEntryPage extends StatelessWidget {
         child: TextButton(
           onPressed: () async {
             // Get.back();
-            await controller.postWeeklyWaterData(
-              context,
-              () {
-                Navigator.pop(context);
-              },
-            );
-            weeklyWaterControlller.getWeeklyWaterData(context);
+            controller.amoniaController.text == "" &&
+                    controller.nitrateController.text == "" &&
+                    controller.flocController.text == "" &&
+                    controller.nitriteController.text == "" &&
+                    controller.hardnessController.text == ""
+                ? null
+                : await controller.postWeeklyWaterData(
+                    context,
+                    () {
+                      Navigator.pop(context);
+                      weeklyWaterControlller.getWeeklyWaterData(context);
+                    },
+                  );
+
             // controller.getWeek();
           },
           style: TextButton.styleFrom(

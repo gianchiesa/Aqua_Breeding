@@ -4,6 +4,8 @@ import 'package:fish/theme.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import 'fish_recap_controller.dart';
+
 class FishDeathEntryPage extends StatelessWidget {
   const FishDeathEntryPage({Key? key}) : super(key: key);
 
@@ -12,6 +14,7 @@ class FishDeathEntryPage extends StatelessWidget {
     final FishDeathEntryController controller =
         Get.put(FishDeathEntryController());
 
+    final FishRecapController deathcontroller = Get.put(FishRecapController());
     Widget fishTypeInput() {
       return Container(
         margin: EdgeInsets.only(
@@ -88,20 +91,25 @@ class FishDeathEntryPage extends StatelessWidget {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
                   ],
                   keyboardType: TextInputType.number,
+                  onChanged: controller.fishamountChanged,
+                  onTap: controller.valfishamount,
                   controller: controller.formDeathController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'ex: 20',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration: controller.validatefishamount.value == true
+                      ? controller.fishamount == ''
+                          ? InputDecoration(
+                              errorText: 'jumlah ikan tidak boleh kosong',
+                              isCollapsed: true)
+                          : null
+                      : null,
+                );
+              })),
             ),
           ],
         ),
@@ -115,8 +123,16 @@ class FishDeathEntryPage extends StatelessWidget {
         margin: EdgeInsets.only(
             top: defaultSpace * 3, right: defaultMargin, left: defaultMargin),
         child: TextButton(
-          onPressed: () {
+          onPressed: () async {
+            controller.formDeathController.text == ""
+                ? null
+                : Navigator.pop(context);
             controller.postFishDeath();
+            deathcontroller.getFishDeaths(
+                activation_id: controller.activation.id.toString());
+            deathcontroller.getcharData(
+                activation_id: controller.activation.id.toString());
+            print(deathcontroller.charData);
           },
           style: TextButton.styleFrom(
             backgroundColor: primaryColor,

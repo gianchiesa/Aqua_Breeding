@@ -1,20 +1,13 @@
 import 'package:fish/models/FeedHistoryMonthly.dart';
 import 'package:fish/models/activation_model.dart';
+import 'package:fish/models/feed_chart_model.dart';
 import 'package:fish/models/pond_model.dart';
 import 'package:fish/service/feed_history_service.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class FeedController extends GetxController {
-  final List<FeedData> charData = [
-    FeedData(1, 'Hari Ke-1'),
-    FeedData(2, 'Hari Ke-2'),
-    FeedData(3, 'Hari Ke-3'),
-    FeedData(4, 'Hari Ke-4'),
-    FeedData(5, 'Hari Ke-5'),
-    FeedData(6, 'Hari Ke-6'),
-    FeedData(7, 'Hari Ke-7'),
-    FeedData(8, 'Hari Ke-9'),
-  ].obs;
+  final charData = <FeedChartData>[].obs;
   var isLoading = false.obs;
   Activation activation = Get.arguments()["activation"];
   Pond pond = Get.arguments()["pond"];
@@ -23,6 +16,7 @@ class FeedController extends GetxController {
   @override
   void onInit() async {
     getWeeklyRecapFeedHistory(activation_id: activation.id!);
+    getChartFeed(activation_id: activation.id!);
     super.onInit();
   }
 
@@ -33,12 +27,24 @@ class FeedController extends GetxController {
     List<FeedHistoryMonthly> feedHistoryMonthly = await FeedHistoryService()
         .getMonthlyRecap(activation_id: activation_id);
     list_feedHistoryMonthly.addAll(feedHistoryMonthly);
+  }
+
+  Future<void> getChartFeed({required String activation_id}) async {
+    isLoading.value = true;
+    charData.clear();
+    List<FeedChartData> feedChart =
+        await FeedHistoryService().getChart(activation_id: activation_id);
+    // list_feedHistoryMonthly.addAll(feedHistoryMonthly);
+    for (var i in feedChart) {
+      var date = DateTime.parse(i.date.toString());
+      // DateFormat format = DateFormat("dd-MM-yyyy");
+      var dateformat = DateFormat('yyyy-MM-dd').format(date);
+      DateTime? formatdate = DateTime.parse(dateformat);
+      // var datetime = format.parse(i.getDate());
+      var data = FeedChartData(amount: i.amount, date: formatdate);
+      charData.add(data);
+      // print(formatdate);
+    }
     isLoading.value = false;
   }
-}
-
-class FeedData {
-  FeedData(this.amount, this.day);
-  final double amount;
-  final String day;
 }

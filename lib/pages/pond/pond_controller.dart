@@ -17,15 +17,66 @@ class PondController extends GetxController {
   String token = '';
   String status = "Tidak Aktif";
   bool chipSelected = false;
+
   // SharedPreferences prefs = await SharedPreferences.getInstance();
   TextEditingController aliasController = TextEditingController(text: '');
   TextEditingController locationController = TextEditingController(text: '');
   MaterialController materialController = MaterialController();
   ShapeController shapeController = ShapeController();
-  TextEditingController diameterController = TextEditingController(text: '0');
-  TextEditingController lengthController = TextEditingController(text: '0');
-  TextEditingController widthController = TextEditingController(text: '0');
-  TextEditingController heightController = TextEditingController(text: '0');
+  TextEditingController diameterController = TextEditingController(text: '');
+  TextEditingController lengthController = TextEditingController(text: '');
+  TextEditingController widthController = TextEditingController(text: '');
+  TextEditingController heightController = TextEditingController(text: '');
+  final alias = ''.obs;
+  final height = ''.obs;
+  final width = ''.obs;
+  final lenght = ''.obs;
+  final diameter = ''.obs;
+  final validatediameter = false.obs;
+  final validatelenght = false.obs;
+  final validateWidth = false.obs;
+  final validateAlias = false.obs;
+  final validateHeight = false.obs;
+
+  void heightChanged(String val) {
+    height.value = val;
+  }
+
+  void aliasChanged(String val) {
+    alias.value = val;
+  }
+
+  void widthChanged(String val) {
+    width.value = val;
+  }
+
+  void lenghtChanged(String val) {
+    lenght.value = val;
+  }
+
+  void diameterChanged(String val) {
+    diameter.value = val;
+  }
+
+  void valDiameter() {
+    validatediameter.value = true;
+  }
+
+  void valLenght() {
+    validatelenght.value = true;
+  }
+
+  void valWidth() {
+    validateWidth.value = true;
+  }
+
+  void valAlias() {
+    validateAlias.value = true;
+  }
+
+  void valHeight() {
+    validateHeight.value = true;
+  }
 
   Future<void> getPondsData(BuildContext context) async {
     WidgetsFlutterBinding.ensureInitialized();

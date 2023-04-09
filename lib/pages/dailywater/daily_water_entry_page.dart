@@ -16,48 +16,6 @@ class DailyWaterEntryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget descInput() {
-      return Container(
-        margin: EdgeInsets.only(
-            top: defaultSpace, right: defaultMargin, left: defaultMargin),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Deskripsi',
-              style: primaryTextStyle.copyWith(
-                fontSize: 16,
-                fontWeight: medium,
-              ),
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            Container(
-              height: 50,
-              padding: EdgeInsets.symmetric(
-                horizontal: 16,
-              ),
-              decoration: BoxDecoration(
-                color: backgroundColor2,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Center(
-                child: TextFormField(
-                  style: primaryTextStyle,
-                  controller: controller.descController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'ex: Ikan Sakit',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
     Widget doInput() {
       return Container(
         margin: EdgeInsets.only(
@@ -84,17 +42,22 @@ class DailyWaterEntryPage extends StatelessWidget {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
                   keyboardType: TextInputType.number,
+                  onChanged: controller.doValChanged,
+                  onTap: controller.valdoVal,
                   controller: controller.doController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'ex: 20',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration: controller.validatedoVal.value == true
+                      ? controller.doVal == ''
+                          ? InputDecoration(
+                              errorText: 'tidak boleh kosong',
+                              isCollapsed: true)
+                          : null
+                      : null,
+                );
+              })),
             ),
           ],
         ),
@@ -127,17 +90,22 @@ class DailyWaterEntryPage extends StatelessWidget {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
                   keyboardType: TextInputType.number,
+                  onChanged: controller.phChanged,
+                  onTap: controller.valph,
                   controller: controller.phController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'ex: 2',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration: controller.validateph.value == true
+                      ? controller.ph == ''
+                          ? InputDecoration(
+                              errorText: 'tidak boleh kosong',
+                              isCollapsed: true)
+                          : null
+                      : null,
+                );
+              })),
             ),
           ],
         ),
@@ -170,17 +138,22 @@ class DailyWaterEntryPage extends StatelessWidget {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
                   keyboardType: TextInputType.number,
+                  onChanged: controller.tempChanged,
+                  onTap: controller.valtemp,
                   controller: controller.temperatureController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'ex: 2',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration: controller.validatetemp.value == true
+                      ? controller.temp == ''
+                          ? InputDecoration(
+                              errorText: 'Dosis tidak boleh kosong',
+                              isCollapsed: true)
+                          : null
+                      : null,
+                );
+              })),
             ),
           ],
         ),
@@ -196,13 +169,17 @@ class DailyWaterEntryPage extends StatelessWidget {
         child: TextButton(
           onPressed: () async {
             // Get.back();
-            await controller.postDailyWaterData(
-              context,
-              () {
-                Navigator.pop(context);
-              },
-            );
-            dailyWaterControlller.getDailyWaterData(context);
+            controller.phController.text == "" ||
+                    controller.doController.text == "" ||
+                    controller.temperatureController.text == ''
+                ? null
+                : await controller.postDailyWaterData(
+                    context,
+                    () {
+                      Navigator.pop(context);
+                      dailyWaterControlller.getDailyWaterData(context);
+                    },
+                  );
             // controller.getWeek();
           },
           style: TextButton.styleFrom(
@@ -221,22 +198,6 @@ class DailyWaterEntryPage extends StatelessWidget {
         ),
       );
     }
-
-    // Widget persegiInput() {
-    //   return Container(
-    //       child: Column(
-    //     crossAxisAlignment: CrossAxisAlignment.start,
-    //     children: [widthInput(), lengthInput()],
-    //   ));
-    // }
-
-    // Widget bundarInput() {
-    //   return Container(
-    //       child: Column(
-    //     crossAxisAlignment: CrossAxisAlignment.start,
-    //     children: [diameterInput()],
-    //   ));
-    // }
 
     return Obx(() {
       if (controller.isLoading.value == false) {

@@ -1,3 +1,4 @@
+import 'package:fish/models/feed_chart_model.dart';
 import 'package:fish/pages/component/feed_month_card.dart';
 import 'package:fish/pages/feeding/feed_controller.dart';
 import 'package:flutter/material.dart';
@@ -36,12 +37,12 @@ class DetailFeedPage extends StatelessWidget {
               // minimum: 0,
               labelStyle: TextStyle(color: Colors.white)),
           series: <ChartSeries>[
-            LineSeries<FeedData, dynamic>(
+            LineSeries<FeedChartData, dynamic>(
                 enableTooltip: true,
                 color: Colors.blueAccent,
                 dataSource: controller.charData,
-                xValueMapper: (FeedData feed, _) => feed.day,
-                yValueMapper: (FeedData feed, _) => feed.amount,
+                xValueMapper: (FeedChartData feed, _) => feed.getDate(),
+                yValueMapper: (FeedChartData feed, _) => feed.amount,
                 name: 'Jumlah Pakan')
           ],
         ),
@@ -88,6 +89,7 @@ class DetailFeedPage extends StatelessWidget {
           onPressed: () {
             Get.to(() => FeedEntryPage(), arguments: {
               "pond": controller.pond,
+              "activation": controller.activation
             });
           },
           style: TextButton.styleFrom(

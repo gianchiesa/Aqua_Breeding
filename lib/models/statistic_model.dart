@@ -4,7 +4,7 @@ class StatisticModel {
   int? fish_live;
   int? fish_death;
   int? fish_harvested;
-  int? total_feed_dose;
+  num? total_feed_dose;
   num? fishes_weight_lele;
   num? fishes_weight_nilamerah;
   num? fishes_weight_nilahitam;

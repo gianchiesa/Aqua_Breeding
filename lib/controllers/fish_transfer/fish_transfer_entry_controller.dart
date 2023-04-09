@@ -444,4 +444,124 @@ class FishTransferEntryController extends GetxController {
     print(value);
     doInPost();
   }
+
+  final sampleLong = ''.obs;
+  final validatesampleLong = false.obs;
+  void sampleLongChanged(String val) {
+    sampleLong.value = val;
+  }
+
+  void valsampleLong() {
+    validatesampleLong.value = true;
+  }
+
+  final sampleWeight = ''.obs;
+  final validatesampleWeight = false.obs;
+  void sampleWeightChanged(String val) {
+    sampleWeight.value = val;
+  }
+
+  void valsampleWeight() {
+    validatesampleWeight.value = true;
+  }
+
+  final leleAmountval = ''.obs;
+  final validateleleAmountval = false.obs;
+  void leleAmountvalChanged(String val) {
+    leleAmountval.value = val;
+  }
+
+  void valleleAmountval() {
+    validateleleAmountval.value = true;
+  }
+
+  final leleWeightval = ''.obs;
+  final validateleleWeightval = false.obs;
+  void leleWeightvalChanged(String val) {
+    leleWeightval.value = val;
+  }
+
+  void valleleWeightval() {
+    validateleleWeightval.value = true;
+  }
+
+  final nilaMerahAmountval = ''.obs;
+  final validatenilaMerahAmountval = false.obs;
+  void nilaMerahAmountvalChanged(String val) {
+    nilaMerahAmountval.value = val;
+  }
+
+  void valnilaMerahAmountval() {
+    validatenilaMerahAmountval.value = true;
+  }
+
+  final nilaMerahWeightval = ''.obs;
+  final validatenilaMerahWeightval = false.obs;
+  void nilaMerahWeightvalChanged(String val) {
+    nilaMerahWeightval.value = val;
+  }
+
+  void valnilaMerahWeightval() {
+    validatenilaMerahWeightval.value = true;
+  }
+
+  final nilaHitamAmountval = ''.obs;
+  final validatenilaHitamAmountval = false.obs;
+  void nilaHitamAmountvalChanged(String val) {
+    nilaHitamAmountval.value = val;
+  }
+
+  void valnilaHitamAmountval() {
+    validatenilaHitamAmountval.value = true;
+  }
+
+  final nilaHitamWeightval = ''.obs;
+  final validatenilaHitamWeightval = false.obs;
+  void nilaHitamWeightvalChanged(String val) {
+    nilaHitamWeightval.value = val;
+  }
+
+  void valnilaHitamWeightval() {
+    validatenilaHitamWeightval.value = true;
+  }
+
+  final masAmountval = ''.obs;
+  final validatemasAmountval = false.obs;
+  void masAmountvalChanged(String val) {
+    masAmountval.value = val;
+  }
+
+  void valmasAmountval() {
+    validatemasAmountval.value = true;
+  }
+
+  final masWeightval = ''.obs;
+  final validatemasWeightval = false.obs;
+  void masWeightvalChanged(String val) {
+    masWeightval.value = val;
+  }
+
+  void valmasWeightval() {
+    validatemasWeightval.value = true;
+  }
+
+  final patinAmountval = ''.obs;
+  final validatepatinAmountval = false.obs;
+  void patinAmountvalChanged(String val) {
+    patinAmountval.value = val;
+  }
+
+  void valpatinAmountval() {
+    validatepatinAmountval.value = true;
+  }
+
+  final patinWeightval = ''.obs;
+  final validatepatinWeightval = false.obs;
+  void patinWeightvalChanged(String val) {
+    patinWeightval.value = val;
+  }
+
+  void valpatinWeightval() {
+    validatepatinWeightval.value = true;
+  }
 }

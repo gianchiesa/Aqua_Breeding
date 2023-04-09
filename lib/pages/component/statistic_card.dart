@@ -4,7 +4,7 @@ import 'package:fish/theme.dart';
 
 class StatisticCard extends StatelessWidget {
   final String? title;
-  final int? value;
+  final num? value;
   final String? unit;
 
   const StatisticCard(

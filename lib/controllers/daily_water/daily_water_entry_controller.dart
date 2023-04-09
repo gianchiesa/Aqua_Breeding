@@ -25,6 +25,36 @@ class DailyWaterEntryController extends GetxController {
     return week.ceil();
   }
 
+  final temp = ''.obs;
+  final validatetemp = false.obs;
+  void tempChanged(String val) {
+    temp.value = val;
+  }
+
+  void valtemp() {
+    validatetemp.value = true;
+  }
+
+  final doVal = ''.obs;
+  final validatedoVal = false.obs;
+  void doValChanged(String val) {
+    doVal.value = val;
+  }
+
+  void valdoVal() {
+    validatedoVal.value = true;
+  }
+
+  final ph = ''.obs;
+  final validateph = false.obs;
+  void phChanged(String val) {
+    ph.value = val;
+  }
+
+  void valph() {
+    validateph.value = true;
+  }
+
   Future<void> postDailyWaterData(
       BuildContext context, Function doInPost) async {
     bool value = await DailyWaterService().postDailyWater(

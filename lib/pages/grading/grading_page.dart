@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:fish/models/grading_chart_model.dart';
 import 'package:fish/pages/component/grading_card.dart';
 import 'package:fish/pages/grading/grading_controller.dart';
 import 'package:flutter/material.dart';
@@ -32,34 +35,54 @@ class GradingPage extends StatelessWidget {
               labelStyle: TextStyle(color: Colors.white),
               autoScrollingDelta: 4),
           primaryYAxis: NumericAxis(
-              labelFormat: '{value}gram',
-              // maximum: 100,
-              // minimum: 0,
+              labelFormat: '{value}Kg',
               labelStyle: TextStyle(color: Colors.white)),
           series: <ChartSeries>[
-            LineSeries<GradingLeleData, dynamic>(
+            LineSeries<GradingChartData, dynamic>(
                 enableTooltip: true,
-                color: Colors.blueAccent,
+                color: Colors.blue,
                 dataSource: controller.charLeleData,
-                xValueMapper: (GradingLeleData grading, _) => grading.date,
-                yValueMapper: (GradingLeleData grading, _) => grading.avgweight,
+                xValueMapper: (GradingChartData grading, _) =>
+                    grading.getDate(),
+                yValueMapper: (GradingChartData grading, _) =>
+                    grading.avg_weight,
                 name: 'Lele'),
-            LineSeries<GradingNilaMerahData, dynamic>(
+            LineSeries<GradingChartData, dynamic>(
                 enableTooltip: true,
                 color: Colors.pink,
                 dataSource: controller.charNilaMerahData,
-                xValueMapper: (GradingNilaMerahData grading, _) => grading.date,
-                yValueMapper: (GradingNilaMerahData grading, _) =>
-                    grading.avgweight,
+                xValueMapper: (GradingChartData grading, _) =>
+                    grading.getDate(),
+                yValueMapper: (GradingChartData grading, _) =>
+                    grading.avg_weight,
                 name: 'Nila Merah'),
-            LineSeries<GradingNilaHitamData, dynamic>(
+            LineSeries<GradingChartData, dynamic>(
                 enableTooltip: true,
                 color: Colors.green,
                 dataSource: controller.charNilaHitamData,
-                xValueMapper: (GradingNilaHitamData grading, _) => grading.date,
-                yValueMapper: (GradingNilaHitamData grading, _) =>
-                    grading.avgweight,
+                xValueMapper: (GradingChartData grading, _) =>
+                    grading.getDate(),
+                yValueMapper: (GradingChartData grading, _) =>
+                    grading.avg_weight,
                 name: 'Nila Hitam'),
+            LineSeries<GradingChartData, dynamic>(
+                enableTooltip: true,
+                color: Colors.amber,
+                dataSource: controller.charMasData,
+                xValueMapper: (GradingChartData grading, _) =>
+                    grading.getDate(),
+                yValueMapper: (GradingChartData grading, _) =>
+                    grading.avg_weight,
+                name: 'Mas'),
+            LineSeries<GradingChartData, dynamic>(
+                enableTooltip: true,
+                color: Colors.pink.shade100,
+                dataSource: controller.charPatinData,
+                xValueMapper: (GradingChartData grading, _) =>
+                    grading.getDate(),
+                yValueMapper: (GradingChartData grading, _) =>
+                    grading.avg_weight,
+                name: 'Patin'),
           ],
         ),
       );
@@ -103,7 +126,10 @@ class GradingPage extends StatelessWidget {
             top: defaultSpace, right: defaultMargin, left: defaultMargin),
         child: TextButton(
           onPressed: () {
-            Get.to(() => GradingEntryPage(), arguments: controller.pond);
+            Get.to(() => GradingEntryPage(), arguments: {
+              "pond": controller.pond,
+              "activation": controller.activation
+            });
           },
           style: TextButton.styleFrom(
             backgroundColor: Colors.green.shade400,
@@ -325,6 +351,7 @@ class GradingPage extends StatelessWidget {
 
     return Obx(() {
       if (controller.isLoading.value == false) {
+        print('object');
         return Scaffold(
           appBar: AppBar(
             backgroundColor: backgroundColor2,

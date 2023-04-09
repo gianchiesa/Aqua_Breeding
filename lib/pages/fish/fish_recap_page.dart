@@ -6,6 +6,8 @@ import 'package:fish/theme.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../../models/fish_live_model.dart';
+
 class FishRecapPage extends StatelessWidget {
   const FishRecapPage({Key? key}) : super(key: key);
 
@@ -40,7 +42,7 @@ class FishRecapPage extends StatelessWidget {
                 enableTooltip: true,
                 color: Colors.red,
                 dataSource: controller.charData,
-                xValueMapper: (FishLiveData fish, _) => fish.date,
+                xValueMapper: (FishLiveData fish, _) => fish.getDate(),
                 yValueMapper: (FishLiveData fish, _) => fish.amount,
                 name: 'Ikan Hidup')
           ],
@@ -86,7 +88,10 @@ class FishRecapPage extends StatelessWidget {
             top: defaultSpace, right: defaultMargin, left: defaultMargin),
         child: TextButton(
           onPressed: () {
-            Get.to(() => FishDeathEntryPage(), arguments: controller.pond);
+            Get.to(() => FishDeathEntryPage(), arguments: {
+              "pond": controller.pond,
+              "activation": controller.activation
+            });
           },
           style: TextButton.styleFrom(
             backgroundColor: Colors.green.shade400,

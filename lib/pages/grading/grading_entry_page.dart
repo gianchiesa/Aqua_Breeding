@@ -4,12 +4,15 @@ import 'package:fish/theme.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import 'grading_controller.dart';
+
 class GradingEntryPage extends StatelessWidget {
   const GradingEntryPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final GradingEntryController controller = Get.put(GradingEntryController());
+    final GradingController gradingcontroller = Get.put(GradingController());
 
     Widget fishTypelInput() {
       return Container(
@@ -87,20 +90,25 @@ class GradingEntryPage extends StatelessWidget {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
                   ],
                   keyboardType: TextInputType.number,
+                  onChanged: controller.sampleAmountChanged,
+                  onTap: controller.valsampleAmount,
                   controller: controller.sampleAmountController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'ex: 2',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration: controller.validatesampleAmount.value == true
+                      ? controller.sampleAmount == ''
+                          ? InputDecoration(
+                              errorText: 'jumlah ikan tidak boleh kosong',
+                              isCollapsed: true)
+                          : null
+                      : null,
+                );
+              })),
             ),
           ],
         ),
@@ -133,20 +141,22 @@ class GradingEntryPage extends StatelessWidget {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
                   keyboardType: TextInputType.number,
+                  onChanged: controller.fishWeightChanged,
+                  onTap: controller.valfishWeight,
                   controller: controller.fishWeightController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'ex: 20',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration: controller.validatefishWeight.value == true
+                      ? controller.fishWeight == ''
+                          ? InputDecoration(
+                              errorText: 'tidak boleh kosong',
+                              isCollapsed: true)
+                          : null
+                      : null,
+                );
+              })),
             ),
           ],
         ),
@@ -179,20 +189,22 @@ class GradingEntryPage extends StatelessWidget {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
                   keyboardType: TextInputType.number,
+                  onChanged: controller.fishLenghtChanged,
+                  onTap: controller.valfishLenght,
                   controller: controller.fishLengthAvgController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'ex: 20',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration: controller.validatefishLenght.value == true
+                      ? controller.fishLenght == ''
+                          ? InputDecoration(
+                              errorText: 'jumlah ikan tidak boleh kosong',
+                              isCollapsed: true)
+                          : null
+                      : null,
+                );
+              })),
             ),
           ],
         ),
@@ -225,20 +237,25 @@ class GradingEntryPage extends StatelessWidget {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
                   ],
                   keyboardType: TextInputType.number,
+                  onChanged: controller.undersizeChanged,
+                  onTap: controller.valundersize,
                   controller: controller.undersizeController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'ex: 20',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration: controller.validateundersize.value == true
+                      ? controller.undersize == ''
+                          ? InputDecoration(
+                              errorText: 'jumlah ikan tidak boleh kosong',
+                              isCollapsed: true)
+                          : null
+                      : null,
+                );
+              })),
             ),
           ],
         ),
@@ -271,20 +288,25 @@ class GradingEntryPage extends StatelessWidget {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
                   ],
                   keyboardType: TextInputType.number,
+                  onChanged: controller.oversizeChanged,
+                  onTap: controller.valoversize,
                   controller: controller.oversizeController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'ex: 20',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration: controller.validateoversize.value == true
+                      ? controller.oversize == ''
+                          ? InputDecoration(
+                              errorText: 'jumlah ikan tidak boleh kosong',
+                              isCollapsed: true)
+                          : null
+                      : null,
+                );
+              })),
             ),
           ],
         ),
@@ -317,20 +339,25 @@ class GradingEntryPage extends StatelessWidget {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
                   ],
                   keyboardType: TextInputType.number,
+                  onChanged: controller.normalChanged,
+                  onTap: controller.valnormal,
                   controller: controller.normalsizeController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'ex: 20',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration: controller.validatenormal.value == true
+                      ? controller.normal == ''
+                          ? InputDecoration(
+                              errorText: 'jumlah ikan tidak boleh kosong',
+                              isCollapsed: true)
+                          : null
+                      : null,
+                );
+              })),
             ),
           ],
         ),
@@ -344,8 +371,21 @@ class GradingEntryPage extends StatelessWidget {
         margin: EdgeInsets.only(
             top: defaultSpace * 3, right: defaultMargin, left: defaultMargin),
         child: TextButton(
-          onPressed: () {
+          onPressed: () async {
+            controller.fishLengthAvgController.text == "" ||
+                    controller.fishWeightController.text == "" ||
+                    controller.normalsizeController.text == "" ||
+                    controller.undersizeController.text == "" ||
+                    controller.oversizeController.text == "" ||
+                    controller.sampleAmountController.text == ""
+                ? null
+                : Navigator.pop(context);
             controller.postFishGrading();
+            gradingcontroller.getFishGrading(
+                activation_id: controller.activation.id.toString());
+            gradingcontroller.getFishGradingChart(
+                activation_id: controller.activation.id.toString());
+            // print(gradingcontroller.charData);
           },
           style: TextButton.styleFrom(
             backgroundColor: primaryColor,

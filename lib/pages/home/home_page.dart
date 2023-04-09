@@ -108,7 +108,7 @@ class HomePage extends StatelessWidget {
                   Expanded(
                       flex: 1,
                       child: StatisticCard(
-                        title: 'Panen 2022',
+                        title: 'Panen',
                         value: controller.statistic.value.fish_harvested,
                         unit: 'Kg',
                       )),

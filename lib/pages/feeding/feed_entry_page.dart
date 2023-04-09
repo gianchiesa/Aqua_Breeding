@@ -91,9 +91,9 @@ class FeedEntryPage extends StatelessWidget {
                       items: controller.feedTypeFormController.listFeedType
                           .map((feedtype) {
                         return DropdownMenuItem<String>(
-                          value: feedtype.name,
+                          value: feedtype.type,
                           child: Text(
-                            feedtype.name!,
+                            feedtype.type.toString(),
                             style: primaryTextStyle,
                           ),
                         );
@@ -116,7 +116,7 @@ class FeedEntryPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Dosis Pakan (gram)',
+              'Dosis Pakan (Kg)',
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -134,20 +134,22 @@ class FeedEntryPage extends StatelessWidget {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
                   keyboardType: TextInputType.number,
+                  onChanged: controller.doseChanged,
+                  onTap: controller.valdose,
                   controller: controller.feedDosisController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'ex: 20',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration: controller.validatedose.value == true
+                      ? controller.dose == ''
+                          ? InputDecoration(
+                              errorText: 'Dosis tidak boleh kosong',
+                              isCollapsed: true)
+                          : null
+                      : null,
+                );
+              })),
             ),
           ],
         ),

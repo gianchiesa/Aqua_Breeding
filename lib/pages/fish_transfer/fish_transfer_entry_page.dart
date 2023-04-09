@@ -78,16 +78,25 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                  keyboardType: TextInputType.number,
+                  onChanged: controller.sampleWeightChanged,
+                  onTap: controller.valsampleWeight,
                   controller: controller.sampleWeightController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'ex: 300 gram',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration: controller.validatesampleWeight.value == true
+                      ? controller.sampleWeight == ''
+                          ? InputDecoration(
+                              errorText: 'ikan tidak boleh kosong',
+                              isCollapsed: true)
+                          : null
+                      : null,
+                );
+              })),
             ),
           ],
         ),
@@ -120,75 +129,30 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                  keyboardType: TextInputType.number,
+                  onChanged: controller.sampleLongChanged,
+                  onTap: controller.valsampleLong,
                   controller: controller.sampleLongController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'ex: 20',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration: controller.validatesampleLong.value == true
+                      ? controller.sampleLong == ''
+                          ? InputDecoration(
+                              errorText: 'jumlah ikan tidak boleh kosong',
+                              isCollapsed: true)
+                          : null
+                      : null,
+                );
+              })),
             ),
           ],
         ),
       );
     }
-
-    // Widget destinationPondInput() {
-    //   return Obx(() => Container(
-    //         margin: EdgeInsets.only(
-    //             top: defaultSpace, right: defaultMargin, left: defaultMargin),
-    //         child: Column(
-    //           crossAxisAlignment: CrossAxisAlignment.start,
-    //           children: [
-    //             Text(
-    //               'Kolam Tujuan',
-    //               style: primaryTextStyle.copyWith(
-    //                 fontSize: 16,
-    //                 fontWeight: medium,
-    //               ),
-    //             ),
-    //             SizedBox(
-    //               height: 12,
-    //             ),
-    //             Container(
-    //               height: 50,
-    //               padding: EdgeInsets.symmetric(
-    //                 horizontal: 16,
-    //               ),
-    //               decoration: BoxDecoration(
-    //                 color: backgroundColor2,
-    //                 borderRadius: BorderRadius.circular(12),
-    //               ),
-    //               child: Center(
-    //                 child: DropdownButtonFormField<String>(
-    //                   onChanged: ((value) {
-    //                     controller.pondlistController
-    //                         .setSelected(value.toString());
-    //                     controller.getDestinationId(value.toString());
-    //                     print("controller.pondSelected");
-    //                   }),
-    //                   value: controller.pondlistController.selected.value,
-    //                   items: controller.listPondName.map((type) {
-    //                     return DropdownMenuItem<String>(
-    //                       value: type,
-    //                       child: Text(
-    //                         type,
-    //                         style: primaryTextStyle,
-    //                       ),
-    //                     );
-    //                   }).toList(),
-    //                   dropdownColor: backgroundColor5,
-    //                   decoration: InputDecoration(border: InputBorder.none),
-    //                 ),
-    //               ),
-    //             ),
-    //           ],
-    //         ),
-    //       ));
-    // }
 
     Widget destinationPondInput() {
       return Container(
@@ -455,20 +419,25 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
                   ],
                   keyboardType: TextInputType.number,
+                  onChanged: controller.leleAmountvalChanged,
+                  onTap: controller.valleleAmountval,
                   controller: controller.leleAmountController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'Jumlah Ikan',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration: controller.validateleleAmountval.value == true
+                      ? controller.leleAmountval == ''
+                          ? InputDecoration(
+                              errorText: 'tidak boleh kosong',
+                              isCollapsed: true)
+                          : null
+                      : null,
+                );
+              })),
             ),
             SizedBox(
               height: 12,
@@ -482,20 +451,25 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
                   ],
                   keyboardType: TextInputType.number,
+                  onChanged: controller.leleWeightvalChanged,
+                  onTap: controller.valleleWeightval,
                   controller: controller.leleWeightController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'Berat Total Ikan',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration: controller.validateleleWeightval.value == true
+                      ? controller.leleWeightval == ''
+                          ? InputDecoration(
+                              errorText: 'tidak boleh kosong',
+                              isCollapsed: true)
+                          : null
+                      : null,
+                );
+              })),
             ),
           ],
         ),
@@ -528,20 +502,26 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
                   ],
                   keyboardType: TextInputType.number,
+                  onChanged: controller.nilaMerahAmountvalChanged,
+                  onTap: controller.valnilaMerahAmountval,
                   controller: controller.nilaMerahAmountController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'Jumlah Ikan',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration:
+                      controller.validatenilaMerahAmountval.value == true
+                          ? controller.nilaMerahAmountval == ''
+                              ? InputDecoration(
+                                  errorText: 'tidak boleh kosong',
+                                  isCollapsed: true)
+                              : null
+                          : null,
+                );
+              })),
             ),
             SizedBox(
               height: 12,
@@ -555,20 +535,26 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
                   ],
                   keyboardType: TextInputType.number,
+                  onChanged: controller.nilaMerahWeightvalChanged,
+                  onTap: controller.valnilaMerahWeightval,
                   controller: controller.nilaMerahWeightController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'Berat Total Ikan',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration:
+                      controller.validatenilaMerahWeightval.value == true
+                          ? controller.nilaMerahWeightval == ''
+                              ? InputDecoration(
+                                  errorText: 'tidak boleh kosong',
+                                  isCollapsed: true)
+                              : null
+                          : null,
+                );
+              })),
             ),
           ],
         ),
@@ -601,20 +587,26 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
                   ],
                   keyboardType: TextInputType.number,
+                  onChanged: controller.nilaHitamAmountvalChanged,
+                  onTap: controller.valnilaHitamAmountval,
                   controller: controller.nilaHitamAmountController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'Jumlah Ikan',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration:
+                      controller.validatenilaHitamAmountval.value == true
+                          ? controller.nilaHitamAmountval == ''
+                              ? InputDecoration(
+                                  errorText: 'tidak boleh kosong',
+                                  isCollapsed: true)
+                              : null
+                          : null,
+                );
+              })),
             ),
             SizedBox(
               height: 12,
@@ -628,20 +620,26 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
                   ],
                   keyboardType: TextInputType.number,
+                  onChanged: controller.nilaHitamWeightvalChanged,
+                  onTap: controller.valnilaHitamWeightval,
                   controller: controller.nilaHitamWeightController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'Berat Total Ikan',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration:
+                      controller.validatenilaHitamWeightval.value == true
+                          ? controller.nilaHitamWeightval == ''
+                              ? InputDecoration(
+                                  errorText: 'tidak boleh kosong',
+                                  isCollapsed: true)
+                              : null
+                          : null,
+                );
+              })),
             ),
           ],
         ),
@@ -674,20 +672,25 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
                   ],
                   keyboardType: TextInputType.number,
+                  onChanged: controller.patinAmountvalChanged,
+                  onTap: controller.valpatinAmountval,
                   controller: controller.patinAmountController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'Jumlah Ikan',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration: controller.validatepatinAmountval.value == true
+                      ? controller.patinAmountval == ''
+                          ? InputDecoration(
+                              errorText: 'jumlah ikan tidak boleh kosong',
+                              isCollapsed: true)
+                          : null
+                      : null,
+                );
+              })),
             ),
             SizedBox(
               height: 12,
@@ -701,20 +704,25 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
                   ],
                   keyboardType: TextInputType.number,
+                  onChanged: controller.patinWeightvalChanged,
+                  onTap: controller.valpatinWeightval,
                   controller: controller.patinWeightController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'Berat Total Ikan',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration: controller.validatepatinWeightval.value == true
+                      ? controller.patinWeightval == ''
+                          ? InputDecoration(
+                              errorText: 'ikan tidak boleh kosong',
+                              isCollapsed: true)
+                          : null
+                      : null,
+                );
+              })),
             ),
           ],
         ),
@@ -747,20 +755,24 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
                   ],
                   keyboardType: TextInputType.number,
+                  onChanged: controller.masAmountvalChanged,
+                  onTap: controller.valmasAmountval,
                   controller: controller.masAmountController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'Jumlah Ikan',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration: controller.validatemasAmountval.value == true
+                      ? controller.masAmountval == ''
+                          ? InputDecoration(
+                              errorText: 'idak boleh kosong', isCollapsed: true)
+                          : null
+                      : null,
+                );
+              })),
             ),
             SizedBox(
               height: 12,
@@ -774,20 +786,25 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
                   ],
                   keyboardType: TextInputType.number,
+                  onChanged: controller.masWeightvalChanged,
+                  onTap: controller.valmasWeightval,
                   controller: controller.masWeightController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'Berat Tostal Ikan',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration: controller.validatemasWeightval.value == true
+                      ? controller.masWeightval == ''
+                          ? InputDecoration(
+                              errorText: 'tidak boleh kosong',
+                              isCollapsed: true)
+                          : null
+                      : null,
+                );
+              })),
             ),
           ],
         ),
@@ -1532,8 +1549,13 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
         margin: EdgeInsets.only(
             top: defaultSpace * 3, right: defaultMargin, left: defaultMargin),
         child: TextButton(
-          onPressed: () => pageController.nextPage(
-              duration: const Duration(seconds: 1), curve: Curves.easeInOut),
+          onPressed: () => controller.sampleLongController.text == "" ||
+                  controller.sampleWeightController.text == '' ||
+                  controller.pondSelected == "pilih kolam"
+              ? null
+              : pageController.nextPage(
+                  duration: const Duration(seconds: 1),
+                  curve: Curves.easeInOut),
           style: TextButton.styleFrom(
             backgroundColor: Colors.green,
             shape: RoundedRectangleBorder(

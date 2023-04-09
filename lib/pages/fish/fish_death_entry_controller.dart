@@ -6,12 +6,24 @@ import 'package:fish/service/fish_death_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../models/activation_model.dart';
+
 class FishDeathEntryController extends GetxController {
   TextEditingController formDeathController = TextEditingController(text: '');
   FishTypeController fishTypeController = FishTypeController();
-  Pond pond = Get.arguments();
-
+  Activation activation = Get.arguments()["activation"];
+  Pond pond = Get.arguments()["pond"];
+  final fishamount = ''.obs;
+  final validatefishamount = false.obs;
   var isLoading = false.obs;
+
+  void fishamountChanged(String val) {
+    fishamount.value = val;
+  }
+
+  void valfishamount() {
+    validatefishamount.value = true;
+  }
 
   List buildJson() {
     var list = [];
@@ -29,6 +41,5 @@ class FishDeathEntryController extends GetxController {
       fish: buildJson(),
     );
     print(value);
-    Get.back();
   }
 }

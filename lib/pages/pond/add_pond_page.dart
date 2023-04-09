@@ -1,11 +1,7 @@
-import 'package:fish/pages/dashboard.dart';
 import 'package:fish/pages/pond/pond_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
-import '../../controllers/authentication/profile_controller.dart';
 
 class AddPondPage extends StatelessWidget {
   const AddPondPage({Key? key}) : super(key: key);
@@ -13,7 +9,6 @@ class AddPondPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PondController controller = Get.put(PondController());
-    final ProfileController profilecontroller = Get.put(ProfileController());
 
     Widget aliasInput() {
       return Container(
@@ -23,7 +18,7 @@ class AddPondPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Alias',
+              'Alias Kolam',
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -41,16 +36,21 @@ class AddPondPage extends StatelessWidget {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
+                  onChanged: controller.aliasChanged,
+                  onTap: controller.valAlias,
                   controller: controller.aliasController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'ex: Alpha',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration: controller.validateAlias.value == true
+                      ? controller.alias == ''
+                          ? InputDecoration(
+                              errorText: 'tinggi tidak boleh kosong',
+                              isCollapsed: true)
+                          : null
+                      : null,
+                );
+              })),
             ),
           ],
         ),
@@ -65,7 +65,7 @@ class AddPondPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Lokasi',
+              'Lokasi Kolam (Opsional)',
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -227,20 +227,22 @@ class AddPondPage extends StatelessWidget {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
                   keyboardType: TextInputType.number,
+                  onChanged: controller.heightChanged,
+                  onTap: controller.valHeight,
                   controller: controller.heightController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'ex: 2',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration: controller.validateHeight.value == true
+                      ? controller.height == ''
+                          ? InputDecoration(
+                              errorText: 'tinggi tidak boleh kosong',
+                              isCollapsed: true)
+                          : null
+                      : null,
+                );
+              })),
             ),
           ],
         ),
@@ -273,20 +275,22 @@ class AddPondPage extends StatelessWidget {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
                   keyboardType: TextInputType.number,
+                  onChanged: controller.lenghtChanged,
+                  onTap: controller.valLenght,
                   controller: controller.lengthController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'ex: 2',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration: controller.validatelenght.value == true
+                      ? controller.lenght == ''
+                          ? InputDecoration(
+                              errorText: 'Panjang tidak boleh kosong',
+                              isCollapsed: true)
+                          : null
+                      : null,
+                );
+              })),
             ),
           ],
         ),
@@ -319,20 +323,22 @@ class AddPondPage extends StatelessWidget {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
                   keyboardType: TextInputType.number,
+                  onChanged: controller.widthChanged,
+                  onTap: controller.valWidth,
                   controller: controller.widthController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'ex: 2',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration: controller.validateWidth.value == true
+                      ? controller.width == ''
+                          ? InputDecoration(
+                              errorText: 'lebar tidak boleh kosong',
+                              isCollapsed: true)
+                          : null
+                      : null,
+                );
+              })),
             ),
           ],
         ),
@@ -365,20 +371,22 @@ class AddPondPage extends StatelessWidget {
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                child: TextFormField(
+              child: Center(child: Obx(() {
+                return TextFormField(
                   style: primaryTextStyle,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
                   keyboardType: TextInputType.number,
+                  onChanged: controller.diameterChanged,
+                  onTap: controller.valDiameter,
                   controller: controller.diameterController,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'ex: 2',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
+                  decoration: controller.validatediameter.value == true
+                      ? controller.diameter == ''
+                          ? InputDecoration(
+                              errorText: 'diameter tidak boleh kosong',
+                              isCollapsed: true)
+                          : null
+                      : null,
+                );
+              })),
             ),
           ],
         ),
@@ -394,13 +402,31 @@ class AddPondPage extends StatelessWidget {
         child: TextButton(
           onPressed: () async {
             // Get.back();
-            await controller.pondRegister(
-              context,
-              () {
-                Navigator.pop(context);
-              },
-            );
-            controller.getPondsData(context);
+            controller.shapeController.selected.value == "Persegi"
+                ? controller.aliasController.text == "" ||
+                        controller.heightController.text == "" ||
+                        controller.widthController.text == "" ||
+                        controller.lengthController.text == ""
+                    ? null
+                    : await controller.pondRegister(
+                        context,
+                        () {
+                          Navigator.pop(context);
+                          controller.getPondsData(context);
+                        },
+                      )
+                : controller.aliasController.text == "" ||
+                        controller.heightController.text == "" ||
+                        controller.diameterController.text == ""
+                    ? null
+                    : await controller.pondRegister(
+                        context,
+                        () {
+                          Navigator.pop(context);
+                          controller.getPondsData(context);
+                        },
+                      );
+
             // profilecontroller.getBreeder();
           },
           style: TextButton.styleFrom(

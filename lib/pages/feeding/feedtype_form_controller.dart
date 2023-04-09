@@ -15,14 +15,14 @@ class FeedTypeFormController extends GetxController {
     listFeedType.clear();
     List<FeedType> feedtypes = await FeedTypeService().fetchFeedType();
     listFeedType.addAll(feedtypes);
-    setSelected(listFeedType[0].name!);
+    setSelected(listFeedType[0].type!);
     super.onInit();
   }
 
   String? getIdByName() {
     print(selected);
     for (FeedType feedType in listFeedType) {
-      if (feedType.name == selected.value) {
+      if (feedType.type == selected.value) {
         return feedType.id;
       }
     }

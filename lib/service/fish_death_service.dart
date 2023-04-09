@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:fish/models/fishDeath_model.dart';
+import 'package:fish/models/fish_live_model.dart';
 import 'package:fish/service/url_api.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,7 +16,26 @@ class FishDeathService {
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      List<FishDeath> fishdeath = FishDeath.fromJsonList(data);
+      List<FishDeath> fishlive = FishDeath.fromJsonList(data);
+      print("success add fishlvie");
+      return fishlive;
+    } else {
+      throw Exception('Gagal Get fishdeath!');
+    }
+  }
+
+  Future<List<FishLiveData>> fetchFishLive(
+      {required String activationId}) async {
+    var url = Uri.parse(Urls.fishDeath(activationId));
+    var headers = {'Content-Type': 'application/json'};
+
+    var response = await http.get(url, headers: headers);
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      List<FishLiveData> fishdeath = FishLiveData.fromJsonList(data);
       print("success add fishdeath");
       return fishdeath;
     } else {
