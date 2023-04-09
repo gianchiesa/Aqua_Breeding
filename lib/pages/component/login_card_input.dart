@@ -36,7 +36,7 @@ class LoginInputCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                'Username',
+                'BreederID',
                 style: primaryTextStyle.copyWith(
                   fontSize: 18,
                   fontWeight: medium,
@@ -72,7 +72,11 @@ class LoginInputCard extends StatelessWidget {
                         ? InputDecoration(
                             errorText: 'username tidak boleh kosong',
                             isCollapsed: true)
-                        : null
+                        : controller.usernameController.text.length < 8
+                            ? InputDecoration(
+                                errorText: 'username kurang dari 8 karakter',
+                                isCollapsed: true)
+                            : null
                     : null,
               );
             })),
@@ -122,7 +126,11 @@ class LoginInputCard extends StatelessWidget {
                         ? InputDecoration(
                             errorText: 'Password tidak boleh kosong',
                             isCollapsed: true)
-                        : null
+                        : controller.passwordController.text.length < 8
+                            ? InputDecoration(
+                                errorText: 'passowrd kurang dari 8 karakter',
+                                isCollapsed: true)
+                            : null
                     : null,
               );
             })),
@@ -139,8 +147,8 @@ class LoginInputCard extends StatelessWidget {
             child: TextButton(
               onPressed: () {
                 // Get.back();
-                controller.usernameController.text == '' ||
-                        controller.passwordController.text == ''
+                controller.usernameController.text.length < 8 ||
+                        controller.passwordController.text.length < 8
                     ? null
                     : loginfunc.call();
                 // controller.getWeek();

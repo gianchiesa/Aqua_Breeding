@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:fish/controllers/authentication/login_controller.dart';
 import 'package:fish/pages/authentication/register_page.dart';
+// import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:fish/pages/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
@@ -61,7 +62,25 @@ class _LoginPageState extends State<LoginPage> {
           context, MaterialPageRoute(builder: (context) => DashboardPage()));
       print(response.body);
     } else {
-      print(response.body);
+      showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+                title: const Text('Login Error',
+                    style: TextStyle(color: Colors.red)),
+                content: const Text(
+                  'BreederID/Password salah',
+                  style: TextStyle(color: Colors.white),
+                ),
+                backgroundColor: backgroundColor1,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ));
     }
   }
 

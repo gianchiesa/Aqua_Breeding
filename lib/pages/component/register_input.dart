@@ -2,6 +2,7 @@ import 'package:fish/models/fish_model.dart';
 import 'package:fish/pages/authentication/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../controllers/authentication/register_controller.dart';
@@ -38,7 +39,61 @@ class RegisterInputCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                'Username',
+                'NIK',
+                style: primaryTextStyle.copyWith(
+                  fontSize: 16,
+                  fontWeight: medium,
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
+              SizedBox(
+                width: 6,
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Container(
+            height: 42,
+            padding: EdgeInsets.symmetric(
+              horizontal: 16,
+            ),
+            decoration: BoxDecoration(
+              color: backgroundColor2,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Center(child: Obx(() {
+              return TextFormField(
+                style: primaryTextStyle,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly
+                ],
+                keyboardType: TextInputType.number,
+                onChanged: controller.nikChanged,
+                onTap: controller.valnik,
+                controller: controller.nikController,
+                decoration: controller.validatenik.value == true
+                    ? controller.nik == ''
+                        ? InputDecoration(
+                            errorText: 'NIK tidak boleh kosong',
+                            isCollapsed: true)
+                        : controller.nikController.text.length < 16
+                            ? InputDecoration(
+                                errorText: 'NIK kurang dari 16 karakter',
+                                isCollapsed: true)
+                            : null
+                    : null,
+              );
+            })),
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                'BreederID',
                 style: primaryTextStyle.copyWith(
                   fontSize: 16,
                   fontWeight: medium,
@@ -74,7 +129,11 @@ class RegisterInputCard extends StatelessWidget {
                         ? InputDecoration(
                             errorText: 'username tidak boleh kosong',
                             isCollapsed: true)
-                        : null
+                        : controller.usernameController.text.length < 8
+                            ? InputDecoration(
+                                errorText: 'username kurang dari 8 karakter',
+                                isCollapsed: true)
+                            : null
                     : null,
               );
             })),
@@ -124,7 +183,11 @@ class RegisterInputCard extends StatelessWidget {
                         ? InputDecoration(
                             errorText: 'Password tidak boleh kosong',
                             isCollapsed: true)
-                        : null
+                        : controller.passwordController.text.length < 8
+                            ? InputDecoration(
+                                errorText: 'passowrd kurang dari 8 karakter',
+                                isCollapsed: true)
+                            : null
                     : null,
               );
             })),
@@ -214,6 +277,10 @@ class RegisterInputCard extends StatelessWidget {
             child: Center(child: Obx(() {
               return TextFormField(
                 style: primaryTextStyle,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly
+                ],
+                keyboardType: TextInputType.number,
                 onChanged: controller.phoneChanged,
                 onTap: controller.valphone,
                 controller: controller.phoneController,
@@ -221,55 +288,6 @@ class RegisterInputCard extends StatelessWidget {
                     ? controller.phone == ''
                         ? InputDecoration(
                             errorText: 'Phone tidak boleh kosong',
-                            isCollapsed: true)
-                        : null
-                    : null,
-              );
-            })),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                'NIK',
-                style: primaryTextStyle.copyWith(
-                  fontSize: 16,
-                  fontWeight: medium,
-                ),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-              ),
-              SizedBox(
-                width: 6,
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Container(
-            height: 42,
-            padding: EdgeInsets.symmetric(
-              horizontal: 16,
-            ),
-            decoration: BoxDecoration(
-              color: backgroundColor2,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Center(child: Obx(() {
-              return TextFormField(
-                style: primaryTextStyle,
-                onChanged: controller.nikChanged,
-                onTap: controller.valnik,
-                controller: controller.nikController,
-                decoration: controller.validatenik.value == true
-                    ? controller.nik == ''
-                        ? InputDecoration(
-                            errorText: 'NIK tidak boleh kosong',
                             isCollapsed: true)
                         : null
                     : null,
@@ -288,11 +306,11 @@ class RegisterInputCard extends StatelessWidget {
             child: TextButton(
               onPressed: () {
                 // Get.back();
-                controller.usernameController.text == "" ||
-                        controller.passwordController.text == "" ||
+                controller.usernameController.text.length < 8 ||
+                        controller.passwordController.text.length < 8 ||
                         controller.phoneController.text == "" ||
                         controller.nameController.text == "" ||
-                        controller.nikController.text == ""
+                        controller.nikController.text.length < 16
                     ? null
                     : pageController.nextPage(
                         duration: const Duration(seconds: 1),
