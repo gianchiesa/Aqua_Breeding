@@ -72,9 +72,9 @@ class LoginInputCard extends StatelessWidget {
                         ? InputDecoration(
                             errorText: 'username tidak boleh kosong',
                             isCollapsed: true)
-                        : controller.usernameController.text.length < 8
+                        : controller.usernameController.text.length < 6
                             ? InputDecoration(
-                                errorText: 'username kurang dari 8 karakter',
+                                errorText: 'username kurang dari 6 karakter',
                                 isCollapsed: true)
                             : null
                     : null,
@@ -147,7 +147,7 @@ class LoginInputCard extends StatelessWidget {
             child: TextButton(
               onPressed: () {
                 // Get.back();
-                controller.usernameController.text.length < 8 ||
+                controller.usernameController.text.length < 6 ||
                         controller.passwordController.text.length < 8
                     ? null
                     : loginfunc.call();

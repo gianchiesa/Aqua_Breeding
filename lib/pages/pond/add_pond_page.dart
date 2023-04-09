@@ -402,7 +402,7 @@ class AddPondPage extends StatelessWidget {
         child: TextButton(
           onPressed: () async {
             // Get.back();
-            controller.shapeController.selected.value == "Persegi"
+            controller.shapeController.selected.value == "persegi"
                 ? controller.aliasController.text == "" ||
                         controller.heightController.text == "" ||
                         controller.widthController.text == "" ||

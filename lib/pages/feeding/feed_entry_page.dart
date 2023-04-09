@@ -4,13 +4,15 @@ import 'package:fish/theme.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import 'feed_controller.dart';
+
 class FeedEntryPage extends StatelessWidget {
   const FeedEntryPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final FeedEntryController controller = Get.put(FeedEntryController());
-
+    final FeedController feedcontroller = Get.put(FeedController());
     // Widget feedTypeInput1() {
     //   return Container(
     //     margin: EdgeInsets.only(
@@ -163,8 +165,15 @@ class FeedEntryPage extends StatelessWidget {
         margin: EdgeInsets.only(
             top: defaultSpace * 3, right: defaultMargin, left: defaultMargin),
         child: TextButton(
-          onPressed: () {
+          onPressed: () async {
+            controller.feedDosisController.text == ""
+                ? null
+                : Navigator.pop(context);
             controller.postFeedHistory();
+            feedcontroller.getChartFeed(
+                activation_id: controller.activation.id.toString());
+            feedcontroller.getWeeklyRecapFeedHistory(
+                activation_id: controller.activation.id.toString());
           },
           style: TextButton.styleFrom(
             backgroundColor: primaryColor,

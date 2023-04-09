@@ -1,8 +1,8 @@
 class FeedHistoryWeekly {
   DateTime? date;
   num? week;
-  int? totalFeedWeight;
-  int? totalFeed;
+  num? totalFeedWeight;
+  num? totalFeed;
 
   FeedHistoryWeekly({
     required this.date,

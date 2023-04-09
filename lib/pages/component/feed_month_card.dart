@@ -26,7 +26,7 @@ class FeedMonthCard extends StatelessWidget {
         Get.to(() => DetailFeedMonthlyPage(), arguments: {
           "activation": activation,
           "pond": pond,
-          "feedHistoryMonthly": feedHistoryMonthly,
+          "feedHistoryMonthly": feedHistoryMonthly!,
         });
       },
       child: Container(

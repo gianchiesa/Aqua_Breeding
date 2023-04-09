@@ -38,6 +38,5 @@ class FeedEntryController extends GetxController {
       feedDose: feedDosisController.text,
     );
     print(value);
-    Get.back();
   }
 }

@@ -2,8 +2,8 @@ import 'package:intl/intl.dart';
 
 class FeedHistoryDaily {
   DateTime? date;
-  int? totalFeedWeight;
-  int? totalFeed;
+  num? totalFeedWeight;
+  num? totalFeed;
 
   FeedHistoryDaily({
     required this.date,

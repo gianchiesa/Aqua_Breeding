@@ -2,7 +2,7 @@ import 'package:intl/intl.dart';
 
 class FeedHistoryHourly {
   DateTime? date;
-  int? totalFeedWeight;
+  num? totalFeedWeight;
 
   FeedHistoryHourly({
     required this.date,
