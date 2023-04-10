@@ -120,18 +120,56 @@ class LoginInputCard extends StatelessWidget {
                 onChanged: controller.passwordChanged,
                 onTap: controller.valpassword,
                 controller: controller.passwordController,
-                obscureText: true,
+                obscureText: controller.passwordHide.value,
                 decoration: controller.validatepassword.value == true
                     ? controller.password == ''
                         ? InputDecoration(
                             errorText: 'Password tidak boleh kosong',
-                            isCollapsed: true)
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                controller.passVisibiity(
+                                    controller.passwordHide.value);
+                              },
+                              icon: Icon(controller.passwordHide.value
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                              color: Colors.white,
+                            ))
                         : controller.passwordController.text.length < 8
                             ? InputDecoration(
                                 errorText: 'passowrd kurang dari 8 karakter',
-                                isCollapsed: true)
-                            : null
-                    : null,
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    controller.passVisibiity(
+                                        controller.passwordHide.value);
+                                  },
+                                  icon: Icon(controller.passwordHide.value
+                                      ? Icons.visibility
+                                      : Icons.visibility_off),
+                                  color: Colors.white,
+                                ))
+                            : InputDecoration(
+                                suffixIcon: IconButton(
+                                onPressed: () {
+                                  controller.passVisibiity(
+                                      controller.passwordHide.value);
+                                },
+                                icon: Icon(controller.passwordHide.value
+                                    ? Icons.visibility
+                                    : Icons.visibility_off),
+                                color: Colors.white,
+                              ))
+                    : InputDecoration(
+                        suffixIcon: IconButton(
+                        onPressed: () {
+                          controller
+                              .passVisibiity(controller.passwordHide.value);
+                        },
+                        icon: Icon(controller.passwordHide.value
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                        color: Colors.white,
+                      )),
               );
             })),
           ),

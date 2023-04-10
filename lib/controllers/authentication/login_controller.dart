@@ -11,6 +11,15 @@ class LoginController extends GetxController {
   final password = ''.obs;
   final validateusername = false.obs;
   final validatepassword = false.obs;
+  final passwordHide = true.obs;
+
+  void passVisibiity(bool toogle) {
+    if (toogle == true) {
+      passwordHide.value = false;
+    } else {
+      passwordHide.value = true;
+    }
+  }
 
   void passwordChanged(String val) {
     password.value = val;

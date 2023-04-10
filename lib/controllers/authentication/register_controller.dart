@@ -41,6 +41,16 @@ class RegisterController extends GetxController {
   final validatename = false.obs;
   final validatephone = false.obs;
 
+  final passwordHide = true.obs;
+
+  void passVisibiity(bool toogle) {
+    if (toogle == true) {
+      passwordHide.value = false;
+    } else {
+      passwordHide.value = true;
+    }
+  }
+
   void passwordChanged(String val) {
     password.value = val;
   }
