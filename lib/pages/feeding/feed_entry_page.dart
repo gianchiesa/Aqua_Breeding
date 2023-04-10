@@ -149,7 +149,8 @@ class FeedEntryPage extends StatelessWidget {
                               errorText: 'Dosis tidak boleh kosong',
                               isCollapsed: true)
                           : null
-                      : null,
+                      : InputDecoration.collapsed(
+                          hintText: 'ex: 2.1', hintStyle: subtitleTextStyle),
                 );
               })),
             ),

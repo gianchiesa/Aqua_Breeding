@@ -162,7 +162,7 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Metode Transfer',
+              'Kolam Tujuan',
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -434,8 +434,12 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
                           ? InputDecoration(
                               errorText: 'tidak boleh kosong',
                               isCollapsed: true)
-                          : null
-                      : null,
+                          : InputDecoration.collapsed(
+                              hintText: 'Jumlah Ikan (Ekor)',
+                              hintStyle: subtitleTextStyle)
+                      : InputDecoration.collapsed(
+                          hintText: 'Jumlah Ikan (Ekor)',
+                          hintStyle: subtitleTextStyle),
                 );
               })),
             ),
@@ -466,8 +470,12 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
                           ? InputDecoration(
                               errorText: 'tidak boleh kosong',
                               isCollapsed: true)
-                          : null
-                      : null,
+                          : InputDecoration.collapsed(
+                              hintText: 'Berat Ikan (Kg)',
+                              hintStyle: subtitleTextStyle)
+                      : InputDecoration.collapsed(
+                          hintText: 'Berat Ikan (Kg)',
+                          hintStyle: subtitleTextStyle),
                 );
               })),
             ),
@@ -518,8 +526,12 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
                               ? InputDecoration(
                                   errorText: 'tidak boleh kosong',
                                   isCollapsed: true)
-                              : null
-                          : null,
+                              : InputDecoration.collapsed(
+                                  hintText: 'Jumlah Ikan (Ekor)',
+                                  hintStyle: subtitleTextStyle)
+                          : InputDecoration.collapsed(
+                              hintText: 'Jumlah Ikan (Ekor)',
+                              hintStyle: subtitleTextStyle),
                 );
               })),
             ),
@@ -551,8 +563,12 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
                               ? InputDecoration(
                                   errorText: 'tidak boleh kosong',
                                   isCollapsed: true)
-                              : null
-                          : null,
+                              : InputDecoration.collapsed(
+                                  hintText: 'Berat Ikan (Kg)',
+                                  hintStyle: subtitleTextStyle)
+                          : InputDecoration.collapsed(
+                              hintText: 'Berat Ikan (Kg)',
+                              hintStyle: subtitleTextStyle),
                 );
               })),
             ),
@@ -603,8 +619,12 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
                               ? InputDecoration(
                                   errorText: 'tidak boleh kosong',
                                   isCollapsed: true)
-                              : null
-                          : null,
+                              : InputDecoration.collapsed(
+                                  hintText: 'Jumlah Ikan (Ekor)',
+                                  hintStyle: subtitleTextStyle)
+                          : InputDecoration.collapsed(
+                              hintText: 'Jumlah Ikan (Ekor)',
+                              hintStyle: subtitleTextStyle),
                 );
               })),
             ),
@@ -636,8 +656,12 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
                               ? InputDecoration(
                                   errorText: 'tidak boleh kosong',
                                   isCollapsed: true)
-                              : null
-                          : null,
+                              : InputDecoration.collapsed(
+                                  hintText: 'Berat Ikan (Kg)',
+                                  hintStyle: subtitleTextStyle)
+                          : InputDecoration.collapsed(
+                              hintText: 'Berat Ikan (Kg)',
+                              hintStyle: subtitleTextStyle),
                 );
               })),
             ),
@@ -687,8 +711,12 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
                           ? InputDecoration(
                               errorText: 'jumlah ikan tidak boleh kosong',
                               isCollapsed: true)
-                          : null
-                      : null,
+                          : InputDecoration.collapsed(
+                              hintText: 'Jumlah Ikan (Ekor)',
+                              hintStyle: subtitleTextStyle)
+                      : InputDecoration.collapsed(
+                          hintText: 'Jumlah Ikan (Ekor)',
+                          hintStyle: subtitleTextStyle),
                 );
               })),
             ),
@@ -717,10 +745,14 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
                   decoration: controller.validatepatinWeightval.value == true
                       ? controller.patinWeightval == ''
                           ? InputDecoration(
-                              errorText: 'ikan tidak boleh kosong',
+                              errorText: 'tidak boleh kosong',
                               isCollapsed: true)
-                          : null
-                      : null,
+                          : InputDecoration.collapsed(
+                              hintText: 'Berat Ikan (Kg)',
+                              hintStyle: subtitleTextStyle)
+                      : InputDecoration.collapsed(
+                          hintText: 'Berat Ikan (Kg)',
+                          hintStyle: subtitleTextStyle),
                 );
               })),
             ),
@@ -768,9 +800,14 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
                   decoration: controller.validatemasAmountval.value == true
                       ? controller.masAmountval == ''
                           ? InputDecoration(
-                              errorText: 'idak boleh kosong', isCollapsed: true)
-                          : null
-                      : null,
+                              errorText: 'tidak boleh kosong',
+                              isCollapsed: true)
+                          : InputDecoration.collapsed(
+                              hintText: 'Jumlah Ikan (Ekor)',
+                              hintStyle: subtitleTextStyle)
+                      : InputDecoration.collapsed(
+                          hintText: 'Jumlah Ikan (Ekor)',
+                          hintStyle: subtitleTextStyle),
                 );
               })),
             ),
@@ -801,8 +838,12 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
                           ? InputDecoration(
                               errorText: 'tidak boleh kosong',
                               isCollapsed: true)
-                          : null
-                      : null,
+                          : InputDecoration.collapsed(
+                              hintText: 'Berat Ikan (Kg)',
+                              hintStyle: subtitleTextStyle)
+                      : InputDecoration.collapsed(
+                          hintText: 'Berat Ikan (Kg)',
+                          hintStyle: subtitleTextStyle),
                 );
               })),
             ),

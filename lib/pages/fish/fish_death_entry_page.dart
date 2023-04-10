@@ -107,7 +107,8 @@ class FishDeathEntryPage extends StatelessWidget {
                               errorText: 'jumlah ikan tidak boleh kosong',
                               isCollapsed: true)
                           : null
-                      : null,
+                      : InputDecoration.collapsed(
+                          hintText: 'ex: 22', hintStyle: subtitleTextStyle),
                 );
               })),
             ),

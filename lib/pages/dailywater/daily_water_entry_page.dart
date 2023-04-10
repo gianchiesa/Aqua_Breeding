@@ -55,7 +55,8 @@ class DailyWaterEntryPage extends StatelessWidget {
                               errorText: 'tidak boleh kosong',
                               isCollapsed: true)
                           : null
-                      : null,
+                      : InputDecoration.collapsed(
+                          hintText: 'ex: 21', hintStyle: subtitleTextStyle),
                 );
               })),
             ),
@@ -103,7 +104,8 @@ class DailyWaterEntryPage extends StatelessWidget {
                               errorText: 'tidak boleh kosong',
                               isCollapsed: true)
                           : null
-                      : null,
+                      : InputDecoration.collapsed(
+                          hintText: 'ex: 5.4', hintStyle: subtitleTextStyle),
                 );
               })),
             ),
@@ -148,10 +150,11 @@ class DailyWaterEntryPage extends StatelessWidget {
                   decoration: controller.validatetemp.value == true
                       ? controller.temp == ''
                           ? InputDecoration(
-                              errorText: 'Dosis tidak boleh kosong',
+                              errorText: 'tidak boleh kosong',
                               isCollapsed: true)
                           : null
-                      : null,
+                      : InputDecoration.collapsed(
+                          hintText: 'ex: 19', hintStyle: subtitleTextStyle),
                 );
               })),
             ),

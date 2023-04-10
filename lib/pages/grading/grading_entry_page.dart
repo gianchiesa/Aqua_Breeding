@@ -105,8 +105,10 @@ class GradingEntryPage extends StatelessWidget {
                           ? InputDecoration(
                               errorText: 'jumlah ikan tidak boleh kosong',
                               isCollapsed: true)
-                          : null
-                      : null,
+                          : InputDecoration.collapsed(
+                              hintText: 'ex: 20', hintStyle: subtitleTextStyle)
+                      : InputDecoration.collapsed(
+                          hintText: 'ex: 20', hintStyle: subtitleTextStyle),
                 );
               })),
             ),
@@ -153,8 +155,10 @@ class GradingEntryPage extends StatelessWidget {
                           ? InputDecoration(
                               errorText: 'tidak boleh kosong',
                               isCollapsed: true)
-                          : null
-                      : null,
+                          : InputDecoration.collapsed(
+                              hintText: 'ex: 2.1', hintStyle: subtitleTextStyle)
+                      : InputDecoration.collapsed(
+                          hintText: 'ex: 2.1', hintStyle: subtitleTextStyle),
                 );
               })),
             ),
@@ -201,8 +205,10 @@ class GradingEntryPage extends StatelessWidget {
                           ? InputDecoration(
                               errorText: 'jumlah ikan tidak boleh kosong',
                               isCollapsed: true)
-                          : null
-                      : null,
+                          : InputDecoration.collapsed(
+                              hintText: 'ex: 11', hintStyle: subtitleTextStyle)
+                      : InputDecoration.collapsed(
+                          hintText: 'ex: 11', hintStyle: subtitleTextStyle),
                 );
               })),
             ),
@@ -252,8 +258,10 @@ class GradingEntryPage extends StatelessWidget {
                           ? InputDecoration(
                               errorText: 'jumlah ikan tidak boleh kosong',
                               isCollapsed: true)
-                          : null
-                      : null,
+                          : InputDecoration.collapsed(
+                              hintText: 'ex: 2', hintStyle: subtitleTextStyle)
+                      : InputDecoration.collapsed(
+                          hintText: 'ex: 2', hintStyle: subtitleTextStyle),
                 );
               })),
             ),
@@ -303,8 +311,10 @@ class GradingEntryPage extends StatelessWidget {
                           ? InputDecoration(
                               errorText: 'jumlah ikan tidak boleh kosong',
                               isCollapsed: true)
-                          : null
-                      : null,
+                          : InputDecoration.collapsed(
+                              hintText: 'ex: 4', hintStyle: subtitleTextStyle)
+                      : InputDecoration.collapsed(
+                          hintText: 'ex: 4', hintStyle: subtitleTextStyle),
                 );
               })),
             ),
@@ -354,8 +364,10 @@ class GradingEntryPage extends StatelessWidget {
                           ? InputDecoration(
                               errorText: 'jumlah ikan tidak boleh kosong',
                               isCollapsed: true)
-                          : null
-                      : null,
+                          : InputDecoration.collapsed(
+                              hintText: 'ex: 23', hintStyle: subtitleTextStyle)
+                      : InputDecoration.collapsed(
+                          hintText: 'ex: 23', hintStyle: subtitleTextStyle),
                 );
               })),
             ),

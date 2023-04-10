@@ -557,13 +557,18 @@ class _TreatmentEntryPageState extends State<TreatmentEntryPage> {
         child: TextButton(
           onPressed: () async {
             // Get.back();
-            await controller.postFishGrading(
-              context,
-              () {
-                Navigator.pop(context);
-              },
-            );
-            treatmentTontroller.getTreatmentData(context);
+            controller.saltController.text == "" &&
+                    controller.carbonController.text == "" &&
+                    controller.waterController.text == "" &&
+                    controller.probioticController.text == ""
+                ? null
+                : await controller.postFishGrading(
+                    context,
+                    () {
+                      Navigator.pop(context);
+                      treatmentTontroller.getTreatmentData(context);
+                    },
+                  );
           },
           style: TextButton.styleFrom(
             backgroundColor: primaryColor,

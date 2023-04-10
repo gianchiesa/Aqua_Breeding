@@ -47,8 +47,12 @@ class AddPondPage extends StatelessWidget {
                           ? InputDecoration(
                               errorText: 'tinggi tidak boleh kosong',
                               isCollapsed: true)
-                          : null
-                      : null,
+                          : InputDecoration.collapsed(
+                              hintText: 'ex: Flamboyan',
+                              hintStyle: subtitleTextStyle)
+                      : InputDecoration.collapsed(
+                          hintText: 'ex: Flamboyan',
+                          hintStyle: subtitleTextStyle),
                 );
               })),
             ),
@@ -239,8 +243,10 @@ class AddPondPage extends StatelessWidget {
                           ? InputDecoration(
                               errorText: 'tinggi tidak boleh kosong',
                               isCollapsed: true)
-                          : null
-                      : null,
+                          : InputDecoration.collapsed(
+                              hintText: 'ex: 2.1', hintStyle: subtitleTextStyle)
+                      : InputDecoration.collapsed(
+                          hintText: 'ex: 2.1', hintStyle: subtitleTextStyle),
                 );
               })),
             ),
@@ -287,8 +293,10 @@ class AddPondPage extends StatelessWidget {
                           ? InputDecoration(
                               errorText: 'Panjang tidak boleh kosong',
                               isCollapsed: true)
-                          : null
-                      : null,
+                          : InputDecoration.collapsed(
+                              hintText: 'ex: 1.1', hintStyle: subtitleTextStyle)
+                      : InputDecoration.collapsed(
+                          hintText: 'ex: 1.1', hintStyle: subtitleTextStyle),
                 );
               })),
             ),
@@ -335,8 +343,10 @@ class AddPondPage extends StatelessWidget {
                           ? InputDecoration(
                               errorText: 'lebar tidak boleh kosong',
                               isCollapsed: true)
-                          : null
-                      : null,
+                          : InputDecoration.collapsed(
+                              hintText: 'ex: 1.1', hintStyle: subtitleTextStyle)
+                      : InputDecoration.collapsed(
+                          hintText: 'ex: 1.1', hintStyle: subtitleTextStyle),
                 );
               })),
             ),
@@ -383,8 +393,10 @@ class AddPondPage extends StatelessWidget {
                           ? InputDecoration(
                               errorText: 'diameter tidak boleh kosong',
                               isCollapsed: true)
-                          : null
-                      : null,
+                          : InputDecoration.collapsed(
+                              hintText: 'ex: 2.1', hintStyle: subtitleTextStyle)
+                      : InputDecoration.collapsed(
+                          hintText: 'ex: 2.1', hintStyle: subtitleTextStyle),
                 );
               })),
             ),
