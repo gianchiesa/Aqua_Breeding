@@ -549,6 +549,150 @@ class ActivationBreedPage extends StatelessWidget {
       );
     }
 
+    Widget breedOptionInput() {
+      return Container(
+        margin: EdgeInsets.only(
+            top: defaultSpace, right: defaultMargin, left: defaultMargin),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Jenis Budidaya',
+              style: primaryTextStyle.copyWith(
+                fontSize: 16,
+                fontWeight: medium,
+              ),
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            Container(
+              height: 50,
+              padding: EdgeInsets.symmetric(
+                horizontal: 16,
+              ),
+              decoration: BoxDecoration(
+                color: backgroundColor2,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: Obx(() => DropdownButtonFormField<String>(
+                      onChanged: (newValue) => controller.breedOptionController
+                          .setSelected(newValue!),
+                      value: controller.breedOptionController.selected.value,
+                      items: controller.breedOptionController.listBreed
+                          .map((material) {
+                        return DropdownMenuItem<String>(
+                          value: material,
+                          child: Text(
+                            material,
+                            style: primaryTextStyle,
+                          ),
+                        );
+                      }).toList(),
+                      dropdownColor: backgroundColor5,
+                      decoration: InputDecoration(border: InputBorder.none),
+                    )),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget pembesaranInput() {
+      return Container(
+        margin: EdgeInsets.only(
+            top: defaultSpace, right: defaultMargin, left: defaultMargin),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Kelas Pembesaran (gram)',
+              style: primaryTextStyle.copyWith(
+                fontSize: 16,
+                fontWeight: medium,
+              ),
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            Container(
+              height: 50,
+              padding: EdgeInsets.symmetric(
+                horizontal: 16,
+              ),
+              decoration: BoxDecoration(
+                color: backgroundColor2,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: TextFormField(
+                  style: primaryTextStyle,
+                  controller: controller.kelasPembesaranController,
+                  decoration: InputDecoration.collapsed(
+                    hintText: 'ex: 100',
+                    hintStyle: subtitleTextStyle,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget benihInput() {
+      return Container(
+        margin: EdgeInsets.only(
+            top: defaultSpace, right: defaultMargin, left: defaultMargin),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Kelas Benih (cm)',
+              style: primaryTextStyle.copyWith(
+                fontSize: 16,
+                fontWeight: medium,
+              ),
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            Container(
+              height: 50,
+              padding: EdgeInsets.symmetric(
+                horizontal: 16,
+              ),
+              decoration: BoxDecoration(
+                color: backgroundColor2,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: Obx(() => DropdownButtonFormField<String>(
+                      onChanged: (newValue) => controller.benihOptionController
+                          .setSelected(newValue!),
+                      value: controller.benihOptionController.selected.value,
+                      items: controller.benihOptionController.listBenih
+                          .map((material) {
+                        return DropdownMenuItem<String>(
+                          value: material,
+                          child: Text(
+                            material,
+                            style: primaryTextStyle,
+                          ),
+                        );
+                      }).toList(),
+                      dropdownColor: backgroundColor5,
+                      decoration: InputDecoration(border: InputBorder.none),
+                    )),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     Widget activationButton() {
       // return Obx(() {
       //   if (controller.isLoading.value == true) {
@@ -597,6 +741,10 @@ class ActivationBreedPage extends StatelessWidget {
           backgroundColor: backgroundColor1,
           body: ListView(
             children: [
+              breedOptionInput(),
+              controller.breedOptionController.selected.value == "Benih"
+                  ? benihInput()
+                  : pembesaranInput(),
               checkBoxFish(),
               controller.isNilaHitam == true ? nilaHitamInput() : Container(),
               controller.isNilaMerah == true ? nilaMerahInput() : Container(),

@@ -8,12 +8,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../service/activation_service.dart';
+import 'benih_option_controller.dart';
+import 'breed_option_controller.dart';
 
 class ActivationBreedController extends GetxController {
   Pond pond = Get.arguments()['pond'];
   ActivationService service = ActivationService();
-
+  BenihOptionController benihOptionController = BenihOptionController();
+  BreedOptionController breedOptionController = BreedOptionController();
   TextEditingController waterHeightController = TextEditingController(text: '');
+  TextEditingController kelasPembesaranController =
+      TextEditingController(text: '');
   TextEditingController nilaMerahAmountController =
       TextEditingController(text: '');
   TextEditingController nilaMerahWeightController =

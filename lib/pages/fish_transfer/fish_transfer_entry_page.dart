@@ -1656,6 +1656,61 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
       );
     }
 
+    Widget destinationnNotActiveTransfer() {
+      return Container(
+          width: double.infinity,
+          margin: EdgeInsets.only(right: defaultMargin, left: defaultMargin),
+          child: Center(
+            child: Column(children: [
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                "Kolam yang dituju belum aktif",
+                style: primaryTextStyle.copyWith(
+                  fontSize: 14,
+                  fontWeight: bold,
+                ),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+              SizedBox(height: 10),
+              Text(
+                "Silahkan aktifasi kolam terlebih dahulu",
+                style: secondaryTextStyle.copyWith(
+                  fontSize: 13,
+                  fontWeight: bold,
+                ),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+            ]),
+          ));
+    }
+
+    Widget deactivationTransfer() {
+      return Container(
+          width: double.infinity,
+          margin: EdgeInsets.only(right: defaultMargin, left: defaultMargin),
+          child: Center(
+            child: Column(children: [
+              SizedBox(height: 20),
+              Text(
+                "Silahkan masukan data ikan yang tidak disortir (panen)",
+                style: secondaryTextStyle.copyWith(
+                  fontSize: 13,
+                  fontWeight: bold,
+                ),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+            ]),
+          ));
+    }
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: backgroundColor2,
@@ -1696,6 +1751,9 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
               return ListView(
                 children: [
                   controller.destinationIsActive == false
+                      ? destinationnNotActiveTransfer()
+                      : deactivationInput(),
+                  controller.destinationIsActive == false
                       ? checkBoxFish()
                       : deactivationInput(),
                   controller.isNilaHitamActivation == true
@@ -1727,6 +1785,7 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
             }),
             ListView(
               children: [
+                deactivationTransfer(),
                 deactivationInput(),
                 previousSubmitButton(),
                 SizedBox(
