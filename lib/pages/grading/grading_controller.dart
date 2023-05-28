@@ -18,13 +18,14 @@ class GradingController extends GetxController {
   var isNilaMerah = false.obs;
   var isNilaHitam = false.obs;
 
-  Activation activation = Get.arguments()["activation"];
-  Pond pond = Get.arguments()["pond"];
+  Activation activation = Get.arguments["activation"];
+  Pond pond = Get.arguments["pond"];
   final list_fishGrading = <FishGrading>[].obs;
 
   @override
   void onInit() async {
     getFishGrading(activation_id: activation.id!);
+    startTime = DateTime.now();
     getFishGradingChart(activation_id: activation.id!);
     super.onInit();
   }
@@ -73,5 +74,14 @@ class GradingController extends GetxController {
         .fetchFishGradings(activationId: activation_id);
     list_fishGrading.addAll(feedHistoryMonthly);
     // isLoading.value = false;
+  }
+
+  late DateTime startTime;
+  late DateTime endTime;
+  final fitur = 'Grading';
+
+  void onClose() {
+    endTime = DateTime.now();
+    super.onClose();
   }
 }

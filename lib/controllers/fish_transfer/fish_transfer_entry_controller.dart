@@ -123,8 +123,8 @@ class FishTransferEntryController extends GetxController {
       TextEditingController(text: '');
   TextEditingController masAmountDeactivationController =
       TextEditingController(text: '');
-  Activation activation = Get.arguments()["activation"];
-  Pond pond = Get.arguments()["pond"];
+  Activation activation = Get.arguments["activation"];
+  Pond pond = Get.arguments["pond"];
   // final listPondName = [].obs;
   RxList<String> listPondName = List<String>.empty().obs;
   final pondSelected = <Pond>[].obs;
@@ -563,5 +563,19 @@ class FishTransferEntryController extends GetxController {
 
   void valpatinWeightval() {
     validatepatinWeightval.value = true;
+  }
+
+  late DateTime startTime;
+  late DateTime endTime;
+  final fitur = 'Fish Transfer';
+
+  void onClose() {
+    endTime = DateTime.now();
+    super.onClose();
+  }
+
+  void onInit() {
+    startTime = DateTime.now();
+    super.onInit();
   }
 }

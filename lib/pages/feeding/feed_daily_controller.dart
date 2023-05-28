@@ -9,11 +9,11 @@ import 'package:get/get.dart';
 
 class FeedDailyController extends GetxController {
   var isLoading = false.obs;
-  Activation activation = Get.arguments()["activation"];
-  Pond pond = Get.arguments()["pond"];
-  FeedHistoryMonthly feedHistoryMonthly = Get.arguments()['feedHistoryMonthly'];
-  FeedHistoryWeekly feedHistoryWeekly = Get.arguments()['feedHistoryWeekly'];
-  FeedHistoryDaily feedHistoryDaily = Get.arguments()['feedHistoryDaily'];
+  Activation activation = Get.arguments["activation"];
+  Pond pond = Get.arguments["pond"];
+  FeedHistoryMonthly feedHistoryMonthly = Get.arguments['feedHistoryMonthly'];
+  FeedHistoryWeekly feedHistoryWeekly = Get.arguments['feedHistoryWeekly'];
+  FeedHistoryDaily feedHistoryDaily = Get.arguments['feedHistoryDaily'];
   final list_feedHistoryHourly = <FeedHistoryHourly>[].obs;
 
   @override

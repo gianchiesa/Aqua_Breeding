@@ -7,8 +7,8 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 class WeeklyWaterController extends GetxController {
-  Activation activation = Get.arguments()["activation"];
-  Pond pond = Get.arguments()["pond"];
+  Activation activation = Get.arguments["activation"];
+  Pond pond = Get.arguments["pond"];
   var isLoading = false.obs;
   final listWeeklyWater = <WeeklyWater>[].obs;
 
@@ -26,5 +26,19 @@ class WeeklyWaterController extends GetxController {
     // formattedList(listWeeklyWater);
     // print(listTreatment.value);
     isLoading.value = false;
+  }
+
+  late DateTime startTime;
+  late DateTime endTime;
+  final fitur = 'Weekly Water Quality';
+
+  void onClose() {
+    endTime = DateTime.now();
+    super.onClose();
+  }
+
+  void onInit() {
+    startTime = DateTime.now();
+    super.onInit();
   }
 }

@@ -20,8 +20,8 @@ class WeeklyWaterEntryController extends GetxController {
   TextEditingController amoniaController = TextEditingController(text: '0');
 
   TextEditingController hardnessController = TextEditingController(text: '0');
-  Activation activation = Get.arguments()["activation"];
-  Pond pond = Get.arguments()["pond"];
+  Activation activation = Get.arguments["activation"];
+  Pond pond = Get.arguments["pond"];
 
   getWeek() {
     var week = (DateTime.now().day - activation.activationAt!.day) / 7;
@@ -79,4 +79,17 @@ class WeeklyWaterEntryController extends GetxController {
   //   await getPondsData();
   //   Get.to(() => DashboardPage());
   // }
+  late DateTime startTime;
+  late DateTime endTime;
+  final fitur = 'Weekly Water Quality';
+
+  void onClose() {
+    endTime = DateTime.now();
+    super.onClose();
+  }
+
+  void onInit() {
+    startTime = DateTime.now();
+    super.onInit();
+  }
 }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:fish/models/pond_model.dart';
 import 'package:fish/pages/dashboard.dart';
@@ -15,6 +16,7 @@ class PondController extends GetxController {
   final ponds = <Pond>[].obs;
   final pondFiltered = <Pond>[].obs;
   String token = '';
+  String identity = '';
   String status = "Tidak Aktif";
   bool chipSelected = false;
 
@@ -82,7 +84,8 @@ class PondController extends GetxController {
     WidgetsFlutterBinding.ensureInitialized();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token = prefs.getString('token').toString();
-    print(token);
+    identity = prefs.getString('identity').toString();
+    log("ini prefs $identity");
     isLoading.value = true;
     ponds.clear();
     List<Pond> pondsData = await PondService().getPonds();
@@ -126,5 +129,19 @@ class PondController extends GetxController {
       }
     }
     isLoading.value = false;
+  }
+
+  late DateTime startTime;
+  late DateTime endTime;
+  final fitur = 'List Pond';
+
+  void onClose() {
+    endTime = DateTime.now();
+    super.onClose();
+  }
+
+  void onInit() {
+    startTime = DateTime.now();
+    super.onInit();
   }
 }

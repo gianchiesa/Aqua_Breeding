@@ -436,19 +436,37 @@ class RegisterNextInputCard extends StatelessWidget {
                     Expanded(
                       child: TextButton(
                         onPressed: () {
-                          controller.hasFarmController.selected.value ==
-                                      "Sudah" &&
-                                  controller
-                                          .farmlistController.selected.value ==
-                                      "Pilih Tempat Budidaya"
-                              ? null
-                              : controller.hasFarmController.selected.value ==
-                                              "Belum" &&
-                                          controller.farmnameController.text ==
-                                              '' ||
-                                      controller.addressController.text == ''
-                                  ? null
-                                  : registerfunc.call();
+                          // controller.hasFarmController.selected.value ==
+                          //             "Sudah" &&
+                          //         controller
+                          //                 .farmlistController.selected.value ==
+                          //             "Pilih Tempat Budidaya"
+                          //     ? null
+                          //     : controller.hasFarmController.selected.value ==
+                          //                     "Belum" &&
+                          //                 controller.farmnameController.text ==
+                          //                     '' ||
+                          //             controller.addressController.text == ''
+                          //         ? null
+                          //         : registerfunc.call();
+                          if (controller.hasFarmController.selected.value ==
+                                  'Sudah' &&
+                              controller.farmlistController.selected.value ==
+                                  'Pilih Tempat Budidaya') {
+                            return null;
+                          } else if (controller
+                                      .hasFarmController.selected.value ==
+                                  'Belum' &&
+                              controller.farmnameController.text == '') {
+                            return null;
+                          } else if (controller
+                                      .hasFarmController.selected.value ==
+                                  'Belum' &&
+                              controller.addressController.text == '') {
+                            return null;
+                          } else {
+                            registerfunc.call();
+                          }
                         },
                         style: TextButton.styleFrom(
                           backgroundColor: primaryColor,

@@ -1,3 +1,5 @@
+import 'package:fish/controllers/daily_water/daily_water_breed_list_controller.dart';
+import 'package:fish/controllers/daily_water/daily_water_controller.dart';
 import 'package:fish/pages/pond/detail_breed_page.dart';
 import 'package:fish/pages/treatment/treatment_page.dart';
 import 'package:fish/theme.dart';
@@ -16,7 +18,7 @@ class MyTabsPond extends GetxController with GetSingleTickerProviderStateMixin {
   var isLoading = false.obs;
 
   late TabController controller;
-  Pond pond = Get.arguments()["pond"];
+  Pond pond = Get.arguments["pond"];
   final List<Tab> myTabs = <Tab>[
     Tab(
       text: 'Musim Budidaya',
@@ -28,8 +30,19 @@ class MyTabsPond extends GetxController with GetSingleTickerProviderStateMixin {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     controller = TabController(length: 2, vsync: this);
+    controller.addListener(() {
+      if (controller.indexIsChanging) {
+        if (controller.previousIndex == 0) {
+          Get.delete<DetailPondController>();
+          Get.put(DailyWaterBreedListController());
+        } else {
+          Get.delete<DailyWaterBreedListController>();
+          Get.put(DetailPondController());
+        }
+      }
+      // Tab Changed tapping on new tab
+    });
     super.onInit();
   }
 
@@ -56,8 +69,8 @@ class MyTabPondScreen extends StatelessWidget {
           tabs: _tabs.myTabs,
           controller: _tabs.controller,
         ),
-        leading: new IconButton(
-          icon: new Icon(Icons.arrow_back),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
           onPressed: () async {
             // Get.back();
 

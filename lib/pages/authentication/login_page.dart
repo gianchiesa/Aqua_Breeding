@@ -58,7 +58,9 @@ class _LoginPageState extends State<LoginPage> {
         'token',
         myToken,
       );
-      Navigator.push(
+      prefs.setString('identity', identity.toString());
+      // prefs.setString('identity', identity);
+      Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => DashboardPage()));
       print(response.body);
     } else {

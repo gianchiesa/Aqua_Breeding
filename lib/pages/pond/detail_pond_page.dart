@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
 import 'package:get/get.dart';
 
+import '../fish_transfer/fish_transfer_entry_page.dart';
+
 class DetailPondPage extends StatefulWidget {
   const DetailPondPage({Key? key}) : super(key: key);
 
@@ -20,18 +22,24 @@ class DetailPondPage extends StatefulWidget {
 }
 
 class _DetailPondPageState extends State<DetailPondPage> {
-  final detailController = Get.put(DetailPondController());
-  final activationController = Get.put(ActivationBreedController());
-  final pondController = Get.put(PondController());
-
+  var detailController = Get.put(DetailPondController(), permanent: false);
   @override
   void initState() {
     super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-    //   await controller.getPondActivations(
-    //       pondId: controller.pond.id.toString());
-    // });
+
     detailController.getPondActivation(context);
+  }
+
+  @override
+  void activate() {
+    print('ini aktif');
+    super.activate();
+  }
+
+  @override
+  void deactivate() {
+    print('ini deaktif');
+    super.deactivate();
   }
 
   @override
@@ -107,6 +115,7 @@ class _DetailPondPageState extends State<DetailPondPage> {
             top: defaultSpace, right: defaultMargin, left: defaultMargin),
         child: TextButton(
           onPressed: () {
+            Get.delete<DetailPondController>();
             Get.to(() => ActivationBreedPage(), arguments: {
               'pond': detailController.pond,
             });
@@ -136,8 +145,11 @@ class _DetailPondPageState extends State<DetailPondPage> {
             top: defaultSpace, right: defaultMargin, left: defaultMargin),
         child: TextButton(
           onPressed: () {
-            Get.to(() => DeactivationBreedPage(),
-                arguments: {"pond": detailController.pond});
+            Get.delete<DetailPondController>();
+            Get.to(() => FishTransferEntryPage(), arguments: {
+              "pond": detailController.pond,
+              "activation": detailController.activationData
+            });
           },
           style: TextButton.styleFrom(
             backgroundColor: Colors.amber,

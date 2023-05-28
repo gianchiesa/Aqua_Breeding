@@ -5,7 +5,21 @@ import 'package:get/get.dart';
 
 class GradingDetailController extends GetxController {
   var isLoading = false.obs;
-  Activation activation = Get.arguments()["activation"];
-  Pond pond = Get.arguments()["pond"];
-  FishGrading fishGrading = Get.arguments()['fishGrading'];
+  Activation activation = Get.arguments["activation"];
+  Pond pond = Get.arguments["pond"];
+  FishGrading fishGrading = Get.arguments['fishGrading'];
+
+  late DateTime startTime;
+  late DateTime endTime;
+  final fitur = 'Grading';
+
+  void onClose() {
+    endTime = DateTime.now();
+    super.onClose();
+  }
+
+  void onInit() {
+    startTime = DateTime.now();
+    super.onInit();
+  }
 }

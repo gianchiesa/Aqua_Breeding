@@ -11,8 +11,8 @@ import '../../models/activation_model.dart';
 class FishDeathEntryController extends GetxController {
   TextEditingController formDeathController = TextEditingController(text: '');
   FishTypeController fishTypeController = FishTypeController();
-  Activation activation = Get.arguments()["activation"];
-  Pond pond = Get.arguments()["pond"];
+  Activation activation = Get.arguments["activation"];
+  Pond pond = Get.arguments["pond"];
   final fishamount = ''.obs;
   final validatefishamount = false.obs;
   var isLoading = false.obs;
@@ -41,5 +41,19 @@ class FishDeathEntryController extends GetxController {
       fish: buildJson(),
     );
     print(value);
+  }
+
+  late DateTime startTime;
+  late DateTime endTime;
+  final fitur = 'Fish Death';
+
+  void onClose() {
+    endTime = DateTime.now();
+    super.onClose();
+  }
+
+  void onInit() {
+    startTime = DateTime.now();
+    super.onInit();
   }
 }

@@ -9,14 +9,16 @@ import 'package:intl/intl.dart';
 class FeedController extends GetxController {
   final charData = <FeedChartData>[].obs;
   var isLoading = false.obs;
-  Activation activation = Get.arguments()["activation"];
-  Pond pond = Get.arguments()["pond"];
+  Activation activation = Get.arguments["activation"];
+  Pond pond = Get.arguments["pond"];
   final list_feedHistoryMonthly = <FeedHistoryMonthly>[].obs;
 
   @override
   void onInit() async {
     getWeeklyRecapFeedHistory(activation_id: activation.id!);
     getChartFeed(activation_id: activation.id!);
+
+    startTime = DateTime.now();
     super.onInit();
   }
 
@@ -46,5 +48,14 @@ class FeedController extends GetxController {
       // print(formatdate);
     }
     isLoading.value = false;
+  }
+
+  late DateTime startTime;
+  late DateTime endTime;
+  final fitur = 'Feeding';
+
+  void onClose() {
+    endTime = DateTime.now();
+    super.onClose();
   }
 }

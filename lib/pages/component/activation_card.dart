@@ -7,6 +7,7 @@ import 'package:fish/theme.dart';
 import 'package:get/get.dart';
 
 import '../pond/detail_Breed_page.dart';
+import '../pond/detail_pond_controller.dart';
 
 class ActivationCard extends StatelessWidget {
   final Activation? activation;
@@ -19,6 +20,7 @@ class ActivationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        Get.delete<DetailPondController>();
         Get.to(() => MyTabScreen(),
             arguments: {"activation": activation, "pond": pond});
       },

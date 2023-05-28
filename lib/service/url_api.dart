@@ -64,4 +64,5 @@ class Urls {
   //user
   static String breeder = '$baseUrl/breeder';
   static String farm = '$baseUrl/farm';
+  static String logging = '$baseUrl/logging';
 }

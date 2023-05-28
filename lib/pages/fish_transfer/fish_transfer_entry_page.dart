@@ -111,7 +111,7 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Panjang Sample',
+              'Panjang Sample (cm)',
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,

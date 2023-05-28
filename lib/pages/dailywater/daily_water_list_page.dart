@@ -4,6 +4,7 @@ import 'package:fish/pages/dailywater/daily_water_entry_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 
 import 'daily_water_avg.dart';
 
@@ -25,10 +26,14 @@ class _DailyWaterPageState extends State<DailyWaterPage> {
     //       pondId: controller.pond.id.toString());
     // });
     controller.getDailyWaterData(context);
+    controller.startTime = DateTime.now();
+    print('ini init state');
   }
 
   @override
   Widget build(BuildContext context) {
+    controller.startTime = DateTime.now();
+    print('ini build daily water');
     Widget fishDataRecap() {
       return Container(
         margin: EdgeInsets.only(
@@ -135,6 +140,7 @@ class _DailyWaterPageState extends State<DailyWaterPage> {
             top: defaultSpace * 3, right: defaultMargin, left: defaultMargin),
         child: TextButton(
           onPressed: () {
+            Get.delete<DailyWaterController>();
             Get.to(() => DailyWaterAvgPage(), arguments: {
               "pond": controller.pond,
               "activation": controller.activation
@@ -162,6 +168,7 @@ class _DailyWaterPageState extends State<DailyWaterPage> {
         return Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () {
+              Get.delete<DailyWaterController>();
               Get.to(() => DailyWaterEntryPage(), arguments: {
                 "pond": controller.pond,
                 "activation": controller.activation

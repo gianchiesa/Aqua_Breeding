@@ -5,10 +5,22 @@ import 'package:fish/models/pond_model.dart';
 
 class SortirDetailController extends GetxController {
   var isLoading = false.obs;
-  Activation activation = Get.arguments()["activation"];
-  Pond pond = Get.arguments()["pond"];
-  FishTransfer sortir = Get.arguments()["sortir"];
+  Activation activation = Get.arguments["activation"];
+  Pond pond = Get.arguments["pond"];
+  FishTransfer sortir = Get.arguments["sortir"];
+  late DateTime startTime;
+  late DateTime endTime;
+  final fitur = 'Fish Transfer';
 
+  void onClose() {
+    endTime = DateTime.now();
+    super.onClose();
+  }
+
+  void onInit() {
+    startTime = DateTime.now();
+    super.onInit();
+  }
   // Activation activation = Get.arguments()["activation"];
   // Pond pond = Get.arguments()["pond"];
   // FishGrading fishGrading = Get.arguments()['fishGrading'];

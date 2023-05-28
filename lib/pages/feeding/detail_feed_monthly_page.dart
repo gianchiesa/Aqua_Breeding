@@ -75,6 +75,45 @@ class DetailFeedMonthlyPage extends StatelessWidget {
     //   );
     // }
 
+    Widget emptyListPond() {
+      return Container(
+          width: double.infinity,
+          margin: EdgeInsets.only(right: defaultMargin, left: defaultMargin),
+          child: Center(
+            child: Column(children: [
+              SizedBox(height: 35),
+              Image(
+                image: AssetImage("assets/unavailable_icon.png"),
+                width: 100,
+                height: 100,
+                fit: BoxFit.fitWidth,
+              ),
+              SizedBox(height: 20),
+              Text(
+                "Anda belum pernah melakukan entry pakan",
+                style: primaryTextStyle.copyWith(
+                  fontSize: 14,
+                  fontWeight: bold,
+                ),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+              SizedBox(height: 10),
+              Text(
+                "Silahkan Lakukan Entry Pakan",
+                style: secondaryTextStyle.copyWith(
+                  fontSize: 13,
+                  fontWeight: bold,
+                ),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+            ]),
+          ));
+    }
+
     Widget detail() {
       return Container(
         width: double.infinity,
@@ -252,7 +291,9 @@ class DetailFeedMonthlyPage extends StatelessWidget {
               // detail(),
               recapTitle(),
               // chartRecap(),
-              listWeeklyFeed(),
+              controller.list_feedHistoryWeekly.isEmpty
+                  ? emptyListPond()
+                  : listWeeklyFeed(),
               SizedBox(
                 height: 10,
               )

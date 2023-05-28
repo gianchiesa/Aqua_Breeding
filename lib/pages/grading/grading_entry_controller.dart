@@ -17,8 +17,8 @@ class GradingEntryController extends GetxController {
       TextEditingController(text: '');
   FishTypeController fishTypeController = FishTypeController();
   var isLoading = false.obs;
-  Pond pond = Get.arguments()['pond'];
-  Activation activation = Get.arguments()["activation"];
+  Pond pond = Get.arguments['pond'];
+  Activation activation = Get.arguments["activation"];
 
   final fishWeight = ''.obs;
   final validatefishWeight = false.obs;
@@ -92,5 +92,19 @@ class GradingEntryController extends GetxController {
       amountUnder: undersizeController.value.text,
     );
     print(value);
+  }
+
+  late DateTime startTime;
+  late DateTime endTime;
+  final fitur = 'Grading';
+
+  void onClose() {
+    endTime = DateTime.now();
+    super.onClose();
+  }
+
+  void onInit() {
+    startTime = DateTime.now();
+    super.onInit();
   }
 }

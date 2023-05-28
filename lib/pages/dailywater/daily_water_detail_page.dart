@@ -18,8 +18,7 @@ class DailyWaterDetailPage extends StatefulWidget {
 class _DailyWaterDetailPageState extends State<DailyWaterDetailPage> {
   final DailyWaterDetailController controller =
       Get.put(DailyWaterDetailController());
-  final DailyWaterController dailyWaterControlller =
-      Get.put(DailyWaterController());
+
   @override
   void initState() {
     super.initState();
@@ -152,7 +151,6 @@ class _DailyWaterDetailPageState extends State<DailyWaterDetailPage> {
                           await controller.deleteDailyWaterData(
                               context, controller.dailyWater.id.toString());
                           // controller.getWeek();
-                          dailyWaterControlller.getDailyWaterData(context);
                         },
                         style: TextButton.styleFrom(
                           backgroundColor: Colors.red.shade400,
@@ -318,8 +316,6 @@ class _DailyWaterDetailPageState extends State<DailyWaterDetailPage> {
                 // Get.back();
 
                 Navigator.pop(context);
-
-                dailyWaterControlller.getDailyWaterData(context);
               },
             ),
           ),

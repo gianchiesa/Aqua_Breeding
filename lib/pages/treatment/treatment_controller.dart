@@ -7,17 +7,24 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 class TreatmentController extends GetxController {
-  Activation activation = Get.arguments()["activation"];
-  Pond pond = Get.arguments()["pond"];
+  Activation activation = Get.arguments["activation"];
+  Pond pond = Get.arguments["pond"];
   var isLoading = false.obs;
   final listTreatment = <Treatment>[].obs;
   final listTreatmentTest = <Treatment>[].obs;
+  late DateTime startTime;
+  late DateTime endTime;
+  final fitur = 'Pond Treatment';
 
-  // @override
-  // void onReady() async {
-  //   await getStatisticData();
-  //   super.onReady();
-  // }
+  void onClose() {
+    endTime = DateTime.now();
+    super.onClose();
+  }
+
+  void onInit() {
+    startTime = DateTime.now();
+    super.onInit();
+  }
 
   // Future<void> getTreatmentData() async {
   //   isLoading.value = true;

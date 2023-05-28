@@ -10,14 +10,13 @@ import 'package:fish/theme.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../component/detail_pond_tabview.dart';
+
 class ActivationBreedPage extends StatelessWidget {
   ActivationBreedPage({Key? key}) : super(key: key);
 
   final ActivationBreedController controller =
       Get.put(ActivationBreedController());
-
-  final DetailPondController detailPondController =
-      Get.put(DetailPondController());
 
   @override
   Widget build(BuildContext context) {
@@ -708,10 +707,13 @@ class ActivationBreedPage extends StatelessWidget {
             await controller.pondActivation(
               context,
               () {
-                Navigator.pop(context);
+                Get.off(MyTabPondScreen(), arguments: {
+                  'pond': controller.pond,
+                });
               },
             );
-            detailPondController.getPondActivation(context);
+
+            // Get.close(1);
           },
           style: TextButton.styleFrom(
             backgroundColor: primaryColor,

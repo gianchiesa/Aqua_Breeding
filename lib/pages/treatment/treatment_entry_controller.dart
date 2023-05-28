@@ -48,8 +48,8 @@ class TreatmentEntryController extends GetxController {
 
   TextEditingController patinWeightController = TextEditingController(text: '');
   TextEditingController masWeightController = TextEditingController(text: '');
-  Activation activation = Get.arguments()["activation"];
-  Pond pond = Get.arguments()["pond"];
+  Activation activation = Get.arguments["activation"];
+  Pond pond = Get.arguments["pond"];
 
   Future<void> postFishGrading(BuildContext context, Function doInPost) async {
     bool value = await TreatmentService().postPondTreatment(
@@ -173,5 +173,19 @@ class TreatmentEntryController extends GetxController {
         fish_harvested: buildJsonFish());
     print(value);
     doInPost();
+  }
+
+  late DateTime startTime;
+  late DateTime endTime;
+  final fitur = 'Pond Treatment';
+
+  void onClose() {
+    endTime = DateTime.now();
+    super.onClose();
+  }
+
+  void onInit() {
+    startTime = DateTime.now();
+    super.onInit();
   }
 }

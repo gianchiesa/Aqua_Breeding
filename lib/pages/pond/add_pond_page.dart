@@ -414,31 +414,46 @@ class AddPondPage extends StatelessWidget {
         child: TextButton(
           onPressed: () async {
             // Get.back();
-            controller.shapeController.selected.value == "persegi"
-                ? controller.aliasController.text == "" ||
-                        controller.heightController.text == "" ||
-                        controller.widthController.text == "" ||
-                        controller.lengthController.text == ""
-                    ? null
-                    : await controller.pondRegister(
-                        context,
-                        () {
-                          Navigator.pop(context);
-                          controller.getPondsData(context);
-                        },
-                      )
-                : controller.aliasController.text == "" ||
-                        controller.heightController.text == "" ||
-                        controller.diameterController.text == ""
-                    ? null
-                    : await controller.pondRegister(
-                        context,
-                        () {
-                          Navigator.pop(context);
-                          controller.getPondsData(context);
-                        },
-                      );
-
+            // controller.shapeController.selected.value == "persegi"
+            //     ? controller.aliasController.text == "" ||
+            //             controller.heightController.text == "" ||
+            //             controller.widthController.text == "" ||
+            //             controller.lengthController.text == ""
+            //         ? null
+            //         : await controller.pondRegister(
+            //             context,
+            //             () {
+            //               Navigator.pop(context);
+            //               controller.getPondsData(context);
+            //             },
+            //           )
+            //     : controller.aliasController.text == "" ||
+            //             controller.heightController.text == "" ||
+            //             controller.diameterController.text == ""
+            //         ? null
+            //         : await controller.pondRegister(
+            //             context,
+            //             () {
+            //               Navigator.pop(context);
+            //               controller.getPondsData(context);
+            //             },
+            //           );
+            if (controller.shapeController.selected.value == 'persegi' &&
+                    controller.widthController.text == '' ||
+                controller.lengthController.text == '') {
+              return null;
+            } else if (controller.shapeController.selected.value == 'bundar' &&
+                controller.diameterController.text == '') {
+              return null;
+            } else {
+              await controller.pondRegister(
+                context,
+                () {
+                  Navigator.pop(context);
+                  controller.getPondsData(context);
+                },
+              );
+            }
             // profilecontroller.getBreeder();
           },
           style: TextButton.styleFrom(

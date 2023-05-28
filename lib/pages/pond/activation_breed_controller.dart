@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:fish/models/activation_model.dart';
+import 'package:fish/pages/pond/detail_pond_controller.dart';
 import 'package:fish/pages/pond/detail_pond_page.dart';
 import 'package:fish/models/pond_model.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,14 @@ import 'benih_option_controller.dart';
 import 'breed_option_controller.dart';
 
 class ActivationBreedController extends GetxController {
-  Pond pond = Get.arguments()['pond'];
+  @override
+  void dispose() {
+    print('tesing dispose');
+    Get.put(DetailPondController());
+    super.dispose();
+  }
+
+  Pond pond = Get.arguments['pond'];
   ActivationService service = ActivationService();
   BenihOptionController benihOptionController = BenihOptionController();
   BreedOptionController breedOptionController = BreedOptionController();
@@ -134,5 +142,20 @@ class ActivationBreedController extends GetxController {
     // //         material: pond.material,
     // //         isActive: true,
     // //         pondStatus: PondStatus.active));
+  }
+
+  late DateTime startTime;
+  late DateTime endTime;
+  final fitur = 'Activation';
+
+  void onClose() {
+    endTime = DateTime.now();
+    this.dispose();
+    super.onClose();
+  }
+
+  void onInit() {
+    startTime = DateTime.now();
+    super.onInit();
   }
 }

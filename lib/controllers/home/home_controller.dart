@@ -15,15 +15,19 @@ import '../../pages/dashboard.dart';
 class HomeController extends GetxController {
   var isLoading = false.obs;
   var username = "";
+  DateTime initializeDate = DateTime.now();
   final statistic = StatisticModel().obs;
 
   @override
   void onInit() async {
     await getStatisticData();
 
+    startTime = DateTime.now();
     super.onInit();
     getUserData();
   }
+
+  @override
 
   // @override
   // void onReady() async {
@@ -53,5 +57,14 @@ class HomeController extends GetxController {
     Timer(const Duration(seconds: 1), () {
       isLoading.value = false;
     });
+  }
+
+  late DateTime startTime;
+  late DateTime endTime;
+  final fitur = 'Dashboard';
+
+  void onClose() {
+    endTime = DateTime.now();
+    super.onClose();
   }
 }

@@ -110,6 +110,45 @@ class FishRecapPage extends StatelessWidget {
       );
     }
 
+    Widget emptyListPond() {
+      return Container(
+          width: double.infinity,
+          margin: EdgeInsets.only(right: defaultMargin, left: defaultMargin),
+          child: Center(
+            child: Column(children: [
+              SizedBox(height: 35),
+              Image(
+                image: AssetImage("assets/unavailable_icon.png"),
+                width: 100,
+                height: 100,
+                fit: BoxFit.fitWidth,
+              ),
+              SizedBox(height: 20),
+              Text(
+                "Anda belum pernah melakukan entry kematian",
+                style: primaryTextStyle.copyWith(
+                  fontSize: 14,
+                  fontWeight: bold,
+                ),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+              SizedBox(height: 10),
+              Text(
+                "Silahkan Lakukan Entry Kematian Ikan",
+                style: secondaryTextStyle.copyWith(
+                  fontSize: 13,
+                  fontWeight: bold,
+                ),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+            ]),
+          ));
+    }
+
     Widget detail() {
       return Container(
         width: double.infinity,
@@ -238,7 +277,7 @@ class FishRecapPage extends StatelessWidget {
               entryDeathButton(),
               recapTitle(),
               // chartRecap(),
-              listDeath(),
+              controller.list_fishDeath.isEmpty ? emptyListPond() : listDeath(),
               SizedBox(
                 height: 10,
               )

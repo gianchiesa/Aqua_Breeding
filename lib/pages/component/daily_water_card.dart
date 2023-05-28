@@ -1,3 +1,4 @@
+import 'package:fish/controllers/daily_water/daily_water_controller.dart';
 import 'package:fish/models/daily_water_model.dart';
 import 'package:fish/models/pond_model.dart';
 import 'package:fish/pages/dailywater/daily_water_detail_page.dart';
@@ -20,6 +21,7 @@ class DailyWaterCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        Get.delete<DailyWaterController>();
         Get.to(() => DailyWaterDetailPage(), arguments: {
           "dailywater": dailyWaterList,
           "activation": activation,

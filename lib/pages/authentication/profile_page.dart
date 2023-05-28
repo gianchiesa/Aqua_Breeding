@@ -170,7 +170,7 @@ class ProfilePage extends StatelessWidget {
         child: TextButton(
           onPressed: () {
             // Get.back();
-            Navigator.push(
+            Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (context) => LoginPage()));
             controller.deleteToken();
 

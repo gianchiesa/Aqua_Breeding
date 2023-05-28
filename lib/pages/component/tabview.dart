@@ -14,8 +14,8 @@ class MyTabs extends GetxController with GetSingleTickerProviderStateMixin {
   var isLoading = false.obs;
 
   late TabController controller;
-  Activation activation = Get.arguments()["activation"];
-  Pond pond = Get.arguments()["pond"];
+  Activation activation = Get.arguments["activation"];
+  Pond pond = Get.arguments["pond"];
   final List<Tab> myTabs = <Tab>[
     Tab(
       text: 'Rekap Data',
@@ -45,8 +45,7 @@ class MyTabs extends GetxController with GetSingleTickerProviderStateMixin {
 
 class MyTabScreen extends StatelessWidget {
   MyTabScreen({Key? key}) : super(key: key);
-  final DetailPondController detailPondController =
-      Get.put(DetailPondController());
+
   @override
   Widget build(BuildContext context) {
     final MyTabs _tabs = Get.put(MyTabs());
@@ -65,8 +64,6 @@ class MyTabScreen extends StatelessWidget {
             // Get.back();
 
             Navigator.pop(context);
-
-            detailPondController.getPondActivation(context);
           },
         ),
       ),

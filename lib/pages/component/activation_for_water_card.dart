@@ -1,3 +1,4 @@
+import 'package:fish/controllers/daily_water/daily_water_breed_list_controller.dart';
 import 'package:fish/models/activation_model.dart';
 import 'package:fish/models/pond_model.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class ActivationForWaterCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        Get.delete<DailyWaterBreedListController>();
         Get.to(() => MyWaterTabScreen(),
             arguments: {"activation": activation, "pond": pond});
       },

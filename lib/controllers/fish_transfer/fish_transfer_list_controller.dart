@@ -9,11 +9,23 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 class TransferController extends GetxController {
-  Activation activation = Get.arguments()["activation"];
-  Pond pond = Get.arguments()["pond"];
+  Activation activation = Get.arguments["activation"];
+  Pond pond = Get.arguments["pond"];
   var isLoading = false.obs;
   final listTransfer = <FishTransfer>[].obs;
+  late DateTime startTime;
+  late DateTime endTime;
+  final fitur = 'Fish Transfer';
 
+  void onClose() {
+    endTime = DateTime.now();
+    super.onClose();
+  }
+
+  void onInit() {
+    startTime = DateTime.now();
+    super.onInit();
+  }
   // @override
   // void onReady() async {
   //   await getStatisticData();

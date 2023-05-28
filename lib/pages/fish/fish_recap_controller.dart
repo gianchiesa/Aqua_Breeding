@@ -12,8 +12,8 @@ import '../../models/fish_live_model.dart';
 class FishRecapController extends GetxController {
   final list_fishDeath = <FishDeath>[].obs;
   final charData = <FishLiveData>[].obs;
-  Activation activation = Get.arguments()["activation"];
-  Pond pond = Get.arguments()["pond"];
+  Activation activation = Get.arguments["activation"];
+  Pond pond = Get.arguments["pond"];
   // var fishlive = activation.fishAmount.obs;
   var isLoading = false.obs;
 
@@ -21,6 +21,7 @@ class FishRecapController extends GetxController {
   void onInit() async {
     getFishDeaths(activation_id: activation.id!);
     getcharData(activation_id: activation.id!);
+    startTime = DateTime.now();
     // inspect(charData);
     super.onInit();
   }
@@ -55,5 +56,14 @@ class FishRecapController extends GetxController {
     }
     inspect(charData);
     isLoading.value = false;
+  }
+
+  late DateTime startTime;
+  late DateTime endTime;
+  final fitur = 'Fish Death';
+
+  void onClose() {
+    endTime = DateTime.now();
+    super.onClose();
   }
 }

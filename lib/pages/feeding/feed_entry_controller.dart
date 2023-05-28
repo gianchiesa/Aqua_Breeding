@@ -10,8 +10,8 @@ class FeedEntryController extends GetxController {
   FeedTypeFormController feedTypeFormController = FeedTypeFormController();
   TextEditingController feedDosisController = TextEditingController(text: '');
   var isLoading = false.obs;
-  Pond pond = Get.arguments()['pond'];
-  Activation activation = Get.arguments()["activation"];
+  Pond pond = Get.arguments['pond'];
+  Activation activation = Get.arguments["activation"];
   final dose = ''.obs;
   final validatedose = false.obs;
 
@@ -27,6 +27,8 @@ class FeedEntryController extends GetxController {
   void onInit() async {
     isLoading = false.obs;
     await feedTypeFormController.getData();
+
+    startTime = DateTime.now();
     isLoading = true.obs;
     super.onInit();
   }
@@ -38,5 +40,14 @@ class FeedEntryController extends GetxController {
       feedDose: feedDosisController.text,
     );
     print(value);
+  }
+
+  late DateTime startTime;
+  late DateTime endTime;
+  final fitur = 'Feeding';
+
+  void onClose() {
+    endTime = DateTime.now();
+    super.onClose();
   }
 }

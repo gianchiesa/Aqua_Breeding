@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:fish/controllers/daily_water/daily_water_controller.dart';
 import 'package:fish/models/daily_water_model.dart';
 import 'package:fish/models/activation_model.dart';
 import 'package:fish/models/pond_model.dart';
@@ -7,12 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../service/daily_water_service.dart';
+import '../../service/logging_service.dart';
 
 class DailyWaterDetailController extends GetxController {
   var isLoading = false.obs;
-  DailyWater dailyWater = Get.arguments()["dailywater"];
-  Activation activation = Get.arguments()["activation"];
-  Pond pond = Get.arguments()["pond"];
+  DailyWater dailyWater = Get.arguments["dailywater"];
+  Activation activation = Get.arguments["activation"];
+  Pond pond = Get.arguments["pond"];
   final dailyWaterfix = <DailyWater>[].obs;
 
   Future<void> getDailyWaterData(
@@ -35,6 +37,29 @@ class DailyWaterDetailController extends GetxController {
 
     // print(listTreatment.value);
     isLoading.value = false;
+  }
+
+  late DateTime startTime;
+  late DateTime endTime;
+  final fitur = 'Daily Water Quality';
+  @override
+  void onClose() {
+    endTime = DateTime.now();
+    postDataLog(fitur);
+    super.onClose();
+  }
+
+  @override
+  void onInit() {
+    startTime = DateTime.now();
+    super.onInit();
+  }
+
+  Future<void> postDataLog(String fitur) async {
+    // print(buildJsonFish());
+    bool value =
+        await LoggingService().postLogging(startAt: startTime, fitur: fitur);
+    print(value);
   }
   // Activation activation = Get.arguments()["activation"];
   // Pond pond = Get.arguments()["pond"];

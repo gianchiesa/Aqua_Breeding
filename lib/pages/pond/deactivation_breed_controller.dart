@@ -5,12 +5,13 @@ import 'package:fish/models/activation_model.dart';
 import 'package:fish/models/fish_model.dart';
 import 'package:fish/models/pond_model.dart';
 import 'package:fish/pages/dashboard.dart';
+import 'package:fish/pages/pond/detail_pond_controller.dart';
 import 'package:fish/service/activation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DeactivationBreedController extends GetxController {
-  Pond pond = Get.arguments()['pond'];
+  Pond pond = Get.arguments['pond'];
   // Activation activation = Get.arguments["activation"][0];
   ActivationService service = ActivationService();
 
@@ -156,5 +157,19 @@ class DeactivationBreedController extends GetxController {
       //
     }
     isDeactivationProgress.value = false;
+  }
+
+  late DateTime startTime;
+  late DateTime endTime;
+  final fitur = 'Deactivation';
+
+  void onClose() {
+    endTime = DateTime.now();
+    super.onClose();
+  }
+
+  void onInit() {
+    startTime = DateTime.now();
+    super.onInit();
   }
 }
