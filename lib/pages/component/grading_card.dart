@@ -1,6 +1,7 @@
 import 'package:fish/models/activation_model.dart';
 import 'package:fish/models/fishGrading_model.dart';
 import 'package:fish/models/pond_model.dart';
+import 'package:fish/pages/grading/grading_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/pages/grading/detail_grading_page.dart';
 import 'package:fish/theme.dart';
@@ -10,8 +11,9 @@ class GradingCard extends StatelessWidget {
   final Activation? activation;
   final Pond? pond;
   final FishGrading? fishGrading;
+  final GradingController gradecontroller = Get.put(GradingController());
 
-  const GradingCard({
+  GradingCard({
     Key? key,
     this.activation,
     this.pond,
@@ -27,6 +29,7 @@ class GradingCard extends StatelessWidget {
           "pond": pond,
           "fishGrading": fishGrading,
         });
+        gradecontroller.postDataLog("Grading");
       },
       child: Container(
         width: double.infinity,

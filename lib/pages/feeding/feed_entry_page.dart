@@ -175,6 +175,7 @@ class FeedEntryPage extends StatelessWidget {
                 activation_id: controller.activation.id.toString());
             feedcontroller.getWeeklyRecapFeedHistory(
                 activation_id: controller.activation.id.toString());
+            controller.postDataLog(controller.fitur);
           },
           style: TextButton.styleFrom(
             backgroundColor: primaryColor,

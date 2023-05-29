@@ -253,7 +253,7 @@ class WeeklyWaterEntryPage extends StatelessWidget {
                       weeklyWaterControlller.getWeeklyWaterData(context);
                     },
                   );
-
+            controller.postDataLog(controller.fitur);
             // controller.getWeek();
           },
           style: TextButton.styleFrom(

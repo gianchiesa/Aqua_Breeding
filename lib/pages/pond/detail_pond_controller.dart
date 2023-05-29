@@ -36,28 +36,9 @@ class DetailPondController extends GetxController {
     isLoading.value = false;
   }
 
-  late DateTime startTime;
+  final DateTime startTime = DateTime.now();
   late DateTime endTime;
   final fitur = 'Detai Pond';
-
-  @override
-  void onClose() {
-    update();
-    postDataLog(fitur);
-    super.onClose();
-  }
-
-  @override
-  void onInit() {
-    startTime = DateTime.now();
-    print('ini on init');
-    super.onInit();
-  }
-
-  void onReady() {
-    print('onready');
-    super.onReady();
-  }
 
   Future<void> postDataLog(String fitur) async {
     // print(buildJsonFish());

@@ -18,7 +18,8 @@ class TransferCard extends StatelessWidget {
   final Activation? activation;
   final Pond? pond;
   final FishTransfer? transferList;
-  const TransferCard({Key? key, this.transferList, this.activation, this.pond})
+  final TransferController transferController = Get.put(TransferController());
+  TransferCard({Key? key, this.transferList, this.activation, this.pond})
       : super(key: key);
 
   @override
@@ -32,6 +33,7 @@ class TransferCard extends StatelessWidget {
           "activation": activation,
           "pond": pond,
         });
+        transferController.postDataLog(transferController.fitur);
       },
       child: Container(
         width: double.infinity,

@@ -5,6 +5,7 @@ import 'package:fish/pages/treatment/carbon_type_controller.dart';
 import 'package:fish/service/fish_transfer_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../service/logging_service.dart';
 import '../../service/pond_service.dart';
 import 'pond_list_item_controller.dart';
 import 'transfer_method_controller.dart';
@@ -565,17 +566,13 @@ class FishTransferEntryController extends GetxController {
     validatepatinWeightval.value = true;
   }
 
-  late DateTime startTime;
+  final DateTime startTime = DateTime.now();
   late DateTime endTime;
-  final fitur = 'Fish Transfer';
+  final fitur = 'Fist Transfer(Sortir)';
 
-  void onClose() {
-    endTime = DateTime.now();
-    super.onClose();
-  }
-
-  void onInit() {
-    startTime = DateTime.now();
-    super.onInit();
+  Future<void> postDataLog(String fitur) async {
+    // print(buildJsonFish());
+    bool value =
+        await LoggingService().postLogging(startAt: startTime, fitur: fitur);
   }
 }

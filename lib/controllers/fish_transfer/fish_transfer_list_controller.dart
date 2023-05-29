@@ -8,24 +8,14 @@ import 'package:fish/service/pond_service.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
+import '../../service/logging_service.dart';
+
 class TransferController extends GetxController {
   Activation activation = Get.arguments["activation"];
   Pond pond = Get.arguments["pond"];
   var isLoading = false.obs;
   final listTransfer = <FishTransfer>[].obs;
-  late DateTime startTime;
-  late DateTime endTime;
-  final fitur = 'Fish Transfer';
 
-  void onClose() {
-    endTime = DateTime.now();
-    super.onClose();
-  }
-
-  void onInit() {
-    startTime = DateTime.now();
-    super.onInit();
-  }
   // @override
   // void onReady() async {
   //   await getStatisticData();
@@ -39,6 +29,15 @@ class TransferController extends GetxController {
   //   listTreatment.addAll(feedHistoryMonthly);
   //   isLoading.value = false;
   // }
+  final DateTime startTime = DateTime.now();
+  late DateTime endTime;
+  final fitur = 'Fist Transfer(Sortir)';
+
+  Future<void> postDataLog(String fitur) async {
+    // print(buildJsonFish());
+    bool value =
+        await LoggingService().postLogging(startAt: startTime, fitur: fitur);
+  }
 
   Future<void> getTransfertData(BuildContext context) async {
     isLoading.value = true;

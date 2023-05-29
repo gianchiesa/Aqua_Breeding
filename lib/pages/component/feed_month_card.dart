@@ -2,6 +2,7 @@ import 'package:fish/models/FeedHistoryMonthly.dart';
 import 'package:fish/models/activation_model.dart';
 import 'package:fish/models/pond_model.dart';
 import 'package:fish/pages/feeding/detail_feed_monthly_page.dart';
+import 'package:fish/pages/feeding/feed_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fish/theme.dart';
@@ -11,8 +12,9 @@ class FeedMonthCard extends StatelessWidget {
   final Activation? activation;
   final Pond? pond;
   final FeedHistoryMonthly? feedHistoryMonthly;
+  final FeedController feedcontrol = Get.put(FeedController());
 
-  const FeedMonthCard({
+  FeedMonthCard({
     Key? key,
     this.activation,
     this.pond,
@@ -28,6 +30,7 @@ class FeedMonthCard extends StatelessWidget {
           "pond": pond,
           "feedHistoryMonthly": feedHistoryMonthly!,
         });
+        feedcontrol.postDataLog("Feeding");
       },
       child: Container(
         width: double.infinity,

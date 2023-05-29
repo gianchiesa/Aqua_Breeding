@@ -39,21 +39,9 @@ class DailyWaterDetailController extends GetxController {
     isLoading.value = false;
   }
 
-  late DateTime startTime;
+  final DateTime startTime = DateTime.now();
   late DateTime endTime;
   final fitur = 'Daily Water Quality';
-  @override
-  void onClose() {
-    endTime = DateTime.now();
-    postDataLog(fitur);
-    super.onClose();
-  }
-
-  @override
-  void onInit() {
-    startTime = DateTime.now();
-    super.onInit();
-  }
 
   Future<void> postDataLog(String fitur) async {
     // print(buildJsonFish());

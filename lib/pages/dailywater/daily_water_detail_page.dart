@@ -18,6 +18,7 @@ class DailyWaterDetailPage extends StatefulWidget {
 class _DailyWaterDetailPageState extends State<DailyWaterDetailPage> {
   final DailyWaterDetailController controller =
       Get.put(DailyWaterDetailController());
+  final DailyWaterController watercontroller = Get.put(DailyWaterController());
 
   @override
   void initState() {
@@ -27,6 +28,12 @@ class _DailyWaterDetailPageState extends State<DailyWaterDetailPage> {
     //       pondId: controller.pond.id.toString());
     // });
     controller.getDailyWaterData(context, controller.dailyWater.id.toString());
+  }
+
+  @override
+  void dispose() {
+    controller.postDataLog(controller.fitur);
+    super.dispose();
   }
 
   @override

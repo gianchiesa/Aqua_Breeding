@@ -1,4 +1,7 @@
+import 'package:fish/controllers/fish_transfer/fish_transfer_list_controller.dart';
+import 'package:fish/pages/pond/breed_controller.dart';
 import 'package:fish/pages/pond/detail_breed_page.dart';
+import 'package:fish/pages/treatment/treatment_controller.dart';
 import 'package:fish/pages/treatment/treatment_page.dart';
 import 'package:fish/pages/fish_transfer/fish_transfer_list_page.dart';
 import 'package:fish/theme.dart';
@@ -32,6 +35,33 @@ class MyTabs extends GetxController with GetSingleTickerProviderStateMixin {
   void onInit() {
     // TODO: implement onInit
     controller = TabController(length: 3, vsync: this);
+    controller.addListener(() {
+      if (controller.indexIsChanging) {
+        if (controller.previousIndex == 0) {
+          Get.delete<BreedController>();
+          if (controller.index == 1) {
+            Get.put(TreatmentController());
+          } else {
+            Get.put(TransferController());
+          }
+        } else if (controller.previousIndex == 1) {
+          Get.delete<TreatmentController>();
+          if (controller.index == 0) {
+            Get.put(BreedController());
+          } else {
+            Get.put(TransferController());
+          }
+        } else {
+          Get.delete<TransferController>();
+          if (controller.index == 0) {
+            Get.put(BreedController());
+          } else {
+            Get.put(TreatmentController());
+          }
+        }
+      }
+      // Tab Changed tapping on new tab
+    });
     super.onInit();
   }
 

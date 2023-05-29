@@ -130,6 +130,7 @@ class GradingPage extends StatelessWidget {
               "pond": controller.pond,
               "activation": controller.activation
             });
+            controller.postDataLog(controller.fitur);
           },
           style: TextButton.styleFrom(
             backgroundColor: Colors.green.shade400,

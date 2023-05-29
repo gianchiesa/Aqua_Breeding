@@ -13,8 +13,9 @@ class TreatmentCard extends StatelessWidget {
   final Activation? activation;
   final Pond? pond;
   final Treatment? treatmentList;
-  const TreatmentCard(
-      {Key? key, this.treatmentList, this.activation, this.pond})
+  final TreatmentController treatmentController =
+      Get.put(TreatmentController());
+  TreatmentCard({Key? key, this.treatmentList, this.activation, this.pond})
       : super(key: key);
 
   @override
@@ -26,6 +27,7 @@ class TreatmentCard extends StatelessWidget {
           "activation": activation,
           "pond": pond,
         });
+        treatmentController.postDataLog("Pond Treatment");
       },
       child: Container(
         width: double.infinity,

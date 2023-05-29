@@ -27,6 +27,12 @@ class _TreatmentPageState extends State<TreatmentpPage> {
   }
 
   @override
+  void dispose() {
+    controller.postDataLog(controller.fitur);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Widget fishDataRecap() {
       return Container(
@@ -122,6 +128,7 @@ class _TreatmentPageState extends State<TreatmentpPage> {
                 "pond": controller.pond,
                 "activation": controller.activation
               });
+              controller.postDataLog(controller.fitur);
             },
             backgroundColor: primaryColor,
             child: const Icon(Icons.add),

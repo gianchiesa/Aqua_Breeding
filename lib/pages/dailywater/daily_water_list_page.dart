@@ -31,6 +31,12 @@ class _DailyWaterPageState extends State<DailyWaterPage> {
   }
 
   @override
+  void dispose() {
+    controller.postDataLog(controller.fitur);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     controller.startTime = DateTime.now();
     print('ini build daily water');
@@ -140,11 +146,11 @@ class _DailyWaterPageState extends State<DailyWaterPage> {
             top: defaultSpace * 3, right: defaultMargin, left: defaultMargin),
         child: TextButton(
           onPressed: () {
-            Get.delete<DailyWaterController>();
             Get.to(() => DailyWaterAvgPage(), arguments: {
               "pond": controller.pond,
               "activation": controller.activation
             });
+            controller.postDataLog(controller.fitur);
           },
           style: TextButton.styleFrom(
             backgroundColor: primaryColor,
@@ -168,11 +174,11 @@ class _DailyWaterPageState extends State<DailyWaterPage> {
         return Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              Get.delete<DailyWaterController>();
               Get.to(() => DailyWaterEntryPage(), arguments: {
                 "pond": controller.pond,
                 "activation": controller.activation
               });
+              controller.postDataLog(controller.fitur);
             },
             backgroundColor: primaryColor,
             child: const Icon(Icons.add),

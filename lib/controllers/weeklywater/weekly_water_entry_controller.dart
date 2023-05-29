@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:fish/models/pond_model.dart';
 import 'package:fish/models/activation_model.dart';
 
+import '../../service/logging_service.dart';
+
 class WeeklyWaterEntryController extends GetxController {
   var isLoading = false.obs;
   // final ponds = <Pond>[].obs;
@@ -79,17 +81,20 @@ class WeeklyWaterEntryController extends GetxController {
   //   await getPondsData();
   //   Get.to(() => DashboardPage());
   // }
-  late DateTime startTime;
+  final DateTime startTime = DateTime.now();
   late DateTime endTime;
   final fitur = 'Weekly Water Quality';
 
-  void onClose() {
-    endTime = DateTime.now();
-    super.onClose();
+  @override
+  void dispose() {
+    postDataLog(fitur);
+    super.dispose();
   }
 
-  void onInit() {
-    startTime = DateTime.now();
-    super.onInit();
+  Future<void> postDataLog(String fitur) async {
+    // print(buildJsonFish());
+    bool value =
+        await LoggingService().postLogging(startAt: startTime, fitur: fitur);
+    print(value);
   }
 }

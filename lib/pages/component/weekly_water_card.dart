@@ -1,3 +1,4 @@
+import 'package:fish/controllers/weeklywater/weekly_water_controller.dart';
 import 'package:fish/models/weeklywater_model.dart';
 import 'package:fish/models/pond_model.dart';
 
@@ -12,9 +13,11 @@ class WeeklyWaterCard extends StatelessWidget {
   final WeeklyWater? weeklyWaterList;
   final Activation? activation;
   final Pond? pond;
-  const WeeklyWaterCard(
-      {Key? key, this.weeklyWaterList, this.activation, this.pond})
+
+  WeeklyWaterCard({Key? key, this.weeklyWaterList, this.activation, this.pond})
       : super(key: key);
+
+  final WeeklyWaterController weeklywater = Get.put(WeeklyWaterController());
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +28,7 @@ class WeeklyWaterCard extends StatelessWidget {
           "activation": activation,
           "pond": pond,
         });
+        weeklywater.postDataLog("Weekly Water Quality");
       },
       child: Container(
         width: double.infinity,

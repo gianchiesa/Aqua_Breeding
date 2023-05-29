@@ -6,6 +6,8 @@ import 'package:fish/service/weekly_water_service.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
+import '../../service/logging_service.dart';
+
 class WeeklyWaterController extends GetxController {
   Activation activation = Get.arguments["activation"];
   Pond pond = Get.arguments["pond"];
@@ -28,17 +30,14 @@ class WeeklyWaterController extends GetxController {
     isLoading.value = false;
   }
 
-  late DateTime startTime;
+  final DateTime startTime = DateTime.now();
   late DateTime endTime;
   final fitur = 'Weekly Water Quality';
 
-  void onClose() {
-    endTime = DateTime.now();
-    super.onClose();
-  }
-
-  void onInit() {
-    startTime = DateTime.now();
-    super.onInit();
+  Future<void> postDataLog(String fitur) async {
+    // print(buildJsonFish());
+    bool value =
+        await LoggingService().postLogging(startAt: startTime, fitur: fitur);
+    print(value);
   }
 }

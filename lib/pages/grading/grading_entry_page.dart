@@ -398,6 +398,8 @@ class GradingEntryPage extends StatelessWidget {
             gradingcontroller.getFishGradingChart(
                 activation_id: controller.activation.id.toString());
             // print(gradingcontroller.charData);
+
+            controller.postDataLog(controller.fitur);
           },
           style: TextButton.styleFrom(
             backgroundColor: primaryColor,

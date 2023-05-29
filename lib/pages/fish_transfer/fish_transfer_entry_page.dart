@@ -35,7 +35,7 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
   @override
   void dispose() {
     pageController.dispose();
-
+    controller.postDataLog(controller.fitur);
     super.dispose();
   }
 
@@ -1411,9 +1411,10 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
               context,
               () {
                 Navigator.pop(context);
+                fishTransferController.getTransfertData(context);
               },
             );
-            fishTransferController.getTransfertData(context);
+            controller.postDataLog(controller.fitur);
           },
           style: TextButton.styleFrom(
             backgroundColor: primaryColor,
@@ -1504,9 +1505,10 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
                     context,
                     () {
                       Navigator.pop(context);
+                      fishTransferController.getTransfertData(context);
                     },
                   );
-                  fishTransferController.getTransfertData(context);
+                  controller.postDataLog(controller.fitur);
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: primaryColor,

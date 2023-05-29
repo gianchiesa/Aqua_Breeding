@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../models/activation_model.dart';
+import '../../service/logging_service.dart';
 
 class FeedEntryController extends GetxController {
   FeedTypeFormController feedTypeFormController = FeedTypeFormController();
@@ -28,7 +29,6 @@ class FeedEntryController extends GetxController {
     isLoading = false.obs;
     await feedTypeFormController.getData();
 
-    startTime = DateTime.now();
     isLoading = true.obs;
     super.onInit();
   }
@@ -42,12 +42,20 @@ class FeedEntryController extends GetxController {
     print(value);
   }
 
-  late DateTime startTime;
+  final DateTime startTime = DateTime.now();
   late DateTime endTime;
   final fitur = 'Feeding';
 
-  void onClose() {
-    endTime = DateTime.now();
-    super.onClose();
+  Future<void> postDataLog(String fitur) async {
+    // print(buildJsonFish());
+    bool value =
+        await LoggingService().postLogging(startAt: startTime, fitur: fitur);
+    print(value);
+  }
+
+  @override
+  void dispose() {
+    postDataLog(fitur);
+    super.dispose();
   }
 }

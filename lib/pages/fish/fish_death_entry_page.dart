@@ -133,7 +133,7 @@ class FishDeathEntryPage extends StatelessWidget {
                 activation_id: controller.activation.id.toString());
             deathcontroller.getcharData(
                 activation_id: controller.activation.id.toString());
-            print(deathcontroller.charData);
+            controller.postDataLog(controller.fitur);
           },
           style: TextButton.styleFrom(
             backgroundColor: primaryColor,

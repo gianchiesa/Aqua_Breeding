@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../models/activation_model.dart';
+import '../../service/logging_service.dart';
 
 class GradingEntryController extends GetxController {
   TextEditingController fishWeightController = TextEditingController(text: '');
@@ -94,17 +95,20 @@ class GradingEntryController extends GetxController {
     print(value);
   }
 
-  late DateTime startTime;
+  final DateTime startTime = DateTime.now();
   late DateTime endTime;
   final fitur = 'Grading';
 
-  void onClose() {
-    endTime = DateTime.now();
-    super.onClose();
+  Future<void> postDataLog(String fitur) async {
+    // print(buildJsonFish());
+    bool value =
+        await LoggingService().postLogging(startAt: startTime, fitur: fitur);
+    print(value);
   }
 
-  void onInit() {
-    startTime = DateTime.now();
-    super.onInit();
+  @override
+  void dispose() {
+    postDataLog(fitur);
+    super.dispose();
   }
 }

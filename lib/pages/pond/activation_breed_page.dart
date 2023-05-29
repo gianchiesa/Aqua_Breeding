@@ -18,6 +18,9 @@ class ActivationBreedPage extends StatelessWidget {
   final ActivationBreedController controller =
       Get.put(ActivationBreedController());
 
+  final DetailPondController detailPondController =
+      Get.put(DetailPondController());
+
   @override
   Widget build(BuildContext context) {
     Widget checkBoxFish() {
@@ -707,12 +710,14 @@ class ActivationBreedPage extends StatelessWidget {
             await controller.pondActivation(
               context,
               () {
-                Get.off(MyTabPondScreen(), arguments: {
-                  'pond': controller.pond,
-                });
+                Navigator.pop(context);
+                detailPondController.getPondActivation(context);
+                // Get.off(MyTabPondScreen(), arguments: {
+                //   'pond': controller.pond,
+                // });
               },
             );
-
+            controller.postDataLog(controller.fitur);
             // Get.close(1);
           },
           style: TextButton.styleFrom(

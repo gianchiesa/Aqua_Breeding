@@ -9,17 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../service/activation_service.dart';
+import '../../service/logging_service.dart';
 import 'benih_option_controller.dart';
 import 'breed_option_controller.dart';
 
 class ActivationBreedController extends GetxController {
-  @override
-  void dispose() {
-    print('tesing dispose');
-    Get.put(DetailPondController());
-    super.dispose();
-  }
-
   Pond pond = Get.arguments['pond'];
   ActivationService service = ActivationService();
   BenihOptionController benihOptionController = BenihOptionController();
@@ -144,18 +138,14 @@ class ActivationBreedController extends GetxController {
     // //         pondStatus: PondStatus.active));
   }
 
-  late DateTime startTime;
+  Future<void> postDataLog(String fitur) async {
+    // print(buildJsonFish());
+    bool value =
+        await LoggingService().postLogging(startAt: startTime, fitur: fitur);
+    print(value);
+  }
+
+  final DateTime startTime = DateTime.now();
   late DateTime endTime;
   final fitur = 'Activation';
-
-  void onClose() {
-    endTime = DateTime.now();
-    this.dispose();
-    super.onClose();
-  }
-
-  void onInit() {
-    startTime = DateTime.now();
-    super.onInit();
-  }
 }

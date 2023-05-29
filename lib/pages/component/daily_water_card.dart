@@ -13,20 +13,20 @@ class DailyWaterCard extends StatelessWidget {
   final DailyWater? dailyWaterList;
   final Activation? activation;
   final Pond? pond;
-  const DailyWaterCard(
-      {Key? key, this.dailyWaterList, this.activation, this.pond})
+  final DailyWaterController water = Get.put(DailyWaterController());
+  DailyWaterCard({Key? key, this.dailyWaterList, this.activation, this.pond})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.delete<DailyWaterController>();
         Get.to(() => DailyWaterDetailPage(), arguments: {
           "dailywater": dailyWaterList,
           "activation": activation,
           "pond": pond,
         });
+        water.postDataLog('Daily Water Quality');
       },
       child: Container(
         width: double.infinity,

@@ -13,6 +13,8 @@ class DailyWaterEntryPage extends StatelessWidget {
   final DailyWaterEntryController controller =
       Get.put(DailyWaterEntryController());
 
+  final DailyWaterController water = Get.put(DailyWaterController());
+
   @override
   Widget build(BuildContext context) {
     Widget doInput() {
@@ -179,19 +181,21 @@ class DailyWaterEntryPage extends StatelessWidget {
                 : await controller.postDailyWaterData(
                     context,
                     () {
+                      Navigator.pop(context);
+                      water.getDailyWaterData(context);
                       // Get.offUntil(
                       //     MaterialPageRoute(
                       //         builder: (context) => MyWaterTabScreen()),
                       //     (Route<dynamic> route) => false);
-                      Get.off(MyWaterTabScreen(), arguments: {
-                        'pond': controller.pond,
-                        'activation': controller.activation
-                      });
+                      // Get.off(MyWaterTabScreen(), arguments: {
+                      //   'pond': controller.pond,
+                      //   'activation': controller.activation
+                      // });
 
                       // Get.close(1);
                     },
                   );
-
+            controller.postDataLog(controller.fitur);
             // controller.getWeek();
           },
           style: TextButton.styleFrom(

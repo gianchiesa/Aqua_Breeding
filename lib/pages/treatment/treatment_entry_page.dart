@@ -32,6 +32,12 @@ class _TreatmentEntryPageState extends State<TreatmentEntryPage> {
   }
 
   @override
+  void dispose() {
+    controller.postDataLog(controller.fitur);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Widget descInput() {
       return Container(
@@ -569,6 +575,7 @@ class _TreatmentEntryPageState extends State<TreatmentEntryPage> {
                       treatmentTontroller.getTreatmentData(context);
                     },
                   );
+            controller.postDataLog(controller.fitur);
           },
           style: TextButton.styleFrom(
             backgroundColor: primaryColor,
@@ -600,9 +607,10 @@ class _TreatmentEntryPageState extends State<TreatmentEntryPage> {
               context,
               () {
                 Navigator.pop(context);
+                treatmentTontroller.getTreatmentData(context);
               },
             );
-            treatmentTontroller.getTreatmentData(context);
+            controller.postDataLog(controller.fitur);
           },
           style: TextButton.styleFrom(
             backgroundColor: primaryColor,

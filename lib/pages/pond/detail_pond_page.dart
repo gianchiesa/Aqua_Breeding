@@ -115,10 +115,10 @@ class _DetailPondPageState extends State<DetailPondPage> {
             top: defaultSpace, right: defaultMargin, left: defaultMargin),
         child: TextButton(
           onPressed: () {
-            Get.delete<DetailPondController>();
             Get.to(() => ActivationBreedPage(), arguments: {
               'pond': detailController.pond,
             });
+            detailController.postDataLog(detailController.fitur);
           },
           style: TextButton.styleFrom(
             backgroundColor: Colors.green.shade400,

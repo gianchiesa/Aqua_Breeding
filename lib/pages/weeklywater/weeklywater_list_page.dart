@@ -29,6 +29,12 @@ class _WeeklyWaterPageState extends State<WeeklyWaterPage> {
   }
 
   @override
+  void dispose() {
+    controller.postDataLog(controller.fitur);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Widget fishDataRecap() {
       return Container(
@@ -137,6 +143,7 @@ class _WeeklyWaterPageState extends State<WeeklyWaterPage> {
                 "pond": controller.pond,
                 "activation": controller.activation
               });
+              controller.postDataLog(controller.fitur);
             },
             backgroundColor: primaryColor,
             child: const Icon(Icons.add),

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../models/activation_model.dart';
+import '../../service/logging_service.dart';
 
 class FishDeathEntryController extends GetxController {
   TextEditingController formDeathController = TextEditingController(text: '');
@@ -43,17 +44,20 @@ class FishDeathEntryController extends GetxController {
     print(value);
   }
 
-  late DateTime startTime;
+  final DateTime startTime = DateTime.now();
   late DateTime endTime;
   final fitur = 'Fish Death';
 
-  void onClose() {
-    endTime = DateTime.now();
-    super.onClose();
+  Future<void> postDataLog(String fitur) async {
+    // print(buildJsonFish());
+    bool value =
+        await LoggingService().postLogging(startAt: startTime, fitur: fitur);
+    print(value);
   }
 
-  void onInit() {
-    startTime = DateTime.now();
-    super.onInit();
+  @override
+  void dispose() {
+    postDataLog(fitur);
+    super.dispose();
   }
 }
