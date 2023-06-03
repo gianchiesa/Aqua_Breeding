@@ -99,6 +99,10 @@ class DailyWaterEntryController extends GetxController {
 
   @override
   void dispose() {
+    descController.clear();
+    phController.clear();
+    doController.clear();
+    temperatureController.clear();
     postDataLog(fitur);
     super.dispose();
   }

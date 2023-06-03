@@ -62,7 +62,8 @@ class _LoginPageState extends State<LoginPage> {
       // prefs.setString('identity', identity);
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => DashboardPage()));
-      print(response.body);
+      controller.usernameController.clear();
+      controller.passwordController.clear();
     } else {
       showDialog<String>(
           context: context,

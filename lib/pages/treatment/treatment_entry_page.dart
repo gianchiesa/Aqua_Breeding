@@ -34,6 +34,16 @@ class _TreatmentEntryPageState extends State<TreatmentEntryPage> {
   @override
   void dispose() {
     controller.postDataLog(controller.fitur);
+    controller.carbonController.clear();
+    controller.descController.clear();
+    controller.leleWeightController.clear();
+    controller.masWeightController.clear();
+    controller.nilaHitamWeightController.clear();
+    controller.nilaMerahWeightController.clear();
+    controller.patinWeightController.clear();
+    controller.saltController.clear();
+    controller.waterController.clear();
+    controller.probioticController.clear();
     super.dispose();
   }
 

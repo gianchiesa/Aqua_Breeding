@@ -76,7 +76,35 @@ class _RegisterPageState extends State<RegisterPage> {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => DashboardPage()));
       print(response.body);
+      controller.usernameController.clear();
+      controller.passwordController.clear();
+      controller.addressController.clear();
+      controller.breedercountController.clear();
+      controller.coordinateController.clear();
+      controller.phoneController.clear();
+      controller.nameController.clear();
+      controller.farmnameController.clear();
+      controller.nikController.clear();
     } else {
+      showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+                title: const Text('Register Error',
+                    style: TextStyle(color: Colors.red)),
+                content: const Text(
+                  'BreederID Sudah Digunakan',
+                  style: TextStyle(color: Colors.white),
+                ),
+                backgroundColor: backgroundColor1,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ));
       print(response.body);
     }
   }

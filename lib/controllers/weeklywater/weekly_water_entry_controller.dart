@@ -87,6 +87,11 @@ class WeeklyWaterEntryController extends GetxController {
 
   @override
   void dispose() {
+    flocController.clear();
+    hardnessController.clear();
+    amoniaController.clear();
+    nitrateController.clear();
+    nitriteController.clear();
     postDataLog(fitur);
     super.dispose();
   }

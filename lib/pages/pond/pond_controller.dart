@@ -135,11 +135,6 @@ class PondController extends GetxController {
   late DateTime endTime;
   final fitur = 'List Pond';
 
-  void onClose() {
-    endTime = DateTime.now();
-    super.onClose();
-  }
-
   void onInit() {
     startTime = DateTime.now();
     super.onInit();

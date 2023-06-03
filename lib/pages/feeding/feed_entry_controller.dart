@@ -55,6 +55,7 @@ class FeedEntryController extends GetxController {
 
   @override
   void dispose() {
+    feedDosisController.clear();
     postDataLog(fitur);
     super.dispose();
   }

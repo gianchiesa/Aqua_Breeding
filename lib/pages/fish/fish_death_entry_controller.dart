@@ -57,6 +57,7 @@ class FishDeathEntryController extends GetxController {
 
   @override
   void dispose() {
+    formDeathController.clear();
     postDataLog(fitur);
     super.dispose();
   }

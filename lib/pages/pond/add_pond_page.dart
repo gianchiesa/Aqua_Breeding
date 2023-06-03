@@ -3,13 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
 import 'package:get/get.dart';
 
-class AddPondPage extends StatelessWidget {
+class AddPondPage extends StatefulWidget {
   const AddPondPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final PondController controller = Get.put(PondController());
+  State<AddPondPage> createState() => _AddPondPageState();
+}
 
+class _AddPondPageState extends State<AddPondPage> {
+  final PondController controller = Get.put(PondController());
+
+  @override
+  void dispose() {
+    controller.aliasController.clear();
+    controller.diameterController.clear();
+    controller.heightController.clear();
+    controller.locationController.clear();
+    controller.lengthController.clear();
+    controller.widthController.clear();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     Widget aliasInput() {
       return Container(
         margin: EdgeInsets.only(
@@ -182,8 +198,10 @@ class AddPondPage extends StatelessWidget {
               ),
               child: Center(
                 child: Obx(() => DropdownButtonFormField<String>(
-                      onChanged: (newValue) =>
-                          controller.shapeController.setSelected(newValue!),
+                      onChanged: (newValue) {
+                        return controller.shapeController
+                            .setSelected(newValue!);
+                      },
                       value: controller.shapeController.selected.value,
                       items:
                           controller.shapeController.listMaterial.map((shape) {
@@ -413,37 +431,17 @@ class AddPondPage extends StatelessWidget {
             top: defaultSpace * 3, right: defaultMargin, left: defaultMargin),
         child: TextButton(
           onPressed: () async {
-            // Get.back();
-            // controller.shapeController.selected.value == "persegi"
-            //     ? controller.aliasController.text == "" ||
-            //             controller.heightController.text == "" ||
-            //             controller.widthController.text == "" ||
-            //             controller.lengthController.text == ""
-            //         ? null
-            //         : await controller.pondRegister(
-            //             context,
-            //             () {
-            //               Navigator.pop(context);
-            //               controller.getPondsData(context);
-            //             },
-            //           )
-            //     : controller.aliasController.text == "" ||
-            //             controller.heightController.text == "" ||
-            //             controller.diameterController.text == ""
-            //         ? null
-            //         : await controller.pondRegister(
-            //             context,
-            //             () {
-            //               Navigator.pop(context);
-            //               controller.getPondsData(context);
-            //             },
-            //           );
             if (controller.shapeController.selected.value == 'persegi' &&
-                    controller.widthController.text == '' ||
+                controller.widthController.text == '') {
+              return null;
+            }
+            if (controller.shapeController.selected.value == 'persegi' &&
                 controller.lengthController.text == '') {
               return null;
-            } else if (controller.shapeController.selected.value == 'bundar' &&
+            }
+            if (controller.shapeController.selected.value == 'bundar' &&
                 controller.diameterController.text == '') {
+              print("ini masuk sini");
               return null;
             } else {
               await controller.pondRegister(
