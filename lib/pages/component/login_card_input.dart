@@ -72,9 +72,9 @@ class LoginInputCard extends StatelessWidget {
                         ? InputDecoration(
                             errorText: 'username tidak boleh kosong',
                             isCollapsed: true)
-                        : controller.usernameController.text.length < 6
+                        : controller.usernameController.text.length < 5
                             ? InputDecoration(
-                                errorText: 'username kurang dari 6 karakter',
+                                errorText: 'username kurang dari 5 karakter',
                                 isCollapsed: true)
                             : null
                     : null,
@@ -137,7 +137,7 @@ class LoginInputCard extends StatelessWidget {
                             ))
                         : controller.passwordController.text.length < 8
                             ? InputDecoration(
-                                errorText: 'passowrd kurang dari 8 karakter',
+                                errorText: 'password kurang dari 8 karakter',
                                 suffixIcon: IconButton(
                                   onPressed: () {
                                     controller.passVisibiity(

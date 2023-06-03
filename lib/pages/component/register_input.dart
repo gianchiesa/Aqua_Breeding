@@ -129,9 +129,9 @@ class RegisterInputCard extends StatelessWidget {
                         ? InputDecoration(
                             errorText: 'username tidak boleh kosong',
                             isCollapsed: true)
-                        : controller.usernameController.text.length < 8
+                        : controller.usernameController.text.length < 5
                             ? InputDecoration(
-                                errorText: 'username kurang dari 8 karakter',
+                                errorText: 'username kurang dari 5 karakter',
                                 isCollapsed: true)
                             : null
                     : null,
