@@ -185,7 +185,7 @@ class LoginInputCard extends StatelessWidget {
             child: TextButton(
               onPressed: () {
                 // Get.back();
-                controller.usernameController.text.length < 6 ||
+                controller.usernameController.text.length < 5 ||
                         controller.passwordController.text.length < 8
                     ? null
                     : loginfunc.call();

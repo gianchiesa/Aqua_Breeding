@@ -344,7 +344,7 @@ class RegisterInputCard extends StatelessWidget {
             child: TextButton(
               onPressed: () {
                 // Get.back();
-                controller.usernameController.text.length < 8 ||
+                controller.usernameController.text.length < 5 ||
                         controller.passwordController.text.length < 8 ||
                         controller.phoneController.text == "" ||
                         controller.nameController.text == "" ||
