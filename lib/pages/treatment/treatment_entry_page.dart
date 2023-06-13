@@ -161,6 +161,10 @@ class _TreatmentEntryPageState extends State<TreatmentEntryPage> {
               ),
               child: Center(
                 child: TextFormField(
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
+                  ],
+                  keyboardType: TextInputType.number,
                   style: primaryTextStyle,
                   controller: controller.waterController,
                   decoration: InputDecoration.collapsed(
@@ -203,6 +207,10 @@ class _TreatmentEntryPageState extends State<TreatmentEntryPage> {
               ),
               child: Center(
                 child: TextFormField(
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
+                  ],
+                  keyboardType: TextInputType.number,
                   style: primaryTextStyle,
                   controller: controller.saltController,
                   decoration: InputDecoration.collapsed(
@@ -314,7 +322,7 @@ class _TreatmentEntryPageState extends State<TreatmentEntryPage> {
                 child: TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
                   ],
                   keyboardType: TextInputType.number,
                   controller: controller.probioticController,
@@ -360,7 +368,7 @@ class _TreatmentEntryPageState extends State<TreatmentEntryPage> {
                 child: TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
                   ],
                   keyboardType: TextInputType.number,
                   controller: controller.carbonController,

@@ -46,6 +46,9 @@ class WeeklyWaterEntryPage extends StatelessWidget {
                 child: TextFormField(
                   style: primaryTextStyle,
                   keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
+                  ],
                   controller: controller.amoniaController,
                   decoration: InputDecoration.collapsed(
                     hintText: 'ex: 20',
@@ -89,6 +92,9 @@ class WeeklyWaterEntryPage extends StatelessWidget {
                 child: TextFormField(
                   style: primaryTextStyle,
                   keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
+                  ],
                   controller: controller.flocController,
                   decoration: InputDecoration.collapsed(
                     hintText: 'ex: 2',
@@ -132,6 +138,9 @@ class WeeklyWaterEntryPage extends StatelessWidget {
                 child: TextFormField(
                   style: primaryTextStyle,
                   keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
+                  ],
                   controller: controller.nitriteController,
                   decoration: InputDecoration.collapsed(
                     hintText: 'ex: 2',
@@ -175,6 +184,9 @@ class WeeklyWaterEntryPage extends StatelessWidget {
                 child: TextFormField(
                   style: primaryTextStyle,
                   keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
+                  ],
                   controller: controller.nitrateController,
                   decoration: InputDecoration.collapsed(
                     hintText: 'ex: 2',
@@ -218,6 +230,9 @@ class WeeklyWaterEntryPage extends StatelessWidget {
                 child: TextFormField(
                   style: primaryTextStyle,
                   keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
+                  ],
                   controller: controller.hardnessController,
                   decoration: InputDecoration.collapsed(
                     hintText: 'ex: 2',

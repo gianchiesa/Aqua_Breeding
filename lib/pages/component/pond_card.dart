@@ -127,7 +127,7 @@ class PondCard extends StatelessWidget {
                                 )
                               : pond.pondPhDesc!.capitalize == "Normal"
                                   ? Text(
-                                      pond.pondPhDesc!.capitalize!,
+                                      pond.pondDo.toString(),
                                       style: subtitleTextStyle.copyWith(
                                           fontSize: 16,
                                           fontWeight: bold,
@@ -137,7 +137,7 @@ class PondCard extends StatelessWidget {
                                     )
                                   : pond.pondPhDesc!.capitalize == "Berbahaya"
                                       ? Text(
-                                          pond.pondPhDesc!.capitalize!,
+                                          pond.pondDo.toString(),
                                           style: subtitleTextStyle.copyWith(
                                               fontSize: 16,
                                               fontWeight: bold,
@@ -146,7 +146,7 @@ class PondCard extends StatelessWidget {
                                           maxLines: 1,
                                         )
                                       : Text(
-                                          pond.pondPhDesc!.capitalize!,
+                                          pond.pondDo.toString(),
                                           style: subtitleTextStyle.copyWith(
                                             fontSize: 16,
                                             fontWeight: regular,
@@ -218,7 +218,7 @@ class PondCard extends StatelessWidget {
                                 )
                               : pond.pondDoDesc!.capitalize == "Normal"
                                   ? Text(
-                                      pond.pondDoDesc!.capitalize!,
+                                      pond.pondDo.toString(),
                                       style: subtitleTextStyle.copyWith(
                                           fontSize: 16,
                                           fontWeight: bold,
@@ -228,7 +228,7 @@ class PondCard extends StatelessWidget {
                                     )
                                   : pond.pondDoDesc!.capitalize == "Berbahaya"
                                       ? Text(
-                                          pond.pondDoDesc!.capitalize!,
+                                          pond.pondDo.toString(),
                                           style: subtitleTextStyle.copyWith(
                                               fontSize: 16,
                                               fontWeight: bold,
@@ -239,7 +239,7 @@ class PondCard extends StatelessWidget {
                                       : pond.pondDoDesc!.capitalize ==
                                               "Semi Berbahaya"
                                           ? Text(
-                                              pond.pondDoDesc!.capitalize!,
+                                              pond.pondDo.toString(),
                                               style: subtitleTextStyle.copyWith(
                                                   fontSize: 16,
                                                   fontWeight: bold,
@@ -248,7 +248,7 @@ class PondCard extends StatelessWidget {
                                               maxLines: 1,
                                             )
                                           : Text(
-                                              pond.pondDoDesc!.capitalize!,
+                                              pond.pondDo.toString(),
                                               style: subtitleTextStyle.copyWith(
                                                 fontSize: 16,
                                                 fontWeight: regular,

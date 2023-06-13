@@ -92,7 +92,7 @@ class WeeklyWaterCard extends StatelessWidget {
                       maxLines: 1,
                     ),
                     Text(
-                      weeklyWaterList!.floc_desc.toString(),
+                      weeklyWaterList!.floc.toString(),
                       style: secondaryTextStyle.copyWith(
                         color: weeklyWaterList!.floc_desc == "normal"
                             ? Colors.green

@@ -7,6 +7,7 @@ import 'package:fish/models/pond_model.dart';
 import 'package:fish/pages/dashboard.dart';
 import 'package:fish/pages/pond/detail_pond_controller.dart';
 import 'package:fish/service/activation_service.dart';
+import 'package:fish/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,7 +20,14 @@ class DeactivationBreedController extends GetxController {
   // Future<List<Activation>> activationsData =
   //       ActivationService().getActivations(pondId: pond.id!);
   // TextEditingController waterHeightController = TextEditingController(text: '');
-
+  TextEditingController fishWeightController = TextEditingController(text: '');
+  TextEditingController undersizeController = TextEditingController(text: '');
+  TextEditingController oversizeController = TextEditingController(text: '');
+  TextEditingController normalsizeController = TextEditingController(text: '');
+  TextEditingController fishLengthAvgController =
+      TextEditingController(text: '');
+  TextEditingController sampleAmountController =
+      TextEditingController(text: '');
   TextEditingController nilaMerahWeightController =
       TextEditingController(text: '');
 
@@ -75,88 +83,196 @@ class DeactivationBreedController extends GetxController {
   List buildJsonFish() {
     var data = [];
     if (isNilaMerah.value == true) {
-      var fishData = {
-        "type": "nila merah",
-        "amount": nilamerahAmount.toString(),
-        "weight": nilaMerahWeightController.value.text,
-      };
-      data.add(jsonEncode(fishData));
+      if (nilaMerahWeightController.value.text.contains(",")) {
+        String nilaMerah =
+            nilaMerahWeightController.value.text.replaceAll(',', '.');
+        var fishData = {
+          "type": "nila merah",
+          "amount": nilamerahAmount.toString(),
+          "weight": nilaMerah,
+        };
+        data.add(jsonEncode(fishData));
+      } else {
+        var fishData = {
+          "type": "nila merah",
+          "amount": nilamerahAmount.toString(),
+          "weight": nilaMerahWeightController.value.text,
+        };
+        data.add(jsonEncode(fishData));
+      }
     }
     if (isNilaHitam.value == true) {
-      var fishData = {
-        "type": "nila hitam",
-        "amount": nilahitamAmount.toString(),
-        "weight": nilaHitamWeightController.value.text,
-      };
-      data.add(jsonEncode(fishData));
+      if (nilaHitamWeightController.value.text.contains(",")) {
+        String nilaHitam =
+            nilaHitamWeightController.value.text.replaceAll(',', '.');
+        var fishData = {
+          "type": "nila hitam",
+          "amount": nilahitamAmount.toString(),
+          "weight": nilaHitam,
+        };
+        data.add(jsonEncode(fishData));
+      } else {
+        var fishData = {
+          "type": "nila hitam",
+          "amount": nilahitamAmount.toString(),
+          "weight": nilaHitamWeightController.value.text,
+        };
+        data.add(jsonEncode(fishData));
+      }
     }
     if (isLele.value == true) {
-      var fishData = {
-        "type": "lele",
-        "amount": leleAmount.toString(),
-        "weight": leleWeightController.value.text,
-      };
-      data.add(jsonEncode(fishData));
+      if (leleWeightController.value.text.contains(",")) {
+        String lele = leleWeightController.value.text.replaceAll(',', '.');
+        var fishData = {
+          "type": "lele",
+          "amount": leleAmount.toString(),
+          "weight": lele,
+        };
+        data.add(jsonEncode(fishData));
+      } else {
+        var fishData = {
+          "type": "lele",
+          "amount": leleAmount.toString(),
+          "weight": leleWeightController.value.text,
+        };
+        data.add(jsonEncode(fishData));
+      }
     }
     if (isPatin.value == true) {
-      var fishData = {
-        "type": "patin",
-        "amount": patinAmount.toString(),
-        "weight": patinWeightController.value.text,
-      };
-      data.add(jsonEncode(fishData));
+      if (patinWeightController.value.text.contains(",")) {
+        String patin = patinWeightController.value.text.replaceAll(',', '.');
+        var fishData = {
+          "type": "patin",
+          "amount": patinAmount.toString(),
+          "weight": patin,
+        };
+        data.add(jsonEncode(fishData));
+      } else {
+        var fishData = {
+          "type": "patin",
+          "amount": patinAmount.toString(),
+          "weight": patinWeightController.value.text,
+        };
+        data.add(jsonEncode(fishData));
+      }
     }
     if (isMas.value == true) {
-      var fishData = {
-        "type": "mas",
-        "amount": masAmount.toString(),
-        "weight": masWeightController.value.text,
-      };
-      data.add(jsonEncode(fishData));
+      if (masWeightController.value.text.contains(",")) {
+        String mas = masWeightController.value.text.replaceAll(',', '.');
+        var fishData = {
+          "type": "mas",
+          "amount": masAmount.toString(),
+          "weight": mas,
+        };
+        data.add(jsonEncode(fishData));
+      } else {
+        var fishData = {
+          "type": "mas",
+          "amount": masAmount.toString(),
+          "weight": masWeightController.value.text,
+        };
+        data.add(jsonEncode(fishData));
+      }
     }
     return data;
   }
 
-  int getWeight() {
-    int weightTotal = 0;
+  double getWeight() {
+    double weightTotal = 0;
     if (isNilaMerah.value == true) {
-      weightTotal += int.parse(nilaMerahWeightController.value.text);
+      if (nilaMerahWeightController.value.text.contains(',')) {
+        String nilaMerah =
+            nilaMerahWeightController.value.text.replaceAll(',', '.');
+
+        weightTotal += double.parse(nilaMerah);
+      } else {
+        weightTotal += double.parse(nilaMerahWeightController.value.text);
+      }
     }
     if (isNilaHitam.value == true) {
-      weightTotal += int.parse(nilaHitamWeightController.value.text);
+      if (nilaHitamWeightController.text != '') {
+        if (nilaHitamWeightController.value.text.contains(',')) {
+          String nilaHitam =
+              nilaHitamWeightController.value.text.replaceAll(',', '.');
+
+          weightTotal += double.parse(nilaHitam);
+        } else {
+          weightTotal += double.parse(nilaHitamWeightController.value.text);
+        }
+      }
     }
     if (isLele.value == true) {
-      weightTotal += int.parse(leleWeightController.value.text);
+      if (leleWeightController.value.text.contains(',')) {
+        String lele = leleWeightController.value.text.replaceAll(',', '.');
+        weightTotal += double.parse(lele);
+      } else {
+        weightTotal += double.parse(leleWeightController.value.text);
+      }
     }
     if (isPatin.value == true) {
-      weightTotal += int.parse(patinWeightController.value.text);
+      if (patinWeightController.value.text.contains(',')) {
+        String patin = patinWeightController.value.text.replaceAll(',', '.');
+        weightTotal += double.parse(patin);
+      } else {
+        weightTotal += double.parse(patinWeightController.value.text);
+      }
     }
     if (isMas.value == true) {
-      weightTotal += int.parse(masWeightController.value.text);
+      if (masWeightController.value.text.contains(',')) {
+        String mas = masWeightController.value.text.replaceAll(',', '.');
+
+        weightTotal += double.parse(mas);
+      } else {
+        weightTotal += double.parse(masWeightController.value.text);
+      }
     }
     return weightTotal;
   }
 
   Future<void> pondDeactivation(BuildContext context, Function doInPost) async {
-    // print(buildJsonFish());
-    isDeactivationProgress.value = true;
-    try {
-      await service.postDeactivation(
-          pondId: pond.id,
-          total_fish_harvested: leleAmount.toInt() +
-              patinAmount.toInt() +
-              masAmount.toInt() +
-              nilahitamAmount.toInt() +
-              nilamerahAmount.toInt(),
-          total_weight_harvested: getWeight(),
-          isFinish: true,
-          fish_harvested: buildJsonFish());
-      doInPost();
-      print(buildJsonFish());
-    } catch (e) {
-      //
+    // prdouble(buildJsonFish());
+    double weight = getWeight();
+    if (weight == 0) {
+      showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+                title: const Text('Input Error',
+                    style: TextStyle(color: Colors.red)),
+                content: const Text(
+                  'Input Tidak boleh 0/Kosong',
+                  style: TextStyle(color: Colors.white),
+                ),
+                backgroundColor: backgroundColor1,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ));
+    } else {
+      isDeactivationProgress.value = true;
+      try {
+        await service.postDeactivation(
+            pondId: pond.id,
+            total_fish_harvested: leleAmount.toInt() +
+                patinAmount.toInt() +
+                masAmount.toInt() +
+                nilahitamAmount.toInt() +
+                nilamerahAmount.toInt(),
+            total_weight_harvested: getWeight().toString(),
+            isFinish: true,
+            fish_harvested: buildJsonFish(),
+            doInPost: doInPost,
+            context: context);
+        print(buildJsonFish());
+      } catch (e) {
+        //
+      }
+      isDeactivationProgress.value = false;
     }
-    isDeactivationProgress.value = false;
   }
 
   late DateTime startTime;

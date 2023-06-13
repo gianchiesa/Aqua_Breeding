@@ -92,7 +92,9 @@ class _DetailPondPageState extends State<DetailPondPage> {
               ),
               child: Center(
                 child: Text(
-                  detailController.isPondActive.value ? "Aktif" : "Tidak Aktif",
+                  detailController.isPondActive.value == false
+                      ? "Tidak Aktif"
+                      : "Aktif",
                   style: primaryTextStyle.copyWith(
                     fontSize: 14,
                     fontWeight: heavy,
@@ -145,10 +147,8 @@ class _DetailPondPageState extends State<DetailPondPage> {
             top: defaultSpace, right: defaultMargin, left: defaultMargin),
         child: TextButton(
           onPressed: () {
-            Get.delete<DetailPondController>();
-            Get.to(() => FishTransferEntryPage(), arguments: {
+            Get.to(() => DeactivationBreedPage(), arguments: {
               "pond": detailController.pond,
-              "activation": detailController.activationData
             });
           },
           style: TextButton.styleFrom(

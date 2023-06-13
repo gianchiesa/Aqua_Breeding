@@ -126,7 +126,7 @@ class GradingPage extends StatelessWidget {
             top: defaultSpace, right: defaultMargin, left: defaultMargin),
         child: TextButton(
           onPressed: () {
-            Get.to(() => GradingEntryPage(), arguments: {
+            Get.to(() => const GradingEntryPage(), arguments: {
               "pond": controller.pond,
               "activation": controller.activation
             });
@@ -270,6 +270,45 @@ class GradingPage extends StatelessWidget {
       );
     }
 
+    Widget emptyListActivation() {
+      return Container(
+          width: double.infinity,
+          margin: EdgeInsets.only(right: defaultMargin, left: defaultMargin),
+          child: Center(
+            child: Column(children: [
+              SizedBox(height: 35),
+              Image(
+                image: AssetImage("assets/unavailable_icon.png"),
+                width: 100,
+                height: 100,
+                fit: BoxFit.fitWidth,
+              ),
+              SizedBox(height: 20),
+              Text(
+                "Kolam belum pernah\nMelakukan grading",
+                style: primaryTextStyle.copyWith(
+                  fontSize: 14,
+                  fontWeight: bold,
+                ),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+              SizedBox(height: 10),
+              Text(
+                "Silahkan melakukan grading!",
+                style: secondaryTextStyle.copyWith(
+                  fontSize: 13,
+                  fontWeight: bold,
+                ),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+            ]),
+          ));
+    }
+
     Widget listMonthFeed() {
       return Container(
           width: double.infinity,
@@ -407,7 +446,7 @@ class GradingPage extends StatelessWidget {
               entryGradingButton(),
               recapTitle(),
               // chartRecap(),
-              controller.list_fishGrading.isEmpty == 0
+              controller.list_fishGrading.isEmpty
                   ? emptyListPond()
                   : listMonthFeed(),
               SizedBox(

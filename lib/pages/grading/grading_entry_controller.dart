@@ -20,6 +20,23 @@ class GradingEntryController extends GetxController {
   var isLoading = false.obs;
   Pond pond = Get.arguments['pond'];
   Activation activation = Get.arguments["activation"];
+  RxList<String> listFishAlive = List<String>.empty().obs;
+
+  Future<void> getFish() async {
+    isLoading.value = true;
+    listFishAlive.add("pilih ikan");
+    for (var i in activation.fishLive!) {
+      listFishAlive.add(i.type!);
+      print(listFishAlive);
+    }
+    isLoading.value = false;
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    getFish();
+  }
 
   final fishWeight = ''.obs;
   final validatefishWeight = false.obs;

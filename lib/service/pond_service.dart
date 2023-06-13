@@ -1,9 +1,12 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:fish/models/pond_model.dart';
 import 'package:fish/service/url_api.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../theme.dart';
 
 class PondService {
   Future<List<Pond>> getPonds() async {
@@ -32,7 +35,7 @@ class PondService {
 
       return ponds;
     } else {
-      throw Exception('Gagal Get Ponds!');
+      throw Exception(e);
     }
   }
 
@@ -64,7 +67,29 @@ class PondService {
       required String? width,
       required String? diameter,
       required String? height,
-      required String? status}) async {
+      required String? status,
+      required Function doInPost,
+      required BuildContext context}) async {
+    if (diameter!.isNotEmpty) {
+      if (diameter.contains(",")) {
+        diameter = diameter.replaceAll(',', '.');
+      }
+    }
+    if (length!.isNotEmpty) {
+      if (length.contains(",")) {
+        length = length.replaceAll(',', '.');
+      }
+    }
+    if (width!.isNotEmpty) {
+      if (width.contains(",")) {
+        width = width.replaceAll(',', '.');
+      }
+    }
+    if (height!.isNotEmpty) {
+      if (height.contains(",")) {
+        height = height.replaceAll(',', '.');
+      }
+    }
     WidgetsFlutterBinding.ensureInitialized();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token').toString();
@@ -89,10 +114,31 @@ class PondService {
     );
 
     if (response.statusCode == 200) {
-      print(response.body);
+      doInPost();
+      Navigator.pop(context);
       return true;
     } else {
-      print(response.body);
+      var res = jsonDecode(response.body);
+
+      showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+                title: const Text('Input Error',
+                    style: TextStyle(color: Colors.red)),
+                content: Text(
+                  '${res["message"]}',
+                  style: TextStyle(color: Colors.white),
+                ),
+                backgroundColor: backgroundColor1,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ));
       return false;
     }
   }

@@ -2,6 +2,7 @@ import 'package:fish/models/fish_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/pages/pond/deactivation_breed_controller.dart';
 import 'package:fish/theme.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class DeactivationListCard extends StatelessWidget {
@@ -18,7 +19,6 @@ class DeactivationListCard extends StatelessWidget {
       margin: EdgeInsets.only(
         top: defaultMargin / 2,
       ),
-      padding: EdgeInsets.symmetric(vertical: 7, horizontal: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -49,6 +49,13 @@ class DeactivationListCard extends StatelessWidget {
               ),
             ],
           ),
+          Text(
+            'Berat Ikan Total (Kg)',
+            style: primaryTextStyle.copyWith(
+              fontSize: 12,
+              fontWeight: medium,
+            ),
+          ),
           Container(
             height: 50,
             padding: EdgeInsets.symmetric(
@@ -61,6 +68,9 @@ class DeactivationListCard extends StatelessWidget {
             child: Center(
               child: TextFormField(
                 style: primaryTextStyle,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.deny(RegExp(r'[-,\s]'))
+                ],
                 controller: fish.type! == "lele"
                     ? controller.leleWeightController
                     : fish.type! == "patin"
@@ -71,7 +81,7 @@ class DeactivationListCard extends StatelessWidget {
                                 ? controller.nilaMerahWeightController
                                 : controller.masWeightController,
                 decoration: InputDecoration.collapsed(
-                  hintText: 'Total Berat Ikan (Kg)',
+                  hintText: 'ex 2.3',
                   hintStyle: subtitleTextStyle,
                 ),
               ),

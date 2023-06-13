@@ -118,7 +118,7 @@ class FeedEntryPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Dosis Pakan (Kg)',
+              'Dosis Pakan (Gram)',
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -139,6 +139,9 @@ class FeedEntryPage extends StatelessWidget {
               child: Center(child: Obx(() {
                 return TextFormField(
                   style: primaryTextStyle,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
+                  ],
                   keyboardType: TextInputType.number,
                   onChanged: controller.doseChanged,
                   onTap: controller.valdose,

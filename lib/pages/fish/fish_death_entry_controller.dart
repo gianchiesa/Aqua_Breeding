@@ -17,6 +17,22 @@ class FishDeathEntryController extends GetxController {
   final fishamount = ''.obs;
   final validatefishamount = false.obs;
   var isLoading = false.obs;
+  RxList<String> listFishAlive = List<String>.empty().obs;
+  Future<void> getFish() async {
+    isLoading.value = true;
+    listFishAlive.add("pilih ikan");
+    for (var i in activation.fishLive!) {
+      listFishAlive.add(i.type!);
+      print(listFishAlive);
+    }
+    isLoading.value = false;
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    getFish();
+  }
 
   void fishamountChanged(String val) {
     fishamount.value = val;

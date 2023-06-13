@@ -28,9 +28,7 @@ TextStyle secondaryTextStyle = GoogleFonts.poppins(
   color: secondaryTextColor,
 );
 
-TextStyle subtitleTextStyle = GoogleFonts.poppins(
-  color: subtitleColor,
-);
+TextStyle subtitleTextStyle = GoogleFonts.poppins(color: subtitleColor);
 
 TextStyle priceTextStyle = GoogleFonts.poppins(
   color: priceColor,

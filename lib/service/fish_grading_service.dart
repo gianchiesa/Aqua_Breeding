@@ -53,6 +53,11 @@ class FishGradingService {
     required String? amountOver,
     required String? amountUnder,
   }) async {
+    if (avgFishWeight!.isNotEmpty) {
+      if (avgFishWeight.contains(",")) {
+        avgFishWeight = avgFishWeight.replaceAll(',', '.');
+      }
+    }
     print({
       "pond_id": pondId.toString(),
       "fish_type": fishType,

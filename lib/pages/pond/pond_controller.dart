@@ -104,10 +104,10 @@ class PondController extends GetxController {
         width: widthController.text,
         diameter: diameterController.text,
         status: status,
-        height: heightController.text);
+        height: heightController.text,
+        doInPost: doInPost,
+        context: context);
     print(value);
-    doInPost();
-    Get.to(() => DashboardPage());
   }
 
   Future<void> getPondsFiltered(String statusFilter) async {

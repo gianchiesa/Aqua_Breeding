@@ -18,8 +18,8 @@ class DetailPondController extends GetxController {
   var isPondActive = false.obs;
 
   Future getPondActivation(BuildContext context) async {
-    isLoading.value = true;
     activations.clear();
+    isLoading.value = true;
     try {
       var result = await service.getActivations(pondId: pond.id.toString());
       activationData = result[0];
@@ -27,6 +27,7 @@ class DetailPondController extends GetxController {
         activations.add(i);
         if (i.isFinish == false) {
           isPondActive.value = true;
+          print("masuk ini ");
         }
       }
       inspect(isPondActive.value);

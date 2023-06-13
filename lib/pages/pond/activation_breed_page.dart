@@ -170,7 +170,7 @@ class ActivationBreedPage extends StatelessWidget {
                 child: TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
                   ],
                   keyboardType: TextInputType.number,
                   controller: controller.waterHeightController,
@@ -203,6 +203,13 @@ class ActivationBreedPage extends StatelessWidget {
             SizedBox(
               height: 12,
             ),
+            Text(
+              'Jumlah Ikan (Ekor)',
+              style: primaryTextStyle.copyWith(
+                fontSize: 12,
+                fontWeight: medium,
+              ),
+            ),
             Container(
               height: 50,
               padding: EdgeInsets.symmetric(
@@ -230,6 +237,13 @@ class ActivationBreedPage extends StatelessWidget {
             SizedBox(
               height: 12,
             ),
+            Text(
+              'Berat Ikan Total (Kg)',
+              style: primaryTextStyle.copyWith(
+                fontSize: 12,
+                fontWeight: medium,
+              ),
+            ),
             Container(
               height: 50,
               padding: EdgeInsets.symmetric(
@@ -243,12 +257,12 @@ class ActivationBreedPage extends StatelessWidget {
                 child: TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
                   ],
                   keyboardType: TextInputType.number,
                   controller: controller.leleWeightController,
                   decoration: InputDecoration.collapsed(
-                    hintText: 'Berat Total Ikan',
+                    hintText: 'ex: 12.1',
                     hintStyle: subtitleTextStyle,
                   ),
                 ),
@@ -275,6 +289,13 @@ class ActivationBreedPage extends StatelessWidget {
             ),
             SizedBox(
               height: 12,
+            ),
+            Text(
+              'Jumlah Ikan (Ekor)',
+              style: primaryTextStyle.copyWith(
+                fontSize: 12,
+                fontWeight: medium,
+              ),
             ),
             Container(
               height: 50,
@@ -303,6 +324,13 @@ class ActivationBreedPage extends StatelessWidget {
             SizedBox(
               height: 12,
             ),
+            Text(
+              'Berat Ikan Total (Kg)',
+              style: primaryTextStyle.copyWith(
+                fontSize: 12,
+                fontWeight: medium,
+              ),
+            ),
             Container(
               height: 50,
               padding: EdgeInsets.symmetric(
@@ -316,12 +344,12 @@ class ActivationBreedPage extends StatelessWidget {
                 child: TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
                   ],
                   keyboardType: TextInputType.number,
                   controller: controller.nilaMerahWeightController,
                   decoration: InputDecoration.collapsed(
-                    hintText: 'Berat Total Ikan',
+                    hintText: 'ex: 12.3',
                     hintStyle: subtitleTextStyle,
                   ),
                 ),
@@ -348,6 +376,13 @@ class ActivationBreedPage extends StatelessWidget {
             ),
             SizedBox(
               height: 12,
+            ),
+            Text(
+              'Jumlah Ikan (Ekor)',
+              style: primaryTextStyle.copyWith(
+                fontSize: 12,
+                fontWeight: medium,
+              ),
             ),
             Container(
               height: 50,
@@ -376,6 +411,13 @@ class ActivationBreedPage extends StatelessWidget {
             SizedBox(
               height: 12,
             ),
+            Text(
+              'Berat Ikan Total (Kg)',
+              style: primaryTextStyle.copyWith(
+                fontSize: 12,
+                fontWeight: medium,
+              ),
+            ),
             Container(
               height: 50,
               padding: EdgeInsets.symmetric(
@@ -389,12 +431,12 @@ class ActivationBreedPage extends StatelessWidget {
                 child: TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
                   ],
                   keyboardType: TextInputType.number,
                   controller: controller.nilaHitamWeightController,
                   decoration: InputDecoration.collapsed(
-                    hintText: 'Berat Total Ikan',
+                    hintText: 'ex : 10.5 ',
                     hintStyle: subtitleTextStyle,
                   ),
                 ),
@@ -421,6 +463,13 @@ class ActivationBreedPage extends StatelessWidget {
             ),
             SizedBox(
               height: 12,
+            ),
+            Text(
+              'Jumlah Ikan (Ekor)',
+              style: primaryTextStyle.copyWith(
+                fontSize: 12,
+                fontWeight: medium,
+              ),
             ),
             Container(
               height: 50,
@@ -449,6 +498,13 @@ class ActivationBreedPage extends StatelessWidget {
             SizedBox(
               height: 12,
             ),
+            Text(
+              'Berat Ikan Total',
+              style: primaryTextStyle.copyWith(
+                fontSize: 12,
+                fontWeight: medium,
+              ),
+            ),
             Container(
               height: 50,
               padding: EdgeInsets.symmetric(
@@ -462,12 +518,12 @@ class ActivationBreedPage extends StatelessWidget {
                 child: TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
                   ],
                   keyboardType: TextInputType.number,
                   controller: controller.patinWeightController,
                   decoration: InputDecoration.collapsed(
-                    hintText: 'Berat Total Ikan',
+                    hintText: 'ex : 10.2',
                     hintStyle: subtitleTextStyle,
                   ),
                 ),
@@ -535,12 +591,12 @@ class ActivationBreedPage extends StatelessWidget {
                 child: TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
                   ],
                   keyboardType: TextInputType.number,
                   controller: controller.masWeightController,
                   decoration: InputDecoration.collapsed(
-                    hintText: 'Berat Total Ikan',
+                    hintText: 'ex : 12.4',
                     hintStyle: subtitleTextStyle,
                   ),
                 ),
@@ -610,7 +666,7 @@ class ActivationBreedPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Kelas Pembesaran (gram)',
+              'Bobot Ikan Masuk (gram)',
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -632,6 +688,10 @@ class ActivationBreedPage extends StatelessWidget {
                 child: TextFormField(
                   style: primaryTextStyle,
                   controller: controller.kelasPembesaranController,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
+                  ],
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration.collapsed(
                     hintText: 'ex: 100',
                     hintStyle: subtitleTextStyle,
@@ -717,7 +777,6 @@ class ActivationBreedPage extends StatelessWidget {
                 // });
               },
             );
-            controller.postDataLog(controller.fitur);
             // Get.close(1);
           },
           style: TextButton.styleFrom(

@@ -1,6 +1,7 @@
 import 'package:fish/pages/pond/pond_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class AddPondPage extends StatefulWidget {
@@ -253,6 +254,9 @@ class _AddPondPageState extends State<AddPondPage> {
                 return TextFormField(
                   style: primaryTextStyle,
                   keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
+                  ],
                   onChanged: controller.heightChanged,
                   onTap: controller.valHeight,
                   controller: controller.heightController,
@@ -303,6 +307,9 @@ class _AddPondPageState extends State<AddPondPage> {
                 return TextFormField(
                   style: primaryTextStyle,
                   keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
+                  ],
                   onChanged: controller.lenghtChanged,
                   onTap: controller.valLenght,
                   controller: controller.lengthController,
@@ -353,6 +360,9 @@ class _AddPondPageState extends State<AddPondPage> {
                 return TextFormField(
                   style: primaryTextStyle,
                   keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
+                  ],
                   onChanged: controller.widthChanged,
                   onTap: controller.valWidth,
                   controller: controller.widthController,
@@ -403,6 +413,9 @@ class _AddPondPageState extends State<AddPondPage> {
                 return TextFormField(
                   style: primaryTextStyle,
                   keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
+                  ],
                   onChanged: controller.diameterChanged,
                   onTap: controller.valDiameter,
                   controller: controller.diameterController,
@@ -447,7 +460,6 @@ class _AddPondPageState extends State<AddPondPage> {
               await controller.pondRegister(
                 context,
                 () {
-                  Navigator.pop(context);
                   controller.getPondsData(context);
                 },
               );

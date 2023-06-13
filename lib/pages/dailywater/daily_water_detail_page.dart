@@ -33,6 +33,7 @@ class _DailyWaterDetailPageState extends State<DailyWaterDetailPage> {
   @override
   void dispose() {
     controller.postDataLog(controller.fitur);
+    watercontroller.getDailyWaterData(context);
     super.dispose();
   }
 

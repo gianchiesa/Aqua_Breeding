@@ -90,7 +90,7 @@ class DailyWaterCard extends StatelessWidget {
                       maxLines: 1,
                     ),
                     Text(
-                      dailyWaterList!.ph_desc.toString(),
+                      dailyWaterList!.ph.toString(),
                       style: secondaryTextStyle.copyWith(
                         color: dailyWaterList!.ph_desc == "normal"
                             ? Colors.green
@@ -116,7 +116,7 @@ class DailyWaterCard extends StatelessWidget {
                       maxLines: 1,
                     ),
                     Text(
-                      dailyWaterList!.numDo_desc.toString(),
+                      dailyWaterList!.numDo.toString(),
                       style: secondaryTextStyle.copyWith(
                         color: dailyWaterList!.numDo_desc == "normal"
                             ? Colors.green

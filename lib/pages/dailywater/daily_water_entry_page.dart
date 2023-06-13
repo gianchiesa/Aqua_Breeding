@@ -47,6 +47,9 @@ class DailyWaterEntryPage extends StatelessWidget {
                 return TextFormField(
                   style: primaryTextStyle,
                   keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
+                  ],
                   onChanged: controller.doValChanged,
                   onTap: controller.valdoVal,
                   controller: controller.doController,
@@ -96,6 +99,9 @@ class DailyWaterEntryPage extends StatelessWidget {
                 return TextFormField(
                   style: primaryTextStyle,
                   keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
+                  ],
                   onChanged: controller.phChanged,
                   onTap: controller.valph,
                   controller: controller.phController,
@@ -144,6 +150,9 @@ class DailyWaterEntryPage extends StatelessWidget {
               child: Center(child: Obx(() {
                 return TextFormField(
                   style: primaryTextStyle,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
+                  ],
                   keyboardType: TextInputType.number,
                   onChanged: controller.tempChanged,
                   onTap: controller.valtemp,
