@@ -52,11 +52,15 @@ class FishDeathEntryController extends GetxController {
     return list;
   }
 
-  Future<void> postFishDeath() async {
+  Future<void> postFishDeath(BuildContext context, Function doInPost) async {
     bool value = await FishDeathService().postFishDeath(
       pondId: pond.id,
       fish: buildJson(),
     );
+
+    doInPost();
+    Navigator.pop(context);
+
     print(value);
   }
 

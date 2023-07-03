@@ -44,17 +44,17 @@ class LoginInputCard extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 6,
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Container(
             height: 50,
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 16,
             ),
             decoration: BoxDecoration(
@@ -69,15 +69,22 @@ class LoginInputCard extends StatelessWidget {
                 controller: controller.usernameController,
                 decoration: controller.validateusername.value == true
                     ? controller.username == ''
-                        ? InputDecoration(
+                        ? const InputDecoration(
                             errorText: 'username tidak boleh kosong',
+                            hintText: "Breeder ID",
+                            hintStyle: TextStyle(color: Colors.grey),
                             isCollapsed: true)
                         : controller.usernameController.text.length < 5
-                            ? InputDecoration(
+                            ? const InputDecoration(
                                 errorText: 'username kurang dari 5 karakter',
+                                hintText: "Breeder ID",
+                                hintStyle: TextStyle(color: Colors.grey),
                                 isCollapsed: true)
                             : null
-                    : null,
+                    : const InputDecoration(
+                        hintText: "Breeder ID",
+                        hintStyle: TextStyle(color: Colors.grey),
+                        isCollapsed: true),
               );
             })),
           ),
@@ -125,6 +132,7 @@ class LoginInputCard extends StatelessWidget {
                     ? controller.password == ''
                         ? InputDecoration(
                             errorText: 'Password tidak boleh kosong',
+                            hintText: "Password",
                             suffixIcon: IconButton(
                               onPressed: () {
                                 controller.passVisibiity(
@@ -138,6 +146,8 @@ class LoginInputCard extends StatelessWidget {
                         : controller.passwordController.text.length < 8
                             ? InputDecoration(
                                 errorText: 'password kurang dari 8 karakter',
+                                hintText: "Password",
+                                hintStyle: TextStyle(color: Colors.grey),
                                 suffixIcon: IconButton(
                                   onPressed: () {
                                     controller.passVisibiity(
@@ -149,27 +159,31 @@ class LoginInputCard extends StatelessWidget {
                                   color: Colors.white,
                                 ))
                             : InputDecoration(
+                                hintText: "Password",
+                                hintStyle: TextStyle(color: Colors.grey),
                                 suffixIcon: IconButton(
-                                onPressed: () {
-                                  controller.passVisibiity(
-                                      controller.passwordHide.value);
-                                },
-                                icon: Icon(controller.passwordHide.value
-                                    ? Icons.visibility
-                                    : Icons.visibility_off),
-                                color: Colors.white,
-                              ))
+                                  onPressed: () {
+                                    controller.passVisibiity(
+                                        controller.passwordHide.value);
+                                  },
+                                  icon: Icon(controller.passwordHide.value
+                                      ? Icons.visibility
+                                      : Icons.visibility_off),
+                                  color: Colors.white,
+                                ))
                     : InputDecoration(
+                        hintText: "Password",
+                        hintStyle: TextStyle(color: Colors.grey),
                         suffixIcon: IconButton(
-                        onPressed: () {
-                          controller
-                              .passVisibiity(controller.passwordHide.value);
-                        },
-                        icon: Icon(controller.passwordHide.value
-                            ? Icons.visibility
-                            : Icons.visibility_off),
-                        color: Colors.white,
-                      )),
+                          onPressed: () {
+                            controller
+                                .passVisibiity(controller.passwordHide.value);
+                          },
+                          icon: Icon(controller.passwordHide.value
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                          color: Colors.white,
+                        )),
               );
             })),
           ),

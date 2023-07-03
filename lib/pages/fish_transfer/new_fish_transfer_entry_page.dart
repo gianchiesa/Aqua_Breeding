@@ -1,27 +1,23 @@
-import 'package:fish/models/fish_model.dart';
-import 'package:fish/pages/component/treatment_berat_input_card.dart';
-import 'package:fish/pages/treatment/treatment_entry_controller.dart';
 import 'package:fish/controllers/fish_transfer/fish_transfer_entry_controller.dart';
 import 'package:fish/controllers/fish_transfer/pond_list_item_controller.dart';
+import 'package:fish/pages/fish_transfer/new_fish_transfer_input_page.dart';
 import 'package:flutter/material.dart';
-import 'package:fish/pages/pond/detail_pond_controller.dart';
 import 'package:fish/theme.dart';
 
-import 'package:fish/pages/component/deactivation_list_input.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/fish_transfer/fish_transfer_list_controller.dart';
 import '../component/deactivation_with_fish_transfer_input.dart';
-import '../component/fish_transfer_input.dart';
 
-class FishTransferEntryPage extends StatefulWidget {
-  FishTransferEntryPage({Key? key}) : super(key: key);
+class NewFishTransferEntryPage extends StatefulWidget {
+  const NewFishTransferEntryPage({Key? key}) : super(key: key);
   @override
-  State<FishTransferEntryPage> createState() => _FishTransferEntryPageState();
+  State<NewFishTransferEntryPage> createState() =>
+      _NewFishTransferEntryPageState();
 }
 
-class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
+class _NewFishTransferEntryPageState extends State<NewFishTransferEntryPage> {
   final FishTransferEntryController controller =
       Get.put(FishTransferEntryController());
 
@@ -72,6 +68,7 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
     super.dispose();
   }
 
+  @override
   void initState() {
     super.initState();
     // WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
@@ -188,58 +185,201 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
     }
 
     Widget destinationPondInput() {
-      return Container(
-        margin: EdgeInsets.only(
-            top: defaultSpace, right: defaultMargin, left: defaultMargin),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Kolam Tujuan',
-              style: primaryTextStyle.copyWith(
-                fontSize: 16,
-                fontWeight: medium,
-              ),
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            Container(
-              height: 50,
-              padding: EdgeInsets.symmetric(
-                horizontal: 16,
-              ),
-              decoration: BoxDecoration(
-                color: backgroundColor2,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Center(
-                child: Obx(() {
-                  return DropdownButtonFormField<String>(
-                    onChanged: ((value) {
-                      controller.pondlistController
-                          .setSelected(value.toString());
-                      // controller.getDestinationId(value.toString());
-                    }),
-                    // value: controller.pondlistController.selected.value,
-                    items: controller.listPondName.map((type) {
-                      return DropdownMenuItem<String>(
-                        value: type,
-                        child: Text(
-                          type,
-                          style: primaryTextStyle,
+      return Obx(() {
+        return ListView.builder(
+          shrinkWrap: true,
+          itemCount: controller.pondlistController.initialLenght.toInt(),
+          itemBuilder: (context, index) {
+            return Obx(() {
+              return Container(
+                margin: EdgeInsets.only(
+                    top: defaultSpace,
+                    right: defaultMargin,
+                    left: defaultMargin),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Kolam Tujuan ${index + 1}',
+                      style: primaryTextStyle.copyWith(
+                        fontSize: 16,
+                        fontWeight: medium,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Container(
+                      height: 50,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16,
+                      ),
+                      decoration: BoxDecoration(
+                        color: backgroundColor2,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Center(
+                        child: Obx(() {
+                          return DropdownButtonFormField<String>(
+                            hint: Text(
+                              "Pilih Kolam",
+                              style: primaryTextStyle,
+                            ),
+                            onChanged: ((value) {
+                              // controller.pondlistController
+                              //     .setSelected(value.toString());
+                              print(value);
+                              // controller.getDestinationId(value.toString());
+                              controller.pondlistController.setSelected(value!);
+                            }),
+                            // value: ,
+                            items: controller.listPondName.map((type) {
+                              return DropdownMenuItem<String>(
+                                value: type,
+                                child: Text(
+                                  type,
+                                  style: primaryTextStyle,
+                                ),
+                              );
+                            }).toList(),
+                            dropdownColor: backgroundColor5,
+                            decoration:
+                                InputDecoration(border: InputBorder.none),
+                          );
+                        }),
+                      ),
+                    ),
+                    if (controller.pondlistController.initialLenght.toInt() ==
+                        1) ...[
+                      if (controller
+                              .pondlistController.listPondSelected.length ==
+                          controller.pondlistController.initialLenght
+                              .toInt()) ...[
+                        Column(
+                          children: [
+                            SizedBox(
+                              height: 16,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  controller.pondlistController.initialLenght +
+                                      1;
+                                });
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.add_circle_outline,
+                                    color: Colors.blue,
+                                  ),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Text(
+                                    "Tambah",
+                                    style: primaryTextStyle,
+                                  )
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 16,
+                            ),
+                          ],
+                        )
+                      ] else ...[
+                        SizedBox(
+                          height: 16,
                         ),
-                      );
-                    }).toList(),
-                    dropdownColor: backgroundColor5,
-                    decoration: InputDecoration(border: InputBorder.none),
-                  );
-                }),
-              ),
-            ),
-          ],
-        ),
-      );
+                      ]
+                    ] else ...[
+                      if (controller.pondlistController.initialLenght.toInt() ==
+                          index + 1) ...[
+                        Column(
+                          children: [
+                            SizedBox(
+                              height: 16,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      print("111");
+                                      controller.pondlistController
+                                              .initialLenght +
+                                          1;
+                                    });
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.add_circle_outline,
+                                        color: Colors.blue,
+                                      ),
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        "Tambah",
+                                        style: primaryTextStyle,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      if (controller.pondlistController
+                                              .listPondSelected.length ==
+                                          controller
+                                              .pondlistController.initialLenght
+                                              .toInt()) {
+                                        controller
+                                            .pondlistController.listPondSelected
+                                            .removeLast();
+                                      }
+                                      controller.pondlistController
+                                              .initialLenght -
+                                          1;
+                                    });
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.remove_circle,
+                                        color: Colors.red,
+                                      ),
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        "Hapus",
+                                        style: primaryTextStyle,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 16,
+                            ),
+                          ],
+                        ),
+                      ] else ...[
+                        Container()
+                      ]
+                    ]
+                  ],
+                ),
+              );
+            });
+          },
+        );
+      });
     }
 
     Widget transferMethodInput() {
@@ -1619,34 +1759,44 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
     }
 
     Widget nextButton() {
-      return Container(
-        height: 50,
-        width: double.infinity,
-        margin: EdgeInsets.only(
-            top: defaultSpace * 3, right: defaultMargin, left: defaultMargin),
-        child: TextButton(
-          onPressed: () => controller.sampleLongController.text == "" ||
-                  controller.sampleWeightController.text == '' ||
-                  controller.pondSelected == "pilih kolam"
-              ? null
-              : pageController.nextPage(
-                  duration: const Duration(seconds: 1),
-                  curve: Curves.easeInOut),
-          style: TextButton.styleFrom(
-            backgroundColor: Colors.green,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
+      return Obx(() {
+        return Container(
+          height: 50,
+          width: double.infinity,
+          margin: EdgeInsets.only(right: defaultMargin, left: defaultMargin),
+          child: TextButton(
+            onPressed: () {
+              controller.pondlistController.listPondSelected.isEmpty
+                  ? null
+                  : controller.pondlistController.initialLenght.toInt() !=
+                          controller.pondlistController.listPondSelected.length
+                      ? null
+                      : pageController.nextPage(
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.easeIn);
+            },
+            style: TextButton.styleFrom(
+              backgroundColor: controller
+                      .pondlistController.listPondSelected.isEmpty
+                  ? Colors.grey
+                  : controller.pondlistController.initialLenght.toInt() !=
+                          controller.pondlistController.listPondSelected.length
+                      ? Colors.grey
+                      : Colors.green,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+            child: Text(
+              'Berikutnya',
+              style: primaryTextStyle.copyWith(
+                fontSize: 16,
+                fontWeight: medium,
+              ),
             ),
           ),
-          child: Text(
-            'Berikutnya',
-            style: primaryTextStyle.copyWith(
-              fontSize: 16,
-              fontWeight: medium,
-            ),
-          ),
-        ),
-      );
+        );
+      });
     }
 
     Widget previousButton() {
@@ -1725,6 +1875,77 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
           ));
     }
 
+    Widget listSelected() {
+      return ListView.builder(
+          itemCount: controller.pondlistController.listPondSelected.isEmpty
+              ? 1
+              : controller.pondlistController.listPondSelected.length,
+          itemBuilder: ((context, index) {
+            if (controller.pondlistController.listPondSelected.isEmpty) {
+              return Container();
+            } else {
+              return Padding(
+                padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+                child: GestureDetector(
+                  onTap: () {
+                    Get.to(
+                        () => NewFishTransferInputPage(
+                              index: index,
+                              pond: controller
+                                  .pondlistController.listPondSelected[index],
+                            ),
+                        arguments: {
+                          "pond": controller.pond,
+                          "activation": controller.activation
+                        });
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(left: 12, right: 12),
+                    height: 60,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 2, color: primaryColor),
+                        borderRadius: BorderRadius.circular(16)),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Kolam ${controller.pondlistController.listPondSelected[index].name}",
+                            style: primaryTextStyle.copyWith(),
+                          ),
+                          if (controller.pondlistController
+                                  .listPondSelected[index].isInputed ==
+                              false) ...[
+                            Text(
+                              "Data belum diisi",
+                              style:
+                                  primaryTextStyle.copyWith(color: Colors.red),
+                            ),
+                          ] else ...[
+                            if (controller.pondlistController
+                                    .listPondSelected[index].isInputed ==
+                                false) ...[
+                              Text(
+                                "Data lengkap",
+                                style: primaryTextStyle.copyWith(
+                                    color: Colors.green),
+                              ),
+                            ]
+                          ]
+                        ]),
+                  ),
+                ),
+              );
+            }
+          }));
+    }
+
+    // Widget addButton() {
+    //   return Padding(
+    //     padding: EdgeInsets.all(16),
+    //     child:
+    //   );
+    // }
+
     Widget deactivationTransfer() {
       return Container(
           width: double.infinity,
@@ -1756,79 +1977,29 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
           physics: const NeverScrollableScrollPhysics(),
           controller: pageController,
           children: [
-            Obx(() {
-              return ListView(
-                children: [
-                  transferMethodInput(),
-                  destinationPondInput(),
-                  checkBoxFishTransfer(),
-                  controller.isNilaHitamInput == true
-                      ? nilaHitamInput()
-                      : Container(),
-                  controller.isNilaMerahInput == true
-                      ? nilaMerahInput()
-                      : Container(),
-                  controller.isLeleInput == true ? leleInput() : Container(),
-                  controller.isPatinInput == true ? patinInput() : Container(),
-                  controller.isMasInput == true ? masInput() : Container(),
-                  sampleLongInput(),
-                  sampleWeightInput(),
-                  controller.methodController.selected.value == "basah"
-                      ? submitButton()
-                      : nextButton(),
-                  SizedBox(
-                    height: 8,
-                  )
-                ],
-              );
-            }),
-            Obx(() {
-              return ListView(
-                children: [
-                  controller.destinationIsActive == false
-                      ? destinationnNotActiveTransfer()
-                      : deactivationInput(),
-                  controller.destinationIsActive == false
-                      ? checkBoxFish()
-                      : deactivationInput(),
-                  controller.isNilaHitamActivation == true
-                      ? nilaHitamInputActivation()
-                      : Container(),
-                  controller.isNilaMerahActivation == true
-                      ? nilaMerahInputActivation()
-                      : Container(),
-                  controller.isLeleActivation == true
-                      ? leleInputActivation()
-                      : Container(),
-                  controller.isPatinActivation == true
-                      ? patinInputActivation()
-                      : Container(),
-                  controller.isMasActivation == true
-                      ? masInputActivation()
-                      : Container(),
-                  controller.destinationIsActive == false
-                      ? waterHeightInput()
-                      : Container(),
-                  controller.destinationIsActive == false
-                      ? previousNextButton()
-                      : previousSubmitButton(),
-                  SizedBox(
-                    height: 8,
-                  )
-                ],
-              );
-            }),
             ListView(
               children: [
-                deactivationTransfer(),
-                deactivationInput(),
-                previousSubmitButton(),
-                SizedBox(
-                  height: 8,
-                )
+                transferMethodInput(),
+                destinationPondInput(),
+                // addButton(),
+                nextButton()
               ],
             ),
+            Obx(() {
+              return listSelected();
+            }),
           ],
         ));
   }
+
+  void removeItemInArray(List<ListPondSortir> arr, int index) {
+    if (index >= 0 && index < arr.length) {
+      arr.removeAt(index);
+      Get.back();
+    } else {
+      throw RangeError('Index out of bounds');
+    }
+  }
 }
+
+class ListPondSortir {}

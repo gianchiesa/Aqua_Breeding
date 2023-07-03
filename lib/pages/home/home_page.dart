@@ -109,14 +109,18 @@ class HomePage extends StatelessWidget {
                       flex: 1,
                       child: StatisticCard(
                         title: 'Panen',
-                        value: controller.statistic.value.fish_harvested,
+                        value: double.parse(controller
+                            .statistic.value.fish_harvested!
+                            .toStringAsFixed(1)),
                         unit: 'Kg',
                       )),
                   Expanded(
                       flex: 1,
                       child: StatisticCard(
                         title: 'Total Pakan',
-                        value: controller.statistic.value.total_feed_dose,
+                        value: double.parse(controller
+                            .statistic.value.total_feed_dose!
+                            .toStringAsFixed(1)),
                         unit: 'Kg',
                       )),
                 ],

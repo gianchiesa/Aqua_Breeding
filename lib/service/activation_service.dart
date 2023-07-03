@@ -24,7 +24,7 @@ class ActivationService {
       }
 
       print("success get activations");
-
+      print(activations);
       return activations;
     } else {
       throw Exception('Gagal Get Activation!');

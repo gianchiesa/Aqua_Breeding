@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
 import 'package:get/get.dart';
 
+import 'new_fish_transfer_entry_page.dart';
+
 class FishTransferListPage extends StatefulWidget {
   FishTransferListPage({Key? key}) : super(key: key);
 
@@ -123,7 +125,7 @@ class _FishTransferListPageState extends State<FishTransferListPage> {
         return Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              Get.to(() => FishTransferEntryPage(), arguments: {
+              Get.to(() => const NewFishTransferEntryPage(), arguments: {
                 "pond": controller.pond,
                 "activation": controller.activation
               });

@@ -46,7 +46,7 @@ class FishDeathEntryPage extends StatelessWidget {
                       onChanged: (newValue) =>
                           controller.fishTypeController.setSelected(newValue!),
                       value: controller.fishTypeController.selected.value,
-                      items: controller.fishTypeController.listFish.map((fish) {
+                      items: controller.listFishAlive.map((fish) {
                         return DropdownMenuItem<String>(
                           value: fish,
                           child: Text(
@@ -127,10 +127,17 @@ class FishDeathEntryPage extends StatelessWidget {
           onPressed: () async {
             controller.formDeathController.text == ""
                 ? null
-                : Navigator.pop(context);
-            controller.postFishDeath();
-            deathcontroller.getFishDeaths(
-                activation_id: controller.activation.id.toString());
+                : await controller.postFishDeath(
+                    context,
+                    () {
+                      deathcontroller.getFishDeaths(
+                          activation_id: controller.activation.id.toString());
+                      // Get.off(MyTabPondScreen(), arguments: {
+                      //   'pond': controller.pond,
+                      // });
+                    },
+                  );
+
             deathcontroller.getcharData(
                 activation_id: controller.activation.id.toString());
             controller.postDataLog(controller.fitur);

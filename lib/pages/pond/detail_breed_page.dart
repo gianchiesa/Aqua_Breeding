@@ -70,6 +70,38 @@ class DetailBreedPage extends StatelessWidget {
     //   );
     // }
 
+    Widget editButton() {
+      return Container(
+        width: double.infinity,
+        height: 50,
+        margin: EdgeInsets.only(
+            top: defaultSpace, right: defaultMargin, left: defaultMargin),
+        child: TextButton(
+          onPressed: () {
+            // Get.to(() => DailyWaterEditPage(), arguments: {
+            //   'pond': controller.pond,
+            //   'activation': controller.activation,
+            //   'dailywater': controller.dailyWater
+            // });
+          },
+          style: TextButton.styleFrom(
+            fixedSize: const Size(300, 40),
+            backgroundColor: primaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          child: Text(
+            'Edit Data',
+            style: primaryTextStyle.copyWith(
+              fontSize: 16,
+              fontWeight: medium,
+            ),
+          ),
+        ),
+      );
+    }
+
     Widget feedButton() {
       return Container(
         height: 50,
@@ -427,7 +459,11 @@ class DetailBreedPage extends StatelessWidget {
           body: ListView(
             children: [
               breedDataRecap(),
+
               detail(),
+              controller.activation.isFinish == false
+                  ? editButton()
+                  : Container(),
               controller.activation.isFinish == false
                   ? Container()
                   : finishBreed(),

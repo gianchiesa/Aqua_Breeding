@@ -130,6 +130,7 @@ class FishTransferEntryController extends GetxController {
   RxList<String> listPondName = List<String>.empty().obs;
   final pondSelected = <Pond>[].obs;
   var pondIdSelected = "";
+  RxList<String> pondIdList = <String>[].obs;
 
   Future<void> getPondsData(String method) async {
     isLoading.value = true;

@@ -17,23 +17,24 @@ class DetailPondController extends GetxController {
   late Activation activationData;
   var isPondActive = false.obs;
 
-  Future getPondActivation(BuildContext context) async {
-    activations.clear();
+  Future<void> getPondActivation(BuildContext context) async {
     isLoading.value = true;
-    try {
-      var result = await service.getActivations(pondId: pond.id.toString());
-      activationData = result[0];
-      for (var i in result) {
-        activations.add(i);
-        if (i.isFinish == false) {
-          isPondActive.value = true;
-          print("masuk ini ");
-        }
+    activations.clear();
+
+    List<Activation> result =
+        await service.getActivations(pondId: pond.id.toString());
+    activations.addAll(result);
+    print('masuk ke actvation');
+    // activationData = result[0];
+    for (var i in result) {
+      // activations.add(i);
+      if (i.isFinish == false) {
+        isPondActive.value = true;
+        print("masuk ini ");
       }
-      inspect(isPondActive.value);
-    } catch (e) {
-      //
     }
+    // inspect(isPondActive.value);
+
     isLoading.value = false;
   }
 
@@ -45,7 +46,7 @@ class DetailPondController extends GetxController {
     // print(buildJsonFish());
     bool value =
         await LoggingService().postLogging(startAt: startTime, fitur: fitur);
-    print(value);
+    // print(value);
   }
   // @override
   // void onInit() async {
