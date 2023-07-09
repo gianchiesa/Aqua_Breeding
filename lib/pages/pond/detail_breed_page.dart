@@ -1,5 +1,8 @@
+import 'package:fish/models/fish_live_model.dart';
+import 'package:fish/models/fishchart_model.dart';
 import 'package:fish/pages/component/fish_list_card.dart';
 import 'package:fish/pages/component/fish_harvest_card.dart';
+import 'package:fish/pages/dailywater/daily_water_edit_page.dart';
 import 'package:fish/pages/pond/breed_controller.dart';
 import 'package:fish/pages/grading/grading_page.dart';
 import 'package:fish/pages/feeding/detail_feed_page.dart';
@@ -8,6 +11,7 @@ import 'package:fish/pages/fish/fish_recap_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
 import 'package:get/get.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class DetailBreedPage extends StatelessWidget {
   const DetailBreedPage({Key? key}) : super(key: key);
@@ -81,7 +85,6 @@ class DetailBreedPage extends StatelessWidget {
             // Get.to(() => DailyWaterEditPage(), arguments: {
             //   'pond': controller.pond,
             //   'activation': controller.activation,
-            //   'dailywater': controller.dailyWater
             // });
           },
           style: TextButton.styleFrom(
@@ -344,6 +347,44 @@ class DetailBreedPage extends StatelessWidget {
       );
     }
 
+    Widget fishChart() {
+      return Container(
+        child: SfCartesianChart(
+          enableAxisAnimation: true,
+          tooltipBehavior: TooltipBehavior(enable: true),
+          zoomPanBehavior: ZoomPanBehavior(
+            enablePanning: true,
+          ),
+          title: ChartTitle(
+              text: 'Chart Ikan Hidup',
+              textStyle: TextStyle(color: Colors.white)),
+          legend: Legend(
+              isVisible: true,
+              position: LegendPosition.bottom,
+              textStyle: TextStyle(color: Colors.white)),
+          primaryXAxis: CategoryAxis(
+              interval: 1,
+              labelPlacement: LabelPlacement.onTicks,
+              labelRotation: 90,
+              labelStyle: TextStyle(color: Colors.white),
+              autoScrollingDelta: 10),
+          primaryYAxis: NumericAxis(
+              // maximum: 100,
+              // minimum: 0,
+              labelStyle: TextStyle(color: Colors.white)),
+          series: <ChartSeries>[
+            LineSeries<FishChartData, dynamic>(
+                enableTooltip: true,
+                color: Colors.blue,
+                dataSource: controller.charData,
+                xValueMapper: (FishChartData fish, _) => fish.date,
+                yValueMapper: (FishChartData fish, _) => fish.amount,
+                name: 'Ikan Hidup')
+          ],
+        ),
+      );
+    }
+
     Widget recapTitle() {
       return Container(
         width: double.infinity,
@@ -467,6 +508,10 @@ class DetailBreedPage extends StatelessWidget {
               controller.activation.isFinish == false
                   ? Container()
                   : finishBreed(),
+              SizedBox(
+                height: 10,
+              ),
+              fishChart(),
               recapTitle(),
               feedButton(),
               gradingButton(),

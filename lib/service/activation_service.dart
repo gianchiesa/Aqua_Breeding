@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:fish/models/activation_model.dart';
+import 'package:fish/models/fish_live_model.dart';
+import 'package:fish/models/fishchart_model.dart';
 import 'package:fish/models/pond_model.dart';
 import 'package:fish/service/url_api.dart';
 import 'package:fish/theme.dart';
@@ -28,6 +30,26 @@ class ActivationService {
       return activations;
     } else {
       throw Exception('Gagal Get Activation!');
+    }
+  }
+
+  Future<List<FishChartData>> getFishChart(
+      {required String activationId}) async {
+    var url = Uri.parse(Urls.fishChart(activationId));
+    var headers = {'Content-Type': 'application/json'};
+
+    var response = await http.get(url, headers: headers);
+
+    // print(response.body);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      print(data);
+      List<FishChartData> fishDatas = FishChartData.fromJsonList(data);
+
+      return fishDatas;
+    } else {
+      throw Exception('Gagal Get fish chart!');
     }
   }
 

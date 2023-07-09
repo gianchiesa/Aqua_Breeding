@@ -1,6 +1,6 @@
 class Urls {
-  static const String baseUrl = 'http://jft.web.id/fishapiv2/api';
-  // static const String baseUrl = 'http://10.0.2.2:5000/api';
+  // static const String baseUrl = 'http://jft.web.id/fishapiv2/api';
+  static const String baseUrl = 'http://10.0.2.2:5000/api';
 
   // Home
   static const String statistic = '$baseUrl/statistic';
@@ -18,6 +18,9 @@ class Urls {
       '$baseUrl/ponds/$pondId/closing';
   // Feed Type
   static const String feedType = '$baseUrl/feedtypes';
+  // fish chart
+  static String fishChart(String? activationId) =>
+      '$baseUrl/fishchart/$activationId';
 
   // Feed History
   static const String feedhistorys = '$baseUrl/feedhistorys';
