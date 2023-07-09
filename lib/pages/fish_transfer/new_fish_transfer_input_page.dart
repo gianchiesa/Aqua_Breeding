@@ -8,6 +8,7 @@ import 'package:fish/controllers/fish_transfer/pond_list_item_controller.dart';
 import 'package:fish/theme.dart';
 
 import '../../controllers/fish_transfer/fish_transfer_list_controller.dart';
+import '../../models/fish_model.dart';
 import '../../models/new_sortir_model.dart';
 import '../component/deactivation_with_fish_transfer_input.dart';
 
@@ -1586,11 +1587,6 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
             top: defaultSpace, right: defaultMargin, left: defaultMargin),
         child: TextButton(
           onPressed: () async {
-            ListPondSortir item = ListPondSortir(
-                id: widget.pond.id,
-                isInputed: true,
-                name: widget.pond.name,
-                isActive: widget.pond.isActive);
             // Get.back();
             // await controller.postFishTransferBasah(
             //   context,
@@ -1599,8 +1595,7 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
             //     // fishTransferController.getTransfertData(context);
             //   },
             // );
-            replaceItemInArray(controller.pondlistController.listPondSelected,
-                widget.index, item);
+            createData();
             controller.postDataLog(controller.fitur);
           },
           style: TextButton.styleFrom(
@@ -1993,6 +1988,345 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
         );
       }),
     );
+  }
+
+  void createData() {
+    if (widget.pond.isInputed == true) {
+      if (controller.isNilaMerahInput.value == true &&
+          controller.nilamerahAmountChecker.value <
+              (controller.nilamerahAmountComparator.value -
+                      int.parse(widget.pond.fish?.firstWhereOrNull(
+                                  (element) => element.type == "nila merah") ==
+                              null
+                          ? "0"
+                          : widget.pond.fish!
+                              .firstWhereOrNull(
+                                  (element) => element.type == "nila merah")!
+                              .amount
+                              .toString())) +
+                  int.parse(controller.nilaMerahAmountController.text)) {
+        print(int.parse(widget.pond.fish?.firstWhereOrNull(
+                    (element) => element.type == "nila merah") ==
+                null
+            ? "0"
+            : widget.pond.fish!
+                .firstWhereOrNull((element) => element.type == "nila merah")!
+                .amount
+                .toString()));
+        print("awdawdaw");
+        showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Input Error',
+                      style: TextStyle(color: Colors.red)),
+                  content: const Text(
+                    'Jumlah ikan nila merah melebihi batas',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  backgroundColor: backgroundColor1,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ));
+      } else if (controller.isNilaHitamInput.value == true &&
+          controller.nilahitamAmountChecker.value <
+              (controller.nilahitamAmountComparator.value -
+                      int.parse(widget.pond.fish!.firstWhereOrNull(
+                                  (element) => element.type == "nila hitam") ==
+                              null
+                          ? "0"
+                          : widget.pond.fish!
+                              .firstWhereOrNull(
+                                  (element) => element.type == "nila hitam")!
+                              .amount
+                              .toString())) +
+                  int.parse(controller.nilaHitamAmountController.text)) {
+        showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Input Error',
+                      style: TextStyle(color: Colors.red)),
+                  content: const Text(
+                    'Jumlah ikan nila hitam melebihi batas',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  backgroundColor: backgroundColor1,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ));
+      } else if (controller.isMasInput.value == true &&
+          controller.masAmountChecker.value <
+              (controller.masAmountComparator.value -
+                      int.parse(widget.pond.fish!.firstWhereOrNull(
+                                  (element) => element.type == "mas") ==
+                              null
+                          ? "0"
+                          : widget.pond.fish!
+                              .firstWhereOrNull(
+                                  (element) => element.type == "mas")!
+                              .amount
+                              .toString())) +
+                  int.parse(controller.masAmountController.text)) {
+        showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Input Error',
+                      style: TextStyle(color: Colors.red)),
+                  content: const Text(
+                    'Jumlah ikan mas melebihi batas',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  backgroundColor: backgroundColor1,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ));
+      } else if (controller.isLeleInput.value == true &&
+          controller.leleAmountChecker.value <
+              (controller.leleAmountComparator.value -
+                      int.parse(widget.pond.fish!.firstWhereOrNull(
+                                  (element) => element.type == "lele") ==
+                              null
+                          ? "0"
+                          : widget.pond.fish!
+                              .firstWhereOrNull(
+                                  (element) => element.type == "lele")!
+                              .amount
+                              .toString())) +
+                  int.parse(controller.leleAmountController.text)) {
+        showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Input Error',
+                      style: TextStyle(color: Colors.red)),
+                  content: const Text(
+                    'Jumlah ikan lele melebihi batas',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  backgroundColor: backgroundColor1,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ));
+      } else if (controller.isPatinInput.value == true &&
+          controller.patinAmountChecker.value <
+              (controller.patinAmountComparator.value -
+                      int.parse(widget.pond.fish!.firstWhereOrNull(
+                                  (element) => element.type == "patin") ==
+                              null
+                          ? "0"
+                          : widget.pond.fish!
+                              .firstWhereOrNull(
+                                  (element) => element.type == "patin")!
+                              .amount
+                              .toString())) +
+                  int.parse(controller.patinAmountController.text)) {
+        showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Input Error',
+                      style: TextStyle(color: Colors.red)),
+                  content: const Text(
+                    'Jumlah ikan patin melebihi batas',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  backgroundColor: backgroundColor1,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ));
+      } else {
+        final fish = controller.buildJsonFish();
+
+        final data = {
+          "destination_pond_id": widget.pond.id,
+          "status":
+              widget.pond.isActive == true ? "isActivated" : "isNotActivated",
+          "fish": fish,
+          "sample_weight": controller.sampleWeightController.text,
+          "sample_long": controller.sampleLongController.text,
+          "transfer_type": "oversized_transfer"
+        };
+        List<Fish> inputedFish = Fish.createList(fish);
+        // print(inputedFish[0].amount);
+        ListPondSortir item = ListPondSortir(
+            id: widget.pond.id,
+            isInputed: true,
+            name: widget.pond.name,
+            isActive: widget.pond.isActive,
+            dataInput: data,
+            fish: inputedFish);
+        replaceItemInArray(
+            controller.pondlistController.listPondSelected, widget.index, item);
+      }
+    } else {
+      print("disini euy");
+      if (controller.isNilaMerahInput.value == true &&
+          controller.nilamerahAmountChecker.value <
+              controller.nilamerahAmountComparator.value +
+                  int.parse(controller.nilaMerahAmountController.text)) {
+        showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Input Error',
+                      style: TextStyle(color: Colors.red)),
+                  content: const Text(
+                    'Jumlah ikan nila merah melebihi batas',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  backgroundColor: backgroundColor1,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ));
+      } else if (controller.isNilaHitamInput.value == true &&
+          controller.nilahitamAmountChecker.value <
+              controller.nilahitamAmountComparator.value +
+                  int.parse(controller.nilaHitamAmountController.text)) {
+        showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Input Error',
+                      style: TextStyle(color: Colors.red)),
+                  content: const Text(
+                    'Jumlah ikan nila hitam melebihi batas',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  backgroundColor: backgroundColor1,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ));
+      } else if (controller.isMasInput.value == true &&
+          controller.masAmountChecker.value <
+              controller.masAmountComparator.value +
+                  int.parse(controller.masAmountController.text)) {
+        showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Input Error',
+                      style: TextStyle(color: Colors.red)),
+                  content: const Text(
+                    'Jumlah ikan mas melebihi batas',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  backgroundColor: backgroundColor1,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ));
+      } else if (controller.isLeleInput.value == true &&
+          controller.leleAmountChecker.value <
+              controller.leleAmountComparator.value +
+                  int.parse(controller.leleAmountController.text)) {
+        showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Input Error',
+                      style: TextStyle(color: Colors.red)),
+                  content: const Text(
+                    'Jumlah ikan lele melebihi batas',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  backgroundColor: backgroundColor1,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ));
+      } else if (controller.isPatinInput.value == true &&
+          controller.patinAmountChecker.value <
+              controller.patinAmountComparator.value +
+                  int.parse(controller.patinAmountController.text)) {
+        showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Input Error',
+                      style: TextStyle(color: Colors.red)),
+                  content: const Text(
+                    'Jumlah ikan patin melebihi batas',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  backgroundColor: backgroundColor1,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ));
+      } else {
+        final fish = controller.buildJsonFish();
+        final data = {
+          "destination_pond_id": widget.pond.id,
+          "status":
+              widget.pond.isActive == true ? "isActivated" : "isNotActivated",
+          "fish": fish,
+          "sample_weight": controller.sampleWeightController.text,
+          "sample_long": controller.sampleLongController.text,
+          "transfer_type": "oversized_transfer"
+        };
+        List<Fish> inputedFish = Fish.createList(fish);
+        // print(inputedFish[0].amount);
+        print(data);
+        ListPondSortir item = ListPondSortir(
+            id: widget.pond.id,
+            isInputed: true,
+            name: widget.pond.name,
+            isActive: widget.pond.isActive,
+            dataInput: data,
+            fish: inputedFish);
+        replaceItemInArray(
+            controller.pondlistController.listPondSelected, widget.index, item);
+      }
+    }
   }
 
   void replaceItemInArray(

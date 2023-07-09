@@ -6,14 +6,22 @@ class ListPondSortir {
   String? name;
   bool? isInputed;
   bool? isActive;
-  List<ListInputSortir>? dataInput;
+  List<Fish>? fish;
 
-  ListPondSortir({this.id, this.isInputed, this.name, this.isActive});
+  dynamic dataInput;
+  ListPondSortir(
+      {this.id,
+      this.isInputed,
+      this.name,
+      this.isActive,
+      this.dataInput,
+      this.fish});
 }
 
 class ListInputSortir {
   String? name;
   String? id;
+  String? status;
   List<Fish>? fish;
   String? sampleLong;
   String? sampleWeight;
@@ -23,6 +31,7 @@ class ListInputSortir {
     this.name,
     this.id,
     this.fish,
+    this.status,
     this.sampleLong,
     this.sampleWeight,
     this.waterHeight,

@@ -26,6 +26,16 @@ class FishTransferEntryController extends GetxController {
   var leleAmount = 0.obs;
   var patinAmount = 0.obs;
   var masAmount = 0.obs;
+  RxInt nilamerahAmountChecker = 0.obs;
+  RxInt nilahitamAmountChecker = 0.obs;
+  RxInt leleAmountChecker = 0.obs;
+  RxInt patinAmountChecker = 0.obs;
+  RxInt masAmountChecker = 0.obs;
+  RxInt nilamerahAmountComparator = 0.obs;
+  RxInt nilahitamAmountComparator = 0.obs;
+  RxInt leleAmountComparator = 0.obs;
+  RxInt patinAmountComparator = 0.obs;
+  RxInt masAmountComparator = 0.obs;
   var nilamerahWeight = 0.obs;
   var nilahitamWeight = 0.obs;
   var leleWeight = 0.obs;
@@ -134,18 +144,33 @@ class FishTransferEntryController extends GetxController {
 
   Future<void> getPondsData(String method) async {
     isLoading.value = true;
+    int index = 0;
     List<Pond> pondsData = await PondService().getPonds();
     listPondName.clear();
     if (method == "kering") {
-      listPondName.add("pilih kolam");
       for (var i in pondsData) {
-        listPondName.add(i.alias.toString());
+        if (pondlistController.listPondSelected.isEmpty) {
+          listPondName.add(i.alias.toString());
+        } else {
+          if (i.id != pondlistController.listPondSelected[index].id) {
+            listPondName.add(i.alias.toString());
+          } else {
+            index++;
+          }
+        }
       }
     } else {
-      listPondName.add("pilih kolam");
       for (var i in pondsData) {
         if (i.isActive == true) {
-          listPondName.add(i.alias.toString());
+          if (pondlistController.listPondSelected.isEmpty) {
+            listPondName.add(i.alias.toString());
+          } else {
+            if (i.id != pondlistController.listPondSelected[index].id) {
+              listPondName.add(i.alias.toString());
+            } else {
+              index++;
+            }
+          }
         }
       }
     }
@@ -187,18 +212,23 @@ class FishTransferEntryController extends GetxController {
     for (var i in activation.fishLive!) {
       if (i.type == 'lele') {
         isLele.value = true;
+        leleAmountChecker.value = i.amount!;
       }
       if (i.type == 'patin') {
         isPatin.value = true;
+        patinAmountChecker.value = i.amount!;
       }
       if (i.type == 'mas') {
         isMas.value = true;
+        masAmountChecker.value = i.amount!;
       }
       if (i.type == 'nila hitam') {
         isNilaHitam.value = true;
+        nilahitamAmountChecker.value = i.amount!;
       }
       if (i.type == 'nila merah') {
         isNilaMerah.value = true;
+        nilamerahAmountChecker.value = i.amount!;
       }
     }
   }
@@ -226,6 +256,8 @@ class FishTransferEntryController extends GetxController {
   List buildJsonFish() {
     var data = [];
     if (isNilaMerahInput.value == true) {
+      nilamerahAmountComparator +
+          int.parse(nilaMerahAmountController.value.text);
       var fishData = {
         "type": "nila merah",
         "amount": nilaMerahAmountController.value.text,
@@ -234,6 +266,8 @@ class FishTransferEntryController extends GetxController {
       data.add(jsonEncode(fishData));
     }
     if (isNilaHitamInput.value == true) {
+      nilahitamAmountComparator +
+          int.parse(nilaHitamAmountController.value.text);
       var fishData = {
         "type": "nila hitam",
         "amount": nilaHitamAmountController.value.text,
@@ -242,6 +276,7 @@ class FishTransferEntryController extends GetxController {
       data.add(jsonEncode(fishData));
     }
     if (isLeleInput.value == true) {
+      leleAmountComparator + int.parse(leleAmountController.value.text);
       var fishData = {
         "type": "lele",
         "amount": leleAmountController.value.text,
@@ -250,6 +285,7 @@ class FishTransferEntryController extends GetxController {
       data.add(jsonEncode(fishData));
     }
     if (isPatinInput.value == true) {
+      patinAmountComparator + int.parse(patinAmountController.value.text);
       var fishData = {
         "type": "patin",
         "amount": patinAmountController.value.text,
@@ -258,6 +294,7 @@ class FishTransferEntryController extends GetxController {
       data.add(jsonEncode(fishData));
     }
     if (isMasInput.value == true) {
+      masAmountComparator + int.parse(masAmountController.value.text);
       var fishData = {
         "type": "mas",
         "amount": masAmountController.value.text,
