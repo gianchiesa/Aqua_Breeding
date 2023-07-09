@@ -72,7 +72,12 @@ class _RegisterPageState extends State<RegisterPage> {
     print(response.body);
     if (response.statusCode == 200) {
       var myToken = data['access_token'];
-      prefs.setString('token', myToken);
+      var identity = data['identity'];
+      prefs.setString(
+        'token',
+        myToken,
+      );
+      prefs.setString('identity', identity.toString());
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => DashboardPage()));
       print(response.body);

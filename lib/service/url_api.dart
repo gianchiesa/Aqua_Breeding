@@ -56,6 +56,7 @@ class Urls {
 
   //Fish Transfer
   static String fishtransfer = '$baseUrl/fishtransfer';
+  static String newfishtransfer = '$baseUrl/fishsort';
 
   //auth
   static String authentication = '$baseUrl/login';
