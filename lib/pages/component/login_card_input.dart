@@ -61,36 +61,52 @@ class LoginInputCard extends StatelessWidget {
               color: backgroundColor2,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Center(child: Obx(() {
-              return TextFormField(
-                style: primaryTextStyle,
-                onChanged: controller.usernameChanged,
-                onTap: controller.valusername,
-                controller: controller.usernameController,
-                decoration: controller.validateusername.value == true
+            child: Center(
+                child: TextFormField(
+              style: primaryTextStyle,
+              onChanged: controller.usernameChanged,
+              onTap: controller.valusername,
+              controller: controller.usernameController,
+              decoration: InputDecoration(
+                  hintText: "Breeder ID",
+                  hintStyle: TextStyle(color: Colors.grey),
+                  isCollapsed: true),
+            )),
+          ),
+          SizedBox(height: 5),
+          Row(
+            children: [
+              SizedBox(width: 10),
+              Obx(() {
+                return controller.validateusername.value == true
                     ? controller.username == ''
-                        ? const InputDecoration(
-                            errorText: 'username tidak boleh kosong',
-                            hintText: "Breeder ID",
-                            hintStyle: TextStyle(color: Colors.grey),
-                            isCollapsed: true)
+                        ? Text(
+                            'username tidak boleh kosong',
+                            style: primaryTextStyle.copyWith(
+                              color: Colors.red,
+                              fontSize: 14,
+                              fontWeight: medium,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          )
                         : controller.usernameController.text.length < 5
-                            ? const InputDecoration(
-                                errorText: 'username kurang dari 5 karakter',
-                                hintText: "Breeder ID",
-                                hintStyle: TextStyle(color: Colors.grey),
-                                isCollapsed: true)
-                            : null
-                    : const InputDecoration(
-                        hintText: "Breeder ID",
-                        hintStyle: TextStyle(color: Colors.grey),
-                        isCollapsed: true),
-              );
-            })),
+                            ? Text(
+                                'username kurang dari 5 karakter',
+                                style: primaryTextStyle.copyWith(
+                                  color: Colors.red,
+                                  fontSize: 14,
+                                  fontWeight: medium,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              )
+                            : Text('')
+                    : SizedBox();
+              }),
+            ],
           ),
-          SizedBox(
-            height: 10,
-          ),
+          SizedBox(height: 10),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -128,64 +144,53 @@ class LoginInputCard extends StatelessWidget {
                 onTap: controller.valpassword,
                 controller: controller.passwordController,
                 obscureText: controller.passwordHide.value,
-                decoration: controller.validatepassword.value == true
-                    ? controller.password == ''
-                        ? InputDecoration(
-                            errorText: 'Password tidak boleh kosong',
-                            hintText: "Password",
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                controller.passVisibiity(
-                                    controller.passwordHide.value);
-                              },
-                              icon: Icon(controller.passwordHide.value
-                                  ? Icons.visibility
-                                  : Icons.visibility_off),
-                              color: Colors.white,
-                            ))
-                        : controller.passwordController.text.length < 8
-                            ? InputDecoration(
-                                errorText: 'password kurang dari 8 karakter',
-                                hintText: "Password",
-                                hintStyle: TextStyle(color: Colors.grey),
-                                suffixIcon: IconButton(
-                                  onPressed: () {
-                                    controller.passVisibiity(
-                                        controller.passwordHide.value);
-                                  },
-                                  icon: Icon(controller.passwordHide.value
-                                      ? Icons.visibility
-                                      : Icons.visibility_off),
-                                  color: Colors.white,
-                                ))
-                            : InputDecoration(
-                                hintText: "Password",
-                                hintStyle: TextStyle(color: Colors.grey),
-                                suffixIcon: IconButton(
-                                  onPressed: () {
-                                    controller.passVisibiity(
-                                        controller.passwordHide.value);
-                                  },
-                                  icon: Icon(controller.passwordHide.value
-                                      ? Icons.visibility
-                                      : Icons.visibility_off),
-                                  color: Colors.white,
-                                ))
-                    : InputDecoration(
-                        hintText: "Password",
-                        hintStyle: TextStyle(color: Colors.grey),
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            controller
-                                .passVisibiity(controller.passwordHide.value);
-                          },
-                          icon: Icon(controller.passwordHide.value
-                              ? Icons.visibility
-                              : Icons.visibility_off),
-                          color: Colors.white,
-                        )),
+                decoration: InputDecoration(
+                    hintText: "Password",
+                    hintStyle: TextStyle(color: Colors.grey),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        controller.passVisibiity(controller.passwordHide.value);
+                      },
+                      icon: Icon(controller.passwordHide.value
+                          ? Icons.visibility
+                          : Icons.visibility_off),
+                      color: Colors.white,
+                    )),
               );
             })),
+          ),
+          SizedBox(height: 5),
+          Row(
+            children: [
+              SizedBox(width: 10),
+              Obx(() {
+                return controller.validatepassword.value == true
+                    ? controller.password == ''
+                        ? Text(
+                            'password tidak boleh kosong',
+                            style: primaryTextStyle.copyWith(
+                              color: Colors.red,
+                              fontSize: 14,
+                              fontWeight: medium,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          )
+                        : controller.passwordController.text.length < 8
+                            ? Text(
+                                'username kurang dari 8 karakter',
+                                style: primaryTextStyle.copyWith(
+                                  color: Colors.red,
+                                  fontSize: 14,
+                                  fontWeight: medium,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              )
+                            : SizedBox()
+                    : SizedBox();
+              }),
+            ],
           ),
           SizedBox(
             height: 12,
