@@ -147,9 +147,19 @@ class _DetailPondPageState extends State<DetailPondPage> {
             top: defaultSpace, right: defaultMargin, left: defaultMargin),
         child: TextButton(
           onPressed: () {
-            Get.to(() => DeactivationBreedPage(), arguments: {
-              "pond": detailController.pond,
-            });
+            Get.defaultDialog(
+                title: 'Konfirmasi Panen!',
+                middleText: 'Apakah anda yakin ingin melakukan panen?',
+                buttonColor: primaryColor,
+                confirmTextColor: Colors.white,
+                cancelTextColor: Colors.black,
+                textConfirm: 'Panen',
+                textCancel: 'Tidak',
+                onConfirm: (() {
+                  Get.to(() => DeactivationBreedPage(), arguments: {
+                    "pond": detailController.pond,
+                  });
+                }));
           },
           style: TextButton.styleFrom(
             backgroundColor: Colors.amber,
