@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Fish {
   String? type;
   int? amount;
@@ -16,11 +18,20 @@ class Fish {
     );
   }
 
+  factory Fish.staticfromJson(Map<String, dynamic> json) {
+    return Fish(type: json['type'], amount: int.parse(json['amount']));
+  }
+
   static List<Fish> fromJsonList(List<dynamic> list) {
     List<Fish> fishes = [];
     for (var item in list) {
       fishes.add(Fish.fromJson(item));
     }
     return fishes;
+  }
+
+  static List<Fish> createList(List<dynamic> data) {
+    return List<Fish>.from(
+        data.map<Fish>((e) => Fish.staticfromJson(json.decode(e))));
   }
 }

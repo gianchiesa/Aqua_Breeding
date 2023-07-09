@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/fish_transfer/fish_transfer_list_controller.dart';
+import '../../models/new_sortir_model.dart';
 import '../component/deactivation_with_fish_transfer_input.dart';
 
 class NewFishTransferEntryPage extends StatefulWidget {
@@ -296,79 +297,134 @@ class _NewFishTransferEntryPageState extends State<NewFishTransferEntryPage> {
                     ] else ...[
                       if (controller.pondlistController.initialLenght.toInt() ==
                           index + 1) ...[
-                        Column(
-                          children: [
-                            SizedBox(
-                              height: 16,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      print("111");
-                                      controller.pondlistController
-                                              .initialLenght +
-                                          1;
-                                    });
-                                  },
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.add_circle_outline,
-                                        color: Colors.blue,
-                                      ),
-                                      SizedBox(
-                                        width: 8,
-                                      ),
-                                      Text(
-                                        "Tambah",
-                                        style: primaryTextStyle,
-                                      )
-                                    ],
+                        if (controller.pondlistController.initialLenght
+                                .toInt() ==
+                            controller.pondlistController.listPondSelected
+                                .length) ...[
+                          Column(
+                            children: [
+                              SizedBox(
+                                height: 16,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        print("111");
+                                        controller.pondlistController
+                                                .initialLenght +
+                                            1;
+                                      });
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.add_circle_outline,
+                                          color: Colors.blue,
+                                        ),
+                                        SizedBox(
+                                          width: 8,
+                                        ),
+                                        Text(
+                                          "Tambah",
+                                          style: primaryTextStyle,
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      if (controller.pondlistController
-                                              .listPondSelected.length ==
-                                          controller
-                                              .pondlistController.initialLenght
-                                              .toInt()) {
-                                        controller
-                                            .pondlistController.listPondSelected
-                                            .removeLast();
-                                      }
-                                      controller.pondlistController
-                                              .initialLenght -
-                                          1;
-                                    });
-                                  },
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.remove_circle,
-                                        color: Colors.red,
-                                      ),
-                                      SizedBox(
-                                        width: 8,
-                                      ),
-                                      Text(
-                                        "Hapus",
-                                        style: primaryTextStyle,
-                                      )
-                                    ],
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        if (controller.pondlistController
+                                                .listPondSelected.length ==
+                                            controller.pondlistController
+                                                .initialLenght
+                                                .toInt()) {
+                                          controller.pondlistController
+                                              .listPondSelected
+                                              .removeLast();
+                                        }
+                                        controller.pondlistController
+                                                .initialLenght -
+                                            1;
+                                      });
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.remove_circle,
+                                          color: Colors.red,
+                                        ),
+                                        SizedBox(
+                                          width: 8,
+                                        ),
+                                        Text(
+                                          "Hapus",
+                                          style: primaryTextStyle,
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 16,
-                            ),
-                          ],
-                        ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 16,
+                              ),
+                            ],
+                          ),
+                        ] else ...[
+                          Column(
+                            children: [
+                              SizedBox(
+                                height: 16,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        if (controller.pondlistController
+                                                .listPondSelected.length ==
+                                            controller.pondlistController
+                                                .initialLenght
+                                                .toInt()) {
+                                          controller.pondlistController
+                                              .listPondSelected
+                                              .removeLast();
+                                        }
+                                        controller.pondlistController
+                                                .initialLenght -
+                                            1;
+                                      });
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.remove_circle,
+                                          color: Colors.red,
+                                        ),
+                                        SizedBox(
+                                          width: 8,
+                                        ),
+                                        Text(
+                                          "Hapus",
+                                          style: primaryTextStyle,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 16,
+                              ),
+                            ],
+                          ),
+                        ]
                       ] else ...[
                         Container()
                       ]
@@ -1576,21 +1632,22 @@ class _NewFishTransferEntryPageState extends State<NewFishTransferEntryPage> {
         height: 50,
         width: double.infinity,
         margin: EdgeInsets.only(
-            top: defaultSpace * 3, right: defaultMargin, left: defaultMargin),
+            top: defaultSpace, right: defaultMargin, left: defaultMargin),
         child: TextButton(
           onPressed: () async {
             // Get.back();
-            await controller.postFishTransferBasah(
-              context,
-              () {
-                Navigator.pop(context);
-                fishTransferController.getTransfertData(context);
-              },
-            );
-            controller.postDataLog(controller.fitur);
+            // await controller.postFishTransferBasah(
+            //   context,
+            //   () {
+            //     Navigator.pop(context);
+            //     fishTransferController.getTransfertData(context);
+            //   },
+            // );
+            // controller.postDataLog(controller.fitur);
+            postData();
           },
           style: TextButton.styleFrom(
-            backgroundColor: primaryColor,
+            backgroundColor: Colors.green,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
@@ -1877,6 +1934,7 @@ class _NewFishTransferEntryPageState extends State<NewFishTransferEntryPage> {
 
     Widget listSelected() {
       return ListView.builder(
+          shrinkWrap: true,
           itemCount: controller.pondlistController.listPondSelected.isEmpty
               ? 1
               : controller.pondlistController.listPondSelected.length,
@@ -1921,15 +1979,11 @@ class _NewFishTransferEntryPageState extends State<NewFishTransferEntryPage> {
                                   primaryTextStyle.copyWith(color: Colors.red),
                             ),
                           ] else ...[
-                            if (controller.pondlistController
-                                    .listPondSelected[index].isInputed ==
-                                false) ...[
-                              Text(
-                                "Data lengkap",
-                                style: primaryTextStyle.copyWith(
-                                    color: Colors.green),
-                              ),
-                            ]
+                            Text(
+                              "Data lengkap",
+                              style: primaryTextStyle.copyWith(
+                                  color: Colors.green),
+                            ),
                           ]
                         ]),
                   ),
@@ -1986,7 +2040,9 @@ class _NewFishTransferEntryPageState extends State<NewFishTransferEntryPage> {
               ],
             ),
             Obx(() {
-              return listSelected();
+              return ListView(
+                children: [listSelected(), submitButton()],
+              );
             }),
           ],
         ));
@@ -2000,6 +2056,51 @@ class _NewFishTransferEntryPageState extends State<NewFishTransferEntryPage> {
       throw RangeError('Index out of bounds');
     }
   }
-}
 
-class ListPondSortir {}
+  void postData() {
+    bool isFullfiled;
+    final indicator = controller.pondlistController.listPondSelected
+        .firstWhereOrNull((element) => element.isInputed == false);
+    if (indicator != null) {
+      showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+                title: const Text('Data belum lengkap',
+                    style: TextStyle(color: Colors.red)),
+                content: const Text(
+                  'Lengkapi data terlebih dahulu',
+                  style: TextStyle(color: Colors.white),
+                ),
+                backgroundColor: backgroundColor1,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ));
+    } else {
+      showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+                title: const Text('Fitur Bekerja',
+                    style: TextStyle(color: Colors.green)),
+                content: const Text(
+                  'Menunggu Api',
+                  style: TextStyle(color: Colors.white),
+                ),
+                backgroundColor: backgroundColor1,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ));
+    }
+  }
+}
