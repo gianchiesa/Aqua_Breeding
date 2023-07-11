@@ -2,27 +2,33 @@ import 'dart:developer';
 
 import 'package:fish/models/activation_model.dart';
 import 'package:fish/models/pond_model.dart';
+import 'package:fish/pages/pond/pond_controller.dart';
 import 'package:fish/service/activation_service.dart';
 import 'package:fish/service/logging_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class DetailPondController extends GetxController {
+  final PondController pondController = Get.find();
   final ActivationService service = ActivationService();
 
-  var isLoading = false.obs;
-
-  Pond pond = Get.arguments['pond'];
   RxList activations = List<Activation>.empty().obs;
+
+  var isLoading = false.obs;
   late Activation activationData;
   var isPondActive = false.obs;
+
+  @override
+  void onInit() async {
+    super.onInit();
+  }
 
   Future<void> getPondActivation(BuildContext context) async {
     isLoading.value = true;
     activations.clear();
 
-    List<Activation> result =
-        await service.getActivations(pondId: pond.id.toString());
+    List<Activation> result = await service.getActivations(
+        pondId: pondController.selectedPond.value.id.toString());
     activations.addAll(result);
     print('masuk ke actvation');
     // activationData = result[0];
@@ -48,29 +54,4 @@ class DetailPondController extends GetxController {
         await LoggingService().postLogging(startAt: startTime, fitur: fitur);
     // print(value);
   }
-  // @override
-  // void onInit() async {
-  //   print("pond_id : ${pond.id}");
-  //   getPondActivations(pondId: pond.id!);
-  //   super.onInit();
-  // }
-
-  // Future<void> getPondActivations({required String pondId}) async {
-  //   // isLoading.value = true;
-  //   // List<Activation> activationsData =
-  //   //     await ActivationService().getActivations(pondId: pondId);
-  //   // activations.addAll(activationsData);
-  //   // inspect(activations);
-  //   // isLoading.value = false;
-  //   isActivationLoading.value = true;
-  //   activations.clear();
-  //   try {
-  //     var result = await service.getActivations(pondId: pond.id.toString());
-  //     inspect(result);
-  //     activations.addAll(result);
-  //   } catch (e) {
-  //     //
-  //   }
-  //   isActivationLoading.value = false;
-  // }
 }

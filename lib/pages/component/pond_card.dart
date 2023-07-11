@@ -1,5 +1,6 @@
 import 'package:fish/models/pond_model.dart';
 import 'package:fish/pages/component/detail_pond_tabview.dart';
+import 'package:fish/pages/pond/pond_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fish/theme.dart';
@@ -14,8 +15,10 @@ class PondCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PondController pondController = Get.find();
     return GestureDetector(
       onTap: () {
+        pondController.updateSelectedPond(pond.id);
         Get.to(() => MyTabPondScreen(), arguments: {
           'pond': pond,
         });

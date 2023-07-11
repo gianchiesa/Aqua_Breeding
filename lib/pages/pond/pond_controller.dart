@@ -15,6 +15,7 @@ class PondController extends GetxController {
   var isLoading = false.obs;
   final ponds = <Pond>[].obs;
   final pondFiltered = <Pond>[].obs;
+  late Rx<Pond> selectedPond;
   String token = '';
   String identity = '';
   String status = "Tidak Aktif";
@@ -78,6 +79,18 @@ class PondController extends GetxController {
 
   void valHeight() {
     validateHeight.value = true;
+  }
+
+  Pond getSelectedPond() {
+    return ponds.firstWhere((pond) => pond.id == selectedPond.value);
+  }
+
+  void updateSelectedPond(pondid) {
+    try {
+      selectedPond.value = ponds.firstWhere((pond) => pond.id == pondid);
+    } catch (e) {
+      selectedPond = Rx<Pond>(ponds.firstWhere((pond) => pond.id == pondid));
+    }
   }
 
   Future<void> getPondsData(BuildContext context) async {

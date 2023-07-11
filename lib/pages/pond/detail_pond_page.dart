@@ -56,7 +56,7 @@ class _DetailPondPageState extends State<DetailPondPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "kolam ${detailController.pond.alias}",
+                  "kolam ${detailController.pondController.selectedPond.value.alias}",
                   style: primaryTextStyle.copyWith(
                     fontSize: 18,
                     fontWeight: heavy,
@@ -68,7 +68,8 @@ class _DetailPondPageState extends State<DetailPondPage> {
                   height: 5,
                 ),
                 Text(
-                  detailController.pond.getGmtToNormalDate(),
+                  detailController.pondController.selectedPond.value
+                      .getGmtToNormalDate(),
                   style: secondaryTextStyle.copyWith(
                     fontSize: 16,
                     fontWeight: medium,
@@ -83,7 +84,7 @@ class _DetailPondPageState extends State<DetailPondPage> {
               height: 40,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                // border: Border.all(color: detailController.pond.getColor()),
+                // border: Border.all(color: detailController.pondController.selectedPond.getColor()),
                 border: Border.all(
                     color: detailController.isPondActive.value
                         ? Colors.green
@@ -118,7 +119,7 @@ class _DetailPondPageState extends State<DetailPondPage> {
         child: TextButton(
           onPressed: () {
             Get.to(() => ActivationBreedPage(), arguments: {
-              'pond': detailController.pond,
+              'pond': detailController.pondController.selectedPond,
             });
             detailController.postDataLog(detailController.fitur);
           },
@@ -157,7 +158,7 @@ class _DetailPondPageState extends State<DetailPondPage> {
                 textCancel: 'Tidak',
                 onConfirm: (() {
                   Get.to(() => DeactivationBreedPage(), arguments: {
-                    "pond": detailController.pond,
+                    "pond": detailController.pondController.selectedPond,
                   });
                 }));
           },
@@ -199,7 +200,7 @@ class _DetailPondPageState extends State<DetailPondPage> {
                   maxLines: 1,
                 ),
                 Text(
-                  detailController.pond.location!,
+                  detailController.pondController.selectedPond.value.location!,
                   style: secondaryTextStyle.copyWith(
                     fontSize: 13,
                     fontWeight: medium,
@@ -220,7 +221,7 @@ class _DetailPondPageState extends State<DetailPondPage> {
                   maxLines: 1,
                 ),
                 Text(
-                  detailController.pond.shape!,
+                  detailController.pondController.selectedPond.value.shape!,
                   style: secondaryTextStyle.copyWith(
                     fontSize: 13,
                     fontWeight: medium,
@@ -243,7 +244,7 @@ class _DetailPondPageState extends State<DetailPondPage> {
                   maxLines: 1,
                 ),
                 Text(
-                  detailController.pond.material!,
+                  detailController.pondController.selectedPond.value.material!,
                   style: secondaryTextStyle.copyWith(
                     fontSize: 13,
                     fontWeight: medium,
@@ -264,9 +265,10 @@ class _DetailPondPageState extends State<DetailPondPage> {
                   maxLines: 1,
                 ),
                 Text(
-                  detailController.pond.shape! == "persegi"
-                      ? "${detailController.pond.length}m x ${detailController.pond.width}m"
-                      : "${detailController.pond.diameter}m\u00B2",
+                  detailController.pondController.selectedPond.value.shape! ==
+                          "persegi"
+                      ? "${detailController.pondController.selectedPond.value.length}m x ${detailController.pondController.selectedPond.value.width}m"
+                      : "${detailController.pondController.selectedPond.value.diameter}m\u00B2",
                   style: secondaryTextStyle.copyWith(
                     fontSize: 13,
                     fontWeight: medium,
@@ -306,7 +308,8 @@ class _DetailPondPageState extends State<DetailPondPage> {
             children: detailController.activations
                 .map(
                   (activation) => ActivationCard(
-                      activation: activation, pond: detailController.pond),
+                      activation: activation,
+                      pond: detailController.pondController.selectedPond.value),
                 )
                 .toList(),
           ));
