@@ -1,6 +1,7 @@
 import 'package:fish/controllers/fish_transfer/fish_transfer_list_controller.dart';
 import 'package:fish/pages/pond/breed_controller.dart';
 import 'package:fish/pages/pond/detail_breed_page.dart';
+import 'package:fish/pages/pond/pond_controller.dart';
 import 'package:fish/pages/treatment/treatment_controller.dart';
 import 'package:fish/pages/treatment/treatment_page.dart';
 import 'package:fish/pages/fish_transfer/fish_transfer_list_page.dart';
@@ -14,11 +15,12 @@ import 'package:fish/pages/pond/detail_pond_controller.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class MyTabs extends GetxController with GetSingleTickerProviderStateMixin {
+  final PondController pondController = Get.find();
+  final DetailPondController detailPondController = Get.find();
+
   var isLoading = false.obs;
 
   late TabController controller;
-  Activation activation = Get.arguments["activation"];
-  Pond pond = Get.arguments["pond"];
   final List<Tab> myTabs = <Tab>[
     Tab(
       text: 'Rekap Data',

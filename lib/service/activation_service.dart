@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:fish/models/activation_model.dart';
 import 'package:fish/models/fish_live_model.dart';
 import 'package:fish/models/fishchart_model.dart';
@@ -112,6 +113,28 @@ class ActivationService {
       return true;
     } else {
       print(response);
+      return false;
+    }
+  }
+
+  Future<bool> postAddFishInActivation(
+      {required String? pondId,
+      required List? fish,
+      required Function doInPost}) async {
+    final response = await http.post(Uri.parse(Urls.addFish),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        encoding: Encoding.getByName('utf-8'),
+        body: {
+          "pond_id": pondId,
+          "fish": fish.toString(),
+        });
+    inspect(response);
+    if (response.statusCode == 200) {
+      doInPost();
+      return true;
+    } else {
       return false;
     }
   }

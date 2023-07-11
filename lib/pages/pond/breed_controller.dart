@@ -4,25 +4,26 @@ import 'package:fish/models/activation_model.dart';
 import 'package:fish/models/fish_live_model.dart';
 import 'package:fish/models/fishchart_model.dart';
 import 'package:fish/models/pond_model.dart';
+import 'package:fish/pages/pond/detail_pond_controller.dart';
+import 'package:fish/pages/pond/pond_controller.dart';
 import 'package:fish/service/activation_service.dart';
 import 'package:get/get.dart';
 
 import '../../service/logging_service.dart';
 
 class BreedController extends GetxController {
+  final PondController pondController = Get.find();
+  final DetailPondController detailPondController = Get.find();
   var isLoading = false.obs;
   final charData = <FishChartData>[].obs;
-
-  Activation activation = Get.arguments["activation"];
-  Pond pond = Get.arguments["pond"];
   final DateTime startTime = DateTime.now();
   late DateTime endTime;
   final fitur = 'Detail Activation';
 
   @override
   void onInit() async {
-    getFishChart(activation_id: activation.id!);
-
+    getFishChart(
+        activation_id: detailPondController.selectedActivation.value.id!);
     super.onInit();
   }
 

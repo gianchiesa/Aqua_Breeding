@@ -35,7 +35,7 @@ class DetailBreedPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Kolam ${controller.pond.alias}",
+                  "Kolam ${controller.pondController.selectedPond.value.alias}",
                   style: primaryTextStyle.copyWith(
                     fontSize: 20,
                     fontWeight: heavy,
@@ -84,8 +84,8 @@ class DetailBreedPage extends StatelessWidget {
         child: TextButton(
           onPressed: () {
             // Get.to(() => DailyWaterEditPage(), arguments: {
-            //   'pond': controller.pond,
-            //   'activation': controller.activation,
+            //   'pond': controller.pondController.selectedPond.value,
+            //   'activation': controller.detailPondController.selectedActivation.value,
             // });
           },
           style: TextButton.styleFrom(
@@ -115,8 +115,9 @@ class DetailBreedPage extends StatelessWidget {
         child: TextButton(
           onPressed: () {
             Get.to(() => AddFish(), arguments: {
-              'pond': controller.pond,
-              'activation': controller.activation,
+              'pond': controller.pondController.selectedPond.value,
+              'activation':
+                  controller.detailPondController.selectedActivation.value,
             });
           },
           style: TextButton.styleFrom(
@@ -146,8 +147,8 @@ class DetailBreedPage extends StatelessWidget {
         child: TextButton(
           onPressed: () {
             // Get.to(() => DailyWaterEditPage(), arguments: {
-            //   'pond': controller.pond,
-            //   'activation': controller.activation,
+            //   'pond': controller.pondController.selectedPond.value,
+            //   'activation': controller.detailPondController.selectedActivation.value,
             // });
           },
           style: TextButton.styleFrom(
@@ -177,8 +178,9 @@ class DetailBreedPage extends StatelessWidget {
         child: TextButton(
           onPressed: () {
             Get.to(() => DetailFeedPage(), arguments: {
-              "pond": controller.pond,
-              "activation": controller.activation,
+              "pond": controller.pondController.selectedPond.value,
+              "activation":
+                  controller.detailPondController.selectedActivation.value,
             });
             controller.postDataLog(controller.fitur);
           },
@@ -208,8 +210,9 @@ class DetailBreedPage extends StatelessWidget {
         child: TextButton(
           onPressed: () {
             Get.to(() => GradingPage(), arguments: {
-              "pond": controller.pond,
-              "activation": controller.activation,
+              "pond": controller.pondController.selectedPond.value,
+              "activation":
+                  controller.detailPondController.selectedActivation.value,
             });
             controller.postDataLog(controller.fitur);
           },
@@ -239,8 +242,9 @@ class DetailBreedPage extends StatelessWidget {
         child: TextButton(
           onPressed: () {
             Get.to(() => FishRecapPage(), arguments: {
-              "pond": controller.pond,
-              "activation": controller.activation,
+              "pond": controller.pondController.selectedPond.value,
+              "activation":
+                  controller.detailPondController.selectedActivation.value,
             });
             controller.postDataLog(controller.fitur);
           },
@@ -270,7 +274,7 @@ class DetailBreedPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Masa Budidaya (${controller.activation.getStatus()})",
+              "Masa Budidaya (${controller.detailPondController.selectedActivation.value.getStatus()})",
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -309,7 +313,9 @@ class DetailBreedPage extends StatelessWidget {
                               maxLines: 1,
                             ),
                             Text(
-                              controller.activation.getStringActivationDate(),
+                              controller
+                                  .detailPondController.selectedActivation.value
+                                  .getStringActivationDate(),
                               style: secondaryTextStyle.copyWith(
                                 fontSize: 14,
                                 fontWeight: medium,
@@ -334,7 +340,7 @@ class DetailBreedPage extends StatelessWidget {
                               maxLines: 1,
                             ),
                             Text(
-                              "${controller.activation.getRangeActivation().toString()} Hari",
+                              "${controller.detailPondController.selectedActivation.value.getRangeActivation().toString()} Hari",
                               style: secondaryTextStyle.copyWith(
                                 fontSize: 14,
                                 fontWeight: medium,
@@ -359,7 +365,9 @@ class DetailBreedPage extends StatelessWidget {
                               maxLines: 1,
                             ),
                             Text(
-                              controller.activation.getStringDeactivationDate(),
+                              controller
+                                  .detailPondController.selectedActivation.value
+                                  .getStringDeactivationDate(),
                               style: secondaryTextStyle.copyWith(
                                 fontSize: 14,
                                 fontWeight: medium,
@@ -379,9 +387,11 @@ class DetailBreedPage extends StatelessWidget {
               height: 30,
             ),
             Text(
-              controller.activation.isFinish == false
-                  ? "Jumlah Ikan (${controller.activation.fishAmount.toString()} Ekor)"
-                  : "Data Panen Ikan (${controller.activation.fishAmount.toString()} Ekor)",
+              controller.detailPondController.selectedActivation.value
+                          .isFinish ==
+                      false
+                  ? "Jumlah Ikan (${controller.detailPondController.selectedActivation.value.fishAmount.toString()} Ekor)"
+                  : "Data Panen Ikan (${controller.detailPondController.selectedActivation.value.fishAmount.toString()} Ekor)",
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -390,13 +400,17 @@ class DetailBreedPage extends StatelessWidget {
               maxLines: 1,
             ),
             Column(
-              children: controller.activation.isFinish == false
-                  ? controller.activation.fishLive!
+              children: controller.detailPondController.selectedActivation.value
+                          .isFinish ==
+                      false
+                  ? controller
+                      .detailPondController.selectedActivation.value.fishLive!
                       .map(
                         (fish) => FishListCard(fish: fish),
                       )
                       .toList()
-                  : controller.activation.fishHarvested!
+                  : controller.detailPondController.selectedActivation.value
+                      .fishHarvested!
                       .map(
                         (fish) => FishHarvestCard(fish: fish),
                       )
@@ -507,7 +521,9 @@ class DetailBreedPage extends StatelessWidget {
                         maxLines: 1,
                       ),
                       Text(
-                        controller.activation.fcr!.toStringAsFixed(3),
+                        controller
+                            .detailPondController.selectedActivation.value.fcr!
+                            .toStringAsFixed(3),
                         style: secondaryTextStyle.copyWith(
                           fontSize: 13,
                           fontWeight: medium,
@@ -529,7 +545,7 @@ class DetailBreedPage extends StatelessWidget {
                         maxLines: 1,
                       ),
                       Text(
-                        "${controller.activation.survivalRate!.toStringAsFixed(2)} %",
+                        "${controller.detailPondController.selectedActivation.value.survivalRate!.toStringAsFixed(2)} %",
                         style: secondaryTextStyle.copyWith(
                           fontSize: 13,
                           fontWeight: medium,
@@ -567,10 +583,14 @@ class DetailBreedPage extends StatelessWidget {
               fishChart(),
               addFishButton(),
               editFishButton(),
-              controller.activation.isFinish == false
+              controller.detailPondController.selectedActivation.value
+                          .isFinish ==
+                      false
                   ? editButton()
                   : Container(),
-              controller.activation.isFinish == false
+              controller.detailPondController.selectedActivation.value
+                          .isFinish ==
+                      false
                   ? Container()
                   : finishBreed(),
               recapTitle(),
