@@ -5,12 +5,15 @@ import 'package:fish/pages/treatment/carbon_type_controller.dart';
 import 'package:fish/service/fish_transfer_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../models/new_sortir_model.dart';
 import '../../service/logging_service.dart';
 import '../../service/pond_service.dart';
 import 'pond_list_item_controller.dart';
 import 'transfer_method_controller.dart';
 import 'package:fish/models/pond_model.dart';
 import 'package:fish/models/activation_model.dart';
+
+import 'transfer_type_controller.dart';
 
 class FishTransferEntryController extends GetxController {
   var isLoading = false.obs;
@@ -58,6 +61,8 @@ class FishTransferEntryController extends GetxController {
 //input transfer
   PondListController pondlistController = PondListController();
   TransferMethodController methodController = TransferMethodController();
+  TransferTypeController typeController = TransferTypeController();
+
   TextEditingController sampleWeightController =
       TextEditingController(text: '0');
 
@@ -141,41 +146,77 @@ class FishTransferEntryController extends GetxController {
   final pondSelected = <Pond>[].obs;
   var pondIdSelected = "";
   RxList<String> pondIdList = <String>[].obs;
+  final listPond = <ListPondSortir>[].obs;
+  final listPondSelected = <ListPondSortir>[].obs;
+
+  Future<void> setData(List<ListPondSortir> value) async {
+    isLoading.value = true;
+    listPondSelected.value = value;
+    isLoading.value = false;
+  }
 
   Future<void> getPondsData(String method) async {
     isLoading.value = true;
-    int index = 0;
     List<Pond> pondsData = await PondService().getPonds();
-    listPondName.clear();
+    listPond.clear();
     if (method == "kering") {
       for (var i in pondsData) {
-        if (pondlistController.listPondSelected.isEmpty) {
-          listPondName.add(i.alias.toString());
-        } else {
-          if (i.id != pondlistController.listPondSelected[index].id) {
-            listPondName.add(i.alias.toString());
-          } else {
-            index++;
-          }
+        if (i.alias != pond.alias) {
+          ListPondSortir pond = ListPondSortir(
+              id: i.id, isInputed: false, name: i.alias, isActive: i.isActive);
+          listPond.add(pond);
         }
       }
     } else {
       for (var i in pondsData) {
-        if (i.isActive == true) {
-          if (pondlistController.listPondSelected.isEmpty) {
-            listPondName.add(i.alias.toString());
-          } else {
-            if (i.id != pondlistController.listPondSelected[index].id) {
-              listPondName.add(i.alias.toString());
-            } else {
-              index++;
-            }
+        if (i.alias != pond.alias) {
+          if (i.isActive == true) {
+            ListPondSortir pond = ListPondSortir(
+                id: i.id,
+                isInputed: false,
+                name: i.alias,
+                isActive: i.isActive);
+            listPond.add(pond);
           }
         }
       }
     }
     isLoading.value = false;
   }
+  // Future<void> getPondsData(String method) async {
+  //   isLoading.value = true;
+  //   int index = 0;
+  //   List<Pond> pondsData = await PondService().getPonds();
+  //   listPondName.clear();
+  //   if (method == "kering") {
+  //     for (var i in pondsData) {
+  //       if (pondlistController.listPondSelected.isEmpty) {
+  //         listPondName.add(i.alias.toString());
+  //       } else {
+  //         if (i.id != pondlistController.listPondSelected[index].id) {
+  //           listPondName.add(i.alias.toString());
+  //         } else {
+  //           index++;
+  //         }
+  //       }
+  //     }
+  //   } else {
+  //     for (var i in pondsData) {
+  //       if (i.isActive == true) {
+  //         if (pondlistController.listPondSelected.isEmpty) {
+  //           listPondName.add(i.alias.toString());
+  //         } else {
+  //           if (i.id != pondlistController.listPondSelected[index].id) {
+  //             listPondName.add(i.alias.toString());
+  //           } else {
+  //             index++;
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  //   isLoading.value = false;
+  // }
 
   Future<void> getDestinationId(String alias) async {
     isLoading.value = true;

@@ -3,11 +3,8 @@ import 'dart:convert';
 class Fish {
   String? type;
   int? amount;
-
-  Fish({
-    required this.type,
-    this.amount,
-  });
+  double? weight;
+  Fish({required this.type, this.amount, this.weight});
 
   factory Fish.fromJson(Map<String, dynamic> json) {
     return Fish(
@@ -19,7 +16,10 @@ class Fish {
   }
 
   factory Fish.staticfromJson(Map<String, dynamic> json) {
-    return Fish(type: json['type'], amount: int.parse(json['amount']));
+    return Fish(
+        type: json['type'],
+        amount: int.parse(json['amount']),
+        weight: double.parse(json["weight"]));
   }
 
   static List<Fish> fromJsonList(List<dynamic> list) {

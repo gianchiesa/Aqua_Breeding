@@ -390,7 +390,7 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
       });
     }
 
-    Widget transferMethodInput() {
+    Widget transferTypeInput() {
       return Container(
         margin: EdgeInsets.only(
             top: defaultSpace, right: defaultMargin, left: defaultMargin),
@@ -398,7 +398,7 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Metode Transfer',
+              'Tipe Transfer',
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -420,13 +420,10 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
                 child: Obx(() {
                   return DropdownButtonFormField<String>(
                     onChanged: ((value) {
-                      print(controller.listPondName);
-
-                      controller.methodController.setSelected(value.toString());
-                      controller.getPondsData(value.toString());
+                      controller.typeController.setSelected(value.toString());
                     }),
-                    value: controller.methodController.selected.value,
-                    items: controller.methodController.listMethod.map((type) {
+                    value: controller.typeController.selected.value,
+                    items: controller.typeController.listMethod.map((type) {
                       return DropdownMenuItem<String>(
                         value: type,
                         child: Text(
@@ -640,7 +637,7 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
                 return TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
                   ],
                   keyboardType: TextInputType.number,
                   onChanged: controller.leleWeightvalChanged,
@@ -732,7 +729,7 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
                 return TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
                   ],
                   keyboardType: TextInputType.number,
                   onChanged: controller.nilaMerahWeightvalChanged,
@@ -825,7 +822,7 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
                 return TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
                   ],
                   keyboardType: TextInputType.number,
                   onChanged: controller.nilaHitamWeightvalChanged,
@@ -917,7 +914,7 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
                 return TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
                   ],
                   keyboardType: TextInputType.number,
                   onChanged: controller.patinWeightvalChanged,
@@ -1008,7 +1005,7 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
                 return TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
                   ],
                   keyboardType: TextInputType.number,
                   onChanged: controller.masWeightvalChanged,
@@ -1970,6 +1967,7 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
       body: Obx(() {
         return ListView(
           children: [
+            transferTypeInput(),
             checkBoxFishTransfer(),
             controller.isNilaHitamInput == true
                 ? nilaHitamInput()
@@ -2171,7 +2169,10 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
           "fish": fish,
           "sample_weight": controller.sampleWeightController.text,
           "sample_long": controller.sampleLongController.text,
-          "transfer_type": "oversized_transfer"
+          "transfer_type": controller.typeController.selected.value,
+          if (widget.pond.isActive == false) ...{
+            "water_level": controller.waterHeightController.text
+          }
         };
         List<Fish> inputedFish = Fish.createList(fish);
         // print(inputedFish[0].amount);
@@ -2182,8 +2183,7 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
             isActive: widget.pond.isActive,
             dataInput: data,
             fish: inputedFish);
-        replaceItemInArray(
-            controller.pondlistController.listPondSelected, widget.index, item);
+        replaceItemInArray(controller.listPondSelected, widget.index, item);
       }
     } else {
       print("disini euy");
@@ -2311,7 +2311,10 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
           "fish": fish,
           "sample_weight": controller.sampleWeightController.text,
           "sample_long": controller.sampleLongController.text,
-          "transfer_type": "oversized_transfer"
+          "transfer_type": controller.typeController.selected.value,
+          if (widget.pond.isActive == false) ...{
+            "water_level": controller.waterHeightController.text
+          }
         };
         List<Fish> inputedFish = Fish.createList(fish);
         // print(inputedFish[0].amount);
@@ -2323,8 +2326,7 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
             isActive: widget.pond.isActive,
             dataInput: data,
             fish: inputedFish);
-        replaceItemInArray(
-            controller.pondlistController.listPondSelected, widget.index, item);
+        replaceItemInArray(controller.listPondSelected, widget.index, item);
       }
     }
   }
