@@ -11,8 +11,8 @@ import 'package:get/get.dart';
 class DetailPondController extends GetxController {
   final PondController pondController = Get.find();
   final ActivationService service = ActivationService();
-
-  RxList activations = List<Activation>.empty().obs;
+  final RxList activations = List<Activation>.empty().obs;
+  late Rx<Activation> selectedActivation;
 
   var isLoading = false.obs;
   late Activation activationData;
@@ -21,6 +21,16 @@ class DetailPondController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+  }
+
+  void updateSelectedActivation(activationid) {
+    try {
+      selectedActivation.value =
+          activations.firstWhere((activation) => activation.id == activationid);
+    } catch (e) {
+      selectedActivation = Rx<Activation>(activations
+          .firstWhere((activation) => activation.id == activationid));
+    }
   }
 
   Future<void> getPondActivation(BuildContext context) async {

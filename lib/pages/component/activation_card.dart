@@ -18,9 +18,10 @@ class ActivationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final DetailPondController detailPondController = Get.find();
     return GestureDetector(
       onTap: () {
-        Get.delete<DetailPondController>();
+        detailPondController.updateSelectedActivation(activation!.id);
         Get.to(() => MyTabScreen(),
             arguments: {"activation": activation, "pond": pond});
       },

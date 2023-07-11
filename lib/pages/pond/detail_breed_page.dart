@@ -3,6 +3,7 @@ import 'package:fish/models/fishchart_model.dart';
 import 'package:fish/pages/component/fish_list_card.dart';
 import 'package:fish/pages/component/fish_harvest_card.dart';
 import 'package:fish/pages/dailywater/daily_water_edit_page.dart';
+import 'package:fish/pages/pond/add_fish_page.dart';
 import 'package:fish/pages/pond/breed_controller.dart';
 import 'package:fish/pages/grading/grading_page.dart';
 import 'package:fish/pages/feeding/detail_feed_page.dart';
@@ -96,6 +97,68 @@ class DetailBreedPage extends StatelessWidget {
           ),
           child: Text(
             'Edit Data',
+            style: primaryTextStyle.copyWith(
+              fontSize: 16,
+              fontWeight: medium,
+            ),
+          ),
+        ),
+      );
+    }
+
+    Widget addFishButton() {
+      return Container(
+        width: double.infinity,
+        height: 50,
+        margin: EdgeInsets.only(
+            top: defaultSpace, right: defaultMargin, left: defaultMargin),
+        child: TextButton(
+          onPressed: () {
+            Get.to(() => AddFish(), arguments: {
+              'pond': controller.pond,
+              'activation': controller.activation,
+            });
+          },
+          style: TextButton.styleFrom(
+            fixedSize: const Size(300, 40),
+            backgroundColor: primaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          child: Text(
+            'Tambah Ikan',
+            style: primaryTextStyle.copyWith(
+              fontSize: 16,
+              fontWeight: medium,
+            ),
+          ),
+        ),
+      );
+    }
+
+    Widget editFishButton() {
+      return Container(
+        width: double.infinity,
+        height: 50,
+        margin: EdgeInsets.only(
+            top: defaultSpace, right: defaultMargin, left: defaultMargin),
+        child: TextButton(
+          onPressed: () {
+            // Get.to(() => DailyWaterEditPage(), arguments: {
+            //   'pond': controller.pond,
+            //   'activation': controller.activation,
+            // });
+          },
+          style: TextButton.styleFrom(
+            fixedSize: const Size(300, 40),
+            backgroundColor: primaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          child: Text(
+            'Edit Jumlah Ikan',
             style: primaryTextStyle.copyWith(
               fontSize: 16,
               fontWeight: medium,
@@ -500,18 +563,16 @@ class DetailBreedPage extends StatelessWidget {
           body: ListView(
             children: [
               breedDataRecap(),
-
               detail(),
+              fishChart(),
+              addFishButton(),
+              editFishButton(),
               controller.activation.isFinish == false
                   ? editButton()
                   : Container(),
               controller.activation.isFinish == false
                   ? Container()
                   : finishBreed(),
-              SizedBox(
-                height: 10,
-              ),
-              fishChart(),
               recapTitle(),
               feedButton(),
               gradingButton(),
