@@ -9,6 +9,7 @@ import 'package:fish/pages/grading/grading_page.dart';
 import 'package:fish/pages/feeding/detail_feed_page.dart';
 
 import 'package:fish/pages/fish/fish_recap_page.dart';
+import 'package:fish/pages/pond/edit_fish_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
 import 'package:get/get.dart';
@@ -146,10 +147,7 @@ class DetailBreedPage extends StatelessWidget {
             top: defaultSpace, right: defaultMargin, left: defaultMargin),
         child: TextButton(
           onPressed: () {
-            // Get.to(() => DailyWaterEditPage(), arguments: {
-            //   'pond': controller.pondController.selectedPond.value,
-            //   'activation': controller.detailPondController.selectedActivation.value,
-            // });
+            Get.to(() => EditFish());
           },
           style: TextButton.styleFrom(
             fixedSize: const Size(300, 40),

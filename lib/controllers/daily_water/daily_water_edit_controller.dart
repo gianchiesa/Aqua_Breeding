@@ -1,12 +1,23 @@
 import 'dart:async';
+import 'package:fish/controllers/daily_water/daily_water_breed_list_controller.dart';
+import 'package:fish/controllers/daily_water/daily_water_controller.dart';
 import 'package:fish/models/daily_water_model.dart';
+import 'package:fish/pages/pond/pond_controller.dart';
 import 'package:fish/service/daily_water_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:fish/models/pond_model.dart';
 import 'package:fish/models/activation_model.dart';
+import 'package:http/http.dart';
 
 class DailyWaterEditController extends GetxController {
+  final PondController pondController = Get.find();
+  final DailyWaterBreedListController dailyWaterBreedListController =
+      Get.find();
+  final DailyWaterController dailyWaterController = Get.find();
+  // Pond pond = Get.arguments["pond"];
+  // Activation activation = Get.arguments["activation"];
+  // DailyWater dailyWater = Get.arguments["dailywater"];
   var isLoading = false.obs;
   // final ponds = <Pond>[].obs;
 
@@ -18,9 +29,6 @@ class DailyWaterEditController extends GetxController {
       TextEditingController(text: '0');
   TextEditingController phController = TextEditingController(text: '0');
   TextEditingController doController = TextEditingController(text: '0');
-  Activation activation = Get.arguments["activation"];
-  Pond pond = Get.arguments["pond"];
-  DailyWater dailyWater = Get.arguments["dailywater"];
 
   // getWeek() {
   //   var week = (DateTime.now().day - activation.activationAt!.day) / 7;
@@ -31,18 +39,29 @@ class DailyWaterEditController extends GetxController {
       BuildContext context, Function doInPost) async {
     // ignore: unused_local_variable
     bool value = await DailyWaterService().editDailyWater(
-        dailywaterId: dailyWater.id,
+        dailywaterId: dailyWaterController.selectedDailyWater.value.id,
         ph: phController.value.text,
         numDo: doController.value.text,
         // week: getWeek().toString(),
         temperature: temperatureController.value.text);
+    await dailyWaterController.updateListAndSelectedDailyWater();
     doInPost();
   }
-  // @override
-  // void onInit() async {
-  //   await getPondsData();
-  //   super.onInit();
-  // }
+
+  void setTextController() {
+    phController.text =
+        dailyWaterController.selectedDailyWater.value.ph.toString();
+    doController.text =
+        dailyWaterController.selectedDailyWater.value.numDo.toString();
+    temperatureController.text =
+        dailyWaterController.selectedDailyWater.value.temperature.toString();
+  }
+
+  @override
+  void onInit() async {
+    setTextController();
+    super.onInit();
+  }
 
   // Future<void> getPondsData() async {
   //   isLoading.value = true;

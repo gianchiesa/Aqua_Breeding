@@ -1,5 +1,8 @@
+import 'package:fish/controllers/daily_water/daily_water_breed_list_controller.dart';
 import 'package:fish/controllers/daily_water/daily_water_detail_controller.dart';
 import 'package:fish/pages/dailywater/daily_water_edit_page.dart';
+import 'package:fish/pages/pond/detail_pond_controller.dart';
+import 'package:fish/pages/pond/pond_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
 import 'package:get/get.dart';
@@ -18,7 +21,10 @@ class DailyWaterDetailPage extends StatefulWidget {
 class _DailyWaterDetailPageState extends State<DailyWaterDetailPage> {
   final DailyWaterDetailController controller =
       Get.put(DailyWaterDetailController());
-  final DailyWaterController watercontroller = Get.put(DailyWaterController());
+  final PondController pondController = Get.find();
+  final DailyWaterBreedListController dailyWaterBreedListController =
+      Get.find();
+  final DailyWaterController dailyWaterController = Get.find();
 
   @override
   void initState() {
@@ -27,13 +33,14 @@ class _DailyWaterDetailPageState extends State<DailyWaterDetailPage> {
     //   await controller.getPondActivations(
     //       pondId: controller.pond.id.toString());
     // });
-    controller.getDailyWaterData(context, controller.dailyWater.id.toString());
+    controller.getDailyWaterData(
+        context, dailyWaterController.selectedDailyWater.value.id.toString());
   }
 
   @override
   void dispose() {
     controller.postDataLog(controller.fitur);
-    watercontroller.getDailyWaterData(context);
+    dailyWaterController.getDailyWaterData(context);
     super.dispose();
   }
 
@@ -51,7 +58,7 @@ class _DailyWaterDetailPageState extends State<DailyWaterDetailPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "kolam ${controller.pond.alias}",
+                  "kolam ${pondController.selectedPond.value.alias}",
                   style: primaryTextStyle.copyWith(
                     fontSize: 18,
                     fontWeight: heavy,
@@ -90,7 +97,8 @@ class _DailyWaterDetailPageState extends State<DailyWaterDetailPage> {
                   maxLines: 1,
                 ),
                 Text(
-                  controller.activation.getStringActivationDate(),
+                  dailyWaterBreedListController.selectedActivation.value
+                      .getStringActivationDate(),
                   style: secondaryTextStyle.copyWith(
                     fontSize: 13,
                     fontWeight: medium,
@@ -130,13 +138,15 @@ class _DailyWaterDetailPageState extends State<DailyWaterDetailPage> {
                     TextButton(
                       onPressed: () {
                         Get.to(() => DailyWaterEditPage(), arguments: {
-                          'pond': controller.pond,
-                          'activation': controller.activation,
-                          'dailywater': controller.dailyWater
+                          'pond': pondController.selectedPond.value,
+                          'activation': dailyWaterBreedListController
+                              .selectedActivation.value,
+                          'dailywater':
+                              dailyWaterController.selectedDailyWater.value
                         });
                       },
                       style: TextButton.styleFrom(
-                        fixedSize: const Size(300, 40),
+                        fixedSize: Size(250, 40),
                         backgroundColor: primaryColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -157,7 +167,9 @@ class _DailyWaterDetailPageState extends State<DailyWaterDetailPage> {
                         onPressed: () async {
                           // Get.back();
                           await controller.deleteDailyWaterData(
-                              context, controller.dailyWater.id.toString());
+                              context,
+                              dailyWaterController.selectedDailyWater.value.id
+                                  .toString());
                           // controller.getWeek();
                         },
                         style: TextButton.styleFrom(

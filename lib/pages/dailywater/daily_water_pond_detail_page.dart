@@ -5,6 +5,7 @@ import 'package:fish/pages/pond/deactivation_breed_page.dart';
 import 'package:fish/pages/pond/detail_pond_controller.dart';
 
 import 'package:fish/controllers/daily_water/daily_water_breed_list_controller.dart';
+import 'package:fish/pages/pond/pond_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
 import 'package:get/get.dart';
@@ -32,6 +33,7 @@ class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
 
   @override
   Widget build(BuildContext context) {
+    final PondController pondController = Get.find();
     Widget pondStatus() {
       return Container(
         margin: EdgeInsets.only(
@@ -44,7 +46,7 @@ class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "kolam ${detailController.pond.alias}",
+                  "kolam ${pondController.selectedPond.value.alias}",
                   style: primaryTextStyle.copyWith(
                     fontSize: 18,
                     fontWeight: heavy,
@@ -56,7 +58,7 @@ class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
                   height: 5,
                 ),
                 Text(
-                  detailController.pond.getGmtToNormalDate(),
+                  pondController.selectedPond.value.getGmtToNormalDate(),
                   style: secondaryTextStyle.copyWith(
                     fontSize: 16,
                     fontWeight: medium,
@@ -115,7 +117,7 @@ class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
-                detailController.pond.status! != "Aktif"
+                pondController.selectedPond.value.status! != "Aktif"
                     ? Text(
                         "-",
                         style: subtitleTextStyle.copyWith(
@@ -125,9 +127,12 @@ class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       )
-                    : detailController.pond.pondPhDesc!.capitalize == "Normal"
+                    : pondController
+                                .selectedPond.value.pondPhDesc!.capitalize ==
+                            "Normal"
                         ? Text(
-                            detailController.pond.pondPhDesc!.capitalize!,
+                            pondController
+                                .selectedPond.value.pondPhDesc!.capitalize!,
                             style: subtitleTextStyle.copyWith(
                                 fontSize: 13,
                                 fontWeight: bold,
@@ -135,10 +140,12 @@ class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           )
-                        : detailController.pond.pondPhDesc!.capitalize ==
+                        : pondController.selectedPond.value.pondPhDesc!
+                                    .capitalize ==
                                 "Berbahaya"
                             ? Text(
-                                detailController.pond.pondPhDesc!.capitalize!,
+                                pondController
+                                    .selectedPond.value.pondPhDesc!.capitalize!,
                                 style: subtitleTextStyle.copyWith(
                                     fontSize: 13,
                                     fontWeight: bold,
@@ -147,7 +154,8 @@ class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
                                 maxLines: 1,
                               )
                             : Text(
-                                detailController.pond.pondPhDesc!.capitalize!,
+                                pondController
+                                    .selectedPond.value.pondPhDesc!.capitalize!,
                                 style: subtitleTextStyle.copyWith(
                                   fontSize: 13,
                                   fontWeight: regular,
@@ -167,7 +175,7 @@ class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
-                detailController.pond.status != "Aktif"
+                pondController.selectedPond.value.status != "Aktif"
                     ? Text(
                         "-",
                         style: subtitleTextStyle.copyWith(
@@ -177,7 +185,7 @@ class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       )
-                    : detailController.pond.pondTemp == null
+                    : pondController.selectedPond.value.pondTemp == null
                         ? Text(
                             "Belum Diukur",
                             style: subtitleTextStyle.copyWith(
@@ -188,7 +196,8 @@ class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
                             maxLines: 1,
                           )
                         : Text(
-                            "${detailController.pond.pondTemp} " + "°C",
+                            "${pondController.selectedPond.value.pondTemp} " +
+                                "°C",
                             style: subtitleTextStyle.copyWith(
                               fontSize: 16,
                               fontWeight: bold,
@@ -210,7 +219,7 @@ class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
-                detailController.pond.status! != "Aktif"
+                pondController.selectedPond.value.status! != "Aktif"
                     ? Text(
                         "-",
                         style: subtitleTextStyle.copyWith(
@@ -220,9 +229,12 @@ class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       )
-                    : detailController.pond.pondDoDesc!.capitalize == "Normal"
+                    : pondController
+                                .selectedPond.value.pondDoDesc!.capitalize ==
+                            "Normal"
                         ? Text(
-                            detailController.pond.pondDoDesc!.capitalize!,
+                            pondController
+                                .selectedPond.value.pondDoDesc!.capitalize!,
                             style: subtitleTextStyle.copyWith(
                                 fontSize: 13,
                                 fontWeight: bold,
@@ -230,10 +242,12 @@ class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           )
-                        : detailController.pond.pondDoDesc!.capitalize ==
+                        : pondController.selectedPond.value.pondDoDesc!
+                                    .capitalize ==
                                 "Berbahaya"
                             ? Text(
-                                detailController.pond.pondDoDesc!.capitalize!,
+                                pondController
+                                    .selectedPond.value.pondDoDesc!.capitalize!,
                                 style: subtitleTextStyle.copyWith(
                                     fontSize: 13,
                                     fontWeight: bold,
@@ -241,11 +255,12 @@ class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                               )
-                            : detailController.pond.pondDoDesc!.capitalize ==
+                            : pondController.selectedPond.value.pondDoDesc!
+                                        .capitalize ==
                                     "Semi Berbahaya"
                                 ? Text(
-                                    detailController
-                                        .pond.pondDoDesc!.capitalize!,
+                                    pondController.selectedPond.value
+                                        .pondDoDesc!.capitalize!,
                                     style: subtitleTextStyle.copyWith(
                                         fontSize: 13,
                                         fontWeight: bold,
@@ -254,8 +269,8 @@ class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
                                     maxLines: 1,
                                   )
                                 : Text(
-                                    detailController
-                                        .pond.pondDoDesc!.capitalize!,
+                                    pondController.selectedPond.value
+                                        .pondDoDesc!.capitalize!,
                                     style: subtitleTextStyle.copyWith(
                                       fontSize: 13,
                                       fontWeight: regular,
@@ -316,7 +331,8 @@ class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
             children: detailController.activations
                 .map(
                   (activation) => ActivationForWaterCard(
-                      activation: activation, pond: detailController.pond),
+                      activation: activation,
+                      pond: pondController.selectedPond.value),
                 )
                 .toList(),
           ));

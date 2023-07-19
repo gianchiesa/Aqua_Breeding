@@ -1,6 +1,8 @@
+import 'package:fish/controllers/daily_water/daily_water_breed_list_controller.dart';
 import 'package:fish/pages/component/daily_water_card.dart';
 import 'package:fish/controllers/daily_water/daily_water_controller.dart';
 import 'package:fish/pages/dailywater/daily_water_entry_page.dart';
+import 'package:fish/pages/pond/pond_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
 import 'package:get/get.dart';
@@ -17,6 +19,9 @@ class DailyWaterPage extends StatefulWidget {
 
 class _DailyWaterPageState extends State<DailyWaterPage> {
   final DailyWaterController controller = Get.put(DailyWaterController());
+  final PondController pondController = Get.find();
+  final DailyWaterBreedListController dailyWaterBreedListController =
+      Get.find();
 
   @override
   void initState() {
@@ -49,7 +54,7 @@ class _DailyWaterPageState extends State<DailyWaterPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              "Kolam ${controller.pond.alias!}",
+              "Kolam ${pondController.selectedPond.value.alias!}",
               style: primaryTextStyle.copyWith(
                 fontSize: 18,
                 fontWeight: heavy,
@@ -60,8 +65,9 @@ class _DailyWaterPageState extends State<DailyWaterPage> {
             TextButton(
               onPressed: () {
                 Get.to(() => DailyWaterAvgPage(), arguments: {
-                  "pond": controller.pond,
-                  "activation": controller.activation
+                  "pond": pondController.selectedPond.value,
+                  "activation":
+                      dailyWaterBreedListController.selectedActivation.value
                 });
               },
               style: TextButton.styleFrom(
@@ -90,10 +96,11 @@ class _DailyWaterPageState extends State<DailyWaterPage> {
           child: Column(
             children: controller.listDailyWater
                 .map(
-                  (dailyWaterList) => DailyWaterCard(
-                      dailyWaterList: dailyWaterList,
-                      activation: controller.activation,
-                      pond: controller.pond),
+                  (dailyWater) => DailyWaterCard(
+                      dailyWater: dailyWater,
+                      activation: dailyWaterBreedListController
+                          .selectedActivation.value,
+                      pond: pondController.selectedPond.value),
                 )
                 .toList(),
           ));
@@ -147,8 +154,9 @@ class _DailyWaterPageState extends State<DailyWaterPage> {
         child: TextButton(
           onPressed: () {
             Get.to(() => DailyWaterAvgPage(), arguments: {
-              "pond": controller.pond,
-              "activation": controller.activation
+              "pond": pondController.selectedPond.value,
+              "activation":
+                  dailyWaterBreedListController.selectedActivation.value
             });
             controller.postDataLog(controller.fitur);
           },
@@ -175,8 +183,9 @@ class _DailyWaterPageState extends State<DailyWaterPage> {
           floatingActionButton: FloatingActionButton(
             onPressed: () {
               Get.to(() => DailyWaterEntryPage(), arguments: {
-                "pond": controller.pond,
-                "activation": controller.activation
+                "pond": pondController.selectedPond.value,
+                "activation":
+                    dailyWaterBreedListController.selectedActivation.value
               });
               controller.postDataLog(controller.fitur);
             },

@@ -33,7 +33,34 @@ class DetailPondController extends GetxController {
     }
   }
 
+  Future<void> updateListAndSelectedActivation() async {
+    await getPondActivation2();
+    selectedActivation.value = activations.firstWhere(
+        (activation) => activation.id == selectedActivation.value.id);
+  }
+
   Future<void> getPondActivation(BuildContext context) async {
+    isLoading.value = true;
+    activations.clear();
+
+    List<Activation> result = await service.getActivations(
+        pondId: pondController.selectedPond.value.id.toString());
+    activations.addAll(result);
+    print('masuk ke actvation');
+    // activationData = result[0];
+    for (var i in result) {
+      // activations.add(i);
+      if (i.isFinish == false) {
+        isPondActive.value = true;
+        print("masuk ini ");
+      }
+    }
+    // inspect(isPondActive.value);
+
+    isLoading.value = false;
+  }
+
+  Future<void> getPondActivation2() async {
     isLoading.value = true;
     activations.clear();
 

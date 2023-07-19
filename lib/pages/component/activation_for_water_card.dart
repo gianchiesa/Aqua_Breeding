@@ -16,9 +16,12 @@ class ActivationForWaterCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final DailyWaterBreedListController dailyWaterBreedListController =
+        Get.find();
     return GestureDetector(
       onTap: () {
-        Get.delete<DailyWaterBreedListController>();
+        // Get.delete<DailyWaterBreedListController>();
+        dailyWaterBreedListController.updateSelectedActivation(activation!.id);
         Get.to(() => MyWaterTabScreen(),
             arguments: {"activation": activation, "pond": pond});
       },

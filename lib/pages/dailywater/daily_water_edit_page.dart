@@ -1,5 +1,7 @@
+import 'package:fish/controllers/daily_water/daily_water_breed_list_controller.dart';
 import 'package:fish/controllers/daily_water/daily_water_edit_controller.dart';
 import 'package:fish/controllers/daily_water/daily_water_controller.dart';
+import 'package:fish/pages/pond/pond_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
 import 'package:flutter/services.dart';
@@ -18,6 +20,10 @@ class DailyWaterEditPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PondController pondController = Get.find();
+    final DailyWaterBreedListController dailyWaterBreedListController =
+        Get.find();
+    final DailyWaterController dailyWaterController = Get.find();
     Widget descInput() {
       return Container(
         margin: EdgeInsets.only(
@@ -201,11 +207,11 @@ class DailyWaterEditPage extends StatelessWidget {
             await controller.editDailyWaterData(
               context,
               () {
-                Navigator.pop(context);
+                Get.back();
               },
             );
-            dailyWaterControlller.getDailyWaterData(
-                context, controller.dailyWater.id.toString());
+            dailyWaterControlller.getDailyWaterData(context,
+                dailyWaterController.selectedDailyWater.value.id.toString());
             // controller.getWeek();
           },
           style: TextButton.styleFrom(

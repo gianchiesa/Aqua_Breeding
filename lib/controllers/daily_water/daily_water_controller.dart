@@ -3,6 +3,7 @@ import 'package:fish/controllers/daily_water/daily_water_breed_list_controller.d
 import 'package:fish/models/activation_model.dart';
 import 'package:fish/models/daily_water_model.dart';
 import 'package:fish/models/pond_model.dart';
+import 'package:fish/pages/pond/pond_controller.dart';
 import 'package:fish/service/daily_water_service.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +11,14 @@ import 'package:flutter/material.dart';
 import '../../service/logging_service.dart';
 
 class DailyWaterController extends GetxController {
-  Activation activation = Get.arguments["activation"];
-  Pond pond = Get.arguments["pond"];
+  final PondController pondController = Get.find();
+  final DailyWaterBreedListController dailyWaterBreedListController =
+      Get.find();
+  // Activation activation = Get.arguments["activation"];
+  // Pond pond = Get.arguments["pond"];
   var isLoading = false.obs;
   final listDailyWater = <DailyWater>[].obs;
+  late Rx<DailyWater> selectedDailyWater;
   final listDailyWaterAvg = <DailyWater>[].obs;
   List sol = [].obs;
 
@@ -36,7 +41,8 @@ class DailyWaterController extends GetxController {
     listDailyWater.clear();
     List<DailyWater> dailyWaterData = await DailyWaterService().getPonds();
     for (var i in dailyWaterData) {
-      if (i.activationId == activation.id) {
+      if (i.activationId ==
+          dailyWaterBreedListController.selectedActivation.value.id) {
         listDailyWater.add(i);
       }
     }
@@ -49,7 +55,8 @@ class DailyWaterController extends GetxController {
     listDailyWater.clear();
     List<DailyWater> dailyWaterData = await DailyWaterService().getPonds();
     for (var i in dailyWaterData) {
-      if (i.activationId == activation.id) {
+      if (i.activationId ==
+          dailyWaterBreedListController.selectedActivation.value.id) {
         listDailyWater.add(i);
       }
     }
@@ -63,13 +70,30 @@ class DailyWaterController extends GetxController {
     listDailyWater.clear();
     List<DailyWater> dailyWaterData = await DailyWaterService().getPonds();
     for (var i in dailyWaterData) {
-      if (i.activationId == activation.id) {
+      if (i.activationId ==
+          dailyWaterBreedListController.selectedActivation.value.id) {
         listDailyWater.add(i);
       }
     }
     print('data berubab');
     // print(listTreatment.value);
     isLoading.value = false;
+  }
+
+  void updateSelectedDailyWater(dailyWaterId) {
+    try {
+      selectedDailyWater.value = listDailyWater
+          .firstWhere((dailyWater) => dailyWater.id == dailyWaterId);
+    } catch (e) {
+      selectedDailyWater = Rx<DailyWater>(listDailyWater
+          .firstWhere((dailyWater) => dailyWater.id == dailyWaterId));
+    }
+  }
+
+  Future<void> updateListAndSelectedDailyWater() async {
+    await getDailyWaterData2();
+    selectedDailyWater.value = listDailyWater.firstWhere(
+        (dailyWater) => dailyWater.id == selectedDailyWater.value.id);
   }
 
   final fitur = 'Daily Water Quality';

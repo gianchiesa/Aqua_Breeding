@@ -1,3 +1,4 @@
+import 'package:fish/controllers/daily_water/daily_water_breed_list_controller.dart';
 import 'package:fish/controllers/daily_water/daily_water_controller.dart';
 import 'package:fish/models/daily_water_model.dart';
 import 'package:fish/models/pond_model.dart';
@@ -10,19 +11,21 @@ import 'package:get/get.dart';
 import '../../models/activation_model.dart';
 
 class DailyWaterCard extends StatelessWidget {
-  final DailyWater? dailyWaterList;
+  final DailyWater? dailyWater;
   final Activation? activation;
   final Pond? pond;
   final DailyWaterController water = Get.put(DailyWaterController());
-  DailyWaterCard({Key? key, this.dailyWaterList, this.activation, this.pond})
+  DailyWaterCard({Key? key, this.dailyWater, this.activation, this.pond})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final DailyWaterController dailyWaterController = Get.find();
     return GestureDetector(
       onTap: () {
+        dailyWaterController.updateSelectedDailyWater(dailyWater!.id);
         Get.to(() => DailyWaterDetailPage(), arguments: {
-          "dailywater": dailyWaterList,
+          "dailywater": dailyWater,
           "activation": activation,
           "pond": pond,
         });
@@ -58,7 +61,7 @@ class DailyWaterCard extends StatelessWidget {
                       maxLines: 1,
                     ),
                     Text(
-                      dailyWaterList!.getDayNameDate(),
+                      dailyWater!.getDayNameDate(),
                       style: secondaryTextStyle.copyWith(
                         fontSize: 14,
                         fontWeight: medium,
@@ -67,7 +70,7 @@ class DailyWaterCard extends StatelessWidget {
                       maxLines: 1,
                     ),
                     Text(
-                      dailyWaterList!.getGmtToNormalDate(),
+                      dailyWater!.getGmtToNormalDate(),
                       style: secondaryTextStyle.copyWith(
                         fontSize: 14,
                         fontWeight: medium,
@@ -90,9 +93,9 @@ class DailyWaterCard extends StatelessWidget {
                       maxLines: 1,
                     ),
                     Text(
-                      dailyWaterList!.ph.toString(),
+                      dailyWater!.ph.toString(),
                       style: secondaryTextStyle.copyWith(
-                        color: dailyWaterList!.ph_desc == "normal"
+                        color: dailyWater!.ph_desc == "normal"
                             ? Colors.green
                             : Colors.red.shade300,
                         fontSize: 14,
@@ -116,11 +119,11 @@ class DailyWaterCard extends StatelessWidget {
                       maxLines: 1,
                     ),
                     Text(
-                      dailyWaterList!.numDo.toString(),
+                      dailyWater!.numDo.toString(),
                       style: secondaryTextStyle.copyWith(
-                        color: dailyWaterList!.numDo_desc == "normal"
+                        color: dailyWater!.numDo_desc == "normal"
                             ? Colors.green
-                            : dailyWaterList!.numDo_desc == "berbahaya"
+                            : dailyWater!.numDo_desc == "berbahaya"
                                 ? Colors.red.shade300
                                 : Colors.amber,
                         fontSize: 14,
