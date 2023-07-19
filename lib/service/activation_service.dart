@@ -138,4 +138,26 @@ class ActivationService {
       return false;
     }
   }
+
+  Future<bool> postEditFishInActivation(
+      {required String? pondId,
+      required List? fish,
+      required Function doInPost}) async {
+    final response = await http.post(Uri.parse(Urls.editFish),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        encoding: Encoding.getByName('utf-8'),
+        body: {
+          "pond_id": pondId,
+          "fish": fish.toString(),
+        });
+    inspect(response);
+    if (response.statusCode == 200) {
+      doInPost();
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

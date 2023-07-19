@@ -47,6 +47,7 @@ class Urls {
 
   // Add Fish
   static const String addFish = '$baseUrl/addfish';
+  static const String editFish = '$baseUrl/editfish';
 
   //Treatment
   static const String treatment = '$baseUrl/pondtreatment';
