@@ -82,7 +82,7 @@ class PondController extends GetxController {
   }
 
   Pond getSelectedPond() {
-    return ponds.firstWhere((pond) => pond.id == selectedPond.value);
+    return ponds.firstWhere((pond) => pond.id == selectedPond.value.id);
   }
 
   void updateSelectedPond(pondid) {

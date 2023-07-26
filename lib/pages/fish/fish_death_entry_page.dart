@@ -164,7 +164,7 @@ class FishDeathEntryPage extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: backgroundColor2,
-            title: const Text("Entry Kematian Ikan"),
+            title: Text("Entry Kematian Ikan ${controller.pond.alias}"),
           ),
           backgroundColor: backgroundColor1,
           body: ListView(

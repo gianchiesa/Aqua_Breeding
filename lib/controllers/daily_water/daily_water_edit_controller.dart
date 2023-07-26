@@ -48,6 +48,19 @@ class DailyWaterEditController extends GetxController {
     doInPost();
   }
 
+  Future<void> editDailyWaterDataOne(BuildContext context, Function doInPost,
+      String ph, String doNm, String suhu) async {
+    // ignore: unused_local_variable
+    bool value = await DailyWaterService().editDailyWater(
+        dailywaterId: dailyWaterController.selectedDailyWater.value.id,
+        ph: ph,
+        numDo: doNm,
+        // week: getWeek().toString(),
+        temperature: suhu);
+    await dailyWaterController.updateListAndSelectedDailyWater();
+    doInPost();
+  }
+
   void setTextController() {
     phController.text =
         dailyWaterController.selectedDailyWater.value.ph.toString();

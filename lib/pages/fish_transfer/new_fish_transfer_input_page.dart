@@ -84,6 +84,18 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
     //       pondId: controller.pond.id.toString());
     // });
     // controller.getHarvestedBool(controller.activation);
+    if (widget.pond.dataInput != null) {
+      controller.sampleLongController = TextEditingController(
+          text: widget.pond.dataInput["sample_long"].toString());
+      controller.sampleWeightController = TextEditingController(
+          text: widget.pond.dataInput["sample_weight"].toString());
+      if (widget.pond.dataInput["water_level"] != null) {
+        controller.sampleWeightController = TextEditingController(
+            text: widget.pond.dataInput["water_level"].toString());
+      }
+    }
+
+    // print("object ${widget.pond.dataInput["sample_long"]}");
     controller.getPondsData(controller.methodController.toString());
     controller.getHarvestedBool(controller.activation);
   }
@@ -1961,7 +1973,7 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: backgroundColor2,
-        title: const Text("Entry Sortir"),
+        title: Text("Entry Sortir ${controller.pond.alias}"),
       ),
       backgroundColor: backgroundColor1,
       body: Obx(() {
@@ -1980,7 +1992,10 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
             controller.isMasInput == true ? masInput() : Container(),
             sampleLongInput(),
             sampleWeightInput(),
-            widget.pond.isActive == false ? waterHeightInput() : Container(),
+            widget.pond.isActive == false ||
+                    controller.pond.id.toString() == widget.pond.id.toString()
+                ? waterHeightInput()
+                : Container(),
             submitButton()
           ],
         );
@@ -1992,16 +2007,7 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
     if (widget.pond.isInputed == true) {
       if (controller.isNilaMerahInput.value == true &&
           controller.nilamerahAmountChecker.value <
-              (controller.nilamerahAmountComparator.value -
-                      int.parse(widget.pond.fish?.firstWhereOrNull(
-                                  (element) => element.type == "nila merah") ==
-                              null
-                          ? "0"
-                          : widget.pond.fish!
-                              .firstWhereOrNull(
-                                  (element) => element.type == "nila merah")!
-                              .amount
-                              .toString())) +
+              (controller.nilamerahAmountComparator.value - int.parse(widget.pond.fish?.firstWhereOrNull((element) => element.type == "nila merah") == null ? "0" : widget.pond.fish!.firstWhereOrNull((element) => element.type == "nila merah")!.amount.toString())) +
                   int.parse(controller.nilaMerahAmountController.text)) {
         print(int.parse(widget.pond.fish?.firstWhereOrNull(
                     (element) => element.type == "nila merah") ==
@@ -2034,8 +2040,7 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
       } else if (controller.isNilaHitamInput.value == true &&
           controller.nilahitamAmountChecker.value <
               (controller.nilahitamAmountComparator.value -
-                      int.parse(widget.pond.fish!.firstWhereOrNull(
-                                  (element) => element.type == "nila hitam") ==
+                      int.parse(widget.pond.fish!.firstWhereOrNull((element) => element.type == "nila hitam") ==
                               null
                           ? "0"
                           : widget.pond.fish!
@@ -2065,16 +2070,7 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
                 ));
       } else if (controller.isMasInput.value == true &&
           controller.masAmountChecker.value <
-              (controller.masAmountComparator.value -
-                      int.parse(widget.pond.fish!.firstWhereOrNull(
-                                  (element) => element.type == "mas") ==
-                              null
-                          ? "0"
-                          : widget.pond.fish!
-                              .firstWhereOrNull(
-                                  (element) => element.type == "mas")!
-                              .amount
-                              .toString())) +
+              (controller.masAmountComparator.value - int.parse(widget.pond.fish!.firstWhereOrNull((element) => element.type == "mas") == null ? "0" : widget.pond.fish!.firstWhereOrNull((element) => element.type == "mas")!.amount.toString())) +
                   int.parse(controller.masAmountController.text)) {
         showDialog<String>(
             context: context,
@@ -2097,16 +2093,7 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
                 ));
       } else if (controller.isLeleInput.value == true &&
           controller.leleAmountChecker.value <
-              (controller.leleAmountComparator.value -
-                      int.parse(widget.pond.fish!.firstWhereOrNull(
-                                  (element) => element.type == "lele") ==
-                              null
-                          ? "0"
-                          : widget.pond.fish!
-                              .firstWhereOrNull(
-                                  (element) => element.type == "lele")!
-                              .amount
-                              .toString())) +
+              (controller.leleAmountComparator.value - int.parse(widget.pond.fish!.firstWhereOrNull((element) => element.type == "lele") == null ? "0" : widget.pond.fish!.firstWhereOrNull((element) => element.type == "lele")!.amount.toString())) +
                   int.parse(controller.leleAmountController.text)) {
         showDialog<String>(
             context: context,
@@ -2130,15 +2117,7 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
       } else if (controller.isPatinInput.value == true &&
           controller.patinAmountChecker.value <
               (controller.patinAmountComparator.value -
-                      int.parse(widget.pond.fish!.firstWhereOrNull(
-                                  (element) => element.type == "patin") ==
-                              null
-                          ? "0"
-                          : widget.pond.fish!
-                              .firstWhereOrNull(
-                                  (element) => element.type == "patin")!
-                              .amount
-                              .toString())) +
+                      int.parse(widget.pond.fish!.firstWhereOrNull((element) => element.type == "patin") == null ? "0" : widget.pond.fish!.firstWhereOrNull((element) => element.type == "patin")!.amount.toString())) +
                   int.parse(controller.patinAmountController.text)) {
         showDialog<String>(
             context: context,
@@ -2167,10 +2146,15 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
           "status":
               widget.pond.isActive == true ? "isActivated" : "isNotActivated",
           "fish": fish,
-          "sample_weight": controller.sampleWeightController.text,
-          "sample_long": controller.sampleLongController.text,
+          "sample_weight": controller.sampleWeightController.text.isEmpty
+              ? 0
+              : controller.sampleWeightController.text,
+          "sample_long": controller.sampleLongController.text.isEmpty
+              ? 0
+              : controller.sampleLongController.text,
           "transfer_type": controller.typeController.selected.value,
-          if (widget.pond.isActive == false) ...{
+          if (widget.pond.isActive == false ||
+              controller.pond.id == widget.pond.id) ...{
             "water_level": controller.waterHeightController.text
           }
         };
@@ -2302,6 +2286,29 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
                     ),
                   ],
                 ));
+      } else if (widget.pond.isActive == false &&
+              controller.waterHeightController.text.isEmpty ||
+          widget.pond.id == controller.pond.id &&
+              controller.waterHeightController.text.isEmpty) {
+        showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Input Error',
+                      style: TextStyle(color: Colors.red)),
+                  content: const Text(
+                    'Tinggi air aajib isi',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  backgroundColor: backgroundColor1,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ));
       } else {
         final fish = controller.buildJsonFish();
         final data = {
@@ -2309,10 +2316,17 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
           "status":
               widget.pond.isActive == true ? "isActivated" : "isNotActivated",
           "fish": fish,
-          "sample_weight": controller.sampleWeightController.text,
-          "sample_long": controller.sampleLongController.text,
-          "transfer_type": controller.typeController.selected.value,
-          if (widget.pond.isActive == false) ...{
+          "sample_weight": controller.sampleWeightController.text.isEmpty
+              ? 0
+              : controller.sampleWeightController.text,
+          "sample_long": controller.sampleLongController.text.isEmpty
+              ? 0
+              : controller.sampleLongController.text,
+          "transfer_type": widget.pond.id == controller.pond.id
+              ? "maintain_transfer"
+              : controller.typeController.selected.value,
+          if (widget.pond.isActive == false ||
+              controller.pond.id == widget.pond.id) ...{
             "water_level": controller.waterHeightController.text
           }
         };

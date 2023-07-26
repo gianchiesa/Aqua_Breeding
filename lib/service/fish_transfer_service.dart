@@ -136,6 +136,14 @@ class FishTransferService {
   Future<bool> postTransfer(
       {required String origin_pond_id,
       required String transfer_method,
+      required String total_fish_harvested,
+      required String total_weight_harvested,
+      required String amountUndersize,
+      required String amountOversize,
+      required String amountNormal,
+      required String sampleWeight,
+      required String sampleLong,
+      required String sampleAmount,
       required List<dynamic> transferList,
       required BuildContext ctx}) async {
     List<dynamic> transferListPost = [];
@@ -156,7 +164,7 @@ class FishTransferService {
         "destination_pond_id": i["destination_pond_id"],
         "status": i["status"],
         "fish": fish,
-        "sample_weight": int.parse(i["sample_weight"]),
+        "sample_weight": double.parse(i["sample_weight"]),
         "sample_long": double.parse(i['sample_long']),
         "transfer_type": i["transfer_type"],
         if (i["status"] == "isNotActivated") ...{
@@ -168,8 +176,17 @@ class FishTransferService {
     print({
       "origin_pond_id": origin_pond_id.toString(),
       "fish_sort_type": transfer_method,
+      "total_fish_harvested": total_fish_harvested,
+      "total_weight_harvested": total_weight_harvested,
+      "sample_long": sampleLong,
+      "sample_amount": sampleAmount,
+      "sample_weight": sampleWeight,
+      "amount_oversize": amountOversize,
+      "amount_undersized": amountUndersize,
+      "amount_normal": amountNormal,
       "transfer_list": json.encode(transferListPost)
     });
+
     final response = await http.post(
       Uri.parse(Urls.newfishtransfer),
       headers: {
@@ -179,6 +196,14 @@ class FishTransferService {
       body: {
         "origin_pond_id": origin_pond_id.toString(),
         "fish_sort_type": transfer_method,
+        "total_fish_harvested": total_fish_harvested,
+        "total_weight_harvested": total_weight_harvested,
+        "sample_long": sampleLong,
+        "sample_amount": sampleAmount,
+        "sample_weight": sampleWeight,
+        "amount_oversize": amountOversize,
+        "amount_undersized": amountUndersize,
+        "amount_normal": amountNormal,
         "transfer_list": json.encode(transferListPost)
       },
     );
@@ -194,7 +219,7 @@ class FishTransferService {
     } else {
       print(response.body);
       final snackBar = SnackBar(
-        content: const Text('Sortir Ikan Gagal!'),
+        content: Text(response.body.toString()),
         backgroundColor: Colors.red,
       );
       ScaffoldMessenger.of(ctx).showSnackBar(snackBar);

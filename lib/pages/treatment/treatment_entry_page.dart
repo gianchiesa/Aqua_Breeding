@@ -668,7 +668,7 @@ class _TreatmentEntryPageState extends State<TreatmentEntryPage> {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: backgroundColor2,
-            title: const Text("Entry Treatment"),
+            title: Text("Entry Treatment Kolam ${controller.pond.alias}"),
           ),
           backgroundColor: backgroundColor1,
           body: ListView(

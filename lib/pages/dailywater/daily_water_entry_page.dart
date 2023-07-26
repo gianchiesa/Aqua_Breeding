@@ -229,7 +229,8 @@ class DailyWaterEntryPage extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: backgroundColor2,
-            title: const Text("Entry Kondisi Air Harian"),
+            title:
+                Text("Entry Kondisi Air Harian Kolam ${controller.pond.alias}"),
           ),
           backgroundColor: backgroundColor1,
           body: ListView(

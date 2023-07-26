@@ -57,6 +57,19 @@ class FishTransferEntryController extends GetxController {
   var isLeleActivation = false.obs;
   var isPatinActivation = false.obs;
   var isMasActivation = false.obs;
+  TextEditingController fishWeightController = TextEditingController(text: '');
+  TextEditingController undersizeController = TextEditingController(text: '');
+  TextEditingController oversizeController = TextEditingController(text: '');
+  TextEditingController normalsizeController = TextEditingController(text: '');
+  TextEditingController fishLengthAvgController =
+      TextEditingController(text: '');
+  TextEditingController sampleWeightOriginController =
+      TextEditingController(text: '');
+
+  TextEditingController sampleLongOriginController =
+      TextEditingController(text: '');
+  TextEditingController sampleAmountOriginController =
+      TextEditingController(text: '');
   TextEditingController descController = TextEditingController(text: '');
 //input transfer
   PondListController pondlistController = PondListController();
@@ -64,9 +77,9 @@ class FishTransferEntryController extends GetxController {
   TransferTypeController typeController = TransferTypeController();
 
   TextEditingController sampleWeightController =
-      TextEditingController(text: '0');
+      TextEditingController(text: '');
 
-  TextEditingController sampleLongController = TextEditingController(text: '0');
+  TextEditingController sampleLongController = TextEditingController(text: '');
   TextEditingController nilaMerahAmountController =
       TextEditingController(text: '');
 
@@ -111,9 +124,11 @@ class FishTransferEntryController extends GetxController {
       TextEditingController(text: '');
   TextEditingController masAmountActivationController =
       TextEditingController(text: '');
-  TextEditingController waterHeightController =
-      TextEditingController(text: '0');
-
+  TextEditingController waterHeightController = TextEditingController(text: '');
+  TextEditingController totalWeightDeactivationController =
+      TextEditingController(text: '');
+  TextEditingController totalAmountDeactivationController =
+      TextEditingController(text: '');
   //input deaktifasi
   TextEditingController nilaMerahWeightDeactivationController =
       TextEditingController(text: '');
@@ -134,7 +149,8 @@ class FishTransferEntryController extends GetxController {
       TextEditingController(text: '');
   TextEditingController leleAmountDeactivationController =
       TextEditingController(text: '');
-
+  TextEditingController sampleAmountController =
+      TextEditingController(text: '');
   TextEditingController patinAmountDeactivationController =
       TextEditingController(text: '');
   TextEditingController masAmountDeactivationController =
@@ -159,25 +175,27 @@ class FishTransferEntryController extends GetxController {
     isLoading.value = true;
     List<Pond> pondsData = await PondService().getPonds();
     listPond.clear();
+    // for (var i in pondsData) {
+    //   // if (i.alias != pond.alias) {
+    //   ListPondSortir pond = ListPondSortir(
+    //       id: i.id, isInputed: false, name: i.alias, isActive: i.isActive);
+    //   listPond.add(pond);
+    //   // }
+    // }
     if (method == "kering") {
+      for (var i in pondsData) {
+        // if (i.alias != pond.alias) {
+        ListPondSortir pond = ListPondSortir(
+            id: i.id, isInputed: false, name: i.alias, isActive: i.isActive);
+        listPond.add(pond);
+        // }
+      }
+    } else {
       for (var i in pondsData) {
         if (i.alias != pond.alias) {
           ListPondSortir pond = ListPondSortir(
               id: i.id, isInputed: false, name: i.alias, isActive: i.isActive);
           listPond.add(pond);
-        }
-      }
-    } else {
-      for (var i in pondsData) {
-        if (i.alias != pond.alias) {
-          if (i.isActive == true) {
-            ListPondSortir pond = ListPondSortir(
-                id: i.id,
-                isInputed: false,
-                name: i.alias,
-                isActive: i.isActive);
-            listPond.add(pond);
-          }
         }
       }
     }
