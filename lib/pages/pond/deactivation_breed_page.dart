@@ -354,7 +354,7 @@ class _DeactivationBreedPageState extends State<DeactivationBreedPage> {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: backgroundColor2,
-            title: const Text("Panen"),
+            title: Text("Panen Kolam ${controller.pond.alias}"),
           ),
           backgroundColor: backgroundColor1,
           body: ListView(

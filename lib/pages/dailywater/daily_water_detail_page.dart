@@ -239,14 +239,19 @@ class _DailyWaterDetailPageState extends State<DailyWaterDetailPage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "pH",
-                  style: primaryTextStyle.copyWith(
-                    fontSize: 18,
-                    fontWeight: medium,
+                GestureDetector(
+                  onTap: () {
+                    editData(controller.dailyWaterfix[0], "pH");
+                  },
+                  child: Text(
+                    "pH",
+                    style: primaryTextStyle.copyWith(
+                      fontSize: 18,
+                      fontWeight: medium,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
                 ),
                 Text(
                   "${controller.dailyWaterfix[0].ph} " +
@@ -361,5 +366,31 @@ class _DailyWaterDetailPageState extends State<DailyWaterDetailPage> {
         );
       }
     });
+  }
+
+  void editData(DailyWater dailywater, String title) {
+    showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: Text('Edit $title', style: TextStyle(color: Colors.white)),
+              content: TextFormField(
+                style: primaryTextStyle,
+                keyboardType: TextInputType.number,
+                controller: controller.phController,
+                decoration: InputDecoration.collapsed(
+                  hintText: 'ex: 2',
+                  hintStyle: subtitleTextStyle,
+                ),
+              ),
+              backgroundColor: backgroundColor3,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(16.0))),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
+            ));
   }
 }

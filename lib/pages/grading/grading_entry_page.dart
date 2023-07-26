@@ -392,7 +392,7 @@ class GradingEntryPage extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: backgroundColor2,
-            title: const Text("Entry Grading"),
+            title: Text("Entry Grading ${controller.pond.alias}"),
           ),
           backgroundColor: backgroundColor1,
           body: ListView(

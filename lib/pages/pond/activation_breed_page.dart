@@ -802,7 +802,7 @@ class ActivationBreedPage extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: backgroundColor2,
-            title: const Text("Aktivasi Kolam"),
+            title: Text("Aktivasi Kolam ${controller.pond.alias}"),
           ),
           backgroundColor: backgroundColor1,
           body: ListView(

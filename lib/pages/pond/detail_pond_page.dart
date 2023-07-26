@@ -119,7 +119,7 @@ class _DetailPondPageState extends State<DetailPondPage> {
         child: TextButton(
           onPressed: () {
             Get.to(() => ActivationBreedPage(), arguments: {
-              'pond': detailController.pondController.selectedPond,
+              'pond': detailController.pondController.selectedPond.value,
             });
             detailController.postDataLog(detailController.fitur);
           },

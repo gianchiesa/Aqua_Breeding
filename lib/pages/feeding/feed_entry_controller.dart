@@ -1,5 +1,6 @@
 import 'package:fish/models/pond_model.dart';
 import 'package:fish/pages/feeding/feedtype_form_controller.dart';
+import 'package:fish/pages/feeding/satuan_feed_controller.dart';
 import 'package:fish/service/feed_history_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,8 @@ import '../../service/logging_service.dart';
 
 class FeedEntryController extends GetxController {
   FeedTypeFormController feedTypeFormController = FeedTypeFormController();
+
+  FeedSatuanController feedSatuanController = FeedSatuanController();
   TextEditingController feedDosisController = TextEditingController(text: '');
   var isLoading = false.obs;
   Pond pond = Get.arguments['pond'];
@@ -37,7 +40,9 @@ class FeedEntryController extends GetxController {
     bool value = await FeedHistoryService().postFeedHistory(
       pondId: pond.id,
       feedTypeId: feedTypeFormController.getIdByName(),
-      feedDose: feedDosisController.text,
+      feedDose: feedSatuanController.selected.value == "gram"
+          ? (double.parse(feedDosisController.text) / 1000).toStringAsFixed(1)
+          : feedDosisController.text,
     );
     print(value);
   }

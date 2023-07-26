@@ -22,6 +22,10 @@ class DailyWaterDetailController extends GetxController {
   // Activation activation = Get.arguments["activation"];
   // Pond pond = Get.arguments["pond"];
   final dailyWaterfix = <DailyWater>[].obs;
+  TextEditingController phController = TextEditingController();
+  TextEditingController doController = TextEditingController();
+
+  TextEditingController suhuController = TextEditingController();
 
   Future<void> getDailyWaterData(
       BuildContext context, String dailywaterId) async {

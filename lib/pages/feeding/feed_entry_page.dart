@@ -110,6 +110,57 @@ class FeedEntryPage extends StatelessWidget {
       );
     }
 
+    Widget feedSatuanInput() {
+      return Container(
+        margin: EdgeInsets.only(
+            top: defaultSpace, right: defaultMargin, left: defaultMargin),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Pilih Satuan',
+              style: primaryTextStyle.copyWith(
+                fontSize: 16,
+                fontWeight: medium,
+              ),
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            Container(
+              height: 50,
+              padding: EdgeInsets.symmetric(
+                horizontal: 16,
+              ),
+              decoration: BoxDecoration(
+                color: backgroundColor2,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: Obx(() => DropdownButtonFormField<String>(
+                      onChanged: (newValue) => controller.feedSatuanController
+                          .setSelected(newValue!),
+                      value: controller.feedSatuanController.selected.value,
+                      items: controller.feedSatuanController.listSatuan
+                          .map((feedtype) {
+                        return DropdownMenuItem<String>(
+                          value: feedtype,
+                          child: Text(
+                            feedtype.toString(),
+                            style: primaryTextStyle,
+                          ),
+                        );
+                      }).toList(),
+                      dropdownColor: backgroundColor5,
+                      decoration: InputDecoration(border: InputBorder.none),
+                    )),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     Widget feedDosisInput() {
       return Container(
         margin: EdgeInsets.only(
@@ -118,7 +169,7 @@ class FeedEntryPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Dosis Pakan (Gram)',
+              'Dosis Pakan',
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -202,13 +253,14 @@ class FeedEntryPage extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: backgroundColor2,
-            title: const Text("Entry Pakan"),
+            title: Text("Entry Pakan Kolam ${controller.pond.alias}"),
           ),
           backgroundColor: backgroundColor1,
           body: ListView(
             children: [
               // pondInput(),
               feedTypeInput(),
+              feedSatuanInput(),
               feedDosisInput(),
               submitButton(),
               SizedBox(
