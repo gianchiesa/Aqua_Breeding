@@ -1,6 +1,8 @@
 import 'package:fish/controllers/fish_transfer/fish_transfer_entry_controller.dart';
 import 'package:fish/controllers/fish_transfer/pond_list_item_controller.dart';
 import 'package:fish/pages/fish_transfer/new_fish_transfer_input_page.dart';
+import 'package:fish/pages/pond/detail_pond_controller.dart';
+import 'package:fish/pages/pond/pond_controller.dart';
 import 'package:fish/service/fish_transfer_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
@@ -30,6 +32,9 @@ class _NewFishTransferEntryPageState extends State<NewFishTransferEntryPage> {
       Get.put(PondListController());
 
   final pageController = PageController(initialPage: 0);
+
+  final PondController pondController = Get.find();
+  final DetailPondController detailPondController = Get.find();
   @override
   void dispose() {
     controller.descController.clear();
@@ -1098,7 +1103,7 @@ class _NewFishTransferEntryPageState extends State<NewFishTransferEntryPage> {
     //   );
     // }
 
-//input aktivasi
+    //input aktivasi
     Widget checkBoxFish() {
       return Container(
         margin: EdgeInsets.only(
@@ -2513,6 +2518,7 @@ class _NewFishTransferEntryPageState extends State<NewFishTransferEntryPage> {
           transferList: transferList,
           ctx: context);
       fishTransferController.getTransfertData(context);
+      await pondController.updateListandSelectedPond();
       Get.back();
     }
   }

@@ -46,6 +46,7 @@ class DetailPondController extends GetxController {
     List<Activation> result = await service.getActivations(
         pondId: pondController.selectedPond.value.id.toString());
     activations.addAll(result);
+    inspect(result);
     print('masuk ke actvation');
     // activationData = result[0];
     for (var i in result) {
@@ -67,6 +68,7 @@ class DetailPondController extends GetxController {
     List<Activation> result = await service.getActivations(
         pondId: pondController.selectedPond.value.id.toString());
     activations.addAll(result);
+    inspect(result);
     print('masuk ke actvation');
     // activationData = result[0];
     for (var i in result) {

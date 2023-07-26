@@ -158,7 +158,7 @@ class _DetailPondPageState extends State<DetailPondPage> {
                 textCancel: 'Tidak',
                 onConfirm: (() {
                   Get.to(() => DeactivationBreedPage(), arguments: {
-                    "pond": detailController.pondController.selectedPond,
+                    "pond": detailController.pondController.selectedPond.value,
                   });
                 }));
           },

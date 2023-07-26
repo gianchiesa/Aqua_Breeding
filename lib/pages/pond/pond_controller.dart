@@ -93,7 +93,27 @@ class PondController extends GetxController {
     }
   }
 
+  Future<void> updateListandSelectedPond() async {
+    await getPondsData2();
+    selectedPond.value =
+        ponds.firstWhere((pond) => pond.id == selectedPond.value.id);
+  }
+
   Future<void> getPondsData(BuildContext context) async {
+    WidgetsFlutterBinding.ensureInitialized();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString('token').toString();
+    identity = prefs.getString('identity').toString();
+    log("ini prefs $identity");
+    isLoading.value = true;
+    ponds.clear();
+    List<Pond> pondsData = await PondService().getPonds();
+    ponds.addAll(pondsData);
+
+    isLoading.value = false;
+  }
+
+  Future<void> getPondsData2() async {
     WidgetsFlutterBinding.ensureInitialized();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token = prefs.getString('token').toString();
