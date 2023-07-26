@@ -5,9 +5,11 @@ import 'package:fish/pages/pond/detail_pond_controller.dart';
 import 'package:fish/pages/pond/pond_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/daily_water/daily_water_controller.dart';
+import '../../controllers/daily_water/daily_water_edit_controller.dart';
 import '../../models/daily_water_model.dart';
 
 class DailyWaterDetailPage extends StatefulWidget {
@@ -25,7 +27,8 @@ class _DailyWaterDetailPageState extends State<DailyWaterDetailPage> {
   final DailyWaterBreedListController dailyWaterBreedListController =
       Get.find();
   final DailyWaterController dailyWaterController = Get.find();
-
+  final DailyWaterEditController editController =
+      Get.put(DailyWaterEditController());
   @override
   void initState() {
     super.initState();
@@ -241,7 +244,7 @@ class _DailyWaterDetailPageState extends State<DailyWaterDetailPage> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    editData(controller.dailyWaterfix[0], "pH");
+                    editDataPh(controller.dailyWaterfix[0], "pH");
                   },
                   child: Text(
                     "pH",
@@ -253,30 +256,45 @@ class _DailyWaterDetailPageState extends State<DailyWaterDetailPage> {
                     maxLines: 1,
                   ),
                 ),
-                Text(
-                  "${controller.dailyWaterfix[0].ph} " +
-                      "${controller.dailyWaterfix[0].ph_desc}",
-                  style: secondaryTextStyle.copyWith(
-                    color: controller.dailyWaterfix[0].ph_desc == "normal"
-                        ? Colors.green
-                        : Colors.red.shade300,
-                    fontSize: 16,
-                    fontWeight: medium,
+                GestureDetector(
+                  onTap: () {
+                    editDataPh(controller.dailyWaterfix[0], "pH");
+                  },
+                  child: Text(
+                    "${controller.dailyWaterfix[0].ph} " +
+                        "${controller.dailyWaterfix[0].ph_desc}",
+                    style: secondaryTextStyle.copyWith(
+                      color: controller.dailyWaterfix[0].ph_desc == "normal"
+                          ? Colors.green
+                          : Colors.red.shade300,
+                      fontSize: 16,
+                      fontWeight: medium,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                Text(
-                  "Suhu Air",
-                  style: primaryTextStyle.copyWith(
-                    fontSize: 18,
-                    fontWeight: medium,
+                GestureDetector(
+                  onTap: () {
+                    editDataSuhu(controller.dailyWaterfix[0], "Suhu");
+                  },
+                  child: GestureDetector(
+                    onTap: () {
+                      editDataSuhu(controller.dailyWaterfix[0], "Suhu");
+                    },
+                    child: Text(
+                      "Suhu Air",
+                      style: primaryTextStyle.copyWith(
+                        fontSize: 18,
+                        fontWeight: medium,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
                   ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
                 ),
                 Text(
                   "${controller.dailyWaterfix[0].temperature} " + "°C",
@@ -292,29 +310,40 @@ class _DailyWaterDetailPageState extends State<DailyWaterDetailPage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Dissolved Oxygen",
-                  style: primaryTextStyle.copyWith(
-                    fontSize: 18,
-                    fontWeight: medium,
+                GestureDetector(
+                  onTap: () {
+                    editDataDo(controller.dailyWaterfix[0], "Do");
+                  },
+                  child: Text(
+                    "Dissolved Oxygen",
+                    style: primaryTextStyle.copyWith(
+                      fontSize: 18,
+                      fontWeight: medium,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
                 ),
-                Text(
-                  "${controller.dailyWaterfix[0].numDo} " +
-                      "${controller.dailyWaterfix[0].numDo_desc}",
-                  style: secondaryTextStyle.copyWith(
-                    color: controller.dailyWaterfix[0].numDo_desc == "normal"
-                        ? Colors.green
-                        : controller.dailyWaterfix[0].numDo_desc == "berbahaya"
-                            ? Colors.red.shade300
-                            : Colors.amber,
-                    fontSize: 16,
-                    fontWeight: medium,
+                GestureDetector(
+                  onTap: () {
+                    editDataDo(controller.dailyWaterfix[0], "Do");
+                  },
+                  child: Text(
+                    "${controller.dailyWaterfix[0].numDo} " +
+                        "${controller.dailyWaterfix[0].numDo_desc}",
+                    style: secondaryTextStyle.copyWith(
+                      color: controller.dailyWaterfix[0].numDo_desc == "normal"
+                          ? Colors.green
+                          : controller.dailyWaterfix[0].numDo_desc ==
+                                  "berbahaya"
+                              ? Colors.red.shade300
+                              : Colors.amber,
+                      fontSize: 16,
+                      fontWeight: medium,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
                 ),
                 SizedBox(
                   height: 20,
@@ -368,27 +397,153 @@ class _DailyWaterDetailPageState extends State<DailyWaterDetailPage> {
     });
   }
 
-  void editData(DailyWater dailywater, String title) {
+  void editDataPh(DailyWater dailywater, String title) {
     showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
               title: Text('Edit $title', style: TextStyle(color: Colors.white)),
-              content: TextFormField(
-                style: primaryTextStyle,
-                keyboardType: TextInputType.number,
-                controller: controller.phController,
-                decoration: InputDecoration.collapsed(
-                  hintText: 'ex: 2',
-                  hintStyle: subtitleTextStyle,
+              content: Container(
+                height: 50,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 16,
                 ),
+                decoration: BoxDecoration(
+                  color: backgroundColor2,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Center(
+                    child: TextFormField(
+                  style: primaryTextStyle,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
+                  ],
+                  keyboardType: TextInputType.number,
+                  controller: controller.phController,
+                )),
               ),
-              backgroundColor: backgroundColor3,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(16.0))),
+              backgroundColor: backgroundColor1,
               actions: <Widget>[
                 TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
+                  onPressed: () => Navigator.pop(context, 'Batal'),
+                  child: const Text(
+                    'Batal',
+                    style: TextStyle(color: Colors.red),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    await editController.editDailyWaterDataOne(context, () {
+                      Navigator.pop(context, 'Submit');
+                    },
+                        controller.phController.text,
+                        dailywater.numDo.toString(),
+                        dailywater.temperature.toString());
+                    controller.getDailyWaterData(
+                        context,
+                        dailyWaterController.selectedDailyWater.value.id
+                            .toString());
+                  },
+                  child: const Text('Submit'),
+                ),
+              ],
+            ));
+  }
+
+  void editDataSuhu(DailyWater dailywater, String title) {
+    showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: Text('Edit $title', style: TextStyle(color: Colors.white)),
+              content: Container(
+                height: 50,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 16,
+                ),
+                decoration: BoxDecoration(
+                  color: backgroundColor2,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Center(
+                    child: TextFormField(
+                  style: primaryTextStyle,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
+                  ],
+                  keyboardType: TextInputType.number,
+                  controller: controller.suhuController,
+                )),
+              ),
+              backgroundColor: backgroundColor1,
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'Batal'),
+                  child: const Text(
+                    'Batal',
+                    style: TextStyle(color: Colors.red),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    await editController.editDailyWaterDataOne(context, () {
+                      Navigator.pop(context, 'Submit');
+                    }, dailywater.ph.toString(), dailywater.numDo.toString(),
+                        controller.suhuController.text);
+                    controller.getDailyWaterData(
+                        context,
+                        dailyWaterController.selectedDailyWater.value.id
+                            .toString());
+                  },
+                  child: const Text('Submit'),
+                ),
+              ],
+            ));
+  }
+
+  void editDataDo(DailyWater dailywater, String title) {
+    showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: Text('Edit $title', style: TextStyle(color: Colors.white)),
+              content: Container(
+                height: 50,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 16,
+                ),
+                decoration: BoxDecoration(
+                  color: backgroundColor2,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Center(
+                    child: TextFormField(
+                  style: primaryTextStyle,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
+                  ],
+                  keyboardType: TextInputType.number,
+                  controller: controller.doController,
+                )),
+              ),
+              backgroundColor: backgroundColor1,
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'Batal'),
+                  child: const Text(
+                    'Batal',
+                    style: TextStyle(color: Colors.red),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    await editController.editDailyWaterDataOne(context, () {
+                      Navigator.pop(context, 'Submit');
+                    }, dailywater.ph.toString(), controller.doController.text,
+                        dailywater.numDo.toString());
+                    controller.getDailyWaterData(
+                        context,
+                        dailyWaterController.selectedDailyWater.value.id
+                            .toString());
+                  },
+                  child: const Text('Submit'),
                 ),
               ],
             ));
