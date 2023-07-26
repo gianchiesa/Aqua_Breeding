@@ -2016,35 +2016,32 @@ class _NewFishTransferEntryPageState extends State<NewFishTransferEntryPage> {
     }
 
     Widget destinationPond() {
-      return Expanded(
-        // margin: EdgeInsets.only(right: defaultMargin, left: defaultMargin),
-        // width: double.infinity,
-        child: Container(
-          margin: EdgeInsets.all(defaultMargin),
-          child: Obx(() {
-            return MultiSelectDialogField<ListPondSortir>(
-              title: Text("List Kolam"),
-              buttonText: Text(
-                "Pilih Kolam",
-                style: TextStyle(color: Colors.white),
-              ),
-              decoration: BoxDecoration(
-                  color: backgroundColor2,
-                  borderRadius: BorderRadius.circular(12)),
-              buttonIcon: Icon(
-                Icons.arrow_drop_down,
-                color: Colors.grey.shade700,
-              ),
-              items: controller.listPond
-                  .map((e) => MultiSelectItem(e, e.name!))
-                  .toList(),
-              listType: MultiSelectListType.LIST,
-              onConfirm: (values) {
-                controller.setData(values);
-              },
-            );
-          }),
-        ),
+      return Container(
+        margin: EdgeInsets.all(defaultMargin),
+        width: double.infinity,
+        child: Obx(() {
+          return MultiSelectDialogField<ListPondSortir>(
+            title: Text("List Kolam"),
+            buttonText: Text(
+              "Pilih Kolam",
+              style: TextStyle(color: Colors.white),
+            ),
+            decoration: BoxDecoration(
+                color: backgroundColor2,
+                borderRadius: BorderRadius.circular(12)),
+            buttonIcon: Icon(
+              Icons.arrow_drop_down,
+              color: Colors.grey.shade700,
+            ),
+            items: controller.listPond
+                .map((e) => MultiSelectItem(e, e.name!))
+                .toList(),
+            listType: MultiSelectListType.LIST,
+            onConfirm: (values) {
+              controller.setData(values);
+            },
+          );
+        }),
       );
     }
 
