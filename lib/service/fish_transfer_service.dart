@@ -145,6 +145,7 @@ class FishTransferService {
       required String sampleLong,
       required String sampleAmount,
       required List<dynamic> transferList,
+      required List<dynamic> fishDeath,
       required BuildContext ctx}) async {
     List<dynamic> transferListPost = [];
     for (var i in transferList) {
@@ -184,7 +185,8 @@ class FishTransferService {
       "amount_oversize": amountOversize,
       "amount_undersized": amountUndersize,
       "amount_normal": amountNormal,
-      "transfer_list": json.encode(transferListPost)
+      "transfer_list": json.encode(transferListPost),
+      "fish_death": json.encode(fishDeath)
     });
 
     final response = await http.post(
@@ -204,7 +206,10 @@ class FishTransferService {
         "amount_oversize": amountOversize,
         "amount_undersized": amountUndersize,
         "amount_normal": amountNormal,
-        "transfer_list": json.encode(transferListPost)
+        "transfer_list": json.encode(transferListPost),
+        if (transfer_method == "kering") ...{
+          "fish_death": json.encode(fishDeath)
+        }
       },
     );
 

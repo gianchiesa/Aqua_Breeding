@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fish/controllers/fish_transfer/fish_transfer_entry_controller.dart';
 import 'package:fish/controllers/fish_transfer/pond_list_item_controller.dart';
 import 'package:fish/pages/fish_transfer/new_fish_transfer_input_page.dart';
@@ -85,6 +87,7 @@ class _NewFishTransferEntryPageState extends State<NewFishTransferEntryPage> {
     // controller.getHarvestedBool(controller.activation);
     controller.getPondsData(controller.methodController.toString());
     controller.getHarvestedBool(controller.activation);
+    // controller.buildFishDeath();
   }
 
   @override
@@ -2489,7 +2492,9 @@ class _NewFishTransferEntryPageState extends State<NewFishTransferEntryPage> {
       for (var i in controller.listPondSelected) {
         transferList.add(i.dataInput);
       }
+
       print(transferList);
+      controller.buildFishDeath(transferList);
       FishTransferService().postTransfer(
           origin_pond_id: controller.pond.id.toString(),
           transfer_method: controller.methodController.selected.value,
@@ -2512,10 +2517,11 @@ class _NewFishTransferEntryPageState extends State<NewFishTransferEntryPage> {
           amountOversize: controller.oversizeController.text.isEmpty
               ? "0"
               : controller.oversizeController.text,
-          amountUndersize: controller.oversizeController.text.length < 1
+          amountUndersize: controller.oversizeController.text.isEmpty
               ? "0"
               : controller.oversizeController.text,
           transferList: transferList,
+          fishDeath: controller.buildFishDeath(transferList),
           ctx: context);
       fishTransferController.getTransfertData(context);
       await pondController.updateListandSelectedPond();

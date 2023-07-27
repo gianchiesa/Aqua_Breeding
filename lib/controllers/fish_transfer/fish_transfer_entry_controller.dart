@@ -5,6 +5,7 @@ import 'package:fish/pages/treatment/carbon_type_controller.dart';
 import 'package:fish/service/fish_transfer_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../models/fish_model.dart';
 import '../../models/new_sortir_model.dart';
 import '../../service/logging_service.dart';
 import '../../service/pond_service.dart';
@@ -362,6 +363,104 @@ class FishTransferEntryController extends GetxController {
       data.add(jsonEncode(fishData));
     }
     return data;
+  }
+
+  List buildJsonFishDeath2(List<dynamic> list) {
+    List<Fish> alive = activation.fishLive!;
+    var data = [];
+    for (var i in alive) {
+      if (i.type == "nila merah") {
+        nilamerahAmountComparator +
+            int.parse(nilaMerahAmountController.value.text);
+        var fishData = {
+          "type": "nila merah",
+          "amount": nilaMerahAmountController.value.text,
+          "weight": nilaMerahWeightController.value.text,
+        };
+        data.add(jsonEncode(fishData));
+      }
+      if (isNilaHitamInput.value == true) {
+        nilahitamAmountComparator +
+            int.parse(nilaHitamAmountController.value.text);
+        var fishData = {
+          "type": "nila hitam",
+          "amount": nilaHitamAmountController.value.text,
+          "weight": nilaHitamWeightController.value.text,
+        };
+        data.add(jsonEncode(fishData));
+      }
+      if (isLeleInput.value == true) {
+        leleAmountComparator + int.parse(leleAmountController.value.text);
+        var fishData = {
+          "type": "lele",
+          "amount": leleAmountController.value.text,
+          "weight": leleWeightController.value.text,
+        };
+        data.add(jsonEncode(fishData));
+      }
+      if (isPatinInput.value == true) {
+        patinAmountComparator + int.parse(patinAmountController.value.text);
+        var fishData = {
+          "type": "patin",
+          "amount": patinAmountController.value.text,
+          "weight": patinWeightController.value.text,
+        };
+        data.add(jsonEncode(fishData));
+      }
+      if (isMasInput.value == true) {
+        masAmountComparator + int.parse(masAmountController.value.text);
+        var fishData = {
+          "type": "mas",
+          "amount": masAmountController.value.text,
+          "weight": masWeightController.value.text,
+        };
+        data.add(jsonEncode(fishData));
+      }
+    }
+    return data;
+  }
+
+  List buildFishDeath(List<dynamic> list) {
+    var data1 = [];
+    for (var i in activation.fishLive!) {
+      var temp = {"type": i.type, "amount": i.amount};
+      data1.add(temp);
+    }
+
+    var data2 = [];
+    for (var i in list) {
+      var temp = [];
+      for (var j in i["fish"]) {
+        var x = jsonDecode(j);
+        print("ini data temp ${x["type"]}");
+        var data = {"type": x["type"], "amount": x["amount"]};
+        temp.add(data);
+      }
+      data2.add(temp);
+      // var temp = {"type": i["type"], "amount": i["amount"]};
+      // data2.add(temp);
+    }
+    print("ini data 2 $data2");
+
+    List<Map<String, dynamic>> result = [];
+    for (var i = 0; i < data1.length; i++) {
+      int subtractedAmount = int.parse(data1[i]["amount"].toString());
+      for (var j = 0; j < data2.length; j++) {
+        for (var k = 0; k < data2[j].length; k++) {
+          if (data1[i]["type"] == data2[j][k]["type"]) {
+            subtractedAmount -= int.parse(data2[j][k]["amount"].toString());
+            break;
+          }
+        }
+      }
+      Map<String, dynamic> subtractedFish = {
+        "type": data1[i]["type"],
+        "amount": subtractedAmount,
+      };
+      result.add(subtractedFish);
+    }
+
+    return result;
   }
 
 //function aktifasi
