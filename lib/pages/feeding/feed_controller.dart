@@ -2,6 +2,8 @@ import 'package:fish/models/FeedHistoryMonthly.dart';
 import 'package:fish/models/activation_model.dart';
 import 'package:fish/models/feed_chart_model.dart';
 import 'package:fish/models/pond_model.dart';
+import 'package:fish/pages/pond/detail_pond_controller.dart';
+import 'package:fish/pages/pond/pond_controller.dart';
 import 'package:fish/service/feed_history_service.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -11,14 +13,19 @@ import '../../service/logging_service.dart';
 class FeedController extends GetxController {
   final charData = <FeedChartData>[].obs;
   var isLoading = false.obs;
-  Activation activation = Get.arguments["activation"];
-  Pond pond = Get.arguments["pond"];
+  final PondController pondController = Get.find();
+  final DetailPondController detailPondController = Get.find();
+  // Activation activation = Get.arguments["activation"];
+  // Pond pond = Get.arguments["pond"];
   final list_feedHistoryMonthly = <FeedHistoryMonthly>[].obs;
 
   @override
   void onInit() async {
-    getWeeklyRecapFeedHistory(activation_id: activation.id!);
-    getChartFeed(activation_id: activation.id!);
+    print(detailPondController.selectedActivation.value.id);
+    getWeeklyRecapFeedHistory(
+        activation_id: detailPondController.selectedActivation.value.id!);
+    getChartFeed(
+        activation_id: detailPondController.selectedActivation.value.id!);
 
     super.onInit();
   }
@@ -39,12 +46,7 @@ class FeedController extends GetxController {
         await FeedHistoryService().getChart(activation_id: activation_id);
     // list_feedHistoryMonthly.addAll(feedHistoryMonthly);
     for (var i in feedChart) {
-      var date = DateTime.parse(i.date.toString());
-      // DateFormat format = DateFormat("dd-MM-yyyy");
-      var dateformat = DateFormat('yyyy-MM-dd').format(date);
-      DateTime? formatdate = DateTime.parse(dateformat);
-      // var datetime = format.parse(i.getDate());
-      var data = FeedChartData(amount: i.amount, date: formatdate);
+      var data = FeedChartData(feeddose: i.feeddose, date: i.date);
       charData.add(data);
       // print(formatdate);
     }

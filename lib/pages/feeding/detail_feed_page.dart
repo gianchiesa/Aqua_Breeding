@@ -1,6 +1,8 @@
 import 'package:fish/models/feed_chart_model.dart';
 import 'package:fish/pages/component/feed_month_card.dart';
 import 'package:fish/pages/feeding/feed_controller.dart';
+import 'package:fish/pages/pond/detail_pond_controller.dart';
+import 'package:fish/pages/pond/pond_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/pages/feeding/feed_entry_page.dart';
 import 'package:fish/theme.dart';
@@ -13,6 +15,8 @@ class DetailFeedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final FeedController controller = Get.put(FeedController());
+    final PondController pondController = Get.find();
+    final DetailPondController detailPondController = Get.find();
 
     Widget chartFeed() {
       return Container(
@@ -29,10 +33,13 @@ class DetailFeedPage extends StatelessWidget {
               position: LegendPosition.bottom,
               textStyle: TextStyle(color: Colors.white)),
           primaryXAxis: CategoryAxis(
+              interval: 1,
+              labelPlacement: LabelPlacement.onTicks,
+              labelRotation: 90,
               labelStyle: TextStyle(color: Colors.white),
-              autoScrollingDelta: 4),
+              autoScrollingDelta: 10),
           primaryYAxis: NumericAxis(
-              labelFormat: '{value}Kg',
+              labelFormat: '{value} g',
               // maximum: 100,
               // minimum: 0,
               labelStyle: TextStyle(color: Colors.white)),
@@ -41,8 +48,8 @@ class DetailFeedPage extends StatelessWidget {
                 enableTooltip: true,
                 color: Colors.blueAccent,
                 dataSource: controller.charData,
-                xValueMapper: (FeedChartData feed, _) => feed.getDate(),
-                yValueMapper: (FeedChartData feed, _) => feed.amount,
+                xValueMapper: (FeedChartData feed, _) => feed.date,
+                yValueMapper: (FeedChartData feed, _) => feed.feeddose,
                 name: 'Jumlah Pakan')
           ],
         ),
@@ -100,7 +107,7 @@ class DetailFeedPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "kolam ${controller.pond.alias}",
+                  "kolam ${pondController.selectedPond.value.alias}",
                   style: primaryTextStyle.copyWith(
                     fontSize: 18,
                     fontWeight: heavy,
@@ -127,8 +134,8 @@ class DetailFeedPage extends StatelessWidget {
         child: TextButton(
           onPressed: () {
             Get.to(() => FeedEntryPage(), arguments: {
-              "pond": controller.pond,
-              "activation": controller.activation
+              "pond": pondController.selectedPond.value.id,
+              "activation": detailPondController.selectedActivation.value.id,
             });
             controller.postDataLog(controller.fitur);
           },
@@ -309,8 +316,8 @@ class DetailFeedPage extends StatelessWidget {
             children: controller.list_feedHistoryMonthly
                 .map(
                   (feedHistoryMonthly) => FeedMonthCard(
-                      activation: controller.activation,
-                      pond: controller.pond,
+                      activation: detailPondController.selectedActivation.value,
+                      pond: pondController.selectedPond.value,
                       feedHistoryMonthly: feedHistoryMonthly),
                 )
                 .toList(),

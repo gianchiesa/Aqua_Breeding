@@ -579,12 +579,15 @@ class DetailBreedPage extends StatelessWidget {
               breedDataRecap(),
               detail(),
               fishChart(),
-              addFishButton(),
-              editFishButton(),
               controller.detailPondController.selectedActivation.value
                           .isFinish ==
                       false
-                  ? editButton()
+                  ? addFishButton()
+                  : Container(),
+              controller.detailPondController.selectedActivation.value
+                          .isFinish ==
+                      false
+                  ? editFishButton()
                   : Container(),
               controller.detailPondController.selectedActivation.value
                           .isFinish ==

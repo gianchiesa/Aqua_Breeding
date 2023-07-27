@@ -1,19 +1,19 @@
 import 'package:intl/intl.dart';
 
 class FeedChartData {
-  num? amount;
-  DateTime? date;
+  num? feeddose;
+  String? date;
 
   FeedChartData({
-    required this.amount,
+    required this.feeddose,
     required this.date,
   });
 
   factory FeedChartData.fromJson(Map<String, dynamic> json) {
     print(json);
     return FeedChartData(
-      amount: json["feed_dose"],
-      date: DateTime.tryParse(json['date']),
+      feeddose: double.parse(json["feed_dose"]),
+      date: json["date"],
     );
   }
 
@@ -25,5 +25,5 @@ class FeedChartData {
     return feedDatas;
   }
 
-  String getDate() => DateFormat('dd-MM-yyyy').format(date!);
+  // String getDate() => DateFormat('dd-MM-yyyy').format(date!);
 }
