@@ -2,6 +2,9 @@ import 'dart:developer';
 
 import 'package:fish/models/pond_model.dart';
 import 'package:fish/pages/component/activation_card.dart';
+import 'package:fish/pages/dailywater/daily_water_entry_page.dart';
+import 'package:fish/pages/feeding/feed_entry_page.dart';
+import 'package:fish/pages/fish/fish_death_entry_page.dart';
 import 'package:fish/pages/pond/activation_breed_controller.dart';
 import 'package:fish/pages/pond/activation_breed_page.dart';
 import 'package:fish/pages/pond/pond_controller.dart';
@@ -10,6 +13,7 @@ import 'package:fish/pages/pond/deactivation_breed_page.dart';
 import 'package:fish/pages/pond/detail_pond_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 
 import '../fish_transfer/fish_transfer_entry_page.dart';
@@ -22,7 +26,8 @@ class DetailPondPage extends StatefulWidget {
 }
 
 class _DetailPondPageState extends State<DetailPondPage> {
-  var detailController = Get.put(DetailPondController(), permanent: false);
+  final DetailPondController detailController = Get.put(DetailPondController());
+  final PondController pondController = Get.find();
   @override
   void initState() {
     super.initState();
@@ -380,6 +385,104 @@ class _DetailPondPageState extends State<DetailPondPage> {
                 ],
               ),
       ),
+      floatingActionButton: pondController.selectedPond.value.isActive == false
+          ? null
+          : SpeedDial(
+              icon: Icons.menu, //icon on Floating action button
+              activeIcon: Icons.close, //icon when menu is expanded on button
+              backgroundColor:
+                  Colors.deepOrangeAccent, //background color of button
+              foregroundColor: Colors.white, //font color, icon color in button
+              activeBackgroundColor: Colors
+                  .deepPurpleAccent, //background color when menu is expanded
+              activeForegroundColor: Colors.white,
+              visible: true,
+              closeManually: false,
+              curve: Curves.bounceIn,
+              overlayColor: Colors.black,
+              overlayOpacity: 0.5,
+              onOpen: () => print('OPENING DIAL'), // action when menu opens
+              onClose: () => print('DIAL CLOSED'), //action when menu closes
+
+              elevation: 8.0, //shadow elevation of button
+              shape: CircleBorder(), //shape of button
+
+              children: [
+                SpeedDialChild(
+                  //speed dial child
+                  child: Icon(Icons.add),
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                  label: 'Entry Pemberian Pakan',
+                  labelStyle: TextStyle(fontSize: 18.0),
+                  onTap: () {
+                    detailController.updateSelectedActivationToLastActivation();
+                    Get.to(() => FeedEntryPage(), arguments: {
+                      "pond": pondController.selectedPond.value,
+                      "activation": detailController.selectedActivation.value,
+                    });
+                  },
+                ),
+                SpeedDialChild(
+                  child: Icon(Icons.add),
+                  backgroundColor: Colors.blue,
+                  foregroundColor: Colors.white,
+                  label: 'Entry Kematian Ikan',
+                  labelStyle: TextStyle(fontSize: 18.0),
+                  onTap: () {
+                    detailController.updateSelectedActivationToLastActivation();
+                    Get.to(() => FishDeathEntryPage(), arguments: {
+                      "pond": pondController.selectedPond.value,
+                      "activation": detailController.selectedActivation.value,
+                    });
+                  },
+                ),
+                // SpeedDialChild(
+                //   child: Icon(Icons.add),
+                //   foregroundColor: Colors.white,
+                //   backgroundColor: Colors.green,
+                //   label: 'Entry Daily Treatment',
+                //   labelStyle: TextStyle(fontSize: 18.0),
+                //   onTap: () {},
+                //   // onTap: () {
+                //   //   detailController.updateSelectedActivationToLastActivation();
+                //   //   Get.to(() => DailyWaterEntryPage(), arguments: {
+                //   //     "pond": pondController.selectedPond.value,
+                //   //     "activation": detailController.selectedActivation.value,
+                //   //   });
+                //   // },
+                // ),
+                // SpeedDialChild(
+                //   child: Icon(Icons.add),
+                //   foregroundColor: Colors.white,
+                //   backgroundColor: Colors.yellow,
+                //   label: 'Entry Weekly Treatment',
+                //   labelStyle: TextStyle(fontSize: 18.0),
+                //   onTap: () => print('THIRD CHILD'),
+                //   onLongPress: () => print('THIRD CHILD LONG PRESS'),
+                // ),
+                // SpeedDialChild(
+                //   child: Icon(Icons.add),
+                //   foregroundColor: Colors.white,
+                //   backgroundColor: Colors.purple,
+                //   label: 'Entry Grading',
+                //   labelStyle: TextStyle(fontSize: 18.0),
+                //   onTap: () => print('THIRD CHILD'),
+                //   onLongPress: () => print('THIRD CHILD LONG PRESS'),
+                // ),
+                // SpeedDialChild(
+                //   child: Icon(Icons.add),
+                //   foregroundColor: Colors.white,
+                //   backgroundColor: Colors.pink,
+                //   label: 'Entry Sortir',
+                //   labelStyle: TextStyle(fontSize: 18.0),
+                //   onTap: () => print('THIRD CHILD'),
+                //   onLongPress: () => print('THIRD CHILD LONG PRESS'),
+                // ),
+
+                //add more menu item children here
+              ],
+            ),
     );
   }
 }
