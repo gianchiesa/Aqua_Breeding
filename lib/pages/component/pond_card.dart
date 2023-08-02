@@ -84,7 +84,7 @@ class PondCard extends StatelessWidget {
                         width: 10,
                       ),
                       Text(
-                        pond.getLastActivationDate(),
+                        pond.getLastActivationDateEYD(),
                         style: subtitleTextStyle.copyWith(
                           fontSize: 16,
                           fontWeight: regular,
@@ -287,51 +287,58 @@ class PondCard extends StatelessWidget {
                       ),
                     ],
                   ),
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
                   Row(
                     children: [
+                      Image.asset('assets/fish_transparent.png',
+                          width: 25, color: blackColor),
+                      SizedBox(
+                        width: 10,
+                      ),
                       Text(
-                        "Suhu:",
+                        pond.volume!.toStringAsFixed(2) + " m\u00B3",
                         style: subtitleTextStyle.copyWith(
                           fontSize: 16,
-                          fontWeight: heavy,
+                          fontWeight: regular,
                         ),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Image.asset('assets/fish_transparent.png',
+                          width: 25, color: blackColor),
                       SizedBox(
                         width: 10,
                       ),
-                      pond.status != "Aktif"
-                          ? Text(
-                              "-",
-                              style: subtitleTextStyle.copyWith(
-                                fontSize: 16,
-                                fontWeight: regular,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            )
-                          : pond.pondTemp == null
-                              ? Text(
-                                  "Belum Diukur",
-                                  style: subtitleTextStyle.copyWith(
-                                    fontSize: 16,
-                                    fontWeight: regular,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                )
-                              : Text(
-                                  "${pond.pondTemp} " + "°C",
-                                  style: subtitleTextStyle.copyWith(
-                                    fontSize: 16,
-                                    fontWeight: bold,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                ),
+                      Text(
+                        pond.getRatioVolumePerFishAlive() + " cm\u00B3 / Ekor",
+                        style: subtitleTextStyle.copyWith(
+                          fontSize: 16,
+                          fontWeight: regular,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),

@@ -106,6 +106,24 @@ class Pond {
     return parseDate;
   }
 
+  String getStringEydDate(String strDate) {
+    String result = '';
+    DateTime date = DateFormat("dd-MM-yyyy").parse(strDate);
+    result = DateFormat("dd MMMM yyyy").format(date);
+    return result;
+  }
+
+  String getLastActivationDateEYD() => getStringEydDate(lastActivationDate!);
+
+  String getRatioVolumePerFishAlive() {
+    try {
+      String result = (volume! * 1000000 / fishAlive!).toStringAsFixed(2);
+      return result;
+    } catch (e) {
+      return '';
+    }
+  }
+
   Color getColor() {
     PondStatus pondStatus = this.pondStatus;
     switch (pondStatus) {

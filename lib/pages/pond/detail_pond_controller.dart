@@ -23,6 +23,16 @@ class DetailPondController extends GetxController {
     super.onInit();
   }
 
+  void updateSelectedActivationToLastActivation() {
+    try {
+      selectedActivation.value =
+          activations.firstWhere((activation) => activation.isFinish == false);
+    } catch (e) {
+      selectedActivation = Rx<Activation>(
+          activations.firstWhere((activation) => activation.isFinish == false));
+    }
+  }
+
   void updateSelectedActivation(activationid) {
     try {
       selectedActivation.value =
