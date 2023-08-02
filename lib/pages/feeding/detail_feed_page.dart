@@ -136,8 +136,8 @@ class DetailFeedPage extends StatelessWidget {
         child: TextButton(
           onPressed: () {
             Get.to(() => FeedEntryPage(), arguments: {
-              "pond": pondController.selectedPond.value.id,
-              "activation": detailPondController.selectedActivation.value.id,
+              "pond": pondController.selectedPond.value,
+              "activation": detailPondController.selectedActivation.value,
             });
             controller.postDataLog(controller.fitur);
           },
