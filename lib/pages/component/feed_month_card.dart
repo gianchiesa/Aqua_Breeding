@@ -85,7 +85,7 @@ class FeedMonthCard extends StatelessWidget {
                       maxLines: 1,
                     ),
                     Text(
-                      "${feedHistoryMonthly!.totalFeedWeight} Kg",
+                      "${feedHistoryMonthly!.totalFeedWeight!.toStringAsFixed(2)} Kg",
                       style: secondaryTextStyle.copyWith(
                         fontSize: 14,
                         fontWeight: medium,

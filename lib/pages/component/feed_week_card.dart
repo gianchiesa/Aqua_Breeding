@@ -86,7 +86,7 @@ class FeedWeeklyCard extends StatelessWidget {
                       maxLines: 1,
                     ),
                     Text(
-                      "${feedHistoryWeekly!.totalFeedWeight} Kg",
+                      "${feedHistoryWeekly!.totalFeedWeight!.toStringAsFixed(2)} Kg",
                       style: secondaryTextStyle.copyWith(
                         fontSize: 14,
                         fontWeight: medium,
