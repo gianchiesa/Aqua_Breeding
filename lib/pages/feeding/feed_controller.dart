@@ -21,11 +21,13 @@ class FeedController extends GetxController {
 
   @override
   void onInit() async {
+    isLoading.value = true;
     print(detailPondController.selectedActivation.value.id);
-    getWeeklyRecapFeedHistory(
+    await getWeeklyRecapFeedHistory(
         activation_id: detailPondController.selectedActivation.value.id!);
-    getChartFeed(
+    await getChartFeed(
         activation_id: detailPondController.selectedActivation.value.id!);
+    isLoading.value = false;
 
     super.onInit();
   }
@@ -40,7 +42,6 @@ class FeedController extends GetxController {
   }
 
   Future<void> getChartFeed({required String activation_id}) async {
-    isLoading.value = true;
     charData.clear();
     List<FeedChartData> feedChart =
         await FeedHistoryService().getChart(activation_id: activation_id);
@@ -50,7 +51,6 @@ class FeedController extends GetxController {
       charData.add(data);
       // print(formatdate);
     }
-    isLoading.value = false;
   }
 
   final DateTime startTime = DateTime.now();

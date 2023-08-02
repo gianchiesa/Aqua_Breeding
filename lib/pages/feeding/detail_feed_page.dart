@@ -43,15 +43,17 @@ class DetailFeedPage extends StatelessWidget {
               // maximum: 100,
               // minimum: 0,
               labelStyle: TextStyle(color: Colors.white)),
-          series: <ChartSeries>[
-            LineSeries<FeedChartData, dynamic>(
-                enableTooltip: true,
-                color: Colors.blueAccent,
-                dataSource: controller.charData,
-                xValueMapper: (FeedChartData feed, _) => feed.date,
-                yValueMapper: (FeedChartData feed, _) => feed.feeddose,
-                name: 'Jumlah Pakan')
-          ],
+          series: controller.charData.isEmpty
+              ? <ChartSeries>[]
+              : <ChartSeries>[
+                  LineSeries<FeedChartData, dynamic>(
+                      enableTooltip: true,
+                      color: Colors.blueAccent,
+                      dataSource: controller.charData,
+                      xValueMapper: (FeedChartData feed, _) => feed.date,
+                      yValueMapper: (FeedChartData feed, _) => feed.feeddose,
+                      name: 'Jumlah Pakan')
+                ],
         ),
       );
     }
