@@ -3,6 +3,7 @@ import 'package:fish/models/FeedHistoryWeekly.dart';
 import 'package:fish/models/activation_model.dart';
 import 'package:fish/models/pond_model.dart';
 import 'package:fish/pages/feeding/detail_feed_weekly_page.dart';
+import 'package:fish/pages/feeding/feed_monthly_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fish/theme.dart';
@@ -13,8 +14,9 @@ class FeedWeeklyCard extends StatelessWidget {
   final Pond? pond;
   final FeedHistoryMonthly? feedHistoryMonthly;
   final FeedHistoryWeekly? feedHistoryWeekly;
+  FeedMonthlyController feedMonthlyController = Get.find();
 
-  const FeedWeeklyCard({
+  FeedWeeklyCard({
     Key? key,
     this.activation,
     this.pond,
@@ -26,12 +28,9 @@ class FeedWeeklyCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => DetailFeedWeeklyPage(), arguments: {
-          "activation": activation,
-          "pond": pond,
-          "feedHistoryMonthly": feedHistoryMonthly,
-          "feedHistoryWeekly": feedHistoryWeekly
-        });
+        feedMonthlyController
+            .updateSelectedFeedHistoryWeekly(feedHistoryWeekly!.week);
+        Get.to(() => DetailFeedWeeklyPage());
       },
       child: Container(
         width: double.infinity,

@@ -1,5 +1,10 @@
 import 'package:fish/pages/component/feed_hour_card.dart';
+import 'package:fish/pages/feeding/feed_controller.dart';
 import 'package:fish/pages/feeding/feed_daily_controller.dart';
+import 'package:fish/pages/feeding/feed_monthly_controller.dart';
+import 'package:fish/pages/feeding/feed_weekly_controller.dart';
+import 'package:fish/pages/pond/detail_pond_controller.dart';
+import 'package:fish/pages/pond/pond_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
 import 'package:get/get.dart';
@@ -9,6 +14,11 @@ class DetailFeedDailyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PondController pondController = Get.find();
+    final DetailPondController detailPondController = Get.find();
+    final FeedController feedController = Get.find();
+    final FeedMonthlyController feedMonthlyController = Get.find();
+    final FeedWeeklyController feedWeeklyController = Get.find();
     final FeedDailyController controller = Get.put(FeedDailyController());
 
     Widget feedDailyRecap() {
@@ -23,7 +33,7 @@ class DetailFeedDailyPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "kolam ${controller.pond.alias}",
+                  "kolam ${pondController.selectedPond.value.alias}",
                   style: primaryTextStyle.copyWith(
                     fontSize: 18,
                     fontWeight: heavy,
@@ -32,7 +42,7 @@ class DetailFeedDailyPage extends StatelessWidget {
                   maxLines: 1,
                 ),
                 Text(
-                  "Bulan ${controller.feedHistoryMonthly.getMonthNameFull()}",
+                  "Bulan ${feedController.selectedFeedHistoryMonthly.value.getMonthNameFull()}",
                   style: secondaryTextStyle.copyWith(
                     fontSize: 13,
                     fontWeight: medium,
@@ -41,7 +51,7 @@ class DetailFeedDailyPage extends StatelessWidget {
                   maxLines: 1,
                 ),
                 Text(
-                  "Minggu Ke-${controller.feedHistoryWeekly.week}",
+                  "Minggu Ke-${feedMonthlyController.selectedFeedHistoryWeekly.value.week}",
                   style: secondaryTextStyle.copyWith(
                     fontSize: 13,
                     fontWeight: medium,
@@ -50,7 +60,7 @@ class DetailFeedDailyPage extends StatelessWidget {
                   maxLines: 1,
                 ),
                 Text(
-                  "Hari ${controller.feedHistoryDaily.getDayName()}",
+                  "Hari ${feedWeeklyController.selectedFeedHistoryDaily.value.getDayName()}",
                   style: secondaryTextStyle.copyWith(
                     fontSize: 13,
                     fontWeight: medium,
@@ -285,11 +295,14 @@ class DetailFeedDailyPage extends StatelessWidget {
             children: controller.list_feedHistoryHourly
                 .map(
                   (feedHistoryHourly) => FeedHourCard(
-                    activation: controller.activation,
-                    pond: controller.pond,
-                    feedHistoryMonthly: controller.feedHistoryMonthly,
-                    feedHistoryWeekly: controller.feedHistoryWeekly,
-                    feedHistoryDaily: controller.feedHistoryDaily,
+                    activation: detailPondController.selectedActivation.value,
+                    pond: pondController.selectedPond.value,
+                    feedHistoryMonthly:
+                        feedController.selectedFeedHistoryMonthly.value,
+                    feedHistoryWeekly:
+                        feedMonthlyController.selectedFeedHistoryWeekly.value,
+                    feedHistoryDaily:
+                        feedWeeklyController.selectedFeedHistoryDaily.value,
                     feedHistoryHourly: feedHistoryHourly,
                   ),
                 )

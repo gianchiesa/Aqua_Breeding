@@ -12,7 +12,7 @@ class FeedMonthCard extends StatelessWidget {
   final Activation? activation;
   final Pond? pond;
   final FeedHistoryMonthly? feedHistoryMonthly;
-  final FeedController feedcontrol = Get.put(FeedController());
+  final FeedController feedController = Get.find();
 
   FeedMonthCard({
     Key? key,
@@ -25,12 +25,10 @@ class FeedMonthCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => DetailFeedMonthlyPage(), arguments: {
-          "activation": activation,
-          "pond": pond,
-          "feedHistoryMonthly": feedHistoryMonthly!,
-        });
-        feedcontrol.postDataLog("Feeding");
+        feedController
+            .updateSelectedFeedHistoryMonthly(feedHistoryMonthly!.date);
+        Get.to(() => DetailFeedMonthlyPage());
+        feedController.postDataLog("Feeding");
       },
       child: Container(
         width: double.infinity,

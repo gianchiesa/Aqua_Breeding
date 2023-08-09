@@ -1,5 +1,8 @@
 import 'package:fish/pages/component/feed_week_card.dart';
+import 'package:fish/pages/feeding/feed_controller.dart';
 import 'package:fish/pages/feeding/feed_monthly_controller.dart';
+import 'package:fish/pages/pond/detail_pond_controller.dart';
+import 'package:fish/pages/pond/pond_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
 import 'package:get/get.dart';
@@ -9,6 +12,9 @@ class DetailFeedMonthlyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PondController pondController = Get.find();
+    final DetailPondController detailPondController = Get.find();
+    final FeedController feedController = Get.find();
     final FeedMonthlyController controller = Get.put(FeedMonthlyController());
 
     Widget feedMonthlyDataRecap() {
@@ -23,7 +29,7 @@ class DetailFeedMonthlyPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "kolam ${controller.pond.alias}",
+                  "kolam ${pondController.selectedPond.value.alias}",
                   style: primaryTextStyle.copyWith(
                     fontSize: 18,
                     fontWeight: heavy,
@@ -32,7 +38,7 @@ class DetailFeedMonthlyPage extends StatelessWidget {
                   maxLines: 1,
                 ),
                 Text(
-                  "Bulan ${controller.feedHistoryMonthly.getMonthNameFull()}",
+                  "Bulan ${feedController.selectedFeedHistoryMonthly.value.getMonthNameFull()}",
                   style: secondaryTextStyle.copyWith(
                     fontSize: 13,
                     fontWeight: medium,
@@ -268,9 +274,10 @@ class DetailFeedMonthlyPage extends StatelessWidget {
             children: controller.list_feedHistoryWeekly
                 .map(
                   (feedHistoryWeekly) => FeedWeeklyCard(
-                      activation: controller.activation,
-                      pond: controller.pond,
-                      feedHistoryMonthly: controller.feedHistoryMonthly,
+                      activation: detailPondController.selectedActivation.value,
+                      pond: pondController.selectedPond.value,
+                      feedHistoryMonthly:
+                          feedController.selectedFeedHistoryMonthly.value,
                       feedHistoryWeekly: feedHistoryWeekly),
                 )
                 .toList(),

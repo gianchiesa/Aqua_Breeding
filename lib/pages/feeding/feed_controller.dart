@@ -11,13 +11,12 @@ import 'package:intl/intl.dart';
 import '../../service/logging_service.dart';
 
 class FeedController extends GetxController {
-  final charData = <FeedChartData>[].obs;
-  var isLoading = false.obs;
+  final isLoading = false.obs;
   final PondController pondController = Get.find();
   final DetailPondController detailPondController = Get.find();
-  // Activation activation = Get.arguments["activation"];
-  // Pond pond = Get.arguments["pond"];
+  final charData = <FeedChartData>[].obs;
   final list_feedHistoryMonthly = <FeedHistoryMonthly>[].obs;
+  late Rx<FeedHistoryMonthly> selectedFeedHistoryMonthly;
 
   @override
   void onInit() async {
@@ -40,6 +39,26 @@ class FeedController extends GetxController {
         .getMonthlyRecap(activation_id: activation_id);
     list_feedHistoryMonthly.addAll(feedHistoryMonthly);
     isLoading.value = false;
+  }
+
+  void updateSelectedFeedHistoryMonthly(dateFeedHistoryMonthly) {
+    try {
+      selectedFeedHistoryMonthly.value = list_feedHistoryMonthly.firstWhere(
+          (feedHistoryMonthly) =>
+              feedHistoryMonthly.date == dateFeedHistoryMonthly);
+    } catch (e) {
+      selectedFeedHistoryMonthly = Rx<FeedHistoryMonthly>(
+          list_feedHistoryMonthly.firstWhere((feedHistoryMonthly) =>
+              feedHistoryMonthly.date == dateFeedHistoryMonthly));
+    }
+  }
+
+  Future<void> updateListandFeedHistoryMonthly() async {
+    await getWeeklyRecapFeedHistory(
+        activation_id: detailPondController.selectedActivation.value.id!);
+    selectedFeedHistoryMonthly.value = list_feedHistoryMonthly.firstWhere(
+        (feedHistoryMonthly) =>
+            feedHistoryMonthly.date == selectedFeedHistoryMonthly.value.date);
   }
 
   Future<void> getChartFeed({required String activation_id}) async {

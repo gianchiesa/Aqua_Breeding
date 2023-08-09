@@ -137,4 +137,32 @@ class FeedHistoryService {
       return false;
     }
   }
+
+  Future<bool> putFeedHistory({
+    required String? feedHistoryId,
+    required String? feedDose,
+  }) async {
+    print({
+      "feedHistorId": feedHistoryId,
+      "feed_dose": feedDose,
+    });
+    final response = await http.put(
+      Uri.parse(Urls.feedhistorybyid(feedHistoryId)),
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      encoding: Encoding.getByName('utf-8'),
+      body: {
+        "feed_dose": feedDose,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      print(response.body);
+      return true;
+    } else {
+      print(response.body);
+      return false;
+    }
+  }
 }

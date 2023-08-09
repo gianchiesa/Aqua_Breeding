@@ -4,9 +4,12 @@ import 'package:fish/models/FeedHistoryMonthly.dart';
 import 'package:fish/models/FeedHistoryWeekly.dart';
 import 'package:fish/models/activation_model.dart';
 import 'package:fish/models/pond_model.dart';
+import 'package:fish/pages/feeding/feed_daily_controller.dart';
+import 'package:fish/pages/feeding/update_feedHistory_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fish/theme.dart';
+import 'package:get/get.dart';
 
 class FeedHourCard extends StatelessWidget {
   final Activation? activation;
@@ -28,8 +31,13 @@ class FeedHourCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final FeedDailyController feedDailyController = Get.find();
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        feedDailyController
+            .updateSelectedFeedHistoryHourly(feedHistoryHourly!.date);
+        Get.to(() => UpdateFeedHistory());
+      },
       child: Container(
         width: double.infinity,
         margin: EdgeInsets.only(
