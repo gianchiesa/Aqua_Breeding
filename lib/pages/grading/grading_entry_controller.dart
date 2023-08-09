@@ -8,15 +8,15 @@ import '../../models/activation_model.dart';
 import '../../service/logging_service.dart';
 
 class GradingEntryController extends GetxController {
-  TextEditingController fishWeightController = TextEditingController(text: '');
-  TextEditingController undersizeController = TextEditingController(text: '');
-  TextEditingController oversizeController = TextEditingController(text: '');
-  TextEditingController normalsizeController = TextEditingController(text: '');
-  TextEditingController fishLengthAvgController =
-      TextEditingController(text: '');
+  FishTypeController fishTypeController = FishTypeController();
   TextEditingController sampleAmountController =
       TextEditingController(text: '');
-  FishTypeController fishTypeController = FishTypeController();
+  TextEditingController fishWeightController = TextEditingController(text: '');
+  TextEditingController fishLengthAvgController =
+      TextEditingController(text: '0');
+  TextEditingController normalsizeController = TextEditingController(text: '0');
+  TextEditingController undersizeController = TextEditingController(text: '0');
+  TextEditingController oversizeController = TextEditingController(text: '0');
   var isLoading = false.obs;
   Pond pond = Get.arguments['pond'];
   Activation activation = Get.arguments["activation"];
@@ -96,6 +96,32 @@ class GradingEntryController extends GetxController {
 
   void valnormal() {
     validatenormal.value = true;
+  }
+
+  Map<String, dynamic> validationInput() {
+    Map<String, dynamic> result = {
+      'isValid': false,
+      'message': '',
+    };
+    if (fishTypeController.selected == 'Pilih Ikan') {
+      result['isValid'] = false;
+      result['message'] = "Pilih jenis ikan";
+      return result;
+    }
+    if (sampleAmountController.text.isEmpty ||
+        sampleAmountController.text == 0) {
+      result['isValid'] = false;
+      result['message'] = "Isi jumlah sample dengan angka > 0";
+      return result;
+    }
+    if (fishWeightController.text.isEmpty || fishWeightController.text == 0) {
+      result['isValid'] = false;
+      result['message'] = "Isi berat rata-rata ikan dengan angka > 0";
+      return result;
+    }
+    result['isValid'] = true;
+    result['message'] = "Isian sudah benar";
+    return result;
   }
 
   Future<void> postFishGrading() async {

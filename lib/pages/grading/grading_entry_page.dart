@@ -356,19 +356,33 @@ class GradingEntryPage extends StatelessWidget {
             top: defaultSpace, right: defaultMargin, left: defaultMargin),
         child: TextButton(
           onPressed: () async {
-            controller.fishWeightController.text == "" ||
-                    controller.sampleAmountController.text == "" ||
-                    controller.fishTypeController.selected.value == "pilih ikan"
-                ? null
-                : Navigator.pop(context);
-            controller.postFishGrading();
-            gradingcontroller.getFishGrading(
-                activation_id: controller.activation.id.toString());
-            gradingcontroller.getFishGradingChart(
-                activation_id: controller.activation.id.toString());
-            // print(gradingcontroller.charData);
-
-            controller.postDataLog(controller.fitur);
+            Map<String, dynamic> result = controller.validationInput();
+            if (result['isValid'] == false) {
+              Get.snackbar('Input Salah', result['message'],
+                  titleText: Text(
+                    'Input Salah',
+                    style: alertTextStyle.copyWith(
+                      fontSize: 16,
+                      fontWeight: medium,
+                    ),
+                  ),
+                  messageText: Text(
+                    result['message'],
+                    style: primaryTextStyle.copyWith(
+                      fontSize: 16,
+                      fontWeight: medium,
+                    ),
+                  ),
+                  backgroundColor: backgroundColor1);
+            } else {
+              await controller.postFishGrading();
+              // update chart
+              await gradingcontroller.getFishGradingChart(
+                  activation_id: controller.activation.id.toString());
+              // update list
+              await controller.postDataLog(controller.fitur);
+              Get.back();
+            }
           },
           style: TextButton.styleFrom(
             backgroundColor: primaryColor,
