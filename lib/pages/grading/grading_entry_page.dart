@@ -380,6 +380,8 @@ class GradingEntryPage extends StatelessWidget {
               await gradingcontroller.getFishGradingChart(
                   activation_id: controller.activation.id.toString());
               // update list
+              await gradingcontroller.getFishGrading(
+                  activation_id: controller.activation.id.toString());
               await controller.postDataLog(controller.fitur);
               Get.back();
             }
