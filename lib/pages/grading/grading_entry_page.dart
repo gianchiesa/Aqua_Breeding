@@ -204,7 +204,7 @@ class GradingEntryPage extends StatelessWidget {
                     FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
                   ],
                   keyboardType: TextInputType.number,
-                  controller: controller.normalsizeController,
+                  controller: controller.fishLengthAvgController,
                   decoration: InputDecoration.collapsed(
                       hintText: 'ex: 23', hintStyle: subtitleTextStyle),
                 )),
@@ -249,7 +249,7 @@ class GradingEntryPage extends StatelessWidget {
                     FilteringTextInputFormatter.digitsOnly
                   ],
                   keyboardType: TextInputType.number,
-                  controller: controller.normalsizeController,
+                  controller: controller.undersizeController,
                   decoration: InputDecoration.collapsed(
                       hintText: 'ex: 23', hintStyle: subtitleTextStyle),
                 )),
@@ -294,7 +294,7 @@ class GradingEntryPage extends StatelessWidget {
                     FilteringTextInputFormatter.digitsOnly
                   ],
                   keyboardType: TextInputType.number,
-                  controller: controller.normalsizeController,
+                  controller: controller.oversizeController,
                   decoration: InputDecoration.collapsed(
                       hintText: 'ex: 4', hintStyle: subtitleTextStyle),
                 )),

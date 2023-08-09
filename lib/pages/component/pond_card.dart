@@ -84,7 +84,9 @@ class PondCard extends StatelessWidget {
                         width: 10,
                       ),
                       Text(
-                        pond.getLastActivationDateEYD(),
+                        pond.lastActivationDate != '-'
+                            ? pond.getLastActivationDateEYD()
+                            : "-",
                         style: subtitleTextStyle.copyWith(
                           fontSize: 16,
                           fontWeight: regular,
@@ -118,13 +120,11 @@ class PondCard extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                             )
-                          : pond.pondPhDesc == null
+                          : pond.pondPh == null
                               ? Text(
                                   "Belum Diukur",
-                                  style: subtitleTextStyle.copyWith(
-                                      fontSize: 16,
-                                      fontWeight: bold,
-                                      color: Colors.green),
+                                  style:
+                                      subtitleTextStyle.copyWith(fontSize: 16),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                 )
@@ -209,13 +209,12 @@ class PondCard extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                             )
-                          : pond.pondDoDesc == null
+                          : pond.pondDo == null
                               ? Text(
                                   "Belum Diukur",
                                   style: subtitleTextStyle.copyWith(
-                                      fontSize: 16,
-                                      fontWeight: bold,
-                                      color: Colors.green),
+                                    fontSize: 16,
+                                  ),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                 )
@@ -297,8 +296,11 @@ class PondCard extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Image.asset('assets/fish_transparent.png',
-                          width: 25, color: blackColor),
+                      Image.asset(
+                        'assets/pond_secondary.png',
+                        width: 25,
+                        color: Colors.black,
+                      ),
                       SizedBox(
                         width: 10,
                       ),

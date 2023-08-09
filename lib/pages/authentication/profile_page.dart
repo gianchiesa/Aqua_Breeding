@@ -253,41 +253,5 @@ class ProfilePage extends StatelessWidget {
         );
       }
     });
-    // return Scaffold(
-    //     appBar: AppBar(
-    //       backgroundColor: backgroundColor2,
-    //       title: const Text("Entry Sortir"),
-    //     ),
-    //     backgroundColor: backgroundColor1,
-    //     body: PageView(
-    //       physics: const NeverScrollableScrollPhysics(),
-    //       controller: pageController,
-    //       children: [
-    //         ListView(
-    //           children: [
-    //             SizedBox(
-    //               height: 10,
-    //             ),
-    //             footer(),
-    //             formInput(),
-    //             SizedBox(
-    //               height: 10,
-    //             ),
-    //           ],
-    //         ),
-    //         ListView(
-    //           children: [
-    //             SizedBox(
-    //               height: 10,
-    //             ),
-    //             footer(),
-    //             formInput(),
-    //             SizedBox(
-    //               height: 10,
-    //             ),
-    //           ],
-    //         ),
-    //       ],
-    //     ));
   }
 }

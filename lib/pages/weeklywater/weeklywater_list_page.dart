@@ -21,10 +21,6 @@ class _WeeklyWaterPageState extends State<WeeklyWaterPage> {
   @override
   void initState() {
     super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-    //   await controller.getPondActivations(
-    //       pondId: controller.pond.id.toString());
-    // });
     controller.getWeeklyWaterData(context);
   }
 

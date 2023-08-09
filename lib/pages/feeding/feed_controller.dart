@@ -39,6 +39,7 @@ class FeedController extends GetxController {
     List<FeedHistoryMonthly> feedHistoryMonthly = await FeedHistoryService()
         .getMonthlyRecap(activation_id: activation_id);
     list_feedHistoryMonthly.addAll(feedHistoryMonthly);
+    isLoading.value = false;
   }
 
   Future<void> getChartFeed({required String activation_id}) async {

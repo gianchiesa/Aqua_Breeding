@@ -50,12 +50,4 @@ class Treatment {
     String newStringDate = DateFormat("dd-MM-yyyy").format(dateTime);
     return newStringDate;
   }
-
-  // static List<Treatment> fromJsonList(List<dynamic> list) {
-  //   List<Treatment> treatmentList = [];
-  //   for (var item in list) {
-  //     treatmentList.add(Treatment.fromJson(item));
-  //   }
-  //   return treatmentList;
-  // }
 }

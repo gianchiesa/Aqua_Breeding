@@ -234,42 +234,4 @@ class FishTransferService {
       return false;
     }
   }
-
-  // Future<bool> postPondTreatmentBerat(
-  //     {required String? pondId,
-  //     String? type,
-  //     String? desc,
-  //     required num? total_fish_harvested,
-  //     required num? total_weight_harvested,
-  //     List? fish_harvested,
-  //     bool? isFinish}) async {
-  //   print({
-  //     "pond_id": pondId.toString(),
-  //     "treatment_type": type,
-  //     "description": desc,
-  //   });
-  //   final response = await http.post(
-  //     Uri.parse(Urls.treatment),
-  //     headers: {
-  //       "Content-Type": "application/x-www-form-urlencoded",
-  //     },
-  //     encoding: Encoding.getByName('utf-8'),
-  //     body: {
-  //       "pond_id": pondId,
-  //       "treatment_type": type,
-  //       "description": desc.toString(),
-  //       "total_weight_harvested": total_weight_harvested.toString(),
-  //       "total_fish_harvested": total_fish_harvested.toString(),
-  //       "fish": fish_harvested.toString()
-  //     },
-  //   );
-
-  //   if (response.statusCode == 200) {
-  //     print(response.body);
-  //     return true;
-  //   } else {
-  //     print(response.body);
-  //     return false;
-  //   }
-  // }
 }

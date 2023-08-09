@@ -104,10 +104,18 @@ class GradingEntryController extends GetxController {
       fishType: fishTypeController.selected.value,
       samplingAmount: sampleAmountController.value.text,
       avgFishWeight: fishWeightController.value.text,
-      avgFishLong: fishLengthAvgController.value.text,
-      amountNormal: normalsizeController.value.text,
-      amountOver: oversizeController.value.text,
-      amountUnder: undersizeController.value.text,
+      avgFishLong: fishLengthAvgController.value.text.isEmpty
+          ? '0'
+          : fishLengthAvgController.value.text,
+      amountNormal: normalsizeController.value.text.isEmpty
+          ? '0'
+          : normalsizeController.value.text,
+      amountOver: oversizeController.value.text.isEmpty
+          ? '0'
+          : oversizeController.value.text,
+      amountUnder: undersizeController.value.text.isEmpty
+          ? '0'
+          : undersizeController.value.text,
     );
     print(value);
   }

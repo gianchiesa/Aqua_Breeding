@@ -32,7 +32,7 @@ class PondService {
       }
 
       print(ponds);
-
+      print("ini ponds data $ponds");
       return ponds;
     } else {
       throw Exception(e);

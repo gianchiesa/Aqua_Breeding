@@ -24,10 +24,6 @@ class _TreatmentEntryPageState extends State<TreatmentEntryPage> {
       Get.put(TreatmentController());
   void initState() {
     super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-    //   await controller.getPondActivations(
-    //       pondId: controller.pond.id.toString());
-    // });
     controller.getHarvestedBool(controller.activation);
   }
 
@@ -384,51 +380,6 @@ class _TreatmentEntryPageState extends State<TreatmentEntryPage> {
       );
     }
 
-    // Widget carbonTypeInput() {
-    //   return Container(
-    //     margin: EdgeInsets.only(
-    //         top: defaultSpace, right: defaultMargin, left: defaultMargin),
-    //     child: Column(
-    //       crossAxisAlignment: CrossAxisAlignment.start,
-    //       children: [
-    //         Text(
-    //           'Jenis Karbon',
-    //           style: primaryTextStyle.copyWith(
-    //             fontSize: 16,
-    //             fontWeight: medium,
-    //           ),
-    //         ),
-    //         SizedBox(
-    //           height: 12,
-    //         ),
-    //         Container(
-    //           height: 50,
-    //           padding: EdgeInsets.symmetric(
-    //             horizontal: 16,
-    //           ),
-    //           decoration: BoxDecoration(
-    //             color: backgroundColor2,
-    //             borderRadius: BorderRadius.circular(12),
-    //           ),
-    //           child: Center(
-    //             child: TextFormField(
-    //               style: primaryTextStyle,
-    //               inputFormatters: <TextInputFormatter>[
-    //                 FilteringTextInputFormatter.digitsOnly
-    //               ],
-    //               controller: controller.carbonTypeController,
-    //               decoration: InputDecoration.collapsed(
-    //                 hintText: 'ex: molase',
-    //                 hintStyle: subtitleTextStyle,
-    //               ),
-    //             ),
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //   );
-    // }
-
     Widget carbonTypeInput() {
       return Container(
         margin: EdgeInsets.only(
@@ -479,98 +430,6 @@ class _TreatmentEntryPageState extends State<TreatmentEntryPage> {
         ),
       );
     }
-
-    // Widget widthInput() {
-    //   return Container(
-    //     margin: EdgeInsets.only(
-    //         top: defaultSpace, right: defaultMargin, left: defaultMargin),
-    //     child: Column(
-    //       crossAxisAlignment: CrossAxisAlignment.start,
-    //       children: [
-    //         Text(
-    //           'Lebar (meter)',
-    //           style: primaryTextStyle.copyWith(
-    //             fontSize: 16,
-    //             fontWeight: medium,
-    //           ),
-    //         ),
-    //         SizedBox(
-    //           height: 12,
-    //         ),
-    //         Container(
-    //           height: 50,
-    //           padding: EdgeInsets.symmetric(
-    //             horizontal: 16,
-    //           ),
-    //           decoration: BoxDecoration(
-    //             color: backgroundColor2,
-    //             borderRadius: BorderRadius.circular(12),
-    //           ),
-    //           child: Center(
-    //             child: TextFormField(
-    //               style: primaryTextStyle,
-    //               inputFormatters: <TextInputFormatter>[
-    //                 FilteringTextInputFormatter.digitsOnly
-    //               ],
-    //               keyboardType: TextInputType.number,
-    //               controller: controller.widthController,
-    //               decoration: InputDecoration.collapsed(
-    //                 hintText: 'ex: 2',
-    //                 hintStyle: subtitleTextStyle,
-    //               ),
-    //             ),
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //   );
-    // }
-
-    // Widget diameterInput() {
-    //   return Container(
-    //     margin: EdgeInsets.only(
-    //         top: defaultSpace, right: defaultMargin, left: defaultMargin),
-    //     child: Column(
-    //       crossAxisAlignment: CrossAxisAlignment.start,
-    //       children: [
-    //         Text(
-    //           'Diameter (meter)',
-    //           style: primaryTextStyle.copyWith(
-    //             fontSize: 16,
-    //             fontWeight: medium,
-    //           ),
-    //         ),
-    //         SizedBox(
-    //           height: 12,
-    //         ),
-    //         Container(
-    //           height: 50,
-    //           padding: EdgeInsets.symmetric(
-    //             horizontal: 16,
-    //           ),
-    //           decoration: BoxDecoration(
-    //             color: backgroundColor2,
-    //             borderRadius: BorderRadius.circular(12),
-    //           ),
-    //           child: Center(
-    //             child: TextFormField(
-    //               style: primaryTextStyle,
-    //               inputFormatters: <TextInputFormatter>[
-    //                 FilteringTextInputFormatter.digitsOnly
-    //               ],
-    //               keyboardType: TextInputType.number,
-    //               controller: controller.diameterController,
-    //               decoration: InputDecoration.collapsed(
-    //                 hintText: 'ex: 2',
-    //                 hintStyle: subtitleTextStyle,
-    //               ),
-    //             ),
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //   );
-    // }
 
     Widget submitButton() {
       return Container(
@@ -646,22 +505,6 @@ class _TreatmentEntryPageState extends State<TreatmentEntryPage> {
         ),
       );
     }
-
-    // Widget persegiInput() {
-    //   return Container(
-    //       child: Column(
-    //     crossAxisAlignment: CrossAxisAlignment.start,
-    //     children: [widthInput(), lengthInput()],
-    //   ));
-    // }
-
-    // Widget bundarInput() {
-    //   return Container(
-    //       child: Column(
-    //     crossAxisAlignment: CrossAxisAlignment.start,
-    //     children: [diameterInput()],
-    //   ));
-    // }
 
     return Obx(() {
       if (controller.isLoading.value == false) {

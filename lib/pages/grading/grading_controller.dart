@@ -74,7 +74,7 @@ class GradingController extends GetxController {
     List<FishGrading> feedHistoryMonthly = await FishGradingService()
         .fetchFishGradings(activationId: activation_id);
     list_fishGrading.addAll(feedHistoryMonthly);
-    // isLoading.value = false;
+    isLoading.value = false;
   }
 
   final DateTime startTime = DateTime.now();

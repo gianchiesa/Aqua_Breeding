@@ -2524,7 +2524,10 @@ class _NewFishTransferEntryPageState extends State<NewFishTransferEntryPage> {
           fishDeath: controller.buildFishDeath(transferList),
           ctx: context);
       fishTransferController.getTransfertData(context);
+
       await pondController.updateListandSelectedPond();
+      // fishTransferController.getTransfertData(context);
+
       Get.back();
     }
   }
