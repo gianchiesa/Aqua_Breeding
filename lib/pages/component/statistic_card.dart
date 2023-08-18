@@ -48,7 +48,7 @@ class StatisticCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      this.value!.toString(),
+                      this.value!.toStringAsFixed(0),
                       style: blackTextStyle.copyWith(
                         fontSize: 30,
                         fontWeight: FontWeight.w900,

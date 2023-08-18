@@ -65,7 +65,7 @@ class DailyWaterCardAvg extends StatelessWidget {
                     width: 10,
                   ),
                   Text(
-                    sol['ph'].toString(),
+                    sol['ph'].toStringAsFixed(2),
                     style: subtitleTextStyle.copyWith(
                       fontSize: 16,
                       fontWeight: heavy,

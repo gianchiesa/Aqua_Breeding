@@ -161,7 +161,7 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Panjang Sample (cm)',
+              'Panjang Sample (cm) (optional)',
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -1207,7 +1207,7 @@ class _NewFishTransferInputPageState extends State<NewFishTransferInputPage> {
                 child: TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
                   ],
                   keyboardType: TextInputType.number,
                   controller: controller.waterHeightController,

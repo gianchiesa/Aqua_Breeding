@@ -2075,18 +2075,40 @@ class _NewFishTransferEntryPageState extends State<NewFishTransferEntryPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Berat Rata-rata Ikan (Kg)',
-              style: primaryTextStyle.copyWith(
-                fontSize: 16,
-                fontWeight: medium,
-              ),
+            Row(
+              children: [
+                Text(
+                  'Berat Rata-rata Ikan (Kg)',
+                  style: primaryTextStyle.copyWith(
+                    fontSize: 16,
+                    fontWeight: medium,
+                  ),
+                ),
+                SizedBox(width: 10),
+                TextButton(
+                  onPressed: () => controller.calculateAvgWeightFish(),
+                  style: TextButton.styleFrom(
+                    backgroundColor: primaryColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: Text(
+                    'Hitung',
+                    style: primaryTextStyle.copyWith(
+                      fontSize: 16,
+                      fontWeight: medium,
+                    ),
+                  ),
+                )
+              ],
             ),
             SizedBox(
               height: 12,
             ),
             Container(
               height: 50,
+              width: double.infinity,
               padding: EdgeInsets.symmetric(
                 horizontal: 16,
               ),
@@ -2432,8 +2454,8 @@ class _NewFishTransferEntryPageState extends State<NewFishTransferEntryPage> {
                 destinationPond(),
                 totalFishInput(),
                 totalWeightInput(),
-                sampleAmountInput(),
                 fishWightInput(),
+                sampleAmountInput(),
                 fishLengthAvgInput(),
                 normalsizeInput(),
                 undersizeInput(),

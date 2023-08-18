@@ -234,6 +234,33 @@ class _DetailPondPageState extends State<DetailPondPage> {
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Volume Air",
+                  style: primaryTextStyle.copyWith(
+                    fontSize: 14,
+                    fontWeight: medium,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+                Text(
+                  detailController.pondController.selectedPond.value.isActive ==
+                          true
+                      ? detailController
+                              .pondController.selectedPond.value.waterVolume!
+                              .toStringAsFixed(2) +
+                          " Liter"
+                      : "-",
+                  style: secondaryTextStyle.copyWith(
+                    fontSize: 13,
+                    fontWeight: medium,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
               ],
             ),
             Column(
@@ -276,6 +303,39 @@ class _DetailPondPageState extends State<DetailPondPage> {
                       : "${detailController.pondController.selectedPond.value.diameter}m\u00B2",
                   style: secondaryTextStyle.copyWith(
                     fontSize: 13,
+                    fontWeight: medium,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  detailController.pondController.selectedPond.value.isActive ==
+                          true
+                      ? "Ph " +
+                          detailController
+                              .pondController.selectedPond.value.pondPh!
+                              .toStringAsFixed(1)
+                      : "pH -",
+                  style: primaryTextStyle.copyWith(
+                    fontSize: 14,
+                    fontWeight: medium,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+                Text(
+                  detailController.pondController.selectedPond.value.isActive ==
+                          true
+                      ? "Do " +
+                          detailController
+                              .pondController.selectedPond.value.pondDo!
+                              .toStringAsFixed(1)
+                      : "Do -",
+                  style: primaryTextStyle.copyWith(
+                    fontSize: 14,
                     fontWeight: medium,
                   ),
                   overflow: TextOverflow.ellipsis,
@@ -388,7 +448,7 @@ class _DetailPondPageState extends State<DetailPondPage> {
       floatingActionButton: pondController.selectedPond.value.isActive == false
           ? null
           : SpeedDial(
-              icon: Icons.menu, //icon on Floating action button
+              icon: Icons.add, //icon on Floating action button
               activeIcon: Icons.close, //icon when menu is expanded on button
               backgroundColor:
                   Colors.deepOrangeAccent, //background color of button

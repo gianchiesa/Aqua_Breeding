@@ -35,6 +35,8 @@ class Pond {
   String? pondDoDesc;
   num? pondDo;
   num? pondTemp;
+  num? waterLevel;
+  num? waterVolume;
   String? status;
 
   Pond({
@@ -63,6 +65,8 @@ class Pond {
     this.pondDo,
     this.pondDoDesc,
     this.pondTemp,
+    this.waterLevel = 0,
+    this.waterVolume = 0,
     this.status,
   });
 
@@ -98,6 +102,8 @@ class Pond {
         pondDo: json["pondDo"],
         pondDoDesc: json["pondDoDesc"],
         pondTemp: json["pondTemp"],
+        waterLevel: json["water_level"],
+        waterVolume: json["water_volume"],
         status: json["status"]);
   }
 
@@ -117,7 +123,7 @@ class Pond {
 
   String getRatioVolumePerFishAlive() {
     try {
-      String result = (volume! * 1000000 / fishAlive!).toStringAsFixed(2);
+      String result = (waterLevel! * 1000 / fishAlive!).toStringAsFixed(2);
       return result;
     } catch (e) {
       return '';

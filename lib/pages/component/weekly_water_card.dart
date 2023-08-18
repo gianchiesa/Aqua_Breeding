@@ -83,7 +83,7 @@ class WeeklyWaterCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "floc",
+                      "Flok",
                       style: primaryTextStyle.copyWith(
                         fontSize: 16,
                         fontWeight: bold,
@@ -103,35 +103,6 @@ class WeeklyWaterCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                     ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 40,
-                      width: 80,
-                      // margin: EdgeInsets.only(
-                      //     top: defaultMargin,
-                      //     right: defaultMargin,
-                      //     left: defaultMargin),
-                      child: TextButton(
-                        onPressed: () {},
-                        style: TextButton.styleFrom(
-                          backgroundColor: primaryColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                        child: Text(
-                          'Detail',
-                          style: primaryTextStyle.copyWith(
-                            fontSize: 16,
-                            fontWeight: medium,
-                          ),
-                        ),
-                      ),
-                    )
                   ],
                 ),
               ],

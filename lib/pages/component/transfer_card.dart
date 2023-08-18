@@ -47,6 +47,7 @@ class TransferCard extends StatelessWidget {
           color: transparentColor,
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -108,74 +109,45 @@ class TransferCard extends StatelessWidget {
                           )
                   ],
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Jenis Ikan",
-                      style: primaryTextStyle.copyWith(
-                        fontSize: 14,
-                        fontWeight: bold,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
-                    // Container(
-                    //   width: double.infinity,
-                    //   height: double.infinity,
-                    //   child: Column(
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     crossAxisAlignment: CrossAxisAlignment.center,
-                    //     children: [
-                    //       ListView(
-                    //         shrinkWrap: true,
-                    //         children: fish.map((e) {
-                    //           return Text(
-                    //             "${e.type}: ${e.amount!.abs().toString()}",
-                    //             style: secondaryTextStyle.copyWith(
-                    //               fontSize: 14,
-                    //               fontWeight: medium,
-                    //             ),
-                    //             overflow: TextOverflow.ellipsis,
-                    //             maxLines: 1,
-                    //           );
-                    //         }).toList(),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // )
-                    SizedBox(
-                      height: fish.length * 24,
-                      width: MediaQuery.of(context).size.width / 4,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          ListView(
-                            shrinkWrap: true,
-                            children: fish.map((e) {
-                              return Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "${e.type}: ${e.amount!.abs().toString()}",
-                                    style: secondaryTextStyle.copyWith(
-                                      fontSize: 14,
-                                      fontWeight: medium,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                  ),
-                                ],
-                              );
-                            }).toList(),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
               ],
             ),
+            SizedBox(
+              height: 10,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  "Jenis Ikan",
+                  style: primaryTextStyle.copyWith(
+                    fontSize: 14,
+                    fontWeight: bold,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+                ListView(
+                  shrinkWrap: true,
+                  children: fish.map((e) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          "${e.type}: ${e.amount!.abs().toString()}",
+                          style: secondaryTextStyle.copyWith(
+                            fontSize: 14,
+                            fontWeight: medium,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                      ],
+                    );
+                  }).toList(),
+                )
+              ],
+            )
           ],
         ),
       ),

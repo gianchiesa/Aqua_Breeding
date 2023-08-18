@@ -34,6 +34,26 @@ class FishDeathEntryController extends GetxController {
     getFish();
   }
 
+  Map<String, dynamic> validationInput() {
+    Map<String, dynamic> result = {
+      'isValid': false,
+      'message': '',
+    };
+    if (fishTypeController.selected == 'pilih ikan') {
+      result['isValid'] = false;
+      result['message'] = "Pilih jenis ikan";
+      return result;
+    }
+    if (formDeathController.text.isEmpty || formDeathController.text == 0) {
+      result['isValid'] = false;
+      result['message'] = "Isi jumlah sample dengan angka > 0";
+      return result;
+    }
+    result['isValid'] = true;
+    result['message'] = "Isian sudah benar";
+    return result;
+  }
+
   void fishamountChanged(String val) {
     fishamount.value = val;
   }

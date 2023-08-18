@@ -120,7 +120,7 @@ class HomePage extends StatelessWidget {
                         title: 'Total Pakan',
                         value: double.parse(controller
                             .statistic.value.total_feed_dose!
-                            .toStringAsFixed(1)),
+                            .toStringAsFixed(0)),
                         unit: 'Kg',
                       )),
                 ],

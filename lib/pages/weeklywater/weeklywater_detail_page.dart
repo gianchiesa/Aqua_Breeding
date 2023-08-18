@@ -156,7 +156,7 @@ class WeeklyWaterDetailPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Floc",
+                  "Flok",
                   style: primaryTextStyle.copyWith(
                     fontSize: 18,
                     fontWeight: medium,

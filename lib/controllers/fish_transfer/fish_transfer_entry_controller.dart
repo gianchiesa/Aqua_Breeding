@@ -80,7 +80,7 @@ class FishTransferEntryController extends GetxController {
   TextEditingController sampleWeightController =
       TextEditingController(text: '');
 
-  TextEditingController sampleLongController = TextEditingController(text: '');
+  TextEditingController sampleLongController = TextEditingController(text: '0');
   TextEditingController nilaMerahAmountController =
       TextEditingController(text: '');
 
@@ -251,6 +251,17 @@ class FishTransferEntryController extends GetxController {
     print(pondIdSelected);
     print(pondSelected);
     isLoading.value = false;
+  }
+
+  void calculateAvgWeightFish() {
+    double result = 0;
+    try {
+      result = double.parse(totalAmountDeactivationController.text) /
+          double.parse(totalWeightDeactivationController.text);
+      fishWeightController.text = result.toString();
+    } catch (e) {
+      fishWeightController.text = result.toString();
+    }
   }
 
   Future<void> postFishTransferBasah(

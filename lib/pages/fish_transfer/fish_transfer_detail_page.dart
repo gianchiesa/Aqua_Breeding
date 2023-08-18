@@ -207,7 +207,7 @@ class DetailSortirPage extends StatelessWidget {
                 ),
                 SizedBox(
                   height: controller.sortir.fishTransfer!.length * 24,
-                  width: MediaQuery.of(context).size.width / 4,
+                  width: MediaQuery.of(context).size.width / 2,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [

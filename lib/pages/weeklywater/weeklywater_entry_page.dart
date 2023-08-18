@@ -24,7 +24,7 @@ class WeeklyWaterEntryPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'ammonia Air',
+              'ammonia Air (mg/L)',
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -70,7 +70,7 @@ class WeeklyWaterEntryPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Floc Air',
+              'Flok Air',
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -116,7 +116,7 @@ class WeeklyWaterEntryPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Kadar Nitrit',
+              'Kadar Nitrit (mg/L)',
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -162,7 +162,7 @@ class WeeklyWaterEntryPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Kadar Nitrat',
+              'Kadar Nitrat (mg/L)',
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -208,7 +208,7 @@ class WeeklyWaterEntryPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Nilai Hardness',
+              'Nilai Hardness (mg/L)',
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
@@ -309,7 +309,7 @@ class WeeklyWaterEntryPage extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: backgroundColor2,
-            title: const Text("Entry Kondisi Air Harian"),
+            title: const Text("Entry Kondisi Air Mingguan"),
           ),
           backgroundColor: backgroundColor1,
           body: ListView(

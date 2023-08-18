@@ -125,22 +125,40 @@ class FishDeathEntryPage extends StatelessWidget {
             top: defaultSpace * 3, right: defaultMargin, left: defaultMargin),
         child: TextButton(
           onPressed: () async {
-            controller.formDeathController.text == ""
-                ? null
-                : await controller.postFishDeath(
-                    context,
-                    () {
-                      deathcontroller.getFishDeaths(
-                          activation_id: controller.activation.id.toString());
-                      // Get.off(MyTabPondScreen(), arguments: {
-                      //   'pond': controller.pond,
-                      // });
-                    },
-                  );
-
-            deathcontroller.getcharData(
-                activation_id: controller.activation.id.toString());
-            controller.postDataLog(controller.fitur);
+            Map<String, dynamic> result = controller.validationInput();
+            if (result['isValid'] == false) {
+              Get.snackbar('Input Salah', result['message'],
+                  titleText: Text(
+                    'Input Salah',
+                    style: alertTextStyle.copyWith(
+                      fontSize: 16,
+                      fontWeight: medium,
+                    ),
+                  ),
+                  messageText: Text(
+                    result['message'],
+                    style: primaryTextStyle.copyWith(
+                      fontSize: 16,
+                      fontWeight: medium,
+                    ),
+                  ),
+                  backgroundColor: backgroundColor1);
+            } else {
+              await controller.postFishDeath(
+                context,
+                () {
+                  deathcontroller.getFishDeaths(
+                      activation_id: controller.activation.id.toString());
+                  // Get.off(MyTabPondScreen(), arguments: {
+                  //   'pond': controller.pond,
+                  // });
+                },
+              );
+              deathcontroller.getcharData(
+                  activation_id: controller.activation.id.toString());
+              controller.postDataLog(controller.fitur);
+              Get.back();
+            }
           },
           style: TextButton.styleFrom(
             backgroundColor: primaryColor,
