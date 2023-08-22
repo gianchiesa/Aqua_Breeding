@@ -7,6 +7,7 @@ import 'package:fish/pages/feeding/feed_entry_page.dart';
 import 'package:fish/pages/fish/fish_death_entry_page.dart';
 import 'package:fish/pages/pond/activation_breed_controller.dart';
 import 'package:fish/pages/pond/activation_breed_page.dart';
+import 'package:fish/pages/pond/edit_pond_page.dart';
 import 'package:fish/pages/pond/pond_controller.dart';
 import 'package:fish/pages/pond/add_pond_page.dart';
 import 'package:fish/pages/pond/deactivation_breed_page.dart';
@@ -57,31 +58,45 @@ class _DetailPondPageState extends State<DetailPondPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
               children: [
-                Text(
-                  "kolam ${detailController.pondController.selectedPond.value.alias}",
-                  style: primaryTextStyle.copyWith(
-                    fontSize: 18,
-                    fontWeight: heavy,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "kolam ${detailController.pondController.selectedPond.value.alias}",
+                      style: primaryTextStyle.copyWith(
+                        fontSize: 18,
+                        fontWeight: heavy,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      detailController.pondController.selectedPond.value
+                          .getGmtToNormalDate(),
+                      style: secondaryTextStyle.copyWith(
+                        fontSize: 16,
+                        fontWeight: medium,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  ],
                 ),
                 SizedBox(
-                  height: 5,
+                  width: 16,
                 ),
-                Text(
-                  detailController.pondController.selectedPond.value
-                      .getGmtToNormalDate(),
-                  style: secondaryTextStyle.copyWith(
-                    fontSize: 16,
-                    fontWeight: medium,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                ),
+                IconButton(
+                    color: Colors.white,
+                    iconSize: 28,
+                    onPressed: () {
+                      Get.to(() => const EditPondPage());
+                    },
+                    icon: const Icon(Icons.edit_outlined))
               ],
             ),
             Container(
