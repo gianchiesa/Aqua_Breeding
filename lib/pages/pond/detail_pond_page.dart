@@ -162,6 +162,7 @@ class _DetailPondPageState extends State<DetailPondPage> {
                 textConfirm: 'Panen',
                 textCancel: 'Tidak',
                 onConfirm: (() {
+                  Get.back();
                   Get.to(() => DeactivationBreedPage(), arguments: {
                     "pond": detailController.pondController.selectedPond.value,
                   });
