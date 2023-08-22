@@ -4,6 +4,7 @@ import 'package:fish/pages/component/deactivation_list_input.dart';
 import 'package:fish/pages/dashboard.dart';
 import 'package:fish/pages/pond/deactivation_breed_controller.dart';
 import 'package:fish/pages/pond/detail_pond_controller.dart';
+import 'package:fish/pages/pond/pond_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fish/theme.dart';
 import 'package:flutter/services.dart';
@@ -21,6 +22,8 @@ class _DeactivationBreedPageState extends State<DeactivationBreedPage> {
 
   final DetailPondController detailPondController =
       Get.put(DetailPondController());
+  final PondController pondController = Get.put(PondController());
+
   @override
   void initState() {
     super.initState();
@@ -48,6 +51,8 @@ class _DeactivationBreedPageState extends State<DeactivationBreedPage> {
                 detailPondController.getPondActivation(context);
               },
             );
+            pondController
+                .updateSelectedPond(pondController.selectedPond.value.id);
             // detailPondController.isPondActive.value = false;
           },
           style: TextButton.styleFrom(

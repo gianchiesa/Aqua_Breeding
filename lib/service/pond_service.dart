@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:fish/models/pond_model.dart';
 import 'package:fish/service/url_api.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -139,6 +141,111 @@ class PondService {
                   ),
                 ],
               ));
+      return false;
+    }
+  }
+
+  Future<bool> pondEdit(
+      {required String? alias,
+      required String id,
+      required String? location,
+      required String? shape,
+      required String? material,
+      required String? length,
+      required String? width,
+      required String? diameter,
+      required String? height,
+      required String? status,
+      required BuildContext context}) async {
+    if (diameter!.isNotEmpty) {
+      if (diameter.contains(",")) {
+        diameter = diameter.replaceAll(',', '.');
+      }
+    } else {
+      diameter = 0.toString();
+    }
+    if (length!.isNotEmpty) {
+      if (length.contains(",")) {
+        length = length.replaceAll(',', '.');
+      }
+    } else {
+      length = 0.toString();
+    }
+    if (width!.isNotEmpty) {
+      if (width.contains(",")) {
+        width = width.replaceAll(',', '.');
+      }
+    } else {
+      width = 0.toString();
+    }
+    if (height!.isNotEmpty) {
+      if (height.contains(",")) {
+        height = height.replaceAll(',', '.');
+      }
+    } else {
+      height = 0.toString();
+    }
+    WidgetsFlutterBinding.ensureInitialized();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('token').toString();
+    final response = await http.put(
+      Uri.parse('${Urls.ponds}/$id'),
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        'Authorization': 'Bearer $token'
+      },
+      encoding: Encoding.getByName('utf-8'),
+      body: {
+        "alias": alias,
+        "location": location,
+        "shape": shape,
+        "material": material,
+        "status": status,
+        "length": length,
+        "width": width,
+        "diameter": diameter,
+        "height": height,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      // doInPost();
+
+      // Get.back();
+      final snack = const SnackBar(
+        backgroundColor: Colors.green,
+        content: Text("Berhasil update data"),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snack);
+      return true;
+    } else {
+      var res = jsonDecode(response.body);
+      print("ini masuk kesini ${res['message']}");
+      // Navigator.pop(context);
+
+      SnackBar(
+        backgroundColor: Colors.red,
+        content: Text(res["message"]),
+      );
+      // showDialog<String>(
+      //     context: context,
+      //     builder: (BuildContext context) => AlertDialog(
+      //           title: const Text('Input Error',
+      //               style: TextStyle(color: Colors.red)),
+      //           content: Text(
+      //             '${res["message"]}',
+      //             style: TextStyle(color: Colors.white),
+      //           ),
+      //           backgroundColor: backgroundColor1,
+      //           shape: RoundedRectangleBorder(
+      //               borderRadius: BorderRadius.all(Radius.circular(16.0))),
+      //           actions: <Widget>[
+      //             TextButton(
+      //               onPressed: () => Navigator.pop(context, 'OK'),
+      //               child: const Text('OK'),
+      //             ),
+      //           ],
+      //         ));
       return false;
     }
   }

@@ -99,6 +99,21 @@ class PondController extends GetxController {
         ponds.firstWhere((pond) => pond.id == selectedPond.value.id);
   }
 
+  void setTextController() {
+    locationController.text = selectedPond.value.location.toString();
+    aliasController.text = selectedPond.value.alias.toString();
+    materialController.setSelected(selectedPond.value.material.toString());
+    shapeController.setSelected(selectedPond.value.shape.toString());
+    if (selectedPond.value.shape == 'persegi') {
+      widthController.text = selectedPond.value.width.toString();
+      heightController.text = selectedPond.value.height.toString();
+      lengthController.text = selectedPond.value.length.toString();
+    } else {
+      diameterController.text = selectedPond.value.diameter.toString();
+      heightController.text = selectedPond.value.height.toString();
+    }
+  }
+
   Future<void> getPondsData(BuildContext context) async {
     WidgetsFlutterBinding.ensureInitialized();
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -141,6 +156,25 @@ class PondController extends GetxController {
         doInPost: doInPost,
         context: context);
     print(value);
+  }
+
+  Future<void> pondEdit(BuildContext context, String id) async {
+    bool value = await PondService().pondEdit(
+        id: selectedPond.value.id.toString(),
+        alias: aliasController.text.capitalize,
+        location: locationController.text,
+        shape: shapeController.selected.value,
+        material: materialController.selected.value,
+        length: lengthController.text,
+        width: widthController.text,
+        diameter: diameterController.text,
+        status: status,
+        height: heightController.text,
+        context: context);
+    print(value);
+    await getPondsData2();
+    updateSelectedPond(selectedPond.value.id.toString());
+    Get.back();
   }
 
   Future<void> getPondsFiltered(String statusFilter) async {

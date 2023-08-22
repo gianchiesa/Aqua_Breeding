@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:fish/pages/pond/activation_breed_controller.dart';
 import 'package:fish/pages/pond/detail_pond_controller.dart';
 import 'package:fish/pages/pond/detail_pond_page.dart';
+import 'package:fish/pages/pond/pond_controller.dart';
 import 'package:fish/service/pond_service.dart';
 import 'package:fish/service/activation_service.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class ActivationBreedPage extends StatelessWidget {
 
   final DetailPondController detailPondController =
       Get.put(DetailPondController());
-
+  final PondController pondController = Get.put(PondController());
   @override
   Widget build(BuildContext context) {
     Widget checkBoxFish() {
@@ -772,6 +773,8 @@ class ActivationBreedPage extends StatelessWidget {
               () {
                 Navigator.pop(context);
                 detailPondController.getPondActivation(context);
+                pondController
+                    .updateSelectedPond(pondController.selectedPond.value.id);
                 // Get.off(MyTabPondScreen(), arguments: {
                 //   'pond': controller.pond,
                 // });
