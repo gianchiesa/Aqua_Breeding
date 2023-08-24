@@ -1654,6 +1654,8 @@ class _NewFishTransferEntryPageState extends State<NewFishTransferEntryPage> {
             // );
             // controller.postDataLog(controller.fitur);
             await postData();
+            await pondController.updateListandSelectedPond();
+            await detailPondController.updateListAndSelectedActivation();
           },
           style: TextButton.styleFrom(
             backgroundColor: Colors.green,
