@@ -39,7 +39,7 @@ class TransferController extends GetxController {
         await LoggingService().postLogging(startAt: startTime, fitur: fitur);
   }
 
-  Future<void> getTransfertData(BuildContext context) async {
+  Future<void> getTransfertData() async {
     isLoading.value = true;
     listTransfer.clear();
     List<FishTransfer> transferData =
@@ -57,6 +57,7 @@ class TransferController extends GetxController {
     isLoading.value = false;
   }
 }
+
 
 // class TreatmentList {
 //   TreatmentList(this.id, this.date, this.type);

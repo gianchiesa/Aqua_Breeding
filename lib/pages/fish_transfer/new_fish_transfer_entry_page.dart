@@ -1656,6 +1656,7 @@ class _NewFishTransferEntryPageState extends State<NewFishTransferEntryPage> {
             await postData();
             await pondController.updateListandSelectedPond();
             await detailPondController.updateListAndSelectedActivation();
+            await fishTransferController.getTransfertData();
           },
           style: TextButton.styleFrom(
             backgroundColor: Colors.green,
@@ -1689,7 +1690,7 @@ class _NewFishTransferEntryPageState extends State<NewFishTransferEntryPage> {
                 Navigator.pop(context);
               },
             );
-            fishTransferController.getTransfertData(context);
+            fishTransferController.getTransfertData();
           },
           style: TextButton.styleFrom(
             backgroundColor: primaryColor,
@@ -1746,7 +1747,7 @@ class _NewFishTransferEntryPageState extends State<NewFishTransferEntryPage> {
                     context,
                     () {
                       Navigator.pop(context);
-                      fishTransferController.getTransfertData(context);
+                      fishTransferController.getTransfertData();
                     },
                   );
                   controller.postDataLog(controller.fitur);
@@ -2547,7 +2548,7 @@ class _NewFishTransferEntryPageState extends State<NewFishTransferEntryPage> {
           transferList: transferList,
           fishDeath: controller.buildFishDeath(transferList),
           ctx: context);
-      fishTransferController.getTransfertData(context);
+      fishTransferController.getTransfertData();
 
       await pondController.updateListandSelectedPond();
       // fishTransferController.getTransfertData(context);

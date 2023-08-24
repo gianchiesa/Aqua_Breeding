@@ -24,7 +24,7 @@ class _FishTransferListPageState extends State<FishTransferListPage> {
     //   await controller.getPondActivations(
     //       pondId: controller.pond.id.toString());
     // });
-    controller.getTransfertData(context);
+    controller.getTransfertData();
   }
 
   @override

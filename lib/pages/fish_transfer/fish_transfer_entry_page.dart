@@ -1444,7 +1444,7 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
               context,
               () {
                 Navigator.pop(context);
-                fishTransferController.getTransfertData(context);
+                fishTransferController.getTransfertData();
               },
             );
             controller.postDataLog(controller.fitur);
@@ -1481,7 +1481,7 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
                 Navigator.pop(context);
               },
             );
-            fishTransferController.getTransfertData(context);
+            fishTransferController.getTransfertData();
           },
           style: TextButton.styleFrom(
             backgroundColor: primaryColor,
@@ -1538,7 +1538,7 @@ class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
                     context,
                     () {
                       Navigator.pop(context);
-                      fishTransferController.getTransfertData(context);
+                      fishTransferController.getTransfertData();
                     },
                   );
                   controller.postDataLog(controller.fitur);
