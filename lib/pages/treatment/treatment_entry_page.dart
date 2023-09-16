@@ -380,6 +380,52 @@ class _TreatmentEntryPageState extends State<TreatmentEntryPage> {
       );
     }
 
+    Widget calciumInput() {
+      return Container(
+        margin: EdgeInsets.only(
+            top: defaultSpace, right: defaultMargin, left: defaultMargin),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Zat Kapur (Kg)',
+              style: primaryTextStyle.copyWith(
+                fontSize: 16,
+                fontWeight: medium,
+              ),
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            Container(
+              height: 50,
+              padding: EdgeInsets.symmetric(
+                horizontal: 16,
+              ),
+              decoration: BoxDecoration(
+                color: backgroundColor2,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: TextFormField(
+                  style: primaryTextStyle,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
+                  ],
+                  keyboardType: TextInputType.number,
+                  controller: controller.calciumController,
+                  decoration: InputDecoration.collapsed(
+                    hintText: 'ex: 2',
+                    hintStyle: subtitleTextStyle,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     Widget carbonTypeInput() {
       return Container(
         margin: EdgeInsets.only(
@@ -533,6 +579,9 @@ class _TreatmentEntryPageState extends State<TreatmentEntryPage> {
               controller.typeController.selected.value == "berat"
                   ? Container()
                   : saltDosisInput(),
+              controller.typeController.selected.value == "berat"
+                  ? Container()
+                  : calciumInput(),
               controller.typeController.selected.value == "berat"
                   ? submitBeratButton()
                   : submitButton(),

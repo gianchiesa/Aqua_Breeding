@@ -42,6 +42,7 @@ class TreatmentEntryController extends GetxController {
   TextEditingController carbonController = TextEditingController(text: '0');
   TextEditingController nilaMerahWeightController =
       TextEditingController(text: '');
+  TextEditingController calciumController = TextEditingController();
 
   TextEditingController nilaHitamWeightController =
       TextEditingController(text: '');
@@ -61,6 +62,9 @@ class TreatmentEntryController extends GetxController {
         desc: descController.value.text,
         water: waterController.value.text,
         carbohydrate: carbonController.value.text,
+        calcium: calciumController.value.text.isEmpty
+            ? 0.toString()
+            : calciumController.value.text,
         carbohydrate_type: carbonTypeController.selected.value == "tidak ada"
             ? carbonTypeNullController.value.text
             : carbonTypeController.selected.value);

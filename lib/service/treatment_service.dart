@@ -27,16 +27,16 @@ class TreatmentService {
     }
   }
 
-  Future<bool> postPondTreatment({
-    required String? pondId,
-    String? salt,
-    String? type,
-    String? probiotic,
-    String? water,
-    String? desc,
-    String? carbohydrate,
-    String? carbohydrate_type,
-  }) async {
+  Future<bool> postPondTreatment(
+      {required String? pondId,
+      String? salt,
+      String? type,
+      String? probiotic,
+      String? water,
+      String? desc,
+      String? carbohydrate,
+      String? carbohydrate_type,
+      String? calcium}) async {
     print({
       "pond_id": pondId.toString(),
       "salt": salt,
@@ -44,6 +44,7 @@ class TreatmentService {
       "probiotic_culture": probiotic,
       "water_change": water,
       "description": desc,
+      "calcium": calcium,
       "carbohydrate": carbohydrate,
       "carbohydrate_type": carbohydrate_type,
     });
