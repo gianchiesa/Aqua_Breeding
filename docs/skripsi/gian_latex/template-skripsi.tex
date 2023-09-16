@@ -1,0 +1,159 @@
+%-------------------------------------------------------------------------------
+%                      Template Naskah Skripsi
+%               	Berdasarkan format JTETI FT UGM
+% 						(c) @gunturdputra 2014
+%-------------------------------------------------------------------------------
+
+%Template pembuatan naskah skripsi.
+\documentclass{jtetiskripsi}
+
+\renewcommand \thesection{\Alph{section}.}
+\renewcommand \thesubsection{\arabic{subsection}.}
+
+%Untuk prefiks pada daftar gambar dan tabel
+\usepackage[titles]{tocloft}
+\renewcommand\cftfigpresnum{Gambar\  }
+\renewcommand\cfttabpresnum{Tabel\   }
+
+%Untuk hyperlink dan table of content
+\usepackage[hidelinks]{hyperref}
+\newlength{\mylenf}
+\settowidth{\mylenf}{\cftfigpresnum}
+\setlength{\cftfignumwidth}{\dimexpr\mylenf+2em}
+\setlength{\cfttabnumwidth}{\dimexpr\mylenf+2em}
+
+%Untuk Bold Face pada Keterangan Gambar
+\usepackage[labelfont=bf]{caption}
+
+%Untuk caption dan subcaption
+\usepackage{caption}
+\usepackage{subcaption}
+
+\usepackage{enumitem} % <===============================================
+\setlist[enumerate]{parsep=0pt}
+\newlength{\enumerateparindent} % <=====================================
+
+%pdf
+\usepackage{pdfpages}
+
+%table
+\usepackage{graphics}
+
+%longtable
+\usepackage{longtable}
+
+\usepackage{wrapfig}
+
+%bibliography
+\usepackage{natbib}
+
+%equation
+\usepackage{amsmath}
+
+%algoritma
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+%listing
+\usepackage{listings}
+%\usepackage{longtable}
+\usepackage{multirow}
+
+%-----------------------------------------------------------------
+%Disini awal masukan untuk data proposal skripsi
+%-----------------------------------------------------------------
+\titleind{Perancangan Aplikasi Pendukung Teknologi Perikanan Modern Berbasis Android}
+
+\fullname{Gian Chiesa Maghriza}
+
+\idnum{1313618021}
+
+%\approvaldate{12 Februari 2019}
+%\approvaldate{12 Februari 2019}
+
+\degree{Sarjana Ilmu Komputer}
+
+\yearsubmit{2023}
+
+\program{Ilmu Komputer}
+
+\dept{Ilmu Komputer}
+
+\firstsupervisor{Muhammad Eka Suryana, M. Kom.}
+\firstnip{198512232012121002}
+
+\secondsupervisor{Med Irzal, M.Kom.}
+\secondnip{197706152003121001}
+
+%-----------------------------------------------------------------
+%Disini akhir masukan untuk data proposal skripsi
+%-----------------------------------------------------------------
+
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
+
+\begin{document}
+
+\cover
+%-----------------------------------------------------------------
+
+%-----------------------------------------------------------------
+%Disini akhir masukan untuk muka skripsi
+%-----------------------------------------------------------------
+\include{lembar-pengesahan}
+\addcontentsline{toc}{chapter}{LEMBAR PERSETUJUAN HASIL SIDANG}
+\include{lembar-pernyataan}
+\addcontentsline{toc}{chapter}{LEMBAR PERNYATAAN}
+\include{halaman-persembahan}
+\addcontentsline{toc}{chapter}{HALAMAN PERSEMBAHAN}
+\include{abstrak}
+\addcontentsline{toc}{chapter}{ABSTRAK}
+\include{abstract}
+\addcontentsline{toc}{chapter}{ABSTRACT}
+\include{kata-pengantar}
+\addcontentsline{toc}{chapter}{KATA PENGANTAR}
+\tableofcontents 
+\addcontentsline{toc}{chapter}{DAFTAR ISI}
+\listoffigures
+\addcontentsline{toc}{chapter}{DAFTAR GAMBAR}
+\listoftables
+\addcontentsline{toc}{chapter}{DAFTAR TABEL}
+
+\begin{counterpage}
+\end{counterpage}
+%Disini awal masukan untuk Bab
+%-----------------------------------------------------------------
+\include{bab1}
+\include{bab2}
+\include{bab3}
+\include{bab4}
+\include{bab5}
+
+%-----------------------------------------------------------------
+%Disini akhir masukan Bab
+%-----------------------------------------------------------------
+
+
+%-----------------------------------------------------------------
+% Disini awal masukan untuk Daftar Pustaka
+% - Daftar pustaka diambil dari file .bib yang ada pada folder ini
+%   juga.
+% - Untuk memudahkan dalam memanajemen dan menggenerate file .bib
+%   gunakan reference manager seperti Mendeley, Zotero, EndNote,
+%   dll.
+%-----------------------------------------------------------------
+\bibliography{daftar-pustaka}
+\bibliographystyle{myapalike}
+\addcontentsline{toc}{chapter}{DAFTAR PUSTAKA}
+\addcontentsline{toc}{chapter}{LAMPIRAN}
+\include{lampiran}
+\addcontentsline{toc}{chapter}{RIWAYAT HIDUP}
+\include{riwayat}
+%-----------------------------------------------------------------
+%Disini akhir masukan Daftar Pustaka
+%-----------------------------------------------------------------
+
+
+\end{document}

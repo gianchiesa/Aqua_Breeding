@@ -1,0 +1,107 @@
+%!TEX root = ./template-skripsi.tex
+%-------------------------------------------------------------------------------
+%                            	BAB IV
+%               		KESIMPULAN DAN SARAN
+%-------------------------------------------------------------------------------
+
+\chapter{HASIL DAN PEMBAHASAN}
+
+\section{Pembahasan}
+
+Aplikasi pendukung teknologi perikanan modern, dirancang dengan menggunakan metode Scrum. Pada metode Scrum, proses pengembangan sistem dilakukan secara bertahap yang disebut dengan Sprint. Pada penelitian ini terdapat sembilan Sprint dimana satu putaran Sprint memiliki durasi selama dua minggu. Pada tiap awal pekan, dilakukan perencanaan Sprint Backlog berdasarkan Product Backlog telah disepakati. Adapun laporan setiap Sprint yang dilakukan pada proses pengembangan sistem adalah sebagai berikut:
+
+\input{sprint1}
+\input{sprint2}
+\input{sprint3}
+\input{sprint4}
+\input{sprint5}
+\input{sprint6}
+\input{sprint7}
+\input{sprint8}
+\input{sprint9}
+\input{sprint10}
+\input{sprint11}
+
+\section{Pengujian Sistem}
+Pengujian sistem dilakukan menggunakan dua tipe yaitu Unit Testing dan User Acceptance Test (UAT). Pengujian dilaksanakan pada saat seluruh User Story pada Product Backlog telah diimplementasikan. Unit testing aplikasi dilakukan terhadap satu frontend developer, sedangkan pengujian User Acceptance Test dilakukan terhadap satu scrum master dan owner.
+
+\subsection {Unit Testing}
+
+Adapun hasil dari unit testing yang telah dilaksanakan kepada salah satu developer internal, pengujian tersebut dilakukan pada saat suatu fitur telah dinyatakan selesai yang dimana hasil unit testing tersebut telah dijelaskan pada masing masing sprint report sebelumnya. Kesimpulan dari unit testing yang telah dilakukan adalah fitur yang telah dibuat dapat berjalan dengan baik.
+
+\subsection {User Acceptance Testing}
+
+User Acceptance Test terhadap user dilaksanakan pada tanggal 22 April 2023 secara luring bertempat di kecamatan jasinga. Adapun hasil dari UAT yang telah dilaksanakan dapat dilihat pada tabel dibawah ini.
+
+ \begin{longtable}[c]{@{} |p{1cm}|p{6.5cm}|p{1.1cm}|p{1.1cm}|p{1.1cm}|p{1.1cm}| @{}}
+    \caption{\textit{User Acceptance Test} \label{user_testing}}\\
+   
+    \hline
+    \multicolumn{6}{| c |}{\textbf{\textit{User Acceptance Test}}}\\
+    \hline
+     \multirow{2}{=}{\centering{\textbf{No}}} & \multirow{2}{=}{\centering{\textbf{\textit{Acceptance Requirements}}}} & \multicolumn{4}{| c |}{\textbf{Kesesuaian}}\\
+    \cline{3-6}
+      &  & \centering{\textbf{SS}} & \centering{\textbf{S}} & \centering{\textbf{TS}} & \centering{\textbf{STS}}
+    \endfirsthead
+   
+    \hline
+    \multicolumn{6}{| c |}{\textbf{\textit{User Acceptance Test}}}\\
+    \hline
+     \multirow{2}{=}{\centering{\textbf{No}}} & \multirow{2}{=}{\centering{\textbf{\textit{Acceptance Requirements}}}} & \multicolumn{4}{| c |}{\textbf{Kesesuaian}}\\
+    \cline{3-6}
+     &  & \centering{\textbf{SS}} & \centering{\textbf{S}} & \centering{\textbf{TS}} & \centering{\textbf{STS}}
+    \endhead
+   
+    \hline
+    \endfoot
+   
+    \hline
+    \endlastfoot
+   
+    \hline
+    1 & Fitur login sudah sesuai dengan kebutuhan pembudidaya & \Checkmark &  &  &\\
+    \hline
+    2 & Fitur dasboard sudah sesuai dengan kebutuhan pembudidaya & \Checkmark &  &  &\\
+    \hline
+    3 & Fitur registrasi, aktivasi dan deaktivasi sudah sesuai dengan kebutuhan pembudidaya &  &  & \Checkmark &\\
+    \hline
+    4 & Fitur pemberian dan rekapitulasi pakan sudah sesuai dengan kebutuhan pembudidaya &  & \Checkmark &  &\\
+    \hline
+    5 & Fitur grading berat ikan sudah sesuai dengan kebutuhan pembudidaya & \Checkmark &  &  &\\
+    \hline
+    6 & Fitur pencatatan kematian sudah sesuai dengan kebutuhan pembudidaya & \Checkmark &  &  &\\
+    \hline
+    7 & Fitur treatment kolam sudah sesuai dengan kebutuhan pembudidaya & \Checkmark &  &  &\\
+    \hline
+    8 & Fitur pencatatan kualitas air harian sudah sesuai dengan kebutuhan pembudidaya &  &  & \Checkmark &\\
+    \hline
+    9 & Fitur pencatatan kualitas air mingguan sudah sesuai dengan kebutuhan pembudidaya &  &  & \Checkmark &\\
+    \hline
+    10 & Fitur sortir ikan sudah sesuai dengan kebutuhan pembudidaya &  &  & \Checkmark &\\
+    \hline
+    \end{longtable}
+
+Berdasarkan tabel diatas, terdapat empat fitur yang memerlukan revisi diantaranya:
+
+\begin{enumerate}
+	\item Pada fitur aktivasi kolam perlu ditambahkan input tipe aktivasi, yaitu pada saat melakukan aktivasi dapat memilih tipe aktivasinya dengan pilihan pembenihan dan pembesaran. 
+	\item Pada fitur pencatatan kualitas air harian inputnya perlu diubah ke dalam bentuk desimal dikarenakan ukuran pH, Dissolved Oxygen. dan suhu dapat berupa desimal.
+	\item Pada fitur pencatatan kualitas air mingguan inputnya perlu diubah ke dalam format desimal dikarenakan data yang di input dapat berupa desimal.
+	\item Pada fitur sortir, terdapat perubahan flow dari fitur tersebut agar lebih sesuai dengan sortir ikan yang dilakukan oleh pembudidaya di lapangan.
+\end{enumerate}
+
+\subsection {Kesimpulan Pengujian}
+
+Pengujian aplikasi dilaksanakan dengan dua metode yaitu unit testing dan User Acceptance Test (UAT). Berdasarkan uraian di atas, seluruh skenario pada unit testing terhadap satu internal developer berjalan dengan baik. Namun, berdasarkan hasil UAT terhadap pembudidaya terdapat beberapa masukan seperti fitur aktivasi kolam, pencatatan kualitas air, dan fitur sortir kolam.
+
+
+%\subsection{\textit{Daily Scrum}}
+
+%Pada akhir pekan di akhir setiap \textit{sprint}, akan diadakan \textit{voice call} untuk membahas perkembangan dan hambatan pada setiap \textit{sprint}.
+
+% Baris ini digunakan untuk membantu dalam melakukan sitasi
+% Karena diapit dengan comment, maka baris ini akan diabaikan
+% oleh compiler LaTeX.
+\begin{comment}
+\bibliography{daftar-pustaka}
+\end{comment}

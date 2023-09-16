@@ -1,0 +1,4817 @@
+\setcounter{section}{0}
+\chapter*{\centering{\large{LAMPIRAN}}}
+
+\section{Lampiran 1 Transkrip Percakapan}
+\begin{flushleft}
+Hari: Selasa
+\linebreak
+Tanggal: 23 Agustus 2022
+\linebreak
+P: Penulis
+\linebreak
+K: Klien (UD Jfarm)
+\linebreak
+\linebreak
+P: Sistem apa yang akan di buat?
+\linebreak
+K: Kita akan membuat frontend untuk aplikasi pendukung teknologi perikanan modern
+\linebreak
+P: Apa saja requirement yang diperlukan dalam aplikasi tersebut?
+\linebreak
+K: Requirementnya adalah penerapan fitur yang sudah ada dalam backend penelitian dari Andri Rahmanto yang berbentuk REST API.
+\linebreak
+P: Apa saja fitur yang ada dalam backend yang telah dibuat dalam penelitian Andri Rahmanto?
+\linebreak
+K: Fiturnya adalah pencatatan pemberian pakan, registrasi kolam, aktifasi-deaktifasi kolam, pencatatan kulaitas air harian dan mingguan, pencatatan data kematian harian, pencatatan treatment kolam, grading berat ikan, dan sortir ikan.
+\linebreak
+\end{flushleft}
+
+
+
+\clearpage
+\section{Lampiran 2 code untuk sprint 1 report}
+\lstset{frame=tb,
+	  language=c++,
+	  aboveskip=5mm,
+	  belowskip=5mm,
+	  showstringspaces=false,
+	  columns=flexible,
+	  basicstyle={\scriptsize\ttfamily},
+	  numbers=none,
+	  breaklines=true,
+	  breakatwhitespace=true,
+	  tabsize=3}
+
+	\begin{lstlisting}
+	    Widget title() {
+	      return Container(
+	        margin: EdgeInsets.only(
+	          top: defaultMargin,
+	          left: defaultMargin,
+	          right: defaultMargin,
+	        ),
+	        child: Text(
+	          'Home',
+	          style: primaryTextStyle.copyWith(
+	            fontSize: 24,
+	            fontWeight: semiBold,
+	          ),
+	        ),
+	      );
+	    }
+	
+	    Widget statistic() {
+	      return Container(
+	          margin: EdgeInsets.only(
+	            top: defaultMargin,
+	            left: defaultMargin,
+	          ),
+	          child: Column(
+	            crossAxisAlignment: CrossAxisAlignment.center,
+	            mainAxisAlignment: MainAxisAlignment.center,
+	            children: [
+	              Row(
+	                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+	                crossAxisAlignment: CrossAxisAlignment.center,
+	                children: [
+	                  Expanded(
+	                      flex: 1,
+	                      child: StatisticCard(
+	                        title: 'Kolam',
+	                        value: controller.statistic.value.total_pond,
+	                      )),
+	                  Expanded(
+	                      flex: 1,
+	                      child: StatisticCard(
+	                        title: 'Kolam Aktif',
+	                        value: controller.statistic.value.active_pond,
+	                      )),
+	                ],
+	              ),
+	              SizedBox(
+	                height: 16,
+	              ),
+	              Row(
+	                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+	                crossAxisAlignment: CrossAxisAlignment.center,
+	                children: [
+	                  Expanded(
+	                      flex: 1,
+	                      child: StatisticCard(
+	                        title: 'Ikan Hidup',
+	                        value: controller.statistic.value.fish_live,
+	                        unit: 'Ekor',
+	                      )),
+	                  Expanded(
+	                      flex: 1,
+	                      child: StatisticCard(
+	                        title: 'Ikan Mati',
+	                        value: controller.statistic.value.fish_death,
+	                        unit: 'Ekor',
+	                      )),
+	                ],
+	              ),
+	              SizedBox(
+	                height: 16,
+	              ),
+	              Row(
+	                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+	                crossAxisAlignment: CrossAxisAlignment.center,
+	                children: [
+	                  Expanded(
+	                      flex: 1,
+	                      child: StatisticCard(
+	                        title: 'Panen 2022',
+	                        value: controller.statistic.value.fish_harvested,
+	                        unit: 'Kg',
+	                      )),
+	                  Expanded(
+	                      flex: 1,
+	                      child: StatisticCard(
+	                        title: 'Total Pakan',
+	                        value: controller.statistic.value.total_feed_dose,
+	                        unit: 'Kg',
+	                      )),
+	                ],
+	              ),
+	            ],
+	          ));
+	    }
+	\end{lstlisting}
+	
+
+\textit{Lampiran 3 code widget untuk section statistik ikan}
+\begin{lstlisting}
+	Widget fishTitle() {
+	  return Container(
+		margin: EdgeInsets.only(
+		  top: defaultSpace,
+		  left: defaultMargin,
+		  right: defaultMargin,
+		),
+		child: Column(
+		  crossAxisAlignment: CrossAxisAlignment.start,
+		  children: [
+			Text(
+			  'Total Berat Ikan',
+			  style: primaryTextStyle.copyWith(
+				fontSize: 24,
+				fontWeight: semiBold,
+			  ),
+			),
+		  ],
+		),
+	  );
+	}
+
+	Widget fish() {
+	  return Container(
+		margin: EdgeInsets.only(top: 14),
+		child: SingleChildScrollView(
+		  scrollDirection: Axis.horizontal,
+		  child: Row(
+			children: [
+			  SizedBox(
+				width: defaultMargin,
+			  ),
+			  Row(children: [
+				FishCard(
+				  title: "Lele",
+				  value: controller.statistic.value.fishes_weight_lele!,
+				  image: "assets/lele.png",
+				),
+				FishCard(
+				  title: "Nila Merah",
+				  value: controller.statistic.value.fishes_weight_nilamerah!,
+				  image: "assets/nilamerah.png",
+				),
+				FishCard(
+				  title: "Nila Hitam",
+				  value: controller.statistic.value.fishes_weight_nilahitam!,
+				  image: "assets/nilahitam.png",
+				),
+				FishCard(
+				  title: "Mas",
+				  value: controller.statistic.value.fishes_weight_mas!,
+				  image: "assets/mas.png",
+				),
+			  ]),
+			],
+		  ),
+		),
+	  );
+	}
+\end{lstlisting}
+
+
+\textit{code widget untuk section statistik kondisi air}
+\begin{lstlisting}
+	Widget waterTitle() {
+	  return Container(
+		margin: EdgeInsets.only(
+		  top: defaultSpace,
+		  left: defaultMargin,
+		  right: defaultMargin,
+		),
+		child: Column(
+		  crossAxisAlignment: CrossAxisAlignment.start,
+		  children: [
+			Text(
+			  'Kualitas Air',
+			  style: primaryTextStyle.copyWith(
+				fontSize: 24,
+				fontWeight: semiBold,
+			  ),
+			),
+		  ],
+		),
+	  );
+	}
+
+	Widget water() {
+	  return Container(
+		margin: EdgeInsets.only(top: 14),
+		child: SingleChildScrollView(
+		  scrollDirection: Axis.horizontal,
+		  child: Row(
+			children: [
+			  SizedBox(
+				width: defaultMargin,
+			  ),
+			  Row(children: [
+				WaterCard(
+				  title: "pH",
+				  normal: controller.statistic.value.ph_normal,
+				  abnormal: controller.statistic.value.ph_abnormal,
+				),
+				WaterCard(
+				  title: "DO",
+				  normal: controller.statistic.value.do_normal,
+				  abnormal: controller.statistic.value.do_abnormal,
+				),
+				WaterCard(
+				  title: "Flok",
+				  normal: controller.statistic.value.floc_normal,
+				  abnormal: controller.statistic.value.floc_abnormal,
+				),
+			  ]),
+			],
+		  ),
+		),
+	  );
+	}
+\end{lstlisting}
+
+
+
+\textit{code widget untuk bagian bottom navigation bar}
+\begin{lstlisting}
+	bottomNavigationBar: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: backgroundColor3,
+            onTap: controller.changeTabIndex,
+            currentIndex: controller.tabIndex,
+            items: [
+              BottomNavigationBarItem(
+                icon: Container(
+                  margin: EdgeInsets.only(
+                    top: 20,
+                    bottom: 5,
+                  ),
+                  child: Image.asset(
+                    'assets/home_secondary.png',
+                    width: 25,
+                    color: controller.tabIndex == 0
+                        ? primaryColor
+                        : Color(0xff808191),
+                  ),
+                ),
+                label: '',
+              ),
+              BottomNavigationBarItem(
+                icon: Container(
+                  margin: EdgeInsets.only(
+                    top: 20,
+                    bottom: 5,
+                  ),
+                  child: Image.asset(
+                    'assets/pond_secondary.png',
+                    width: 25,
+                    color: controller.tabIndex == 1
+                        ? primaryColor
+                        : Color(0xff808191),
+                  ),
+                ),
+                label: '',
+              ),
+            ],
+          ),
+	\end{lstlisting}
+
+	
+
+
+\textit{Mengintegrasikan dengan webservice}
+
+	\textit{Model Class untuk Halaman Dashboard}
+	\begin{lstlisting}
+	class StatisticModel {
+  	int? total_pond;
+  	int? active_pond;
+  	int? fish_live;
+  	int? fish_death;
+  	int? fish_harvested;
+  	int? total_feed_dose;
+  	num? fishes_weight_lele;
+  	num? fishes_weight_nilamerah;
+  	num? fishes_weight_nilahitam;
+  	num? fishes_weight_mas;
+  	num? fishes_weight_patin;
+  	int? ph_normal;
+  	int? ph_abnormal;
+  	int? do_normal;
+  	int? do_abnormal;
+  	int? floc_normal;
+	  int? floc_abnormal;
+
+	  StatisticModel(
+	      {this.total_pond,
+	      this.active_pond,
+	      this.fish_live,
+	      this.fish_death,
+	      this.fish_harvested,
+	      this.total_feed_dose,
+	      this.fishes_weight_lele,
+	      this.fishes_weight_nilamerah,
+	      this.fishes_weight_nilahitam,
+	      this.fishes_weight_mas,
+	      this.fishes_weight_patin,
+	      this.ph_normal,
+	      this.ph_abnormal,
+	      this.do_normal,
+	      this.do_abnormal,
+	      this.floc_normal,
+	      this.floc_abnormal});
+
+	  StatisticModel.fromJson(Map<String, dynamic> json) {
+	    total_pond = json['total_pond'];
+	    active_pond = json['active_pond'];
+	    fish_live = json['fish_live'];
+	    fish_death = json['fish_death'];
+	    fish_harvested = json['fish_harvested'];
+	    total_feed_dose = json['total_feed_dose'];
+	    fishes_weight_nilahitam = json['fishes_weight'][0]["amount"];
+	    fishes_weight_nilamerah = json['fishes_weight'][1]["amount"];
+	    fishes_weight_lele = json['fishes_weight'][2]["amount"];
+	    fishes_weight_patin = json['fishes_weight'][3]["amount"];
+	    fishes_weight_mas = json['fishes_weight'][4]["amount"];
+	    ph_normal = json['water_quality']['ph']['normal'];
+	    ph_abnormal = json['water_quality']['ph']['abnormal'];
+	    do_normal = json['water_quality']['do']['normal'];
+	    do_abnormal = json['water_quality']['do']['abnormal'];
+	    floc_normal = json['water_quality']['floc']['normal'];
+	    floc_abnormal = json['water_quality']['floc']['abnormal'];
+	  }
+	}
+	\end{lstlisting}
+
+	\textit{ Networt Request untuk Halaman Dashboard }
+	\begin{lstlisting}
+	import 'dart:convert';
+	import 'package:fish/models/statistic_model.dart';
+	import 'package:fish/service/url_api.dart';
+	import 'package:http/http.dart' as http;
+	
+	class StatisticService {
+	  Future<StatisticModel> getStatistic() async {
+	    var url = Uri.parse('http://jft.web.id/fishapi/api/statistic');
+	    var headers = {'Content-Type': 'application/json'};
+	
+	    var response = await http.get(url, headers: headers);
+	
+	    print(response.body);
+	
+	    if (response.statusCode == 200) {
+	      var data = jsonDecode(response.body);
+	      StatisticModel statistic = StatisticModel.fromJson(data);
+	
+	      return statistic;
+	    } else {
+	      throw Exception('Gagal Get Products!');
+	    }
+	  }
+	}
+	
+	\end{lstlisting}
+
+	\textit{ Mengolah data yang telah direquest pada Controller }
+	\begin{lstlisting}
+	class HomeController extends GetxController {
+	  var isLoading = false.obs;
+	
+	  final statistic = StatisticModel().obs;
+	
+	  @override
+	  void onInit() async {
+	    await getStatisticData();
+	    super.onInit();
+	  }
+	
+	  Future<void> getStatisticData() async {
+	    isLoading.value = true;
+	    StatisticModel statisticData = await StatisticService().getStatistic();
+	    statistic.value = statisticData;
+	    Timer(const Duration(seconds: 1), () {
+	      isLoading.value = false;
+	    });
+	  }
+	}
+
+	\end{lstlisting}
+
+	\textit{Menampilkan data pada Halaman Dashboard}
+	\begin{lstlisting}
+	Widget water() {
+	      return Container(
+	        margin: EdgeInsets.only(top: 14),
+	        child: SingleChildScrollView(
+	          scrollDirection: Axis.horizontal,
+	          child: Row(
+	            children: [
+	              SizedBox(
+	                width: defaultMargin,
+	              ),
+	              Row(children: [
+	                WaterCard(
+	                  title: "pH",
+	                  normal: controller.statistic.value.ph_normal,
+	                  abnormal: controller.statistic.value.ph_abnormal,
+	                ),
+	                WaterCard(
+	                  title: "DO",
+	                  normal: controller.statistic.value.do_normal,
+	                  abnormal: controller.statistic.value.do_abnormal,
+	                ),
+	                WaterCard(
+	                  title: "Flok",
+	                  normal: controller.statistic.value.floc_normal,
+	                  abnormal: controller.statistic.value.floc_abnormal,
+	                ),
+	              ]),
+	            ],
+	          ),
+	        ),
+	      );
+	    }
+	\end{lstlisting}
+
+\clearpage
+\section{Lampiran 3 Sprint 2 report}
+\begin{lstlisting}
+	import 'package:fish/models/pond_model.dart';
+	import 'package:fish/pages/component/pond_card.dart';
+	
+	import 'package:fish/pages/pond/add_pond_page.dart';
+	import 'package:fish/pages/pond/pond_controller.dart';
+	import 'package:flutter/material.dart';
+	import 'package:fish/theme.dart';
+	import 'package:get/get.dart';
+	
+	class PondPage extends StatefulWidget {
+	  PondPage({Key? key}) : super(key: key);
+	  @override
+	  State<PondPage> createState() => _PondPageState();
+	}
+	
+	class _PondPageState extends State<PondPage> {
+	  final PondController controller = Get.put(PondController());
+	  int? _value = null;
+	  final chip = ["Aktif", "Panen", "Tidak Aktif"];
+	  @override
+	  void initState() {
+		super.initState();
+	
+		controller.getPondsData(context);
+	  }
+	
+	  @override
+	  Widget build(BuildContext context) {
+		Widget title() {
+		  return Container(
+			margin: EdgeInsets.only(
+			  top: defaultMargin,
+			  left: defaultMargin,
+			  right: defaultMargin,
+			),
+			child: Text(
+			  'Kolam',
+			  style: primaryTextStyle.copyWith(
+				fontSize: 24,
+				fontWeight: semiBold,
+			  ),
+			),
+		  );
+		}
+	
+		Widget filter() {
+		  return Container(
+			margin: EdgeInsets.only(
+			  top: defaultMargin,
+			  left: defaultMargin,
+			  right: defaultMargin,
+			),
+			child: Wrap(
+			  spacing: 8.0,
+			  children: List<Widget>.generate(
+				3,
+				(int index) {
+				  return ChoiceChip(
+					label: Text(
+					  chip[index],
+					  style: TextStyle(color: Colors.white),
+					),
+					shape: StadiumBorder(side: BorderSide(color: Colors.white)),
+					selected: _value == index,
+					backgroundColor: backgroundColor1,
+					selectedColor: primaryColor,
+					onSelected: (bool selected) {
+					  setState(() {
+						_value = selected ? index : null;
+						if (_value == null) {
+						  controller.getPondsData(context);
+						  // return null;
+						} else {
+						  controller.getPondsFiltered(chip[index]);
+						}
+					  });
+					},
+				  );
+				},
+			  ).toList(),
+			),
+		  );
+		}
+	
+		Widget pondList() {
+		  return Container(
+			margin: EdgeInsets.only(top: 14),
+			child: SingleChildScrollView(
+			  child: ListView.builder(
+				shrinkWrap: true,
+				primary: false,
+				itemBuilder: ((context, index) {
+				  return PondCard(pond: controller.ponds[index]
+					  // indicatorWater: controller.indicatorWater[index]);
+					  );
+				}),
+				itemCount: controller.ponds.length,
+			  ),
+			),
+		  );
+		}
+	
+		Widget emptyListPond() {
+		  return Container(
+			  width: double.infinity,
+			  margin: EdgeInsets.only(right: defaultMargin, left: defaultMargin),
+			  child: Center(
+				child: Column(children: [
+				  SizedBox(height: 35),
+				  Image(
+					image: AssetImage("assets/unavailable_icon.png"),
+					width: 100,
+					height: 100,
+					fit: BoxFit.fitWidth,
+				  ),
+				  SizedBox(height: 20),
+				  Text(
+					"Anda belum pernah melakukan registrasi kolam",
+					style: primaryTextStyle.copyWith(
+					  fontSize: 14,
+					  fontWeight: bold,
+					),
+					textAlign: TextAlign.center,
+					overflow: TextOverflow.ellipsis,
+					maxLines: 2,
+				  ),
+				  SizedBox(height: 10),
+				  Text(
+					"Silahkan registrasi kolam",
+					style: secondaryTextStyle.copyWith(
+					  fontSize: 13,
+					  fontWeight: bold,
+					),
+					textAlign: TextAlign.center,
+					overflow: TextOverflow.ellipsis,
+					maxLines: 2,
+				  ),
+				]),
+			  ));
+		}
+	
+		return Obx(() {
+		  if (controller.isLoading.value == false) {
+			return Scaffold(
+			  backgroundColor: backgroundColor1,
+			  floatingActionButton: FloatingActionButton(
+				onPressed: () {
+				  Get.to(() => AddPondPage());
+				},
+				backgroundColor: primaryColor,
+				child: const Icon(Icons.add),
+			  ),
+			  body: ListView(
+				children: [
+				  title(),
+				  filter(),
+				  controller.ponds.isEmpty ? emptyListPond() : pondList(),
+				  SizedBox(
+					height: 10,
+				  )
+				],
+			  ),
+			);
+		  } else {
+			return Center(
+			  child: CircularProgressIndicator(
+				color: secondaryColor,
+			  ),
+			);
+		  }
+		});
+	  }
+	}
+		\end{lstlisting}
+
+
+\textit{Code widget untuk registrasi kolam}
+\begin{lstlisting}
+	import 'package:fish/pages/pond/pond_controller.dart';
+	import 'package:flutter/material.dart';
+	import 'package:fish/theme.dart';
+	import 'package:flutter/services.dart';
+	import 'package:get/get.dart';
+	
+	class AddPondPage extends StatefulWidget {
+	  const AddPondPage({Key? key}) : super(key: key);
+	
+	  @override
+	  State<AddPondPage> createState() => _AddPondPageState();
+	}
+	
+	class _AddPondPageState extends State<AddPondPage> {
+	  final PondController controller = Get.put(PondController());
+	
+	  @override
+	  void dispose() {
+		controller.aliasController.clear();
+		controller.diameterController.clear();
+		controller.heightController.clear();
+		controller.locationController.clear();
+		controller.lengthController.clear();
+		controller.widthController.clear();
+		super.dispose();
+	  }
+	
+	  @override
+	  Widget build(BuildContext context) {
+	  Widget aliasInput() {...}
+	  Widget locationInput() {...}
+	  Widget materialInput() {...}
+	  Widget shapelInput() {...}
+	  Widget heightInput() {...}
+	  Widget lengthInput() {...}
+	  Widget widthInput() {...}
+	  Widget diameterInput() {...}
+	  Widget registerButton() {...}
+	  Widget persegiInput() {...}
+	   Widget bundarInput() {...}
+	
+		return Obx(() {
+		  if (controller.isLoading.value == false) {
+			return Scaffold(
+			  appBar: AppBar(
+				backgroundColor: backgroundColor2,
+				title: const Text("Registrasi Kolam"),
+			  ),
+			  backgroundColor: backgroundColor1,
+			  body: ListView(
+				children: [
+				  aliasInput(),
+				  locationInput(),
+				  materialInput(),
+				  shapelInput(),
+				  controller.shapeController.selected.value == 'persegi'
+					  ? persegiInput()
+					  : bundarInput(),
+				  heightInput(),
+				  registerButton(),
+				  SizedBox(
+					height: 8,
+				  )
+				],
+			  ),
+			);
+		  } else {
+			return Center(
+			  child: CircularProgressIndicator(
+				color: secondaryColor,
+			  ),
+			);
+		  }
+		});
+	  }
+	}
+	
+\end{lstlisting}
+
+
+
+\textit{Code widget untuk halaman detail kolam}
+
+\begin{lstlisting}
+	import 'dart:developer';
+
+import 'package:fish/models/pond_model.dart';
+import 'package:fish/pages/component/activation_card.dart';
+import 'package:fish/pages/pond/activation_breed_controller.dart';
+import 'package:fish/pages/pond/activation_breed_page.dart';
+import 'package:fish/pages/pond/pond_controller.dart';
+import 'package:fish/pages/pond/add_pond_page.dart';
+import 'package:fish/pages/pond/deactivation_breed_page.dart';
+import 'package:fish/pages/pond/detail_pond_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:fish/theme.dart';
+import 'package:get/get.dart';
+
+import '../fish_transfer/fish_transfer_entry_page.dart';
+
+class DetailPondPage extends StatefulWidget {
+const DetailPondPage({Key? key}) : super(key: key);
+
+@override
+State<DetailPondPage> createState() => _DetailPondPageState();
+}
+
+class _DetailPondPageState extends State<DetailPondPage> {
+var detailController = Get.put(DetailPondController(), permanent: false);
+@override
+void initState() {
+ super.initState();
+
+ detailController.getPondActivation(context);
+}
+
+@override
+void activate() {
+ print('ini aktif');
+ super.activate();
+}
+
+@override
+void deactivate() {
+ print('ini deaktif');
+ super.deactivate();
+}
+
+@override
+Widget build(BuildContext context) {
+ Widget pondStatus() {...}
+
+ Widget activationButton() {...}
+
+ Widget deactivationButton() {...}
+
+ Widget detail() {...}
+
+ Widget activationTitle() {...}
+
+ Widget listActivation() {...}
+
+ Widget emptyListActivation() {...}
+
+ return Scaffold(
+   backgroundColor: backgroundColor1,
+   body: Obx(
+	 () => detailController.isLoading.value
+		 ? Center(
+			 child: CircularProgressIndicator(
+			   color: secondaryColor,
+			 ),
+		   )
+		 : ListView(
+			 children: [
+			   pondStatus(),
+			   detailController.isPondActive.value == false
+				   ? activationButton()
+				   : deactivationButton(),
+			   detail(),
+			   activationTitle(),
+			   detailController.activations.isEmpty
+				   ? emptyListActivation()
+				   : listActivation(),
+			   SizedBox(
+				 height: 10,
+			   )
+			 ],
+		   ),
+   ),
+ );
+}
+}
+ \end{lstlisting}
+
+
+ \textit{Code halaman aktivasi kolam}
+
+ \begin{lstlisting}
+	import 'dart:developer';
+
+import 'package:fish/pages/pond/activation_breed_controller.dart';
+import 'package:fish/pages/pond/detail_pond_controller.dart';
+import 'package:fish/pages/pond/detail_pond_page.dart';
+import 'package:fish/service/pond_service.dart';
+import 'package:fish/service/activation_service.dart';
+import 'package:flutter/material.dart';
+import 'package:fish/theme.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+
+import '../component/detail_pond_tabview.dart';
+
+class ActivationBreedPage extends StatelessWidget {
+  ActivationBreedPage({Key? key}) : super(key: key);
+
+  final ActivationBreedController controller =
+      Get.put(ActivationBreedController());
+
+  final DetailPondController detailPondController =
+      Get.put(DetailPondController());
+
+  @override
+  Widget build(BuildContext context) {
+    Widget checkBoxFish() {...}
+
+    Widget waterHeightInput() {...}
+
+    Widget leleInput() {...}
+
+    Widget nilaMerahInput() {...}
+
+    Widget nilaHitamInput() {...}
+  
+    Widget patinInput() {...}
+
+    Widget masInput() {...}
+
+    Widget breedOptionInput() {...}
+
+    Widget pembesaranInput() {...}
+
+    Widget benihInput() {...}
+
+    Widget activationButton() {...}
+
+    return Obx(() {
+      if (controller.isActivationProgress.value == false) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: backgroundColor2,
+            title: const Text("Aktivasi Kolam"),
+          ),
+          backgroundColor: backgroundColor1,
+          body: ListView(
+            children: [
+              breedOptionInput(),
+              controller.breedOptionController.selected.value == "Benih"
+                  ? benihInput()
+                  : pembesaranInput(),
+              checkBoxFish(),
+              controller.isNilaHitam == true ? nilaHitamInput() : Container(),
+              controller.isNilaMerah == true ? nilaMerahInput() : Container(),
+              controller.isLele == true ? leleInput() : Container(),
+              controller.isPatin == true ? patinInput() : Container(),
+              controller.isMas == true ? masInput() : Container(),
+              waterHeightInput(),
+              activationButton(),
+              SizedBox(
+                height: 8,
+              )
+            ],
+          ),
+        );
+      } else {
+        return Center(
+          child: CircularProgressIndicator(
+            color: secondaryColor,
+          ),
+        );
+      }
+    });
+  }
+}
+
+	\end{lstlisting}
+
+	\clearpage
+	\section{Lampiran 4 Code Sprint 3 report}
+	\textit{Code untuk model class kolam}
+	
+	\begin{lstlisting}
+	import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+enum PondStatus {
+  active,
+  nonActive,
+  close,
+}
+
+class string {}
+
+class Pond {
+  String? id;
+  int? idInt;
+  String? alias;
+  String? location;
+  String? shape;
+  String? material;
+  num? length;
+  num? width;
+  num? diameter;
+  num? height;
+  num? area;
+  num? volume;
+  String? buildAt;
+  String? imageLink;
+  bool? isActive;
+  num? fishAlive;
+  String? lastActivationDate;
+  String? rangeFromLastActivation;
+  PondStatus pondStatus;
+  String? pondStatusStr;
+  String? pondPhDesc;
+  num? pondPh;
+  String? pondDoDesc;
+  num? pondDo;
+  num? pondTemp;
+  String? status;
+
+  Pond({
+    required this.id,
+    required this.idInt,
+    required this.alias,
+    required this.location,
+    required this.shape,
+    required this.material,
+    required this.isActive,
+    required this.pondStatus,
+    this.length,
+    this.width,
+    this.diameter,
+    this.height,
+    this.area,
+    this.volume,
+    this.buildAt,
+    this.imageLink,
+    this.fishAlive,
+    this.lastActivationDate,
+    this.rangeFromLastActivation,
+    this.pondStatusStr,
+    this.pondPh,
+    this.pondPhDesc,
+    this.pondDo,
+    this.pondDoDesc,
+    this.pondTemp,
+    this.status,
+  });
+
+  factory Pond.fromJson(Map<String, dynamic> json) {
+    return Pond(
+        id: json['_id'],
+        idInt: json['id_int'],
+        alias: json['alias'],
+        location: json['location'],
+        shape: json['shape'],
+        material: json['material'],
+        length: json['length'],
+        width: json['width'],
+        diameter: json['diameter'],
+        height: json['height'],
+        area: json['area'],
+        volume: json['volume'],
+        buildAt: json['build_at'],
+        imageLink: json['image_link'],
+        isActive: json['isActive'],
+        fishAlive: json['fish_alive'] ?? 0,
+        lastActivationDate: json['activation_date'] ?? "-",
+        rangeFromLastActivation: json['isActive'] == false
+            ? "-"
+            : (DateTime.now()
+                    .difference(stringToDate(json['activation_date']))
+                    .inDays)
+                .toString(),
+        pondStatus: PondStatusConverter.toEnum(json["status"]),
+        pondStatusStr: json["status"],
+        pondPh: json["pondPh"],
+        pondPhDesc: json["pondPhDesc"],
+        pondDo: json["pondDo"],
+        pondDoDesc: json["pondDoDesc"],
+        pondTemp: json["pondTemp"],
+        status: json["status"]);
+  }
+
+  static DateTime stringToDate(String dateString) {
+    DateTime parseDate = DateFormat("dd-MM-yyyy").parse(dateString);
+    return parseDate;
+  }
+
+  Color getColor() {
+    PondStatus pondStatus = this.pondStatus;
+    switch (pondStatus) {
+      case PondStatus.active:
+        return Colors.green;
+      case PondStatus.nonActive:
+        return Colors.red.shade300;
+      case PondStatus.close:
+        return Colors.amber;
+      default:
+        return Colors.red.shade300;
+    }
+  }
+
+  String getFishAlive() {
+    if (isActive == false) {
+      return '-';
+    } else {
+      return fishAlive.toString();
+    }
+  }
+
+  String getLastActivationDate() {
+    if (isActive == false) {
+      return '-';
+    } else {
+      return lastActivationDate!;
+    }
+  }
+
+  String getGmtToNormalDate() {
+    String stringDate = buildAt!;
+    DateTime dateTime = DateFormat("yyyy-MM-dd hh:mm:ss").parse(stringDate);
+    String newStringDate = DateFormat("dd-MM-yyyy").format(dateTime);
+    return newStringDate;
+  }
+}
+
+extension PondStatusConverter on PondStatus {
+  static PondStatus toEnum(String? status) {
+    switch (status) {
+      case 'Aktif':
+        return PondStatus.active;
+      case 'Tidak Aktif':
+        return PondStatus.nonActive;
+      case 'Panen':
+        return PondStatus.close;
+      default:
+        return PondStatus.nonActive;
+    }
+  }
+}
+	\end{lstlisting}
+
+	\textit{Code untuk API service halaman terkait kolam kolam}
+	
+	\begin{lstlisting}
+import 'dart:convert';
+import 'dart:math';
+import 'package:fish/models/pond_model.dart';
+import 'package:fish/service/url_api.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../theme.dart';
+
+class PondService {
+  Future<List<Pond>> getPonds() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('token').toString();
+    var url = Uri.parse(Urls.ponds);
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
+
+    var response = await http.get(url, headers: headers);
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      List<Pond> ponds = [];
+
+      for (var item in data) {
+        ponds.add(Pond.fromJson(item));
+      }
+
+      print(ponds);
+
+      return ponds;
+    } else {
+      throw Exception(e);
+    }
+  }
+
+  Future<void> getPondDetail({required String pondId}) async {
+    var url = Uri.parse(Urls.pond(pondId));
+    var headers = {'Content-Type': 'application/json'};
+
+    var response = await http.get(url, headers: headers);
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      // Pond pond = Pond.fromJson(data);
+      // print(pond);
+
+      // return pond;
+    } else {
+      throw Exception('Gagal Get Detial Pond!');
+    }
+  }
+
+  Future<bool> pondRegister(
+      {required String? alias,
+      required String? location,
+      required String? shape,
+      required String? material,
+      required String? length,
+      required String? width,
+      required String? diameter,
+      required String? height,
+      required String? status,
+      required Function doInPost,
+      required BuildContext context}) async {
+    if (diameter!.isNotEmpty) {
+      if (diameter.contains(",")) {
+        diameter = diameter.replaceAll(',', '.');
+      }
+    }
+    if (length!.isNotEmpty) {
+      if (length.contains(",")) {
+        length = length.replaceAll(',', '.');
+      }
+    }
+    if (width!.isNotEmpty) {
+      if (width.contains(",")) {
+        width = width.replaceAll(',', '.');
+      }
+    }
+    if (height!.isNotEmpty) {
+      if (height.contains(",")) {
+        height = height.replaceAll(',', '.');
+      }
+    }
+    WidgetsFlutterBinding.ensureInitialized();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('token').toString();
+    final response = await http.post(
+      Uri.parse(Urls.ponds),
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        'Authorization': 'Bearer $token'
+      },
+      encoding: Encoding.getByName('utf-8'),
+      body: {
+        "alias": alias,
+        "location": location,
+        "shape": shape,
+        "material": material,
+        "status": status,
+        "length": length,
+        "width": width,
+        "diameter": diameter,
+        "height": height,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      doInPost();
+      Navigator.pop(context);
+      return true;
+    } else {
+      var res = jsonDecode(response.body);
+
+      showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+                title: const Text('Input Error',
+                    style: TextStyle(color: Colors.red)),
+                content: Text(
+                  '${res["message"]}',
+                  style: TextStyle(color: Colors.white),
+                ),
+                backgroundColor: backgroundColor1,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ));
+      return false;
+    }
+  }
+}
+	\end{lstlisting}
+	
+	\textit{Code widget untuk halaman pemberian pakan}
+	\begin{lstlisting}
+import 'package:fish/models/feed_chart_model.dart';
+import 'package:fish/pages/component/feed_month_card.dart';
+import 'package:fish/pages/feeding/feed_controller.dart';
+import 'package:fish/pages/pond/detail_pond_controller.dart';
+import 'package:fish/pages/pond/pond_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:fish/pages/feeding/feed_entry_page.dart';
+import 'package:fish/theme.dart';
+import 'package:get/get.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+
+class DetailFeedPage extends StatelessWidget {
+  const DetailFeedPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final FeedController controller = Get.put(FeedController());
+    final PondController pondController = Get.find();
+    final DetailPondController detailPondController = Get.find();
+
+    Widget chartFeed() {...}
+
+    Widget emptyListPond() {...}
+
+    Widget feedDataRecap() {...}
+
+    Widget entryPakanButton() {...}
+
+    Widget detail() {...}
+
+    Widget recapTitle() {...}
+
+    Widget listMonthFeed() {...}
+
+    return Obx(() {
+      if (controller.isLoading.value == false) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: backgroundColor2,
+            title: const Text("Detail Pakan Permusim"),
+          ),
+          backgroundColor: backgroundColor1,
+          body: ListView(
+            children: [
+              chartFeed(),
+              feedDataRecap(),
+              // detail(),
+              entryPakanButton(),
+              recapTitle(),
+              // chartRecap(),
+              controller.list_feedHistoryMonthly.isEmpty
+                  ? emptyListPond()
+                  : listMonthFeed(),
+              SizedBox(
+                height: 10,
+              )
+            ],
+          ),
+        );
+      } else {
+        return Center(
+          child: CircularProgressIndicator(
+            color: secondaryColor,
+          ),
+        );
+      }
+    });
+  }
+}
+
+	\end{lstlisting}
+
+	\textit{Code untuk halaman entry pakan}
+	\begin{lstlisting}
+import 'package:fish/pages/feeding/feed_entry_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:fish/theme.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+
+import 'feed_controller.dart';
+
+class FeedEntryPage extends StatelessWidget {
+  const FeedEntryPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final FeedEntryController controller = Get.put(FeedEntryController());
+    final FeedController feedcontroller = Get.put(FeedController());
+
+    Widget feedTypeInput() {
+      return Container(
+        margin: EdgeInsets.only(
+            top: defaultSpace, right: defaultMargin, left: defaultMargin),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Pilih Pakan',
+              style: primaryTextStyle.copyWith(
+                fontSize: 16,
+                fontWeight: medium,
+              ),
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            Container(
+              height: 50,
+              padding: EdgeInsets.symmetric(
+                horizontal: 16,
+              ),
+              decoration: BoxDecoration(
+                color: backgroundColor2,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: Obx(() => DropdownButtonFormField<String>(
+                      onChanged: (newValue) => controller.feedTypeFormController
+                          .setSelected(newValue!),
+                      value: controller.feedTypeFormController.selected.value,
+                      items: controller.feedTypeFormController.listFeedType
+                          .map((feedtype) {
+                        return DropdownMenuItem<String>(
+                          value: feedtype.type,
+                          child: Text(
+                            feedtype.type.toString(),
+                            style: primaryTextStyle,
+                          ),
+                        );
+                      }).toList(),
+                      dropdownColor: backgroundColor5,
+                      decoration: InputDecoration(border: InputBorder.none),
+                    )),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget feedSatuanInput() {
+      return Container(
+        margin: EdgeInsets.only(
+            top: defaultSpace, right: defaultMargin, left: defaultMargin),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Pilih Satuan',
+              style: primaryTextStyle.copyWith(
+                fontSize: 16,
+                fontWeight: medium,
+              ),
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            Container(
+              height: 50,
+              padding: EdgeInsets.symmetric(
+                horizontal: 16,
+              ),
+              decoration: BoxDecoration(
+                color: backgroundColor2,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: Obx(() => DropdownButtonFormField<String>(
+                      onChanged: (newValue) => controller.feedSatuanController
+                          .setSelected(newValue!),
+                      value: controller.feedSatuanController.selected.value,
+                      items: controller.feedSatuanController.listSatuan
+                          .map((feedtype) {
+                        return DropdownMenuItem<String>(
+                          value: feedtype,
+                          child: Text(
+                            feedtype.toString(),
+                            style: primaryTextStyle,
+                          ),
+                        );
+                      }).toList(),
+                      dropdownColor: backgroundColor5,
+                      decoration: InputDecoration(border: InputBorder.none),
+                    )),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget feedDosisInput() {
+      return Container(
+        margin: EdgeInsets.only(
+            top: defaultSpace, right: defaultMargin, left: defaultMargin),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Dosis Pakan',
+              style: primaryTextStyle.copyWith(
+                fontSize: 16,
+                fontWeight: medium,
+              ),
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            Container(
+              height: 50,
+              padding: EdgeInsets.symmetric(
+                horizontal: 16,
+              ),
+              decoration: BoxDecoration(
+                color: backgroundColor2,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(child: Obx(() {
+                return TextFormField(
+                  style: primaryTextStyle,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
+                  ],
+                  keyboardType: TextInputType.number,
+                  onChanged: controller.doseChanged,
+                  onTap: controller.valdose,
+                  controller: controller.feedDosisController,
+                  decoration: controller.validatedose.value == true
+                      ? controller.dose == ''
+                          ? InputDecoration(
+                              errorText: 'Dosis tidak boleh kosong',
+                              isCollapsed: true)
+                          : null
+                      : InputDecoration.collapsed(
+                          hintText: 'ex: 2.1', hintStyle: subtitleTextStyle),
+                );
+              })),
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget submitButton() {
+      return Container(
+        height: 50,
+        width: double.infinity,
+        margin: EdgeInsets.only(
+            top: defaultSpace * 3, right: defaultMargin, left: defaultMargin),
+        child: TextButton(
+          onPressed: () async {
+            controller.feedDosisController.text == ""
+                ? null
+                : Navigator.pop(context);
+            controller.postFeedHistory();
+            feedcontroller.getChartFeed(
+                activation_id: controller.activation.id.toString());
+            feedcontroller.getWeeklyRecapFeedHistory(
+                activation_id: controller.activation.id.toString());
+            controller.postDataLog(controller.fitur);
+          },
+          style: TextButton.styleFrom(
+            backgroundColor: primaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          child: Text(
+            'Submit',
+            style: primaryTextStyle.copyWith(
+              fontSize: 16,
+              fontWeight: medium,
+            ),
+          ),
+        ),
+      );
+    }
+
+    return Obx(() {
+      if (controller.isLoading.value == false) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: backgroundColor2,
+            title: Text("Entry Pakan Kolam ${controller.pond.alias}"),
+          ),
+          backgroundColor: backgroundColor1,
+          body: ListView(
+            children: [
+              // pondInput(),
+              feedTypeInput(),
+              feedSatuanInput(),
+              feedDosisInput(),
+              submitButton(),
+              SizedBox(
+                height: 8,
+              )
+            ],
+          ),
+        );
+      } else {
+        return Center(
+          child: CircularProgressIndicator(
+            color: secondaryColor,
+          ),
+        );
+      }
+    });
+  }
+}
+	\end{lstlisting}
+
+	\textit{Membuat model class untuk fitur pemberian pakan}
+	\begin{lstlisting}
+	  import 'package:intl/intl.dart';
+
+class FeedHistoryMonthly {
+  DateTime? date;
+  num? totalFeedWeight;
+  num? totalFeed;
+
+  FeedHistoryMonthly({
+    required this.date,
+    required this.totalFeedWeight,
+    required this.totalFeed,
+  });
+
+  factory FeedHistoryMonthly.fromJson(Map<String, dynamic> json) {
+    return FeedHistoryMonthly(
+      date: DateTime.utc(json['year'], json['_id']),
+      totalFeedWeight: json['total_feed'],
+      totalFeed: json['total_feedhistory'],
+    );
+  }
+
+  static List<FeedHistoryMonthly> fromJsonList(List<dynamic> list) {
+    List<FeedHistoryMonthly> fishes = [];
+    for (var item in list) {
+      fishes.add(FeedHistoryMonthly.fromJson(item));
+    }
+    return fishes;
+  }
+
+  String getMonthName() => DateFormat('MMM').format(date!);
+  String getMonthNameFull() => DateFormat('MMMM').format(date!);
+
+  String getMonth() => DateFormat('yyyy-MM').format(date!);
+}
+
+	\end{lstlisting}
+
+	\textit{Membuat network request untuk fitur pemberian pakan}
+	\begin{lstlisting}
+	import 'dart:developer';
+import 'dart:convert';
+import 'package:fish/models/FeedHistoryDaily.dart';
+import 'package:fish/models/FeedHistoryHourly.dart';
+import 'package:fish/models/FeedHistoryMonthly.dart';
+import 'package:fish/models/FeedHistoryWeekly.dart';
+import 'package:fish/models/feed_chart_model.dart';
+import 'package:fish/service/url_api.dart';
+import 'package:http/http.dart' as http;
+
+class FeedHistoryService {
+  Future<List<FeedChartData>> getChart({required String activation_id}) async {
+    var url = Uri.parse(Urls.feedChartApi(activation_id));
+    print(url);
+    var headers = {'Content-Type': 'application/json'};
+
+    var response = await http.get(url, headers: headers);
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      List<FeedChartData> feedChartData = FeedChartData.fromJsonList(data);
+      return feedChartData;
+    } else {
+      throw Exception('Gagal Get Activation!');
+    }
+  }
+
+  Future<bool> postFeedHistory({
+    required String? pondId,
+    required String? feedTypeId,
+    required String? feedDose,
+  }) async {
+    print({
+      "pond_id": pondId,
+      "feed_type_id": feedTypeId,
+      "feed_dose": feedDose,
+    });
+    final response = await http.post(
+      Uri.parse(Urls.feedhistorys),
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      encoding: Encoding.getByName('utf-8'),
+      body: {
+        "pond_id": pondId,
+        "feed_type_id": feedTypeId,
+        "feed_dose": feedDose,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      print(response.body);
+      return true;
+    } else {
+      print(response.body);
+      return false;
+    }
+  }
+}
+	\end{lstlisting}
+
+	\clearpage
+	\section{Lampiran 5 Code Sprint 4 report}
+
+	\textit{Code halaman rekapitulasi grading}
+	\begin{lstlisting}
+import 'dart:async';
+import 'package:fish/models/grading_chart_model.dart';
+import 'package:fish/pages/component/grading_card.dart';
+import 'package:fish/pages/grading/grading_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:fish/pages/grading/grading_constanta_edit_page.dart';
+import 'package:fish/pages/grading/grading_entry_page.dart';
+import 'package:fish/theme.dart';
+import 'package:get/get.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+
+class GradingPage extends StatelessWidget {
+  const GradingPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final GradingController controller = Get.put(GradingController());
+
+    Widget chartGrading() {...}
+
+    Widget gradingDataRecap() {...}
+
+    Widget entryGradingButton() {...}
+
+    Widget detail() {...}
+
+    Widget recapTitle() {...}
+
+    Widget emptyListGrading() {...}
+
+    Widget listGrading() {...}
+
+    Widget sizingSec() {...}
+
+    return Obx(() {
+      if (controller.isLoading.value == false) {
+        print('object');
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: backgroundColor2,
+            title: const Text("Rekapitulasi Grading"),
+          ),
+          backgroundColor: backgroundColor1,
+          body: ListView(
+            children: [
+              chartGrading(),
+              gradingDataRecap(),
+ 
+              sizingSec(),
+              entryGradingButton(),
+              recapTitle(),
+
+              controller.list_fishGrading.isEmpty
+                  ? emptyListGrading()
+                  : listGrading(),
+              SizedBox(
+                height: 10,
+              )
+            ],
+          ),
+        );
+      } else {
+        return Center(
+          child: CircularProgressIndicator(
+            color: secondaryColor,
+          ),
+        );
+      }
+    });
+  }
+}
+
+	\end{lstlisting}
+
+	\textit{Code untuk halaman entry grading}
+	\begin{lstlisting}
+import 'package:fish/pages/grading/grading_entry_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:fish/theme.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+
+import 'grading_controller.dart';
+
+class GradingEntryPage extends StatelessWidget {
+  const GradingEntryPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final GradingEntryController controller = Get.put(GradingEntryController());
+    final GradingController gradingcontroller = Get.put(GradingController());
+
+    Widget fishTypelInput() {...}
+
+    Widget sampleAmountInput() {...}
+
+    Widget fishWightInput() {...}
+
+    Widget fishLengthAvgInput() {...}
+
+    Widget undersizeInput() {...}
+
+    Widget oversizeInput() {...}
+
+    Widget normalsizeInput() {...}
+
+    Widget submitButton() {...}
+
+    return Obx(() {
+      if (controller.isLoading.value == false) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: backgroundColor2,
+            title: Text("Entry Grading ${controller.pond.alias}"),
+          ),
+          backgroundColor: backgroundColor1,
+          body: ListView(
+            children: [
+              fishTypelInput(),
+              sampleAmountInput(),
+              fishWightInput(),
+              fishLengthAvgInput(),
+              normalsizeInput(),
+              undersizeInput(),
+              oversizeInput(),
+              submitButton(),
+              SizedBox(
+                height: 8,
+              )
+            ],
+          ),
+        );
+      } else {
+        return Center(
+          child: CircularProgressIndicator(
+            color: secondaryColor,
+          ),
+        );
+      }
+    });
+  }
+}
+
+	\end{lstlisting}
+	\textit{Code untuk halaman detail grading}
+	\begin{lstlisting}
+	    import 'package:fish/pages/grading/detail_grading_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:fish/theme.dart';
+import 'package:get/get.dart';
+
+class DetailGradingPage extends StatelessWidget {
+  const DetailGradingPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final GradingDetailController controller =
+        Get.put(GradingDetailController());
+
+    Widget gradingDataRecap() {...}
+
+    Widget detail() {...}
+
+    Widget titleRecap() {...}
+
+    Widget dataGrading() {...}
+
+    Widget detailGrading() {...}
+
+    return Obx(() {
+      if (controller.isLoading.value == false) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: backgroundColor2,
+            title: const Text("Detail Rekap Grading"),
+          ),
+          backgroundColor: backgroundColor1,
+          body: ListView(
+            children: [
+              gradingDataRecap(),
+              detail(),
+              titleRecap(),
+              dataGrading(),
+              detailGrading(),
+              SizedBox(
+                height: 10,
+              )
+            ],
+          ),
+        );
+      } else {
+        return Center(
+          child: CircularProgressIndicator(
+            color: secondaryColor,
+          ),
+        );
+      }
+    });
+  }
+}
+
+	\end{lstlisting}
+
+	\textit{Membuat model class grading berat ikan}
+	\begin{lstlisting}
+import 'package:intl/intl.dart';
+
+class FishGrading {
+  String? id;
+  String? fishType;
+  num? samplingAmount;
+  num? avgFishWeight;
+  num? avgFishLong;
+  num? normalFish;
+  num? oversizeFish;
+  num? undersizeFish;
+  DateTime? gradingAt;
+
+  FishGrading({
+    required this.id,
+    required this.fishType,
+    required this.samplingAmount,
+    required this.avgFishWeight,
+    this.avgFishLong,
+    this.normalFish,
+    this.oversizeFish,
+    this.undersizeFish,
+    this.gradingAt,
+  });
+
+  factory FishGrading.fromJson(Map<String, dynamic> json) {
+    print(json);
+    return FishGrading(
+      id: json['_id'],
+      fishType: json['fish_type'],
+      samplingAmount: json['sampling_amount'],
+      avgFishWeight: json['avg_fish_weight'],
+      avgFishLong: json['avg_fish_long'],
+      normalFish: json['amount_normal_fish'],
+      oversizeFish: json['amount_oversize_fish'],
+      undersizeFish: json['amount_undersize_fish'],
+      gradingAt: DateTime.tryParse(json['grading_at']),
+    );
+  }
+
+  static List<FishGrading> fromJsonList(List<dynamic> list) {
+    List<FishGrading> fishgradings = [];
+    for (var item in list) {
+      fishgradings.add(FishGrading.fromJson(item));
+    }
+    return fishgradings;
+  }
+
+  String getDate() => DateFormat('dd-MM-yyyy ').format(gradingAt!);
+}
+	\end{lstlisting}
+
+	\textit{Membuat network service untuk fitur grading}
+	\begin{lstlisting}
+	import 'dart:convert';
+import 'package:fish/models/fishGrading_model.dart';
+import 'package:fish/models/grading_chart_model.dart';
+import 'package:fish/service/url_api.dart';
+import 'package:http/http.dart' as http;
+
+class FishGradingService {
+  Future<List<FishGrading>> fetchFishGradings(
+      {required String activationId}) async {
+    var url = Uri.parse(Urls.fishGrading(activationId));
+    var headers = {'Content-Type': 'application/json'};
+
+    var response = await http.get(url, headers: headers);
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      List<FishGrading> fishgradings = FishGrading.fromJsonList(data);
+      print("success add fishgradings");
+      return fishgradings;
+    } else {
+      throw Exception('Gagal Get fishgradings!');
+    }
+  }
+
+  Future<List<GradingChartData>> fetchChartFishGradings(
+      {required String activationId}) async {
+    var url = Uri.parse(Urls.fishGrading(activationId));
+    var headers = {'Content-Type': 'application/json'};
+
+    var response = await http.get(url, headers: headers);
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      List<GradingChartData> fishgradings = GradingChartData.fromJsonList(data);
+      print("success add fishgradings");
+      return fishgradings;
+    } else {
+      throw Exception('Gagal Get fishgradings!');
+    }
+  }
+
+  Future<bool> postFishGrading({
+    required String? pondId,
+    required String? fishType,
+    required String? samplingAmount,
+    required String? avgFishWeight,
+    required String? avgFishLong,
+    required String? amountNormal,
+    required String? amountOver,
+    required String? amountUnder,
+  }) async {
+    if (avgFishWeight!.isNotEmpty) {
+      if (avgFishWeight.contains(",")) {
+        avgFishWeight = avgFishWeight.replaceAll(',', '.');
+      }
+    }
+    print({
+      "pond_id": pondId.toString(),
+      "fish_type": fishType,
+      "sampling_amount": samplingAmount,
+      "avg_fish_weight": avgFishWeight,
+      "avg_fish_long": avgFishLong,
+      "amount_normal_fish": amountNormal,
+      "amount_oversize_fish": amountOver,
+      "amount_undersize_fish": amountUnder,
+    });
+    final response = await http.post(
+      Uri.parse(Urls.fishGradings),
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      encoding: Encoding.getByName('utf-8'),
+      body: {
+        "pond_id": pondId,
+        "fish_type": fishType,
+        "sampling_amount": samplingAmount,
+        "avg_fish_weight": avgFishWeight,
+        "avg_fish_long": avgFishLong,
+        "amount_normal_fish": amountNormal,
+        "amount_oversize_fish": amountOver,
+        "amount_undersize_fish": amountUnder,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      print(response.body);
+      return true;
+    } else {
+      print(response.body);
+      return false;
+    }
+  }
+}
+	\end{lstlisting}
+
+
+	\clearpage
+	\section{Lampiran 6 Code Sprint 5 report}
+	\textit{Code halaman rekapitulasi kematian ikan}
+	\begin{lstlisting}
+import 'package:fish/pages/component/death_card.dart';
+import 'package:fish/pages/fish/fish_recap_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:fish/pages/fish/fish_death_entry_page.dart';
+import 'package:fish/theme.dart';
+import 'package:get/get.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+
+import '../../models/fish_live_model.dart';
+
+class FishRecapPage extends StatelessWidget {
+  const FishRecapPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final FishRecapController controller = Get.put(FishRecapController());
+
+    Widget chartDeath() {...}
+
+    Widget fishDataRecap() {...}
+
+    Widget entryDeathButton() {...}
+
+    Widget emptyListPond() {...}
+
+    Widget detail() {...}
+
+    Widget recapTitle() {...}
+
+    Widget listDeath() {...}
+
+    return Obx(() {
+      if (controller.isLoading.value == false) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: backgroundColor2,
+            title: const Text("Rekapitulasi Jumlah Kematian"),
+          ),
+          backgroundColor: backgroundColor1,
+          body: ListView(
+            children: [
+              chartDeath(),
+              fishDataRecap(),
+              detail(),
+              // sizingSec(),
+              entryDeathButton(),
+              recapTitle(),
+              // chartRecap(),
+              controller.list_fishDeath.isEmpty ? emptyListPond() : listDeath(),
+              SizedBox(
+                height: 10,
+              )
+            ],
+          ),
+        );
+      } else {
+        return Center(
+          child: CircularProgressIndicator(
+            color: secondaryColor,
+          ),
+        );
+      }
+    });
+  }
+}
+	\end{lstlisting}
+
+	\textit{Code untuk halaman entry kematian}
+	\begin{lstlisting}
+import 'package:fish/pages/fish/fish_death_entry_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:fish/theme.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+
+import 'fish_recap_controller.dart';
+
+class FishDeathEntryPage extends StatelessWidget {
+  const FishDeathEntryPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final FishDeathEntryController controller =
+        Get.put(FishDeathEntryController());
+
+    final FishRecapController deathcontroller = Get.put(FishRecapController());
+    Widget fishTypeInput() {...}
+
+    Widget fishDeathAmountInput() {...}
+
+    Widget submitButton() {...}
+
+    return Obx(() {
+      if (controller.isLoading.value == false) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: backgroundColor2,
+            title: Text("Entry Kematian Ikan ${controller.pond.alias}"),
+          ),
+          backgroundColor: backgroundColor1,
+          body: ListView(
+            children: [
+              fishTypeInput(),
+              fishDeathAmountInput(),
+              submitButton(),
+              SizedBox(
+                height: 8,
+              )
+            ],
+          ),
+        );
+      } else {
+        return Center(
+          child: CircularProgressIndicator(
+            color: secondaryColor,
+          ),
+        );
+      }
+    });
+  }
+}
+	\end{lstlisting}
+
+	\textit{Membuat model class rekapitulasi kematian ikan}
+	\begin{lstlisting}
+import 'package:intl/intl.dart';
+
+class FishDeath {
+  String? id;
+  String? diagnosis;
+  String? fishType;
+  num? deathAmount;
+  DateTime? deathAt;
+
+  FishDeath({
+    required this.id,
+    required this.diagnosis,
+    required this.fishType,
+    required this.deathAmount,
+    required this.deathAt,
+  });
+
+  factory FishDeath.fromJson(Map<String, dynamic> json) {
+    print(json);
+    return FishDeath(
+      id: json['_id'],
+      diagnosis: json['diagnosis'],
+      fishType: json['fish']['fish_type'],
+      deathAmount: json["fish"]['fish_amount'] * -1,
+      deathAt: DateTime.tryParse(json['death_at']),
+    );
+  }
+
+  static List<FishDeath> fromJsonList(List<dynamic> list) {
+    List<FishDeath> fishDeaths = [];
+    for (var item in list) {
+      fishDeaths.add(FishDeath.fromJson(item));
+    }
+    return fishDeaths;
+  }
+
+  String getDate() => DateFormat('dd-MM-yyyy ').format(deathAt!);
+}
+	\end{lstlisting}
+
+	\textit{Membuat network service untuk fitur rekapitulasi kematian ikan}
+	\begin{lstlisting}
+import 'dart:convert';
+import 'package:fish/models/fishDeath_model.dart';
+import 'package:fish/models/fish_live_model.dart';
+import 'package:fish/service/url_api.dart';
+import 'package:http/http.dart' as http;
+
+class FishDeathService {
+  Future<List<FishDeath>> fetchFishDeaths(
+      {required String activationId}) async {
+    var url = Uri.parse(Urls.fishDeath(activationId));
+    var headers = {'Content-Type': 'application/json'};
+
+    var response = await http.get(url, headers: headers);
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      List<FishDeath> fishlive = FishDeath.fromJsonList(data);
+      print("success add fishlvie");
+      return fishlive;
+    } else {
+      throw Exception('Gagal Get fishdeath!');
+    }
+  }
+
+  Future<List<FishLiveData>> fetchFishLive(
+      {required String activationId}) async {
+    var url = Uri.parse(Urls.fishDeath(activationId));
+    var headers = {'Content-Type': 'application/json'};
+
+    var response = await http.get(url, headers: headers);
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      List<FishLiveData> fishdeath = FishLiveData.fromJsonList(data);
+      print("success add fishdeath");
+      return fishdeath;
+    } else {
+      throw Exception('Gagal Get fishdeath!');
+    }
+  }
+
+  Future<bool> postFishDeath({
+    required String? pondId,
+    required List fish,
+  }) async {
+    print({"pond_id": pondId, "fish_death_amount": fish});
+    final response = await http.post(
+      Uri.parse(Urls.fishDeaths),
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      encoding: Encoding.getByName('utf-8'),
+      body: {
+        "pond_id": pondId,
+        "fish_death_amount": fish.toString(),
+        "diagnosis": "mati karena sakit"
+      },
+    );
+
+    if (response.statusCode == 200) {
+      print(response.body);
+      return true;
+    } else {
+      print(response.body);
+      return false;
+    }
+  }
+}
+	\end{lstlisting}
+
+	
+	\clearpage
+	\section{Lampiran 7 Code Sprint 6 report}
+	\textit{Code halaman rekapitulasi treatment}
+	\begin{lstlisting}
+    import 'package:fish/models/fishDeath_model.dart';
+    import 'package:fish/pages/component/treatment_card.dart';
+    import 'package:fish/pages/treatment/treatment_controller.dart';
+    import 'package:fish/pages/treatment/treatment_entry_page.dart';
+    import 'package:flutter/material.dart';
+    import 'package:fish/theme.dart';
+    import 'package:get/get.dart';
+    
+    class TreatmentpPage extends StatefulWidget {
+      TreatmentpPage({Key? key}) : super(key: key);
+    
+      @override
+      State<TreatmentpPage> createState() => _TreatmentPageState();
+    }
+    
+    class _TreatmentPageState extends State<TreatmentpPage> {
+      final TreatmentController controller = Get.put(TreatmentController());
+    
+      @override
+      void initState() {
+        super.initState();
+        // WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+        //   await controller.getPondActivations(
+        //       pondId: controller.pond.id.toString());
+        // });
+        controller.getTreatmentData(context);
+      }
+    
+      @override
+      void dispose() {
+        controller.postDataLog(controller.fitur);
+        super.dispose();
+      }
+    
+      @override
+      Widget build(BuildContext context) {...}
+    
+        Widget listTreatment() {...}
+    
+        Widget emptyListTreatment() {...}
+    
+        return Obx(() {
+          if (controller.isLoading.value == false) {
+            return Scaffold(
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  Get.to(() => TreatmentEntryPage(), arguments: {
+                    "pond": controller.pond,
+                    "activation": controller.activation
+                  });
+                  controller.postDataLog(controller.fitur);
+                },
+                backgroundColor: primaryColor,
+                child: const Icon(Icons.add),
+              ),
+              backgroundColor: backgroundColor1,
+              body: ListView(
+                children: [
+                  fishDataRecap(),
+                  controller.listTreatmentTest.isEmpty
+                      ? emptyListTreatment()
+                      : listTreatment(),
+                  SizedBox(
+                    height: 10,
+                  )
+                ],
+              ),
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(
+                color: secondaryColor,
+              ),
+            );
+          }
+        });
+    }   
+	\end{lstlisting}
+	
+	\textit{Code untuk halaman entry treatment}
+	\begin{lstlisting}
+    import 'package:fish/models/fish_model.dart';
+    import 'package:fish/pages/component/treatment_berat_input_card.dart';
+    import 'package:fish/pages/treatment/treatment_entry_controller.dart';
+    import 'package:fish/pages/treatment/treatment_controller.dart';
+    import 'package:flutter/material.dart';
+    import 'package:fish/pages/pond/detail_pond_controller.dart';
+    import 'package:fish/theme.dart';
+    
+    import 'package:fish/pages/component/deactivation_list_input.dart';
+    import 'package:flutter/services.dart';
+    import 'package:get/get.dart';
+    
+    class TreatmentEntryPage extends StatefulWidget {
+      TreatmentEntryPage({Key? key}) : super(key: key);
+      @override
+      State<TreatmentEntryPage> createState() => _TreatmentEntryPageState();
+    }
+    
+    class _TreatmentEntryPageState extends State<TreatmentEntryPage> {
+      final TreatmentEntryController controller =
+          Get.put(TreatmentEntryController());
+    
+      final TreatmentController treatmentTontroller =
+          Get.put(TreatmentController());
+      void initState() {
+        super.initState();
+        // WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+        //   await controller.getPondActivations(
+        //       pondId: controller.pond.id.toString());
+        // });
+        controller.getHarvestedBool(controller.activation);
+      }
+    
+      @override
+      void dispose() {
+        controller.postDataLog(controller.fitur);
+        controller.carbonController.clear();
+        controller.descController.clear();
+        controller.leleWeightController.clear();
+        controller.masWeightController.clear();
+        controller.nilaHitamWeightController.clear();
+        controller.nilaMerahWeightController.clear();
+        controller.patinWeightController.clear();
+        controller.saltController.clear();
+        controller.waterController.clear();
+        controller.probioticController.clear();
+        super.dispose();
+      }
+    
+      @override
+      Widget build(BuildContext context) {
+        Widget descInput() {...}
+    
+        Widget carbonTypeNullInput() {...}
+    
+        Widget waterChangeInput() {...}
+    
+        Widget listTreatmentBeratInput() {...}
+    
+        Widget probioticInput() {...}
+    
+        Widget carbonInput() {...}
+    
+        Widget carbonTypeInput() {...}
+    
+        Widget submitButton() {...}
+    
+        Widget submitBeratButton() {...}
+    
+        return Obx(() {
+          if (controller.isLoading.value == false) {
+            return Scaffold(
+              appBar: AppBar(
+                backgroundColor: backgroundColor2,
+                title: Text("Entry Treatment Kolam ${controller.pond.alias}"),
+              ),
+              backgroundColor: backgroundColor1,
+              body: ListView(
+                children: [
+                  treatmentTypeInput(),
+                  descInput(),
+                  controller.typeController.selected.value == "berat"
+                      ? listTreatmentBeratInput()
+                      : waterChangeInput(),
+                  controller.typeController.selected.value == "berat"
+                      ? Container()
+                      : probioticInput(),
+                  controller.typeController.selected.value == "berat"
+                      ? Container()
+                      : carbonTypeInput(),
+                  controller.carbonTypeController.selected.value == "tidak ada"
+                      ? Container()
+                      : carbonInput(),
+                  controller.typeController.selected.value == "berat"
+                      ? Container()
+                      : saltDosisInput(),
+                  controller.typeController.selected.value == "berat"
+                      ? submitBeratButton()
+                      : submitButton(),
+                  SizedBox(
+                    height: 8,
+                  )
+                ],
+              ),
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(
+                color: secondaryColor,
+              ),
+            );
+          }
+        });
+      }
+    }
+
+	\end{lstlisting}
+
+
+	\textit{Code untuk halaman detail treatment}
+	\begin{lstlisting}
+    import 'package:fish/pages/treatment/treatment_detail_controller.dart';
+    import 'package:flutter/material.dart';
+    import 'package:fish/theme.dart';
+    import 'package:get/get.dart';
+    
+    class DetailTreatmentPage extends StatelessWidget {
+      const DetailTreatmentPage({Key? key}) : super(key: key);
+    
+      @override
+      Widget build(BuildContext context) {
+        final TreatmentDetailController controller =
+            Get.put(TreatmentDetailController());
+    
+        Widget treatmentDataRecap() {...}
+    
+        Widget detail() {...}
+    
+        Widget titleRecap() {...}
+    
+        Widget dataTreatment() {...}
+    
+        Widget detailTreatment() {...}
+    
+        return Obx(() {
+          if (controller.isLoading.value == false) {
+            return Scaffold(
+              appBar: AppBar(
+                backgroundColor: backgroundColor2,
+                title: const Text("Detail Treatment "),
+              ),
+              backgroundColor: backgroundColor1,
+              body: ListView(
+                children: [
+                  treatmentDataRecap(),
+                  detail(),
+                  titleRecap(),
+                  dataTreatment(),
+                  detailTreatment(),
+                  SizedBox(
+                    height: 10,
+                  )
+                ],
+              ),
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(
+                color: secondaryColor,
+              ),
+            );
+          }
+        });
+      }
+    }    
+	\end{lstlisting}
+	\clearpage
+	\section{Lampiran 8 Code Sprint 7 report}
+	\textit{Membuat model class fitur treatment kolam}
+	\begin{lstlisting}
+        import 'dart:ffi';
+
+        import 'package:intl/intl.dart';
+        
+        class Treatment {
+          String? id;
+          String? activation_id;
+          num? salt;
+          String? type;
+          num? probiotic;
+          num? water;
+          num? carbohydrate;
+          String? carbohydrate_type;
+          String? desc;
+          String? treatmentAt;
+        
+          Treatment(
+              {this.id,
+              this.salt,
+              this.type,
+              this.probiotic,
+              this.water,
+              this.carbohydrate,
+              this.desc,
+              this.carbohydrate_type,
+              this.activation_id,
+              this.treatmentAt});
+        
+          // Treatment.fromJson(Map<String, dynamic> json) {
+          //   salt = json['salt'];
+          //   type = json['treatment_type'];
+          //   probiotic = json['probiotic_culture'];
+          // }
+          factory Treatment.fromJson(Map<String, dynamic> json) {
+            return Treatment(
+                id: json['id'],
+                salt: json['salt'],
+                type: json['treatment_type'],
+                probiotic: json['probiotic_culture'],
+                water: json['water_change'],
+                desc: json['description'],
+                carbohydrate: json['carbohydrate'],
+                carbohydrate_type: json['carbohydrate_type'],
+                activation_id: json['pond_activation_id'],
+                treatmentAt: json["treatment_at"]);
+          }
+          String getGmtToNormalDate() {
+            String stringDate = treatmentAt!;
+            DateTime dateTime = DateFormat("yyyy-MM-dd hh:mm:ss").parse(stringDate);
+            String newStringDate = DateFormat("dd-MM-yyyy").format(dateTime);
+            return newStringDate;
+          }
+        }
+        
+	\end{lstlisting}
+	
+	\textit{Membuat network service untuk fitur treatment kolam}
+	\begin{lstlisting}
+        import 'dart:convert';
+        import 'package:fish/models/treatment_model.dart';
+        import 'package:fish/service/url_api.dart';
+        import 'package:http/http.dart' as http;
+        
+        class TreatmentService {
+          Future<List<Treatment>> getTreatmentList() async {
+            var url = Uri.parse(Urls.treatment);
+            var headers = {'Content-Type': 'application/json'};
+        
+            var response = await http.get(url, headers: headers);
+        
+            print(response.body);
+        
+            if (response.statusCode == 200) {
+              var data = jsonDecode(response.body);
+              List<Treatment> treatments = [];
+        
+              for (var item in data) {
+                treatments.add(Treatment.fromJson(item));
+              }
+              // Treatment treatment = Treatment.fromJson(data[0]);
+              // print(data[1]);
+              return treatments;
+            } else {
+              throw Exception('Gagal Get Products!');
+            }
+          }
+        
+          Future<bool> postPondTreatment({
+            required String? pondId,
+            String? salt,
+            String? type,
+            String? probiotic,
+            String? water,
+            String? desc,
+            String? carbohydrate,
+            String? carbohydrate_type,
+          }) async {
+            print({
+              "pond_id": pondId.toString(),
+              "salt": salt,
+              "treatment_type": type,
+              "probiotic_culture": probiotic,
+              "water_change": water,
+              "description": desc,
+              "carbohydrate": carbohydrate,
+              "carbohydrate_type": carbohydrate_type,
+            });
+            final response = await http.post(
+              Uri.parse(Urls.treatment),
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              encoding: Encoding.getByName('utf-8'),
+              body: {
+                "pond_id": pondId,
+                "salt": salt,
+                "treatment_type": type,
+                "probiotic_culture": probiotic,
+                "water_change": water,
+                "description": desc.toString(),
+                "carbohydrate": carbohydrate,
+                "carbohydrate_type": carbohydrate_type,
+              },
+            );
+        
+            if (response.statusCode == 200) {
+              print(response.body);
+              return true;
+            } else {
+              print(response.body);
+              return false;
+            }
+          }
+        
+          Future<bool> postPondTreatmentBerat(
+              {required String? pondId,
+              String? type,
+              String? desc,
+              required num? total_fish_harvested,
+              required num? total_weight_harvested,
+              List? fish_harvested,
+              bool? isFinish}) async {
+            print({
+              "pond_id": pondId.toString(),
+              "treatment_type": type,
+              "description": desc,
+            });
+            final response = await http.post(
+              Uri.parse(Urls.treatment),
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              encoding: Encoding.getByName('utf-8'),
+              body: {
+                "pond_id": pondId,
+                "treatment_type": type,
+                "description": desc.toString(),
+                "total_weight_harvested": total_weight_harvested.toString(),
+                "total_fish_harvested": total_fish_harvested.toString(),
+                "fish": fish_harvested.toString()
+              },
+            );
+        
+            if (response.statusCode == 200) {
+              print(response.body);
+              return true;
+            } else {
+              print(response.body);
+              return false;
+            }
+          }
+        }        
+	\end{lstlisting}
+
+	\clearpage
+	\section{Lampiran 9 Code Sprint 8 report}
+
+	\textit{Code halaman list pencatatan kualitas air harian}
+	\begin{lstlisting}
+import 'package:fish/controllers/daily_water/daily_water_breed_list_controller.dart';
+import 'package:fish/pages/component/daily_water_card.dart';
+import 'package:fish/controllers/daily_water/daily_water_controller.dart';
+import 'package:fish/pages/dailywater/daily_water_entry_page.dart';
+import 'package:fish/pages/pond/pond_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:fish/theme.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart';
+
+import 'daily_water_avg.dart';
+
+class DailyWaterPage extends StatefulWidget {
+    DailyWaterPage({Key? key}) : super(key: key);
+
+    @override
+    State<DailyWaterPage> createState() => _DailyWaterPageState();
+}
+
+class _DailyWaterPageState extends State<DailyWaterPage> {
+    final DailyWaterController controller = Get.put(DailyWaterController());
+    final PondController pondController = Get.find();
+    final DailyWaterBreedListController dailyWaterBreedListController =
+        Get.find();
+
+    @override
+    void initState() {
+    super.initState();
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+    //   await controller.getPondActivations(
+    //       pondId: controller.pond.id.toString());
+    // });
+    controller.getDailyWaterData(context);
+    controller.startTime = DateTime.now();
+    print('ini init state');
+    }
+
+    @override
+    void dispose() {
+    controller.postDataLog(controller.fitur);
+    super.dispose();
+    }
+
+    @override
+    Widget build(BuildContext context) {
+    controller.startTime = DateTime.now();
+    print('ini build daily water');
+    Widget fishDataRecap() {...}
+
+    Widget listDailyWater() {...}
+
+    Widget emptyList() {...}
+
+    return Obx(() {
+        if (controller.isLoading.value == false) {
+        return Scaffold(
+            floatingActionButton: FloatingActionButton(
+            onPressed: () {
+                Get.to(() => DailyWaterEntryPage(), arguments: {
+                "pond": pondController.selectedPond.value,
+                "activation":
+                    dailyWaterBreedListController.selectedActivation.value
+                });
+                controller.postDataLog(controller.fitur);
+            },
+            backgroundColor: primaryColor,
+            child: const Icon(Icons.add),
+            ),
+            backgroundColor: backgroundColor1,
+            body: ListView(
+            children: [
+                fishDataRecap(),
+                controller.listDailyWater.isEmpty
+                    ? emptyList()
+                    : listDailyWater(),
+                SizedBox(
+                height: 10,
+                )
+            ],
+            ),
+        );
+        } else {
+        return Center(
+            child: CircularProgressIndicator(
+            color: secondaryColor,
+            ),
+        );
+        }
+    });
+    }
+}        
+	\end{lstlisting}
+	\textit{Code untuk halaman entry kualitas air harian}
+	\begin{lstlisting}
+import 'package:fish/controllers/daily_water/daily_water_entry_controller.dart';
+import 'package:fish/controllers/daily_water/daily_water_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:fish/theme.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+
+import '../component/tabviewwater.dart';
+
+class DailyWaterEntryPage extends StatelessWidget {
+    DailyWaterEntryPage({Key? key}) : super(key: key);
+
+    final DailyWaterEntryController controller =
+        Get.put(DailyWaterEntryController());
+
+    final DailyWaterController water = Get.put(DailyWaterController());
+
+    @override
+    Widget build(BuildContext context) {
+    Widget doInput() {...}
+
+    Widget phInput() {...}
+
+    Widget temperatureInput() {...}
+
+    Widget submitButton() {...}
+
+    return Obx(() {
+        if (controller.isLoading.value == false) {
+        return Scaffold(
+            appBar: AppBar(
+            backgroundColor: backgroundColor2,
+            title:
+                Text("Entry Kondisi Air Harian Kolam ${controller.pond.alias}"),
+            ),
+            backgroundColor: backgroundColor1,
+            body: ListView(
+            children: [
+                phInput(),
+                doInput(),
+                temperatureInput(),
+                submitButton(),
+                SizedBox(
+                height: 8,
+                )
+            ],
+            ),
+        );
+        } else {
+        return Center(
+            child: CircularProgressIndicator(
+            color: secondaryColor,
+            ),
+        );
+        }
+    });
+    }
+}        
+	\end{lstlisting}
+
+	\textit{Code untuk halaman detail kualitas air harian}
+	\begin{lstlisting}
+        import 'package:fish/controllers/daily_water/daily_water_breed_list_controller.dart';
+        import 'package:fish/controllers/daily_water/daily_water_detail_controller.dart';
+        import 'package:fish/pages/dailywater/daily_water_edit_page.dart';
+        import 'package:fish/pages/pond/detail_pond_controller.dart';
+        import 'package:fish/pages/pond/pond_controller.dart';
+        import 'package:flutter/material.dart';
+        import 'package:fish/theme.dart';
+        import 'package:flutter/services.dart';
+        import 'package:get/get.dart';
+        
+        import '../../controllers/daily_water/daily_water_controller.dart';
+        import '../../controllers/daily_water/daily_water_edit_controller.dart';
+        import '../../models/daily_water_model.dart';
+        
+        class DailyWaterDetailPage extends StatefulWidget {
+          const DailyWaterDetailPage({Key? key}) : super(key: key);
+        
+          @override
+          State<DailyWaterDetailPage> createState() => _DailyWaterDetailPageState();
+        }
+        
+        @override
+        class _DailyWaterDetailPageState extends State<DailyWaterDetailPage> {
+          final DailyWaterDetailController controller =
+              Get.put(DailyWaterDetailController());
+          final PondController pondController = Get.find();
+          final DailyWaterBreedListController dailyWaterBreedListController =
+              Get.find();
+          final DailyWaterController dailyWaterController = Get.find();
+          final DailyWaterEditController editController =
+              Get.put(DailyWaterEditController());
+          @override
+          void initState() {
+            super.initState();
+            controller.getDailyWaterData(
+                context, dailyWaterController.selectedDailyWater.value.id.toString());
+          }
+        
+          @override
+          void dispose() {
+            controller.postDataLog(controller.fitur);
+            dailyWaterController.getDailyWaterData(context);
+            super.dispose();
+          }
+        
+          @override
+          Widget build(BuildContext context) {
+            Widget airHarianDataRecap() {...}
+        
+            Widget detail() {...}
+        
+            Widget titleRecap() {...}
+        
+            Widget dataAirHarian() {...}
+        
+            Widget detailAirHarian() {...}
+        
+            return Obx(() {
+              if (controller.isLoading.value == false) {
+                return Scaffold(
+                  appBar: AppBar(
+                    backgroundColor: backgroundColor2,
+                    title: const Text("Detail Kondisi Air Harian"),
+                    leading: new IconButton(
+                      icon: new Icon(Icons.arrow_back),
+                      onPressed: () async {
+                        // Get.back();
+        
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
+                  backgroundColor: backgroundColor1,
+                  body: ListView(
+                    children: [
+                      airHarianDataRecap(),
+                      detail(),
+                      titleRecap(),
+                      dataAirHarian(),
+                      detailAirHarian(),
+                      SizedBox(
+                        height: 10,
+                      )
+                    ],
+                  ),
+                );
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: secondaryColor,
+                  ),
+                );
+              }
+            });
+          }
+        
+          void editDataPh(DailyWater dailywater, String title) {
+            showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                      title: Text('Edit $title', style: TextStyle(color: Colors.white)),
+                      content: Container(
+                        height: 50,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 16,
+                        ),
+                        decoration: BoxDecoration(
+                          color: backgroundColor2,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Center(
+                            child: TextFormField(
+                          style: primaryTextStyle,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
+                          ],
+                          keyboardType: TextInputType.number,
+                          controller: controller.phController,
+                        )),
+                      ),
+                      backgroundColor: backgroundColor1,
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, 'Batal'),
+                          child: const Text(
+                            'Batal',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            await editController.editDailyWaterDataOne(context, () {
+                              Navigator.pop(context, 'Submit');
+                            },
+                                controller.phController.text,
+                                dailywater.numDo.toString(),
+                                dailywater.temperature.toString());
+                            controller.getDailyWaterData(
+                                context,
+                                dailyWaterController.selectedDailyWater.value.id
+                                    .toString());
+                          },
+                          child: const Text('Submit'),
+                        ),
+                      ],
+                    ));
+          }
+        
+          void editDataSuhu(DailyWater dailywater, String title) {
+            showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                      title: Text('Edit $title', style: TextStyle(color: Colors.white)),
+                      content: Container(
+                        height: 50,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 16,
+                        ),
+                        decoration: BoxDecoration(
+                          color: backgroundColor2,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Center(
+                            child: TextFormField(
+                          style: primaryTextStyle,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
+                          ],
+                          keyboardType: TextInputType.number,
+                          controller: controller.suhuController,
+                        )),
+                      ),
+                      backgroundColor: backgroundColor1,
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, 'Batal'),
+                          child: const Text(
+                            'Batal',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            await editController.editDailyWaterDataOne(context, () {
+                              Navigator.pop(context, 'Submit');
+                            }, dailywater.ph.toString(), dailywater.numDo.toString(),
+                                controller.suhuController.text);
+                            controller.getDailyWaterData(
+                                context,
+                                dailyWaterController.selectedDailyWater.value.id
+                                    .toString());
+                          },
+                          child: const Text('Submit'),
+                        ),
+                      ],
+                    ));
+          }
+        
+          void editDataDo(DailyWater dailywater, String title) {
+            showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                      title: Text('Edit $title', style: TextStyle(color: Colors.white)),
+                      content: Container(
+                        height: 50,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 16,
+                        ),
+                        decoration: BoxDecoration(
+                          color: backgroundColor2,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Center(
+                            child: TextFormField(
+                          style: primaryTextStyle,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
+                          ],
+                          keyboardType: TextInputType.number,
+                          controller: controller.doController,
+                        )),
+                      ),
+                      backgroundColor: backgroundColor1,
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, 'Batal'),
+                          child: const Text(
+                            'Batal',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            await editController.editDailyWaterDataOne(context, () {
+                              Navigator.pop(context, 'Submit');
+                            }, dailywater.ph.toString(), controller.doController.text,
+                                dailywater.numDo.toString());
+                            controller.getDailyWaterData(
+                                context,
+                                dailyWaterController.selectedDailyWater.value.id
+                                    .toString());
+                          },
+                          child: const Text('Submit'),
+                        ),
+                      ],
+                    ));
+          }
+        }        
+	\end{lstlisting}
+
+	\textit{Membuat model class fitur pencatatan kualitas air harian}
+	\begin{lstlisting}
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+
+class DailyWater {
+    String? id;
+    String? pondId;
+    String? activationId;
+    num? ph;
+    num? numDo;
+    num? temperature;
+    num? week;
+    String? ph_desc;
+    String? numDo_desc;
+    String? dailywater_at;
+
+    DailyWater(
+        {required this.id,
+        this.pondId,
+        this.activationId,
+        this.numDo,
+        this.numDo_desc,
+        this.temperature,
+        this.week,
+        this.ph,
+        this.ph_desc,
+        this.dailywater_at});
+
+    factory DailyWater.fromJson(Map<String, dynamic> json) {
+    return DailyWater(
+        id: json['_id'],
+        pondId: json['pond_id'],
+        activationId: json['pond_activation_id'],
+        ph: json['ph'],
+        numDo: json['do'],
+        temperature: json['temperature'],
+        week: json['week'],
+        ph_desc: json['ph_desc'],
+        numDo_desc: json['do_desc'],
+        dailywater_at: json['dailywater_at']);
+    }
+    String getGmtToNormalDate() {
+    String stringDate = dailywater_at!;
+    DateTime dateTime = DateFormat("yyyy-MM-dd hh:mm:ss").parse(stringDate);
+    String newStringDate = DateFormat("dd-MM-yyyy").format(dateTime);
+    return newStringDate;
+    }
+
+    String getDayNameDate() {
+    String stringDate = dailywater_at!;
+    DateTime dateTime = DateFormat("yyyy-MM-dd hh:mm:ss").parse(stringDate);
+    String newStringDate = DateFormat("EEEE").format(dateTime);
+    return newStringDate;
+    }
+
+}
+	\end{lstlisting}
+
+	\textit{Membuat network service untuk fitur pencatatan kualitas air harian}
+	\begin{lstlisting}
+import 'dart:convert';
+import 'package:fish/models/daily_water_model.dart';
+import 'package:fish/service/url_api.dart';
+import 'package:http/http.dart' as http;
+
+class DailyWaterService {
+    Future<List<DailyWater>> getPonds() async {
+    var url = Uri.parse(Urls.dailyWater);
+    var headers = {'Content-Type': 'application/json'};
+
+    var response = await http.get(url, headers: headers);
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        List<DailyWater> ponds = [];
+
+        for (var item in data) {
+        ponds.add(DailyWater.fromJson(item));
+        }
+
+        print(ponds);
+
+        return ponds;
+    } else {
+        throw Exception('Gagal Get Ponds!');
+    }
+    }
+    
+    Future<bool> postDailyWater({
+    required String? pondId,
+    required String? activationId,
+    required String? ph,
+    required String? numDo,
+    String? week,
+    required String? temperature,
+    }) async {
+    print({
+        "pond_id": pondId.toString(),
+        "pond_activation_id": activationId.toString(),
+        "ph": ph,
+        "do": numDo,
+        "week": week,
+        "temperature": temperature,
+    });
+    final response = await http.post(
+        Uri.parse(Urls.dailyWater),
+        headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        },
+        encoding: Encoding.getByName('utf-8'),
+        body: {
+        "pond_id": pondId.toString(),
+        "pond_activation_id": activationId.toString(),
+        "ph": ph,
+        "week": week,
+        "do": numDo,
+        "temperature": temperature,
+        },
+    );
+
+    if (response.statusCode == 200) {
+        print(response.body);
+        return true;
+    } else {
+        print(response.body);
+        return false;
+    }
+    }
+
+    Future<bool> editDailyWater(
+        {required String? dailywaterId,
+        required String? ph,
+        required String? numDo,
+        required String? temperature}) async {
+    print({
+        "ph": ph,
+        "do": numDo,
+        "temperature": temperature,
+    });
+    final response = await http.put(
+        Uri.parse(Urls.dailyWaterbyid(dailywaterId)),
+        headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        },
+        encoding: Encoding.getByName('utf-8'),
+        body: {
+        "ph": ph,
+        "do": numDo,
+        "temperature": temperature,
+        },
+    );
+
+    if (response.statusCode == 200) {
+        print(response.body);
+        return true;
+    } else {
+        print(response.body);
+        return false;
+    }
+    }
+
+    Future<DailyWater> DeleteDatas({required String dailywaterId}) async {
+    var url = Uri.parse(Urls.dailyWaterbyid(dailywaterId));
+    var headers = {'Content-Type': 'application/json'};
+
+    var response = await http.delete(url, headers: headers);
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+        return DailyWater.fromJson(jsonDecode(response.body));
+    } else {
+        throw Exception('Gagal Get Ponds!');
+    }
+    }
+
+    Future<List<DailyWater>> getDatas({required String dailywaterId}) async {
+    var url = Uri.parse(Urls.dailyWaterbyid(dailywaterId));
+    var headers = {'Content-Type': 'application/json'};
+
+    var response = await http.get(url, headers: headers);
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        List<DailyWater> ponds = [];
+        ponds.add(DailyWater.fromJson(data));
+
+        print(ponds);
+
+        return ponds;
+    } else {
+        throw Exception('Gagal Get Ponds!');
+    }
+    }
+}        
+	\end{lstlisting}
+
+	\clearpage
+	\section{Lampiran 10 Code Sprint 9 report}
+	\textit{Code halaman list pencatatan kualitas air mingguan}
+	\begin{lstlisting}
+import 'package:fish/pages/component/daily_water_card.dart';
+import 'package:fish/controllers/weeklywater/weekly_water_controller.dart';
+import 'package:fish/pages/component/weekly_water_card.dart';
+import 'package:fish/pages/weeklywater/weeklywater_avg.dart';
+import 'package:fish/pages/weeklywater/weeklywater_entry_page.dart';
+import 'package:flutter/material.dart';
+import 'package:fish/theme.dart';
+import 'package:get/get.dart';
+
+class WeeklyWaterPage extends StatefulWidget {
+    WeeklyWaterPage({Key? key}) : super(key: key);
+
+    @override
+    State<WeeklyWaterPage> createState() => _WeeklyWaterPageState();
+}
+
+class _WeeklyWaterPageState extends State<WeeklyWaterPage> {
+    final WeeklyWaterController controller = Get.put(WeeklyWaterController());
+
+    @override
+    void initState() {
+    super.initState();
+    controller.getWeeklyWaterData(context);
+    }
+
+    @override
+    void dispose() {
+    controller.postDataLog(controller.fitur);
+    super.dispose();
+    }
+
+    @override
+    Widget build(BuildContext context) {
+    Widget fishDataRecap() {...}
+
+    Widget listWeeklyWater() {...}
+
+    Widget emptyList() {...}
+
+    return Obx(() {
+        if (controller.isLoading.value == false) {
+        return Scaffold(
+            floatingActionButton: FloatingActionButton(
+            onPressed: () {
+                Get.to(() => WeeklyWaterEntryPage(), arguments: {
+                "pond": controller.pond,
+                "activation": controller.activation
+                });
+                controller.postDataLog(controller.fitur);
+            },
+            backgroundColor: primaryColor,
+            child: const Icon(Icons.add),
+            ),
+            backgroundColor: backgroundColor1,
+            body: ListView(
+            children: [
+                fishDataRecap(),
+                controller.listWeeklyWater.isEmpty
+                    ? emptyList()
+                    : listWeeklyWater(),
+                SizedBox(
+                height: 10,
+                )
+            ],
+            ),
+        );
+        } else {
+        return Center(
+            child: CircularProgressIndicator(
+            color: secondaryColor,
+            ),
+        );
+        }
+    });
+    }
+}        
+	\end{lstlisting}
+
+	\textit{Code untuk halaman entry kualitas air mingguan}
+	\begin{lstlisting}
+        import 'package:fish/controllers/weeklywater/weekly_water_entry_controller.dart';
+        import 'package:fish/controllers/weeklywater/weekly_water_controller.dart';
+        import 'package:flutter/material.dart';
+        import 'package:fish/theme.dart';
+        import 'package:flutter/services.dart';
+        import 'package:get/get.dart';
+        
+        class WeeklyWaterEntryPage extends StatelessWidget {
+          WeeklyWaterEntryPage({Key? key}) : super(key: key);
+        
+          final WeeklyWaterEntryController controller =
+              Get.put(WeeklyWaterEntryController());
+        
+          final WeeklyWaterController weeklyWaterControlller =
+              Get.put(WeeklyWaterController());
+        
+          @override
+          Widget build(BuildContext context) {
+            Widget amoniaInput() {...}
+        
+            Widget flocInput() {...}
+        
+            Widget nitriteInput() {...}
+        
+            Widget nitrateInput() {...}
+        
+            Widget hardnessInput() {...}
+        
+            Widget submitButton() {...}
+        
+            return Obx(() {
+              if (controller.isLoading.value == false) {
+                return Scaffold(
+                  appBar: AppBar(
+                    backgroundColor: backgroundColor2,
+                    title: const Text("Entry Kondisi Air Harian"),
+                  ),
+                  backgroundColor: backgroundColor1,
+                  body: ListView(
+                    children: [
+                      flocInput(),
+                      amoniaInput(),
+                      nitriteInput(),
+                      nitrateInput(),
+                      hardnessInput(),
+                      submitButton(),
+                      SizedBox(
+                        height: 8,
+                      )
+                    ],
+                  ),
+                );
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: secondaryColor,
+                  ),
+                );
+              }
+            });
+          }
+        }
+        
+	\end{lstlisting}
+
+    \textit{Code untuk halaman detail kualitas air mingguan}
+	\begin{lstlisting}
+        import 'package:fish/controllers/weeklywater/weekly_water_detail_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:fish/theme.dart';
+import 'package:get/get.dart';
+
+class WeeklyWaterDetailPage extends StatelessWidget {
+  const WeeklyWaterDetailPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final WeeklyWaterDetailController controller =
+        Get.put(WeeklyWaterDetailController());
+
+    Widget airMingguanDataRecap() {...}
+
+    Widget detail() {...}
+
+    Widget titleRecap() {...}
+
+    Widget dataAirMingguan() {...}
+
+    Widget detailAirMingguan() {...}
+
+    return Obx(() {
+      if (controller.isLoading.value == false) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: backgroundColor2,
+            title: const Text("Detail Kondisi Air Harian"),
+          ),
+          backgroundColor: backgroundColor1,
+          body: ListView(
+            children: [
+              airMingguanDataRecap(),
+              detail(),
+              titleRecap(),
+              dataAirMingguan(),
+              detailAirMingguan(),
+              SizedBox(
+                height: 10,
+              )
+            ],
+          ),
+        );
+      } else {
+        return Center(
+          child: CircularProgressIndicator(
+            color: secondaryColor,
+          ),
+        );
+      }
+    });
+  }
+}   
+	\end{lstlisting}
+
+	\textit{Membuat model class fitur pencatatan kualitas air mingguan}
+	\begin{lstlisting}
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+class WeeklyWater {
+    String? id;
+    String? pondId;
+    String? activationId;
+    num? ammonia;
+    num? floc;
+    num? nitrite;
+    num? nitrate;
+    num? hardness;
+    num? week;
+    String? floc_desc;
+    String? ammonia_desc;
+    String? hardness_desc;
+    String? nitrate_desc;
+    String? nitrite_desc;
+    String? weeklywater_at;
+
+    WeeklyWater(
+        {required this.id,
+        this.pondId,
+        this.activationId,
+        this.floc,
+        this.floc_desc,
+        this.ammonia,
+        this.ammonia_desc,
+        this.nitrate,
+        this.nitrate_desc,
+        this.nitrite,
+        this.nitrite_desc,
+        this.hardness,
+        this.hardness_desc,
+        this.week,
+        this.weeklywater_at});
+
+    factory WeeklyWater.fromJson(Map<String, dynamic> json) {
+    return WeeklyWater(
+        id: json['_id'],
+        pondId: json['pond_id'],
+        activationId: json['pond_activation_id'],
+        floc: json['floc'],
+        nitrate: json['nitrate'],
+        nitrite: json['nitrite'],
+        ammonia: json['ammonia'],
+        hardness: json['hardness'],
+        floc_desc: json['floc_desc'],
+        nitrate_desc: json['nitrate_desc'],
+        nitrite_desc: json['nitrite_desc'],
+        ammonia_desc: json['ammonia_desc'],
+        hardness_desc: json['hardness_desc'],
+        week: json['week'],
+        weeklywater_at: json['weeklywater_at']);
+    }
+    String getGmtToNormalDate() {
+    String stringDate = weeklywater_at!;
+    DateTime dateTime = DateFormat("yyyy-MM-dd hh:mm:ss").parse(stringDate);
+    String newStringDate = DateFormat("dd-MM-yyyy").format(dateTime);
+    return newStringDate;
+    }
+
+    String getDayNameDate() {
+    String stringDate = weeklywater_at!;
+    DateTime dateTime = DateFormat("yyyy-MM-dd hh:mm:ss").parse(stringDate);
+    String newStringDate = DateFormat("EEEE").format(dateTime);
+    return newStringDate;
+    }
+}        
+	\end{lstlisting}
+	
+	\textit{Membuat network service untuk fitur pencatatan kualitas air mingguan}
+	\begin{lstlisting}
+import 'dart:convert';
+import 'package:fish/models/weeklywater_model.dart';
+import 'package:fish/service/url_api.dart';
+import 'package:http/http.dart' as http;
+
+class WeeklyWaterService {
+    Future<List<WeeklyWater>> getDatas() async {
+    var url = Uri.parse(Urls.weeklyWater);
+    var headers = {'Content-Type': 'application/json'};
+
+    var response = await http.get(url, headers: headers);
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        List<WeeklyWater> ponds = [];
+
+        for (var item in data) {
+        ponds.add(WeeklyWater.fromJson(item));
+        }
+
+        print(ponds);
+
+        return ponds;
+    } else {
+        throw Exception('Gagal Get Ponds!');
+    }
+    }
+
+    Future<bool> postWeeklyWater({
+    required String? pondId,
+    required String? activationId,
+    required String? floc,
+    String? ammonia,
+    String? nitrite,
+    String? nitrate,
+    String? hardness,
+    String? week,
+    }) async {
+    print({
+        "pond_id": pondId.toString(),
+        "pond_activation_id": activationId.toString(),
+        "floc": floc,
+        "nitrite": nitrate,
+        "nitrate": nitrate,
+        "ammonia": ammonia,
+        "hardness": hardness,
+        "week": week,
+    });
+    final response = await http.post(
+        Uri.parse(Urls.weeklyWater),
+        headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        },
+        encoding: Encoding.getByName('utf-8'),
+        body: {
+        "pond_id": pondId.toString(),
+        "pond_activation_id": activationId.toString(),
+        "floc": floc,
+        "nitrite": nitrate,
+        "nitrate": nitrate,
+        "ammonia": ammonia,
+        "hardness": hardness,
+        "week": week,
+        },
+    );
+
+    if (response.statusCode == 200) {
+        print(response.body);
+        return true;
+    } else {
+        print(response.body);
+        return false;
+    }
+    }
+}        
+	\end{lstlisting}
+
+	\clearpage
+	\section{Lampiran 11 Code Sprint 10 report}
+	\textit{Code halaman rekapitulasi sortir}
+	\begin{lstlisting}
+import 'package:fish/pages/component/transfer_card.dart';
+import 'package:fish/controllers/fish_transfer/fish_transfer_list_controller.dart';
+import 'package:fish/pages/fish_transfer/fish_transfer_entry_page.dart';
+import 'package:flutter/material.dart';
+import 'package:fish/theme.dart';
+import 'package:get/get.dart';
+
+import 'new_fish_transfer_entry_page.dart';
+
+class FishTransferListPage extends StatefulWidget {
+    FishTransferListPage({Key? key}) : super(key: key);
+
+    @override
+    State<FishTransferListPage> createState() => _FishTransferListPageState();
+}
+
+class _FishTransferListPageState extends State<FishTransferListPage> {
+    final TransferController controller = Get.put(TransferController());
+
+    @override
+    void initState() {
+    super.initState();
+
+    controller.getTransfertData(context);
+    }
+
+    @override
+    void dispose() {
+    controller.postDataLog(controller.fitur);
+    super.dispose();
+    }
+
+    @override
+    Widget build(BuildContext context) {...}
+
+    Widget listTransfer() {...}
+
+    Widget emptyListTransfer() {...}
+
+    return Obx(() {
+        if (controller.isLoading.value == false) {
+        return Scaffold(
+            floatingActionButton: FloatingActionButton(
+            onPressed: () {
+                Get.to(() => const NewFishTransferEntryPage(), arguments: {
+                "pond": controller.pond,
+                "activation": controller.activation
+                });
+                controller.postDataLog(controller.fitur);
+            },
+            backgroundColor: primaryColor,
+            child: const Icon(Icons.add),
+            ),
+            backgroundColor: backgroundColor1,
+            body: ListView(
+            children: [
+                fishDataRecap(),
+                controller.listTransfer.isEmpty
+                    ? emptyListTransfer()
+                    : listTransfer(),
+                SizedBox(
+                height: 10,
+                )
+            ],
+            ),
+        );
+        } else {
+        return Center(
+            child: CircularProgressIndicator(
+            color: secondaryColor,
+            ),
+        );
+        }
+    });
+    }
+     
+	\end{lstlisting}
+	
+	\textit{Code untuk halaman entry sortir}
+	\begin{lstlisting}
+        import 'package:fish/models/fish_model.dart';
+        import 'package:fish/pages/component/treatment_berat_input_card.dart';
+        import 'package:fish/pages/treatment/treatment_entry_controller.dart';
+        import 'package:fish/controllers/fish_transfer/fish_transfer_entry_controller.dart';
+        import 'package:fish/controllers/fish_transfer/pond_list_item_controller.dart';
+        import 'package:flutter/material.dart';
+        import 'package:fish/pages/pond/detail_pond_controller.dart';
+        import 'package:fish/theme.dart';
+        
+        import 'package:fish/pages/component/deactivation_list_input.dart';
+        import 'package:flutter/services.dart';
+        import 'package:get/get.dart';
+        
+        import '../../controllers/fish_transfer/fish_transfer_list_controller.dart';
+        import '../component/deactivation_with_fish_transfer_input.dart';
+        import '../component/fish_transfer_input.dart';
+        
+        class FishTransferEntryPage extends StatefulWidget {
+          FishTransferEntryPage({Key? key}) : super(key: key);
+          @override
+          State<FishTransferEntryPage> createState() => _FishTransferEntryPageState();
+        }
+        
+        class _FishTransferEntryPageState extends State<FishTransferEntryPage> {
+          final FishTransferEntryController controller =
+              Get.put(FishTransferEntryController());
+        
+          final TransferController fishTransferController =
+              Get.put(TransferController());
+        
+          final PondListController getpondlistcontroller =
+              Get.put(PondListController());
+        
+          final pageController = PageController(initialPage: 0);
+          @override
+          void dispose() {
+            controller.descController.clear();
+            controller.sampleLongController.clear();
+            controller.sampleWeightController.clear();
+            controller.leleAmountActivationController.clear();
+            controller.leleAmountController.clear();
+            controller.leleAmountDeactivationController.clear();
+            controller.leleWeightActivationController.clear();
+            controller.leleWeightController.clear();
+            controller.leleWeightDeactivationController.clear();
+            controller.masAmountActivationController.clear();
+            controller.masAmountController.clear();
+            controller.masAmountDeactivationController.clear();
+            controller.masWeightActivationController.clear();
+            controller.masWeightController.clear();
+            controller.masWeightDeactivationController.clear();
+            controller.patinAmountActivationController.clear();
+            controller.patinAmountController.clear();
+            controller.patinAmountDeactivationController.clear();
+            controller.patinWeightActivationController.clear();
+            controller.patinWeightController.clear();
+            controller.patinWeightDeactivationController.clear();
+            controller.nilaMerahAmountActivationController.clear();
+            controller.nilaMerahAmountController.clear();
+            controller.nilaMerahAmountDeactivationController.clear();
+            controller.nilaMerahWeightActivationController.clear();
+            controller.nilaMerahWeightController.clear();
+            controller.nilaMerahWeightDeactivationController.clear();
+            controller.nilaHitamAmountActivationController.clear();
+            controller.nilaHitamAmountController.clear();
+            controller.nilaHitamAmountDeactivationController.clear();
+            controller.nilaHitamWeightActivationController.clear();
+            controller.nilaHitamWeightController.clear();
+            controller.nilaHitamWeightDeactivationController.clear();
+            pageController.dispose();
+            controller.postDataLog(controller.fitur);
+            super.dispose();
+          }
+        
+          void initState() {
+            super.initState();
+            // WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+            //   await controller.getPondActivations(
+            //       pondId: controller.pond.id.toString());
+            // });
+            // controller.getHarvestedBool(controller.activation);
+            controller.getPondsData(controller.methodController.toString());
+            controller.getHarvestedBool(controller.activation);
+          }
+        
+          @override
+          Widget build(BuildContext context) {
+            Widget sampleWeightInput() {...}
+        
+            Widget sampleLongInput() {...}
+        
+            Widget destinationPondInput() {...}
+        
+            Widget transferMethodInput() {...}
+        
+            Widget checkBoxFishTransfer() {...}
+        
+            Widget leleInput() {...}
+        
+            Widget nilaMerahInput() {...}
+        
+            Widget nilaHitamInput() {...}
+        
+            Widget patinInput() {...}
+        
+            Widget masInput() {...}
+        
+        //input aktivasi
+            Widget checkBoxFish() {...}
+        
+            Widget waterHeightInput() {...}
+        
+            Widget leleInputActivation() {...}
+        
+            Widget nilaMerahInputActivation() {...}
+        
+            Widget nilaHitamInputActivation() {...}
+        
+            Widget patinInputActivation() {...}
+        
+            Widget masInputActivation() {...}
+        
+            Widget submitButton() {...}
+        
+            Widget submitKeringButton() {...}
+        
+            Widget previousSubmitButton() {...}
+        
+            Widget previousNextButton() {...}
+        
+            Widget nextButton() {...}
+        
+            Widget previousButton() {...}
+        
+            Widget deactivationInput() {...}
+        
+            Widget destinationnNotActiveTransfer() {...}
+        
+            Widget deactivationTransfer() {...}
+        
+            return Scaffold(
+                appBar: AppBar(
+                  backgroundColor: backgroundColor2,
+                  title: const Text("Entry Sortir"),
+                ),
+                backgroundColor: backgroundColor1,
+                body: PageView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  controller: pageController,
+                  children: [
+                    Obx(() {
+                      return ListView(
+                        children: [
+                          transferMethodInput(),
+                          destinationPondInput(),
+                          checkBoxFishTransfer(),
+                          controller.isNilaHitamInput == true
+                              ? nilaHitamInput()
+                              : Container(),
+                          controller.isNilaMerahInput == true
+                              ? nilaMerahInput()
+                              : Container(),
+                          controller.isLeleInput == true ? leleInput() : Container(),
+                          controller.isPatinInput == true ? patinInput() : Container(),
+                          controller.isMasInput == true ? masInput() : Container(),
+                          sampleLongInput(),
+                          sampleWeightInput(),
+                          controller.methodController.selected.value == "basah"
+                              ? submitButton()
+                              : nextButton(),
+                          SizedBox(
+                            height: 8,
+                          )
+                        ],
+                      );
+                    }),
+                    Obx(() {
+                      return ListView(
+                        children: [
+                          controller.destinationIsActive == false
+                              ? destinationnNotActiveTransfer()
+                              : deactivationInput(),
+                          controller.destinationIsActive == false
+                              ? checkBoxFish()
+                              : deactivationInput(),
+                          controller.isNilaHitamActivation == true
+                              ? nilaHitamInputActivation()
+                              : Container(),
+                          controller.isNilaMerahActivation == true
+                              ? nilaMerahInputActivation()
+                              : Container(),
+                          controller.isLeleActivation == true
+                              ? leleInputActivation()
+                              : Container(),
+                          controller.isPatinActivation == true
+                              ? patinInputActivation()
+                              : Container(),
+                          controller.isMasActivation == true
+                              ? masInputActivation()
+                              : Container(),
+                          controller.destinationIsActive == false
+                              ? waterHeightInput()
+                              : Container(),
+                          controller.destinationIsActive == false
+                              ? previousNextButton()
+                              : previousSubmitButton(),
+                          SizedBox(
+                            height: 8,
+                          )
+                        ],
+                      );
+                    }),
+                    ListView(
+                      children: [
+                        deactivationTransfer(),
+                        deactivationInput(),
+                        previousSubmitButton(),
+                        SizedBox(
+                          height: 8,
+                        )
+                      ],
+                    ),
+                  ],
+                ));
+          }
+        }
+        
+
+	\end{lstlisting}
+
+	\textit{Code untuk halaman detail sortir}
+	\begin{lstlisting}
+        import 'package:fish/pages/treatment/treatment_detail_controller.dart';
+        import 'package:flutter/material.dart';
+        import 'package:fish/theme.dart';
+        import 'package:get/get.dart';
+        import '../../controllers/fish_transfer/fish_transfer_detail_controller.dart';
+        
+        class DetailSortirPage extends StatelessWidget {
+          const DetailSortirPage({Key? key}) : super(key: key);
+        
+          @override
+          Widget build(BuildContext context) {
+            final SortirDetailController controller = Get.put(SortirDetailController());
+        
+            Widget transferDataRecap() {...}
+        
+            Widget detail() {...}
+        
+            Widget titleRecap() {...}
+        
+            Widget dataTreatment() {...}
+        
+            Widget detailSortir() {...}
+        
+            return Obx(() {
+              if (controller.isLoading.value == false) {
+                return Scaffold(
+                  appBar: AppBar(
+                    backgroundColor: backgroundColor2,
+                    title: const Text("Detail Sortir"),
+                  ),
+                  backgroundColor: backgroundColor1,
+                  body: ListView(
+                    children: [
+                      transferDataRecap(),
+                      detail(),
+                      titleRecap(),
+                      dataTreatment(),
+                      detailSortir(),
+                      SizedBox(
+                        height: 10,
+                      )
+                    ],
+                  ),
+                );
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: secondaryColor,
+                  ),
+                );
+              }
+            });
+          }
+        }        
+	\end{lstlisting}
+
+	\textit{Membuat model class fitur sortir ikan}
+	\begin{lstlisting}
+        import 'package:fish/models/fish_harvested.dart';
+        import 'package:intl/intl.dart';
+        import 'package:fish/models/fish_model.dart';
+        
+        class FishTransfer {
+          String? id;
+          String? origin_pond_id;
+          String? origin_activation_id;
+          String? destination_pond_id;
+          String? destination_activation_id;
+          String? transfer_method;
+          String? transfer_type;
+          num? sampleLong;
+          num? sampleWeight;
+          List<FishHarvest>? fishTransfer;
+          String? transferAt;
+        
+          FishTransfer({
+            required this.id,
+            required this.origin_pond_id,
+            required this.origin_activation_id,
+            required this.destination_pond_id,
+            required this.destination_activation_id,
+            required this.transfer_type,
+            required this.transfer_method,
+            required this.sampleLong,
+            required this.sampleWeight,
+            required this.fishTransfer,
+            this.transferAt,
+          });
+        
+          factory FishTransfer.fromJson(Map<String, dynamic> json) {
+            print(json);
+            return FishTransfer(
+              id: json['_id'],
+              origin_pond_id: json['origin_pond_id'],
+              origin_activation_id: json['origin_activation_id'],
+              destination_pond_id: json['destination_pond_id'],
+              destination_activation_id: json['destination_activation_id'],
+              transfer_method: json['transfer_method'],
+              transfer_type: json['transfer_type'],
+              sampleLong: json['sample_long'],
+              sampleWeight: json['sample_weight'],
+              fishTransfer: FishHarvest.fromJsonList(json['fish']),
+              transferAt: json['transfer_at'],
+            );
+          }
+        
+          String getGmtToNormalDate() {
+            String stringDate = transferAt!;
+            DateTime dateTime = DateFormat("yyyy-MM-dd hh:mm:ss").parse(stringDate);
+            String newStringDate = DateFormat("dd-MM-yyyy").format(dateTime);
+            return newStringDate;
+          }
+        }          
+	\end{lstlisting}
+
+	\textit{Membuat network service untuk fitur sortir ikan}
+	\begin{lstlisting}
+        import 'dart:convert';
+        import 'dart:developer';
+        import 'package:fish/models/fish_transfer_model.dart';
+        import 'package:fish/service/url_api.dart';
+        import 'package:flutter/material.dart';
+        import 'package:http/http.dart' as http;
+        
+        class FishTransferService {
+          Future<List<FishTransfer>> getFishTransferList() async {
+            var url = Uri.parse(Urls.fishtransfer);
+            var headers = {'Content-Type': 'application/json'};
+        
+            var response = await http.get(url, headers: headers);
+        
+            print(response.body);
+        
+            if (response.statusCode == 200) {
+              var data = jsonDecode(response.body);
+              List<FishTransfer> transferhistory = [];
+        
+              for (var item in data) {
+                transferhistory.add(FishTransfer.fromJson(item));
+              }
+              // Treatment treatment = Treatment.fromJson(data[0]);
+              // print(data[1]);
+        
+              print("ini leght transfer ${transferhistory.length}");
+              return transferhistory;
+            } else {
+              throw Exception('Gagal Get Products!');
+            }
+          }
+        
+          Future<bool> postFishTransfer({
+            required String? origin_pond_id,
+            required String? destination_pond_id,
+            required String? transfer_method,
+            required String? transfer_type,
+            required String? sample_weight,
+            required String? sample_long,
+            required List? fish,
+          }) async {
+            print({
+              "origin_pond_id": origin_pond_id.toString(),
+              "destination_pond_id": destination_pond_id.toString(),
+              "transfer_method": transfer_method,
+              "transfer_type": transfer_type,
+              "sample_long": sample_long,
+              "sample_weight": sample_weight,
+              "fish": fish.toString()
+            });
+            final response = await http.post(
+              Uri.parse(Urls.fishtransfer),
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              encoding: Encoding.getByName('utf-8'),
+              body: {
+                "origin_pond_id": origin_pond_id.toString(),
+                "destination_pond_id": destination_pond_id.toString(),
+                "transfer_method": transfer_method,
+                "transfer_type": transfer_type,
+                "sample_long": sample_long,
+                "sample_weight": sample_weight,
+                "fish": fish.toString()
+              },
+            );
+        
+            if (response.statusCode == 200) {
+              print(response.body);
+              return true;
+            } else {
+              print(response.body);
+              return false;
+            }
+          }
+        
+          Future<bool> postFishTransferKering(
+              {required String? origin_pond_id,
+              required String? destination_pond_id,
+              required String? transfer_method,
+              required String? transfer_type,
+              required String? sample_weight,
+              required String? sample_long,
+              required List? fish,
+              required List? fishstock,
+              required List? fishharvested,
+              required num? total_fish_harvested,
+              required num? total_weight_harvested,
+              String? water_level}) async {
+            print({
+              "origin_pond_id": origin_pond_id.toString(),
+              "destination_pond_id": destination_pond_id.toString(),
+              "transfer_method": transfer_method,
+              "transfer_type": transfer_type,
+              "sample_long": sample_long,
+              "sample_weight": sample_weight,
+              "fish": fish.toString(),
+              "fish_stock": fishstock.toString(),
+              "fish_harvested": fishharvested.toString(),
+              "total_weight_harvested": total_weight_harvested.toString(),
+              "total_fish_harvested": total_fish_harvested.toString(),
+              "water_level": water_level
+            });
+            final response = await http.post(
+              Uri.parse(Urls.fishtransfer),
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              encoding: Encoding.getByName('utf-8'),
+              body: {
+                "origin_pond_id": origin_pond_id.toString(),
+                "destination_pond_id": destination_pond_id.toString(),
+                "transfer_method": transfer_method,
+                "transfer_type": transfer_type,
+                "sample_long": sample_long,
+                "sample_weight": sample_weight,
+                "fish": fish.toString(),
+                "fish_stock": fishstock.toString(),
+                "fish_harvested": fishharvested.toString(),
+                "total_weight_harvested": total_weight_harvested.toString(),
+                "total_fish_harvested": total_fish_harvested.toString(),
+                "water_level": water_level
+              },
+            );
+        
+            if (response.statusCode == 200) {
+              print(response.body);
+              return true;
+            } else {
+              print(response.body);
+              return false;
+            }
+          }
+        
+          Future<bool> postTransfer(
+              {required String origin_pond_id,
+              required String transfer_method,
+              required String total_fish_harvested,
+              required String total_weight_harvested,
+              required String amountUndersize,
+              required String amountOversize,
+              required String amountNormal,
+              required String sampleWeight,
+              required String sampleLong,
+              required String sampleAmount,
+              required List<dynamic> transferList,
+              required List<dynamic> fishDeath,
+              required BuildContext ctx}) async {
+            List<dynamic> transferListPost = [];
+            for (var i in transferList) {
+              final fish = [];
+              for (var j in i["fish"]) {
+                var k = json.decode(j);
+                print("ini daata for ${k["type"]}");
+                final datafish = {
+                  "type": k["type"],
+                  "amount": int.parse(k["amount"]),
+                  "weight": double.parse(k["weight"])
+                };
+                fish.add(datafish);
+                print("ini fish baru $fish");
+              }
+              final datas = {
+                "destination_pond_id": i["destination_pond_id"],
+                "status": i["status"],
+                "fish": fish,
+                "sample_weight": double.parse(i["sample_weight"]),
+                "sample_long": double.parse(i['sample_long']),
+                "transfer_type": i["transfer_type"],
+                if (i["status"] == "isNotActivated") ...{
+                  "water_level": int.parse(i["water_level"])
+                }
+              };
+              transferListPost.add(datas);
+            }
+            print({
+              "origin_pond_id": origin_pond_id.toString(),
+              "fish_sort_type": transfer_method,
+              "total_fish_harvested": total_fish_harvested,
+              "total_weight_harvested": total_weight_harvested,
+              "sample_long": sampleLong,
+              "sample_amount": sampleAmount,
+              "sample_weight": sampleWeight,
+              "amount_oversize": amountOversize,
+              "amount_undersized": amountUndersize,
+              "amount_normal": amountNormal,
+              "transfer_list": json.encode(transferListPost),
+              "fish_death": json.encode(fishDeath)
+            });
+        
+            final response = await http.post(
+              Uri.parse(Urls.newfishtransfer),
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              encoding: Encoding.getByName('utf-8'),
+              body: {
+                "origin_pond_id": origin_pond_id.toString(),
+                "fish_sort_type": transfer_method,
+                "total_fish_harvested": total_fish_harvested,
+                "total_weight_harvested": total_weight_harvested,
+                "sample_long": sampleLong,
+                "sample_amount": sampleAmount,
+                "sample_weight": sampleWeight,
+                "amount_oversize": amountOversize,
+                "amount_undersized": amountUndersize,
+                "amount_normal": amountNormal,
+                "transfer_list": json.encode(transferListPost),
+                if (transfer_method == "kering") ...{
+                  "fish_death": json.encode(fishDeath)
+                }
+              },
+            );
+        
+            if (response.statusCode == 200) {
+              print(response.body);
+              final snackBar = SnackBar(
+                content: const Text('Sortir Ikan Berhasil!'),
+                backgroundColor: Colors.green,
+              );
+              ScaffoldMessenger.of(ctx).showSnackBar(snackBar);
+              return true;
+            } else {
+              print(response.body);
+              final snackBar = SnackBar(
+                content: Text(response.body.toString()),
+                backgroundColor: Colors.red,
+              );
+              ScaffoldMessenger.of(ctx).showSnackBar(snackBar);
+        
+              print("gagal post");
+        
+              return false;
+            }
+          }
+        }        
+	\end{lstlisting}
+
+	\clearpage
+	\section{Lampiran 12 Code Sprint 11 report}
+
+	
+	\textit{Code halaman login}
+	\begin{lstlisting}
+        import 'dart:convert';
+        import 'dart:developer';
+        
+        import 'package:fish/controllers/authentication/login_controller.dart';
+        import 'package:fish/pages/authentication/register_page.dart';
+        // import 'package:rflutter_alert/rflutter_alert.dart';
+        import 'package:fish/pages/dashboard.dart';
+        import 'package:flutter/material.dart';
+        import 'package:fish/theme.dart';
+        import 'package:flutter/services.dart';
+        import 'package:get/get.dart';
+        import 'package:shared_preferences/shared_preferences.dart';
+        import 'package:fish/service/url_api.dart';
+        import 'package:shared_preferences/shared_preferences.dart';
+        
+        import 'package:http/http.dart' as http;
+        
+        import '../component/login_card_input.dart';
+        
+        class LoginPage extends StatefulWidget {
+          LoginPage({Key? key}) : super(key: key);
+          @override
+          State<LoginPage> createState() => _LoginPageState();
+        }
+        
+        class _LoginPageState extends State<LoginPage> {
+          late SharedPreferences prefs;
+          final LoginController controller = Get.put(LoginController());
+          @override
+          void initState() {
+            super.initState();
+            initSharedPrefs();
+          }
+        
+          void initSharedPrefs() async {
+            prefs = await SharedPreferences.getInstance();
+            inspect(prefs);
+          }
+        
+          void login() async {
+            final response = await http.post(
+              Uri.parse(Urls.authentication),
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              encoding: Encoding.getByName('utf-8'),
+              body: {
+                "username": controller.usernameController.text,
+                "password": controller.passwordController.text,
+              },
+            );
+            var data = jsonDecode(response.body);
+            print(response.body);
+            if (response.statusCode == 200) {
+              var myToken = data['access_token'];
+              var identity = data['identity'];
+              prefs.setString(
+                'token',
+                myToken,
+              );
+              prefs.setString('identity', identity.toString());
+              // prefs.setString('identity', identity);
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => DashboardPage()));
+              controller.usernameController.clear();
+              controller.passwordController.clear();
+            } else {
+              showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Login Error',
+                            style: TextStyle(color: Colors.red)),
+                        content: const Text(
+                          'BreederID/Password salah',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        backgroundColor: backgroundColor1,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'OK'),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ));
+            }
+          }
+        
+          @override
+          Widget build(BuildContext context) {
+        
+            Widget formInput() {...}
+        
+            Widget logo() {...}
+        
+            Widget footer() {...}
+        
+            Widget submitButton() {...}
+        
+            return Obx(() {
+              if (controller.isLoading.value == false) {
+                return Scaffold(
+                  backgroundColor: backgroundColor2,
+                  body: ListView(
+                    children: [
+                      SizedBox(
+                        height: 20,
+                      ),
+                      logo(),
+                      formInput(),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      footer(),
+                      // submitButton(),
+                      SizedBox(
+                        height: 8,
+                      )
+                    ],
+                  ),
+                );
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: secondaryColor,
+                  ),
+                );
+              }
+            });
+          }
+        }          
+	\end{lstlisting}
+	
+	\textit{Code untuk halaman register}
+	\begin{lstlisting}
+        import 'dart:convert';
+        import 'dart:developer';
+        
+        import 'package:fish/controllers/authentication/register_controller.dart';
+        import 'package:fish/pages/dashboard.dart';
+        import 'package:flutter/material.dart';
+        import 'package:fish/theme.dart';
+        import 'package:flutter/services.dart';
+        import 'package:get/get.dart';
+        import 'package:shared_preferences/shared_preferences.dart';
+        import 'package:fish/service/url_api.dart';
+        import 'package:shared_preferences/shared_preferences.dart';
+        
+        import 'package:http/http.dart' as http;
+        
+        import '../component/login_card_input.dart';
+        import '../component/register_input.dart';
+        import '../component/register_input_next.dart';
+        import 'login_page.dart';
+        
+        class RegisterPage extends StatefulWidget {
+          RegisterPage({Key? key}) : super(key: key);
+          @override
+          State<RegisterPage> createState() => _RegisterPageState();
+        }
+        
+        class _RegisterPageState extends State<RegisterPage> {
+          late SharedPreferences prefs;
+          final RegisterController controller = Get.put(RegisterController());
+        
+          final pageController = PageController(initialPage: 0);
+          @override
+          void dispose() {
+            pageController.dispose();
+        
+            super.dispose();
+          }
+        
+          void initState() {
+            super.initState();
+            initSharedPrefs();
+            controller.getFarmData();
+          }
+        
+          void initSharedPrefs() async {
+            prefs = await SharedPreferences.getInstance();
+            inspect(prefs);
+          }
+        
+          void register() async {
+            final response = await http.post(
+              Uri.parse(Urls.register),
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              encoding: Encoding.getByName('utf-8'),
+              body: {
+                "username": controller.usernameController.text,
+                "password": controller.passwordController.text,
+                "nik": controller.nikController.text,
+                "name": controller.nameController.text,
+                "phone": controller.phoneController.text,
+                "hasFarm": controller.hasFarmController.selected.value,
+                "farm_id": controller.farmIdSelected,
+                "farm_name": controller.farmnameController.text,
+                "breeder": controller.breedercountController.text,
+                "address": controller.addressController.text,
+                "coordinate": controller.coordinateController.text
+              },
+            );
+            var data = jsonDecode(response.body);
+            print(response.body);
+            if (response.statusCode == 200) {
+              var myToken = data['access_token'];
+              var identity = data['identity'];
+              prefs.setString(
+                'token',
+                myToken,
+              );
+              prefs.setString('identity', identity.toString());
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => DashboardPage()));
+              print(response.body);
+              controller.usernameController.clear();
+              controller.passwordController.clear();
+              controller.addressController.clear();
+              controller.breedercountController.clear();
+              controller.coordinateController.clear();
+              controller.phoneController.clear();
+              controller.nameController.clear();
+              controller.farmnameController.clear();
+              controller.nikController.clear();
+            } else {
+              showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Register Error',
+                            style: TextStyle(color: Colors.red)),
+                        content: const Text(
+                          'BreederID Sudah Digunakan',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        backgroundColor: backgroundColor1,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'OK'),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ));
+              print(response.body);
+            }
+          }
+        
+          @override
+          Widget build(BuildContext context) {
+        
+            Widget formInput() {...}
+        
+            Widget form2Input() {...}
+        
+            Widget logo() {...}
+        
+            Widget footer() {...}
+        
+            Widget submitButton() {...}
+        
+            return Obx(() {
+              if (controller.isLoading.value == false) {
+                return Scaffold(
+                    backgroundColor: backgroundColor2,
+                    body: PageView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      controller: pageController,
+                      children: [
+                        ListView(
+                          children: [
+                            SizedBox(
+                              height: 10,
+                            ),
+                            footer(),
+                            formInput(),
+                            SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ),
+                        ListView(
+                          children: [
+                            SizedBox(
+                              height: 10,
+                            ),
+                            footer(),
+                            form2Input(),
+                            SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ));
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: secondaryColor,
+                  ),
+                );
+              }
+            });
+          }
+        }        
+	\end{lstlisting}
+
+	\textit{Code untuk halaman profile}
+	\begin{lstlisting}
+        import 'dart:convert';
+        import 'dart:developer';
+        
+        import 'package:fish/controllers/authentication/register_controller.dart';
+        import 'package:fish/pages/dashboard.dart';
+        import 'package:flutter/material.dart';
+        import 'package:fish/theme.dart';
+        import 'package:get/get.dart';
+        import 'package:shared_preferences/shared_preferences.dart';
+        import '../../controllers/authentication/profile_controller.dart';
+        import 'login_page.dart';
+        
+        class ProfilePage extends StatelessWidget {
+          ProfilePage({Key? key}) : super(key: key);
+          @override
+          final ProfileController controller = Get.put(ProfileController());
+        
+          @override
+          Widget build(BuildContext context) {
+            Widget logo() {...}
+        
+            Widget footer() {...}
+        
+            Widget profileList() {...}
+        
+            Widget logoutButton() {...}
+        
+            Widget submitButton() {...}
+        
+            return Obx(() {
+              if (controller.isLoading.value == false) {
+                return Scaffold(
+                  backgroundColor: backgroundColor2,
+                  body: ListView(
+                    children: [
+                      SizedBox(
+                        height: 10,
+                      ),
+                      logo(),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      profileList(),
+                      logoutButton(),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      // footer(),
+                      // submitButton(),
+                    ],
+                  ),
+                );
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: secondaryColor,
+                  ),
+                );
+              }
+            });
+          }
+        }        
+	\end{lstlisting}
+
+	\textit{Membuat model class user}
+	\begin{lstlisting}
+        import 'package:flutter/material.dart';
+        import 'package:intl/intl.dart';
+        
+        class Breeder {
+          String? id;
+          String? farm_id;
+          String? name;
+          String? username;
+          String? farm_name;
+          String? nik;
+          String? phone;
+          String? address;
+        
+          Breeder({
+            required this.id,
+            required this.farm_id,
+            required this.name,
+            required this.username,
+            required this.farm_name,
+            required this.address,
+            required this.nik,
+            required this.phone,
+          });
+        
+          factory Breeder.fromJson(Map<String, dynamic> json) {
+            return Breeder(
+              id: json['_id'],
+              farm_id: json['farm_id'],
+              farm_name: json['farm_name'],
+              address: json['address'],
+              name: json['name'],
+              username: json['username'],
+              nik: json['nik'],
+              phone: json['phone'],
+            );
+          }
+        
+          static DateTime stringToDate(String dateString) {
+            DateTime parseDate = DateFormat("dd-MM-yyyy").parse(dateString);
+            return parseDate;
+          }
+        }        
+	\end{lstlisting}
+
+	\textit{Membuat model class farm}
+	\begin{lstlisting}
+        import 'package:flutter/material.dart';
+        import 'package:intl/intl.dart';
+        
+        class Farm {
+          String? id;
+          String? farm_name;
+          String? breeder;
+          String? address;
+          String? coordinate;
+        
+          Farm({
+            required this.id,
+            required this.farm_name,
+            required this.breeder,
+            required this.address,
+            required this.coordinate,
+          });
+        
+          factory Farm.fromJson(Map<String, dynamic> json) {
+            return Farm(
+                id: json['_id'],
+                farm_name: json['farm_name'],
+                breeder: json['breeder'],
+                address: json['address'],
+                coordinate: json['coordinate']);
+          }
+        
+          static DateTime stringToDate(String dateString) {
+            DateTime parseDate = DateFormat("dd-MM-yyyy").parse(dateString);
+            return parseDate;
+          }
+        }           
+	\end{lstlisting}
+
+
+ 
+
+
+
+ 

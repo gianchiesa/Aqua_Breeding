@@ -1,0 +1,87 @@
+Kita dapat memvisualisasikan World Wide Web sebagai rangkaian simpul dan tepi dalam graf berarah. Setiap simpul mewakili halaman web, dan setiap tepi mewakili tautan dari halaman itu ke halaman lain. Setiap tepi juga membawa bobot yang dipengaruhi oleh peringkat halaman asalnya.
+
+Sebagai contoh, bayangkan \textit{World Wide Web} hanya memiliki lima halaman, dengan tautannya ditunjukkan di bawah ini:
+\begin{figure}[H]
+	\centering
+	\includegraphics[keepaspectratio, width=10cm]{gambar/www_graph}
+	\caption{Graf 5 Halaman Web}
+	\label{gambar:www_graph}
+\end{figure}
+
+Berdasarkan graf di atas, didapatkan \textit{adjacency matrix} sebagai berikut:
+\[
+\begin{bmatrix}
+0&0&1&0&0\\
+1&0&1&0&1\\
+0&0&0&0&0\\
+0&0&1&0&0\\
+0&1&0&0&0
+\end{bmatrix}
+\]
+
+Setiap matriks entri[i][j] merepresentasikan \textit{link} dari halaman j ke halaman i. Jika link ada, diberi nilai 1. Jika tidak, diberi nilai 0.
+
+Dari matriks tersebut, kita dapat membuat \textit{stochastic matrix} seperti berikut:
+\[
+\begin{bmatrix}
+0&0&0.33&0.2&0\\
+1&0&0.33&0.2&1\\
+0&0&0.00&0.2&0\\
+0&0&0.33&0.2&0\\
+0&1&0.00&0.2&0
+\end{bmatrix}
+\]
+
+\textit{Stochastic matrix} adalah matriks di mana semua entri dari setiap baris atau kolom berjumlah 1. Dalam hal ini, entri setiap kolom berjumlah 1, jadi matriks ini adalah \textit{column-stochastic}. Jenis matriks ini mewakili distribusi probabilitas, di mana setiap matriks[i][j] mewakili probabilitas bahwa seorang \textit{web surfer} yang saat ini berada di halaman j akan mengunjungi halaman i.
+
+Mengapa kolom 3 memiliki 0.2 untuk semua entrinya, meskipun halaman 3 tidak memiliki tautan keluar? Hal ini karena dalam algoritma PageRank, sebuah halaman tanpa \textit{link} keluar diasumsikan mendistribusikan kepentingannya secara merata di antara semua halaman yang ada dalam jaringan. Secara efektif, ini sama dengan mengatakan bahwa halaman tersebut memiliki tautan ke setiap halaman di jaringan, termasuk dirinya sendiri. Pembenaran untuk alasan ini adalah bahwa, dengan menggunakan model peselancar web, pengguna yang mengunjungi halaman tanpa tautan keluar akan mengetik \textit{url} dari halaman web mana pun yang ada dengan probabilitas yang sama. Dalam contoh ini, karena ada total lima halaman dalam jaringan, pengguna di halaman 3 akan memiliki peluang 1/5 untuk mengunjungi halaman lain mana pun, oleh karena itu bernilai 0,2.
+
+Setelah kita membuat \textit{stochastic matrix}, sekarang kita harus mempertimbangkan \textit{damping factor}. Menurut Page dan Brin, masalah PageRank mengasumsikan bahwa pada titik tertentu, pengguna akan bosan dan akhirnya berhenti mengklik. \textit{Damping factor} adalah sebuah konstan antara 0 dan 1, dan mewakili probabilitas bahwa pengguna akan terus mengklik setiap saat. Dalam makalah mereka, Page dan Brin menggunakan \textit{damping factor} bernilai 0,85, yang akan kita terapkan juga. Perhitungan \textit{pagerank} dari setiap halaman adalah sebagai berikut:
+
+\begin{equation}
+PR(A) = \frac{1-d}{N} + d(\frac{PR(T_{1})}{L(T_{1})} + \frac{PR(T_{2})}{L(T_{2})} + ... + \frac{PR(T_{N})}{L(T_{N})})
+\end{equation}
+
+Dimana PR = \textit{pagerank}, N = jumlah halaman dalam web, d = \textit{damping factor}, T = halaman dengan \textit{link} ke A, dan L = jumlah \textit{outbound link} dari T.
+
+Kemudian kita dapat mengadaptasi rumus ini menggunakan  \textit{stochastic matrix} yang kita buat sebelumnya untuk membuat \textit{transition matrix}:
+
+\begin{equation}
+A = \frac{1-d}{N}E+dS
+\end{equation}
+
+Dimana A = \textit{transition matrix}, E = NxN matriks bernilai 1, dan S = \textit{stochastic matrix}
+
+Berikut adalah hasil dari \textit{transition matrix} dari \textit{stochastic matrix} yang kita buat sebelumnya menggunakan perhitungan \textit{pagerank}:
+\[
+\begin{bmatrix}
+0.03&0.03&0.31333&0.2&0.03\\
+0.88&0.03&0.31333&0.2&0.88\\
+0.03&0.03&0.03&0.2&0.03\\
+0.03&0.03&0.31333&0.2&0.03\\
+0.03&0.88&0.03&0.2&0.03
+\end{bmatrix}
+\]
+
+Dengan \textit{transition matrix} di atas, kita perlu mengalikannya dengan vektor kolom awal p0 di mana p0 memiliki panjang N, dan setiap p0[i] memiliki nilai 1/N dengan jumlah total 1.
+
+Hasil perkalian ini akan menjadi vektor kolom baru p1, karena mengalikan matriks N x N dengan matriks N x 1 (vektor awal) menghasilkan matriks N x 1. Kita dapat mengalikan \textit{transition matrix} dengan vektor baru ini lagi, dan mengulangi prosesnya, yang dapat dijelaskan dengan rumus rekursif di bawah ini:
+
+\begin{equation}
+p_{n} = A_{p_{n-1}}
+\end{equation}
+
+Setiap entri dari setiap vektor baru akan mulai konvergen ke nilai tunggal setelah beberapa iterasi. Kita dapat menghentikan proses setelah perbedaan antara semua pn[i] dan pn-1[i] berada dalam batas kesalahan yang ditetapkan.
+
+Dengan batas kesalahan 0.005, hasil akhir dari proses rekursif tersebut terhadap \textit{transition matrix} yang kita buat sebelumnya berhenti setelah 22 iterasi dengan hasil matriks sebagai berikut:
+\[
+\begin{bmatrix}
+0.04924323\\
+0.4435515\\
+0.03837135\\
+0.04924323\\
+0.41959069
+\end{bmatrix}
+\]
+
+Dengan hasil vektor ini, kita dapat melihat bahwa halaman 1 memiliki peringkat tertinggi. Ini sesuai ekspektasi karena halaman 1 memiliki tautan masuk paling banyak dari halaman mana pun. Tetapi perhatikan bahwa halaman 4 memiliki peringkat yang tinggi juga, meskipun hanya memiliki satu tautan masuk. Ini karena tautan masuk tunggal ini berasal dari halaman 1, yang kebetulan merupakan halaman terpenting. Karena tautan ini adalah satu-satunya tautan keluar halaman 1.
