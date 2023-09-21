@@ -15,14 +15,16 @@ import 'package:fish/theme.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import 'detail_pond_controller.dart';
+
 class DetailBreedPage extends StatelessWidget {
   const DetailBreedPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final BreedController controller = Get.put(BreedController());
-    // final DetailPondController detailPondController =
-    //     Get.put(DetailPondController());
+    final DetailPondController detailPondController =
+        Get.put(DetailPondController());
 
     Widget breedDataRecap() {
       return Container(
@@ -111,8 +113,7 @@ class DetailBreedPage extends StatelessWidget {
       return Container(
         width: double.infinity,
         height: 50,
-        margin: EdgeInsets.only(
-            top: defaultSpace, right: defaultMargin, left: defaultMargin),
+        margin: EdgeInsets.only(top: defaultSpace),
         child: TextButton(
           onPressed: () {
             Get.to(() => AddFish(), arguments: {
@@ -143,8 +144,7 @@ class DetailBreedPage extends StatelessWidget {
       return Container(
         width: double.infinity,
         height: 50,
-        margin: EdgeInsets.only(
-            top: defaultSpace, right: defaultMargin, left: defaultMargin),
+        margin: EdgeInsets.only(top: defaultSpace),
         child: TextButton(
           onPressed: () {
             Get.to(() => EditFish());
@@ -271,18 +271,6 @@ class DetailBreedPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Masa Budidaya (${controller.detailPondController.selectedActivation.value.getStatus()})",
-              style: primaryTextStyle.copyWith(
-                fontSize: 16,
-                fontWeight: medium,
-              ),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-            ),
-            SizedBox(
-              height: 10,
-            ),
             Container(
               width: double.infinity,
               padding: EdgeInsets.all(20),
@@ -292,89 +280,86 @@ class DetailBreedPage extends StatelessWidget {
                 color: transparentColor,
               ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text(
+                    "Masa Budidaya (${controller.detailPondController.selectedActivation.value.getStatus()})",
+                    style: primaryTextStyle.copyWith(
+                      fontSize: 16,
+                      fontWeight: medium,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                  Divider(color: Colors.white),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Mulai",
-                              style: primaryTextStyle.copyWith(
-                                fontSize: 14,
-                                fontWeight: bold,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            ),
-                            Text(
-                              controller
-                                  .detailPondController.selectedActivation.value
-                                  .getStringActivationDate(),
-                              style: secondaryTextStyle.copyWith(
-                                fontSize: 14,
-                                fontWeight: medium,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            ),
-                          ],
+                      Text(
+                        "Mulai",
+                        style: primaryTextStyle.copyWith(
+                          fontSize: 14,
+                          fontWeight: bold,
                         ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                       ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Masa",
-                              style: primaryTextStyle.copyWith(
-                                fontSize: 14,
-                                fontWeight: bold,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            ),
-                            Text(
-                              "${controller.detailPondController.selectedActivation.value.getRangeActivation().toString()} Hari",
-                              style: secondaryTextStyle.copyWith(
-                                fontSize: 14,
-                                fontWeight: medium,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            ),
-                          ],
+                      Text(
+                        controller.detailPondController.selectedActivation.value
+                            .getStringActivationDate(),
+                        style: primaryTextStyle.copyWith(
+                          fontSize: 14,
+                          fontWeight: medium,
                         ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                       ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              "Panen",
-                              style: primaryTextStyle.copyWith(
-                                fontSize: 14,
-                                fontWeight: bold,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            ),
-                            Text(
-                              controller
-                                  .detailPondController.selectedActivation.value
-                                  .getStringDeactivationDate(),
-                              style: secondaryTextStyle.copyWith(
-                                fontSize: 14,
-                                fontWeight: medium,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            ),
-                          ],
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Panen",
+                        style: primaryTextStyle.copyWith(
+                          fontSize: 14,
+                          fontWeight: bold,
                         ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                      Text(
+                        controller.detailPondController.selectedActivation.value
+                            .getStringDeactivationDate(),
+                        style: primaryTextStyle.copyWith(
+                          fontSize: 14,
+                          fontWeight: medium,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Masa Budidaya",
+                        style: primaryTextStyle.copyWith(
+                          fontSize: 14,
+                          fontWeight: bold,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                      Text(
+                        "${controller.detailPondController.selectedActivation.value.getRangeActivation().toString()} Hari",
+                        style: purpleTextStyle.copyWith(
+                          fontSize: 18,
+                          fontWeight: bold,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                       ),
                     ],
                   ),
@@ -384,38 +369,187 @@ class DetailBreedPage extends StatelessWidget {
             SizedBox(
               height: 30,
             ),
-            Text(
-              controller.detailPondController.selectedActivation.value
-                          .isFinish ==
-                      false
-                  ? "Jumlah Ikan (${controller.detailPondController.selectedActivation.value.fishAmount.toString()} Ekor)"
-                  : "Data Panen Ikan (${controller.detailPondController.selectedActivation.value.fishAmount.toString()} Ekor)",
-              style: primaryTextStyle.copyWith(
-                fontSize: 16,
-                fontWeight: medium,
-              ),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
+          ],
+        ),
+      );
+    }
+
+    Widget fishInfo() {
+      return Column(
+        children: [
+          Container(
+            width: double.infinity,
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: primaryColor),
+              color: transparentColor,
             ),
-            Column(
-              children: controller.detailPondController.selectedActivation.value
-                          .isFinish ==
-                      false
-                  ? controller
-                      .detailPondController.selectedActivation.value.fishLive!
-                      .map(
-                        (fish) => FishListCard(fish: fish),
-                      )
-                      .toList()
-                  : controller.detailPondController.selectedActivation.value
-                      .fishHarvested!
-                      .map(
-                        (fish) => FishHarvestCard(fish: fish),
-                      )
-                      .toList(),
+            margin: EdgeInsets.symmetric(horizontal: defaultMargin),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Jumlah Ikan",
+                  style: primaryTextStyle.copyWith(
+                    fontSize: 16,
+                    fontWeight: medium,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+                Divider(color: Colors.white),
+                Column(
+                  children: controller.detailPondController.selectedActivation
+                              .value.isFinish ==
+                          false
+                      ? controller.detailPondController.selectedActivation.value
+                          .fishLive!
+                          .map(
+                            (fish) => FishListCard(fish: fish),
+                          )
+                          .toList()
+                      : controller.detailPondController.selectedActivation.value
+                          .fishHarvested!
+                          .map(
+                            (fish) => FishHarvestCard(fish: fish),
+                          )
+                          .toList(),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Total Ikan",
+                      style: primaryTextStyle.copyWith(
+                        fontSize: 14,
+                        fontWeight: bold,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                    Text(
+                      "${controller.detailPondController.selectedActivation.value.fishAmount.toString()} Ekor",
+                      style: purpleTextStyle.copyWith(
+                        fontSize: 18,
+                        fontWeight: bold,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Total Bobot",
+                      style: primaryTextStyle.copyWith(
+                        fontSize: 14,
+                        fontWeight: bold,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                    Text(
+                      detailPondController
+                              .selectedActivation.value.totalWeightFishAlive!
+                              .toStringAsFixed(2) +
+                          ' Kg',
+                      style: purpleTextStyle.copyWith(
+                        fontSize: 18,
+                        fontWeight: bold,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  ],
+                ),
+                // controller.detailPondController.selectedActivation.value
+                //             .isFinish ==
+                //         false
+                //     ? addFishButton()
+                //     : Container(),
+                controller.detailPondController.selectedActivation.value
+                            .isFinish ==
+                        false
+                    ? editFishButton()
+                    : Container(),
+              ],
             ),
-            SizedBox(
-              height: 10,
+          ),
+          SizedBox(height: 30)
+        ],
+      );
+    }
+
+    Widget feedhistoryinfo() {
+      return Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: primaryColor),
+          color: transparentColor,
+        ),
+        margin: EdgeInsets.symmetric(horizontal: defaultMargin),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Pakan",
+                  style: primaryTextStyle.copyWith(
+                    fontSize: 16,
+                    fontWeight: medium,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+                Text(
+                  detailPondController.selectedActivation.value
+                          .getRangeActivation()
+                          .toString() +
+                      " Hari Masa Budidaya",
+                  style: secondaryTextStyle.copyWith(
+                    fontSize: 16,
+                    fontWeight: medium,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+              ],
+            ),
+            Divider(color: Colors.white),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Total Pakan",
+                  style: primaryTextStyle.copyWith(
+                    fontSize: 14,
+                    fontWeight: bold,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+                Text(
+                  detailPondController.selectedActivation.value.feedDose
+                          .toString() +
+                      " Kg",
+                  style: purpleTextStyle.copyWith(
+                    fontSize: 18,
+                    fontWeight: bold,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+              ],
             ),
           ],
         ),
@@ -578,17 +712,9 @@ class DetailBreedPage extends StatelessWidget {
             children: [
               breedDataRecap(),
               detail(),
-              fishChart(),
-              controller.detailPondController.selectedActivation.value
-                          .isFinish ==
-                      false
-                  ? addFishButton()
-                  : Container(),
-              controller.detailPondController.selectedActivation.value
-                          .isFinish ==
-                      false
-                  ? editFishButton()
-                  : Container(),
+              fishInfo(),
+              feedhistoryinfo(),
+              // fishChart(),
               controller.detailPondController.selectedActivation.value
                           .isFinish ==
                       false

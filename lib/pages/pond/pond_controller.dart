@@ -124,6 +124,7 @@ class PondController extends GetxController {
     ponds.clear();
     List<Pond> pondsData = await PondService().getPonds();
     ponds.addAll(pondsData);
+    inspect(ponds);
 
     isLoading.value = false;
   }

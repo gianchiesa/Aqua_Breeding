@@ -29,11 +29,12 @@ class DetailPondPage extends StatefulWidget {
 class _DetailPondPageState extends State<DetailPondPage> {
   final DetailPondController detailController = Get.put(DetailPondController());
   final PondController pondController = Get.find();
+
   @override
   void initState() {
+    // detailController.getPondActivation(context);
+    detailController.updateListAndSelectedActivation();
     super.initState();
-
-    detailController.getPondActivation(context);
   }
 
   @override
@@ -364,6 +365,153 @@ class _DetailPondPageState extends State<DetailPondPage> {
       );
     }
 
+    Widget fcr() {
+      return Container(
+        width: double.infinity,
+        margin: EdgeInsets.only(
+          top: defaultMargin,
+          left: defaultMargin,
+          right: defaultMargin,
+        ),
+        padding: EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: primaryColor),
+          color: transparentColor,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Text(
+                  'update terakhir: ',
+                  style: secondaryTextStyle.copyWith(
+                    fontSize: 14,
+                    fontWeight: medium,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+                SizedBox(width: 10),
+                Text(
+                  detailController.selectedActivation.value
+                      .getStringFcrUpdate(),
+                  style: primaryTextStyle.copyWith(
+                    fontSize: 14,
+                    fontWeight: medium,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+              ],
+            ),
+            Divider(color: Colors.white),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "FCR",
+                  style: primaryTextStyle.copyWith(
+                    fontSize: 18,
+                    fontWeight: light,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+                SizedBox(width: 10),
+                Text(
+                  detailController.selectedActivation.value.fcr!
+                      .toStringAsFixed(2),
+                  style: purpleTextStyle.copyWith(
+                    fontSize: 18,
+                    fontWeight: heavy,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget feedhistory() {
+      return Container(
+        width: double.infinity,
+        margin: EdgeInsets.only(
+          top: defaultMargin,
+          left: defaultMargin,
+          right: defaultMargin,
+        ),
+        padding: EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: primaryColor),
+          color: transparentColor,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Text(
+                  'tanggal: ',
+                  style: secondaryTextStyle.copyWith(
+                    fontSize: 14,
+                    fontWeight: medium,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+                SizedBox(width: 10),
+                Text(
+                  detailController.selectedActivation.value
+                      .getStringLastFeedDose(),
+                  style: primaryTextStyle.copyWith(
+                    fontSize: 14,
+                    fontWeight: medium,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+              ],
+            ),
+            Divider(color: Colors.white),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "Total Pakan",
+                  style: primaryTextStyle.copyWith(
+                    fontSize: 18,
+                    fontWeight: light,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+                SizedBox(width: 10),
+                Text(
+                  detailController.selectedActivation.value.lastFeedDose
+                          .toString() +
+                      ' Kg',
+                  style: purpleTextStyle.copyWith(
+                    fontSize: 18,
+                    fontWeight: heavy,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    }
+
     Widget activationTitle() {
       return Container(
         width: double.infinity,
@@ -451,12 +599,14 @@ class _DetailPondPageState extends State<DetailPondPage> {
                       ? activationButton()
                       : deactivationButton(),
                   detail(),
+                  // fcr(),
+                  // feedhistory(),
                   activationTitle(),
                   detailController.activations.isEmpty
                       ? emptyListActivation()
                       : listActivation(),
                   SizedBox(
-                    height: 10,
+                    height: 60,
                   )
                 ],
               ),

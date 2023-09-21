@@ -141,6 +141,57 @@ class ActivationBreedPage extends StatelessWidget {
       );
     }
 
+    Widget breedOptionInput() {
+      return Container(
+        margin: EdgeInsets.only(
+            top: defaultSpace, right: defaultMargin, left: defaultMargin),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Jenis Budidaya',
+              style: primaryTextStyle.copyWith(
+                fontSize: 16,
+                fontWeight: medium,
+              ),
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            Container(
+              height: 50,
+              padding: EdgeInsets.symmetric(
+                horizontal: 16,
+              ),
+              decoration: BoxDecoration(
+                color: backgroundColor2,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: Obx(() => DropdownButtonFormField<String>(
+                      onChanged: (newValue) => controller.breedOptionController
+                          .setSelected(newValue!),
+                      value: controller.breedOptionController.selected.value,
+                      items: controller.breedOptionController.listBreed
+                          .map((material) {
+                        return DropdownMenuItem<String>(
+                          value: material,
+                          child: Text(
+                            material,
+                            style: primaryTextStyle,
+                          ),
+                        );
+                      }).toList(),
+                      dropdownColor: backgroundColor5,
+                      decoration: InputDecoration(border: InputBorder.none),
+                    )),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     Widget waterHeightInput() {
       return Container(
         margin: EdgeInsets.only(
@@ -432,9 +483,10 @@ class ActivationBreedPage extends StatelessWidget {
                 child: TextFormField(
                   style: primaryTextStyle,
                   inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
+                    FilteringTextInputFormatter.allow(
+                        RegExp(r'^\d+\.?\d{0,2}')),
                   ],
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
                   controller: controller.nilaHitamWeightController,
                   decoration: InputDecoration.collapsed(
                     hintText: 'ex : 10.5 ',
@@ -608,103 +660,6 @@ class ActivationBreedPage extends StatelessWidget {
       );
     }
 
-    Widget breedOptionInput() {
-      return Container(
-        margin: EdgeInsets.only(
-            top: defaultSpace, right: defaultMargin, left: defaultMargin),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Jenis Budidaya',
-              style: primaryTextStyle.copyWith(
-                fontSize: 16,
-                fontWeight: medium,
-              ),
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            Container(
-              height: 50,
-              padding: EdgeInsets.symmetric(
-                horizontal: 16,
-              ),
-              decoration: BoxDecoration(
-                color: backgroundColor2,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Center(
-                child: Obx(() => DropdownButtonFormField<String>(
-                      onChanged: (newValue) => controller.breedOptionController
-                          .setSelected(newValue!),
-                      value: controller.breedOptionController.selected.value,
-                      items: controller.breedOptionController.listBreed
-                          .map((material) {
-                        return DropdownMenuItem<String>(
-                          value: material,
-                          child: Text(
-                            material,
-                            style: primaryTextStyle,
-                          ),
-                        );
-                      }).toList(),
-                      dropdownColor: backgroundColor5,
-                      decoration: InputDecoration(border: InputBorder.none),
-                    )),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    Widget pembesaranInput() {
-      return Container(
-        margin: EdgeInsets.only(
-            top: defaultSpace, right: defaultMargin, left: defaultMargin),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Bobot Ikan Masuk (gram)',
-              style: primaryTextStyle.copyWith(
-                fontSize: 16,
-                fontWeight: medium,
-              ),
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            Container(
-              height: 50,
-              padding: EdgeInsets.symmetric(
-                horizontal: 16,
-              ),
-              decoration: BoxDecoration(
-                color: backgroundColor2,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Center(
-                child: TextFormField(
-                  style: primaryTextStyle,
-                  controller: controller.kelasPembesaranController,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
-                  ],
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'ex: 100',
-                    hintStyle: subtitleTextStyle,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
     Widget benihInput() {
       return Container(
         margin: EdgeInsets.only(
@@ -757,10 +712,6 @@ class ActivationBreedPage extends StatelessWidget {
     }
 
     Widget activationButton() {
-      // return Obx(() {
-      //   if (controller.isLoading.value == true) {
-      //     return CircularProgressIndicator();
-      //   }
       return Container(
         height: 50,
         width: double.infinity,
@@ -768,19 +719,34 @@ class ActivationBreedPage extends StatelessWidget {
             top: defaultSpace * 3, right: defaultMargin, left: defaultMargin),
         child: TextButton(
           onPressed: () async {
-            await controller.pondActivation(
-              context,
-              () {
-                Navigator.pop(context);
-                detailPondController.getPondActivation(context);
-                pondController
-                    .updateSelectedPond(pondController.selectedPond.value.id);
-                // Get.off(MyTabPondScreen(), arguments: {
-                //   'pond': controller.pond,
-                // });
-              },
-            );
-            // Get.close(1);
+            Map<String, dynamic> result = controller.validationInput();
+            if (result['isValid'] == false) {
+              Get.snackbar('Input Salah', result['message'],
+                  titleText: Text(
+                    'Input Salah',
+                    style: alertTextStyle.copyWith(
+                      fontSize: 16,
+                      fontWeight: medium,
+                    ),
+                  ),
+                  messageText: Text(
+                    result['message'],
+                    style: primaryTextStyle.copyWith(
+                      fontSize: 16,
+                      fontWeight: medium,
+                    ),
+                  ),
+                  backgroundColor: backgroundColor1);
+            } else {
+              await controller.pondActivation(
+                context,
+                () {
+                  pondController.updateListandSelectedPond();
+                  Get.back();
+                  Get.back();
+                },
+              );
+            }
           },
           style: TextButton.styleFrom(
             backgroundColor: primaryColor,
@@ -800,6 +766,52 @@ class ActivationBreedPage extends StatelessWidget {
       // };
     }
 
+    Widget pembesaranInput() {
+      return Container(
+        margin: EdgeInsets.only(
+            top: defaultSpace, right: defaultMargin, left: defaultMargin),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Bobot Ikan Masuk (gram)',
+              style: primaryTextStyle.copyWith(
+                fontSize: 16,
+                fontWeight: medium,
+              ),
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            Container(
+              height: 50,
+              padding: EdgeInsets.symmetric(
+                horizontal: 16,
+              ),
+              decoration: BoxDecoration(
+                color: backgroundColor2,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: TextFormField(
+                  style: primaryTextStyle,
+                  controller: controller.kelasPembesaranController,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.deny(RegExp(r'[-+=*#%/,\s]'))
+                  ],
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration.collapsed(
+                    hintText: 'ex: 100',
+                    hintStyle: subtitleTextStyle,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     return Obx(() {
       if (controller.isActivationProgress.value == false) {
         return Scaffold(
@@ -813,7 +825,7 @@ class ActivationBreedPage extends StatelessWidget {
               breedOptionInput(),
               controller.breedOptionController.selected.value == "Benih"
                   ? benihInput()
-                  : pembesaranInput(),
+                  : SizedBox(),
               checkBoxFish(),
               controller.isNilaHitam == true ? nilaHitamInput() : Container(),
               controller.isNilaMerah == true ? nilaMerahInput() : Container(),

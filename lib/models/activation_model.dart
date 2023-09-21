@@ -12,18 +12,19 @@ class Activation {
   DateTime? deactivationAt;
   num? totalFishHarvested;
   num? totalWeightHarvested;
-  num? consOver;
-  num? consUnder;
   int? fishAmount;
   List<Fish>? fishLive;
+  double? totalWeightFishAlive;
   List<Fish>? fishDeath;
   List<FishHarvest>? fishHarvested;
   num? survivalRate;
   num? fcr;
+  DateTime? fcrUpdate;
+  num? feedDose;
+  DateTime? lastFeedDose;
 
   Activation({
     required this.id,
-    required this.idInt,
     required this.isFinish,
     required this.waterLevel,
     required this.activationAt,
@@ -31,20 +32,21 @@ class Activation {
     this.totalFishHarvested,
     this.totalWeightHarvested,
     this.fishHarvested,
-    this.consOver,
-    this.consUnder,
     this.fishAmount,
     this.fishLive,
+    this.totalWeightFishAlive = 0,
     this.fishDeath,
     this.survivalRate,
     this.fcr,
+    this.fcrUpdate,
+    this.feedDose,
+    this.lastFeedDose,
   });
 
   factory Activation.fromJson(Map<String, dynamic> json) {
     print(json);
     return Activation(
       id: json['_id'],
-      idInt: json['id_int'],
       isFinish: json['isFinish'],
       waterLevel: json['water_level'],
       activationAt:
@@ -52,22 +54,40 @@ class Activation {
       deactivationAt: json['isFinish'] == true
           ? DateFormat("yyyy-MM-dd hh:mm:ss").parse(json['deactivated_at'])
           : null,
-      totalFishHarvested: json['total_fish_harvested'],
-      totalWeightHarvested: json['total_weight_harvested'],
-      fishHarvested: FishHarvest.fromJsonList(json['fish_harvested']),
-      consOver: json['constanta_oversize'],
-      consUnder: json['constanta_undersize'],
-      fishAmount: json['total_fish'],
       fishLive: Fish.fromJsonList(json['fish_live']),
+      totalWeightFishAlive: calculateTotalWeight(json['fish_live']),
+      fishAmount: json['total_fish'],
+      totalFishHarvested: 0,
+      totalWeightHarvested: 0,
+      fishHarvested: FishHarvest.fromJsonList(json['fish_harvested']),
       fishDeath: Fish.fromJsonList(json['fish_death']),
       survivalRate: json['survival_rate'],
       fcr: json['fcr'],
+      fcrUpdate: DateFormat("yyyy-MM-dd hh:mm:ss").parse(json['fcr_update']),
+      feedDose: json['feed_dose'],
+      lastFeedDose: json['last_feed_dose'] != null
+          ? DateFormat("yyyy-MM-dd hh:mm:ss").parse(json['last_feed_dose'])
+          : null,
     );
   }
 
   static DateTime stringToDate(String dateString) {
     DateTime parseDate = DateFormat("dd-MM-yyyy").parse(dateString);
     return parseDate;
+  }
+
+  static calculateTotalWeight(List<dynamic> fishData) {
+    double totalWeight = 0.0;
+    // print(fishData);
+    try {
+      for (var fish in fishData) {
+        totalWeight += (fish['amount'] * fish['weight']);
+      }
+    } catch (e) {
+      return totalWeight;
+    }
+
+    return totalWeight;
   }
 
   Color getColor() {
@@ -93,14 +113,25 @@ class Activation {
   }
 
   String getStringActivationDate() =>
-      DateFormat("dd-MM-yyyy").format(activationAt!);
+      DateFormat('EEEE, d MMM yyyy', 'id_ID').format(activationAt!);
 
   String getStringDeactivationDate() {
     print(deactivationAt);
     if (isFinish == false) {
       return "-";
     }
-    return DateFormat("dd-MM-yyyy").format(deactivationAt!);
+    return DateFormat('EEEE, d MMM yyyy', 'id_ID').format(deactivationAt!);
+  }
+
+  String getStringFcrUpdate() =>
+      DateFormat('EEEE, d MMM yyyy', 'id_ID').format(fcrUpdate!);
+
+  String getStringLastFeedDose() {
+    try {
+      return DateFormat('EEEE, d MMM yyyy', 'id_ID').format(lastFeedDose!);
+    } catch (e) {
+      return '-';
+    }
   }
 
   num getRangeActivation() {

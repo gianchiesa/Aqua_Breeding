@@ -127,42 +127,16 @@ class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       )
-                    : pondController
-                                .selectedPond.value.pondPhDesc!.capitalize ==
-                            "Normal"
-                        ? Text(
-                            pondController
-                                .selectedPond.value.pondPhDesc!.capitalize!,
-                            style: subtitleTextStyle.copyWith(
-                                fontSize: 13,
-                                fontWeight: bold,
-                                color: Colors.green),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          )
-                        : pondController.selectedPond.value.pondPhDesc!
-                                    .capitalize ==
-                                "Berbahaya"
-                            ? Text(
-                                pondController
-                                    .selectedPond.value.pondPhDesc!.capitalize!,
-                                style: subtitleTextStyle.copyWith(
-                                    fontSize: 13,
-                                    fontWeight: bold,
-                                    color: Colors.red.shade300),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                              )
-                            : Text(
-                                pondController
-                                    .selectedPond.value.pondPhDesc!.capitalize!,
-                                style: subtitleTextStyle.copyWith(
-                                  fontSize: 13,
-                                  fontWeight: regular,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                              ),
+                    : Text(
+                        pondController.selectedPond.value.pondPh.toString(),
+                        style: subtitleTextStyle.copyWith(
+                            fontSize: 13,
+                            fontWeight: bold,
+                            color: pondController.selectedPond.value
+                                .getPondPhColor()),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
                 SizedBox(
                   height: 20,
                 ),
@@ -187,7 +161,7 @@ class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
                       )
                     : pondController.selectedPond.value.pondTemp == null
                         ? Text(
-                            "Belum Diukur",
+                            "0",
                             style: subtitleTextStyle.copyWith(
                               fontSize: 16,
                               fontWeight: regular,
@@ -242,42 +216,17 @@ class _DailyWaterDetailPondPageState extends State<DailyWaterDetailPondPage> {
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           )
-                        : pondController.selectedPond.value.pondDoDesc!
-                                    .capitalize ==
-                                "Berbahaya"
-                            ? Text(
-                                pondController
-                                    .selectedPond.value.pondDoDesc!.capitalize!,
-                                style: subtitleTextStyle.copyWith(
-                                    fontSize: 13,
-                                    fontWeight: bold,
-                                    color: Colors.red.shade300),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                              )
-                            : pondController.selectedPond.value.pondDoDesc!
-                                        .capitalize ==
-                                    "Semi Berbahaya"
-                                ? Text(
-                                    pondController.selectedPond.value
-                                        .pondDoDesc!.capitalize!,
-                                    style: subtitleTextStyle.copyWith(
-                                        fontSize: 13,
-                                        fontWeight: bold,
-                                        color: Colors.amber),
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                  )
-                                : Text(
-                                    pondController.selectedPond.value
-                                        .pondDoDesc!.capitalize!,
-                                    style: subtitleTextStyle.copyWith(
-                                      fontSize: 13,
-                                      fontWeight: regular,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                  ),
+                        : Text(
+                            pondController.selectedPond.value.pondDo!
+                                .toString(),
+                            style: subtitleTextStyle.copyWith(
+                                fontSize: 13,
+                                fontWeight: bold,
+                                color: pondController.selectedPond.value
+                                    .getPondDoColor()),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
                 SizedBox(
                   height: 20,
                 ),

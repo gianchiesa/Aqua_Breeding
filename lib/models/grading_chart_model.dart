@@ -1,32 +1,65 @@
 import 'package:intl/intl.dart';
 
-class GradingChartData {
-  num? avg_weight;
-  String? fish_type;
-  DateTime? date;
+class FishWeightData {
+  final DateTime date;
+  final double totalWeightFish;
 
-  GradingChartData({
-    required this.avg_weight,
-    required this.fish_type,
+  FishWeightData({
     required this.date,
+    required this.totalWeightFish,
   });
 
-  factory GradingChartData.fromJson(Map<String, dynamic> json) {
-    print(json);
-    return GradingChartData(
-      avg_weight: json["avg_fish_weight"],
-      fish_type: json["fish_type"],
-      date: DateTime.tryParse(json['grading_at']),
+  factory FishWeightData.fromJson(Map<String, dynamic> json) {
+    return FishWeightData(
+      date: DateTime.parse(json['date']),
+      totalWeightFish: json['total_weight_fish'].toDouble(),
     );
   }
 
-  static List<GradingChartData> fromJsonList(List<dynamic> list) {
-    List<GradingChartData> gradingDatas = [];
-    for (var item in list) {
-      gradingDatas.add(GradingChartData.fromJson(item));
-    }
-    return gradingDatas;
+  String getDate() => DateFormat('dd-MMM').format(date);
+}
+
+class FishFeedHistory {
+  final DateTime date;
+  final double totalFeedDose;
+
+  FishFeedHistory({
+    required this.date,
+    required this.totalFeedDose,
+  });
+
+  factory FishFeedHistory.fromJson(Map<String, dynamic> json) {
+    return FishFeedHistory(
+      date: DateTime.parse(json['date']),
+      totalFeedDose: json['total_feed_dose'].toDouble(),
+    );
   }
 
-  String getDate() => DateFormat('dd-MM-yyyy').format(date!);
+  String getDate() => DateFormat('dd-MMM').format(date);
+}
+
+class FishGradingChart {
+  final List<FishWeightData> listFishWeight;
+  final List<FishFeedHistory> listFishFeedHistory;
+
+  FishGradingChart({
+    required this.listFishWeight,
+    required this.listFishFeedHistory,
+  });
+
+  factory FishGradingChart.fromJson(Map<String, dynamic> json) {
+    List<FishWeightData> fishWeightList = (json['list_fish_weight'] as List)
+        .map((item) => FishWeightData.fromJson(item))
+        .toList();
+
+    List<FishFeedHistory> fishFeedList =
+        (json['list_fish_feed_history'] as List)
+            .map((item) => FishFeedHistory.fromJson(item))
+            .toList();
+
+    return FishGradingChart(
+      listFishWeight: fishWeightList,
+      listFishFeedHistory: fishFeedList,
+    );
+  }
 }

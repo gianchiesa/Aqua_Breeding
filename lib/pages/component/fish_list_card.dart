@@ -12,15 +12,6 @@ class FishListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.only(
-        top: defaultMargin / 2,
-      ),
-      padding: EdgeInsets.symmetric(vertical: 7, horizontal: 25),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: primaryColor),
-        color: transparentColor,
-      ),
       child: Column(
         children: [
           Row(
@@ -30,17 +21,17 @@ class FishListCard extends StatelessWidget {
               Text(
                 fish.type!,
                 style: primaryTextStyle.copyWith(
-                  fontSize: 16,
-                  fontWeight: medium,
+                  fontSize: 14,
+                  fontWeight: bold,
                 ),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
               ),
               Text(
                 "${fish.amount.toString()} Ekor",
-                style: secondaryTextStyle.copyWith(
+                style: primaryTextStyle.copyWith(
                   fontSize: 14,
-                  fontWeight: bold,
+                  fontWeight: medium,
                 ),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,

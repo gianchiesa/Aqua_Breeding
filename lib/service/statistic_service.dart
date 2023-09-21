@@ -27,6 +27,7 @@ class StatisticService {
 
       return statistic;
     } else {
+      StatisticModel statistic = StatisticModel.defaultValue();
       throw Exception('Gagal Get Products!');
     }
   }

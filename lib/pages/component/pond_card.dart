@@ -122,7 +122,7 @@ class PondCard extends StatelessWidget {
                             )
                           : pond.pondPh == null
                               ? Text(
-                                  "Belum Diukur",
+                                  "-",
                                   style:
                                       subtitleTextStyle.copyWith(fontSize: 16),
                                   overflow: TextOverflow.ellipsis,

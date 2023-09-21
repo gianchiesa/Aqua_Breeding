@@ -10,7 +10,6 @@ import 'package:get/get.dart';
 
 import '../../service/activation_service.dart';
 import '../../service/logging_service.dart';
-import '../../theme.dart';
 import 'benih_option_controller.dart';
 import 'breed_option_controller.dart';
 
@@ -18,24 +17,28 @@ class ActivationBreedController extends GetxController {
   Pond pond = Get.arguments['pond'];
   ActivationService service = ActivationService();
   BenihOptionController benihOptionController = BenihOptionController();
+  TextEditingController waterHeightController =
+      TextEditingController(text: '0');
   BreedOptionController breedOptionController = BreedOptionController();
-  TextEditingController waterHeightController = TextEditingController(text: '');
   TextEditingController kelasPembesaranController =
       TextEditingController(text: '');
+
   TextEditingController nilaMerahAmountController =
-      TextEditingController(text: '');
+      TextEditingController(text: '0');
   TextEditingController nilaMerahWeightController =
-      TextEditingController(text: '');
+      TextEditingController(text: '0');
   TextEditingController nilaHitamAmountController =
-      TextEditingController(text: '');
+      TextEditingController(text: '0');
   TextEditingController nilaHitamWeightController =
-      TextEditingController(text: '');
-  TextEditingController leleAmountController = TextEditingController(text: '');
-  TextEditingController leleWeightController = TextEditingController(text: '');
-  TextEditingController patinAmountController = TextEditingController(text: '');
-  TextEditingController patinWeightController = TextEditingController(text: '');
-  TextEditingController masAmountController = TextEditingController(text: '');
-  TextEditingController masWeightController = TextEditingController(text: '');
+      TextEditingController(text: '0');
+  TextEditingController leleAmountController = TextEditingController(text: '0');
+  TextEditingController leleWeightController = TextEditingController(text: '0');
+  TextEditingController patinAmountController =
+      TextEditingController(text: '0');
+  TextEditingController patinWeightController =
+      TextEditingController(text: '0');
+  TextEditingController masAmountController = TextEditingController(text: '0');
+  TextEditingController masWeightController = TextEditingController(text: '0');
 
   var isNilaMerah = false.obs;
   var isNilaHitam = false.obs;
@@ -43,11 +46,8 @@ class ActivationBreedController extends GetxController {
   var isPatin = false.obs;
   var isMas = false.obs;
   var isActivationProgress = false.obs;
-  var isPondActive = false.obs;
-  var isZeroInput = true.obs;
-  var isNoFist = true.obs;
 
-  List activations = [];
+  // List activations = [];
 
   void setLele(bool value) {
     isLele.value = value;
@@ -69,97 +69,186 @@ class ActivationBreedController extends GetxController {
     isMas.value = value;
   }
 
+  double getAvgWeight() {
+    switch (benihOptionController.selected.value) {
+      case "1-2 cm":
+        return 0.5;
+      case "2-3 cm":
+        return 1;
+      case "3-4 cm":
+        return 1.5;
+      case "4-5 cm":
+        return 2;
+      case "5-6 cm":
+        return 2.5;
+      case "6-7 cm":
+        return 2.7;
+      case "7-8 cm":
+        return 3;
+      case "8-9 cm":
+        return 3.2;
+      case "9-10 cm":
+        return 3.5;
+      case "10-11 cm":
+        return 4;
+      case "11-12 cm":
+        return 5;
+      case "12-13 cm":
+        return 5.5;
+      default:
+        return 0;
+    }
+  }
+
+  Map<String, dynamic> validationInput() {
+    Map<String, dynamic> result = {
+      'isValid': false,
+      'message': '',
+    };
+
+    if (isNilaHitam.value == false &&
+        isNilaMerah == false &&
+        isLele == false &&
+        isPatin == false &&
+        isMas == false) {
+      result['isValid'] = false;
+      result['message'] = "Tidak ada jenis ikan yang dipilih";
+      return result;
+    }
+
+    if (isNilaHitam.value == true) {
+      if (nilaHitamAmountController.text.isEmpty ||
+          int.parse(nilaHitamAmountController.text) < 1) {
+        result['isValid'] = false;
+        result['message'] = "Jumlah ikan nila hitam harus harus lebih dari 0";
+        return result;
+      }
+      if (nilaHitamWeightController.text.isEmpty ||
+          double.parse(nilaHitamWeightController.text) <= 0) {
+        result['isValid'] = false;
+        result['message'] = "Berat ikan nila hitam harus harus lebih dari 0";
+        return result;
+      }
+    }
+
+    if (isNilaMerah.value == true) {
+      if (nilaMerahAmountController.text.isEmpty ||
+          int.parse(nilaMerahAmountController.text) < 1) {
+        result['isValid'] = false;
+        result['message'] = "Jumlah ikan nila merah harus harus lebih dari 0";
+        return result;
+      }
+      if (nilaMerahWeightController.text.isEmpty ||
+          double.parse(nilaMerahWeightController.text) <= 0) {
+        result['isValid'] = false;
+        result['message'] = "Berat ikan nila merah harus harus lebih dari 0";
+        return result;
+      }
+    }
+
+    if (isLele.value == true) {
+      if (leleAmountController.text.isEmpty ||
+          int.parse(leleAmountController.text) < 1) {
+        result['isValid'] = false;
+        result['message'] = "Jumlah ikan lele harus harus lebih dari 0";
+        return result;
+      }
+      if (leleWeightController.text.isEmpty ||
+          double.parse(leleWeightController.text) <= 0) {
+        result['isValid'] = false;
+        result['message'] = "Berat ikan lele harus harus lebih dari 0";
+        return result;
+      }
+    }
+
+    if (isPatin.value == true) {
+      if (patinAmountController.text.isEmpty ||
+          int.parse(patinAmountController.text) < 1) {
+        result['isValid'] = false;
+        result['message'] = "Jumlah ikan patin harus harus lebih dari 0";
+        return result;
+      }
+      if (patinWeightController.text.isEmpty ||
+          double.parse(patinWeightController.text) <= 0) {
+        result['isValid'] = false;
+        result['message'] = "Berat ikan patin harus harus lebih dari 0";
+        return result;
+      }
+    }
+
+    if (isMas.value == true) {
+      if (masAmountController.text.isEmpty ||
+          int.parse(masAmountController.text) < 1) {
+        result['isValid'] = false;
+        result['message'] = "Jumlah ikan mas harus harus lebih dari 0";
+        return result;
+      }
+      if (masWeightController.text.isEmpty ||
+          double.parse(masWeightController.text) <= 0) {
+        result['isValid'] = false;
+        result['message'] = "Berat ikan mas harus harus lebih dari 0";
+        return result;
+      }
+    }
+
+    if (double.parse((waterHeightController.text)) == 0) {
+      result['isValid'] = false;
+      result['message'] = "Tinggi air harus lebih dari 0";
+      return result;
+    }
+    print('sampai validation sini');
+
+    result['isValid'] = true;
+    result['message'] = "Isian sudah benar";
+    return result;
+  }
+
   List buildJsonFish() {
     var data = [];
-    isNoFist.value = true;
     if (isNilaMerah.value == true) {
-      if (nilaMerahAmountController.text == "0" ||
-          nilaMerahWeightController.text == "0" ||
-          nilaMerahAmountController.text == "" ||
-          nilaMerahWeightController.text == "") {
-        isNoFist.value = false;
-      } else {
-        var fishData = {
-          "type": "nila merah",
-          "amount": nilaMerahAmountController.value.text,
-          "weight": nilaMerahWeightController.value.text,
-        };
-        isNoFist.value = false;
-        isZeroInput.value = false;
-
-        data.add(jsonEncode(fishData));
-      }
+      var fishData = {
+        "type": "nila merah",
+        "amount": int.parse(nilaMerahAmountController.value.text),
+        "weight": double.parse(nilaMerahWeightController.text) /
+            int.parse(nilaMerahAmountController.value.text),
+      };
+      data.add(jsonEncode(fishData));
     }
     if (isNilaHitam.value == true) {
-      if (nilaHitamAmountController.text == "0" ||
-          nilaHitamWeightController.text == "0" ||
-          nilaHitamAmountController.text == "" ||
-          nilaHitamWeightController.text == "") {
-        isNoFist.value = false;
-      } else {
-        isNoFist.value = false;
-        isZeroInput.value = false;
-
-        var fishData = {
-          "type": "nila hitam",
-          "amount": nilaHitamAmountController.value.text,
-          "weight": nilaHitamWeightController.value.text,
-        };
-        data.add(jsonEncode(fishData));
-      }
+      var fishData = {
+        "type": "nila hitam",
+        "amount": int.parse(nilaHitamAmountController.value.text),
+        "weight": double.parse(nilaHitamWeightController.text) /
+            int.parse(nilaHitamAmountController.value.text),
+      };
+      data.add(jsonEncode(fishData));
     }
     if (isLele.value == true) {
-      if (leleAmountController.text == "0" ||
-          leleWeightController.text == "0" ||
-          leleAmountController.text == "" ||
-          leleWeightController.text == "") {
-        isNoFist.value = false;
-      } else {
-        isNoFist.value = false;
-        isZeroInput.value = false;
-
-        var fishData = {
-          "type": "lele",
-          "amount": leleAmountController.value.text,
-          "weight": leleWeightController.value.text,
-        };
-        data.add(jsonEncode(fishData));
-      }
+      var fishData = {
+        "type": "lele",
+        "amount": int.parse(leleAmountController.value.text),
+        "weight": double.parse(leleWeightController.text) /
+            int.parse(leleAmountController.value.text),
+      };
+      data.add(jsonEncode(fishData));
     }
     if (isPatin.value == true) {
-      if (patinAmountController.text == "0" ||
-          patinWeightController.text == "0" ||
-          patinAmountController.text == "" ||
-          patinWeightController.text == "") {
-        isNoFist.value = false;
-      } else {
-        isNoFist.value = false;
-        isZeroInput.value = false;
-
-        var fishData = {
-          "type": "patin",
-          "amount": patinAmountController.value.text,
-          "weight": patinWeightController.value.text,
-        };
-        data.add(jsonEncode(fishData));
-      }
+      var fishData = {
+        "type": "patin",
+        "amount": int.parse(patinAmountController.value.text),
+        "weight": double.parse(patinWeightController.text) /
+            int.parse(patinAmountController.value.text),
+      };
+      data.add(jsonEncode(fishData));
     }
     if (isMas.value == true) {
-      if (masAmountController.text == "0" ||
-          masWeightController.text == "0" ||
-          masAmountController.text == "" ||
-          masWeightController.text == "") {
-        isNoFist.value = false;
-      } else {
-        isZeroInput.value = false;
-
-        var fishData = {
-          "type": "mas",
-          "amount": masAmountController.value.text,
-          "weight": masWeightController.value.text,
-        };
-        data.add(jsonEncode(fishData));
-      }
+      var fishData = {
+        "type": "mas",
+        "amount": int.parse(masAmountController.value.text),
+        "weight": double.parse(masWeightController.text) /
+            int.parse(masAmountController.value.text),
+      };
+      data.add(jsonEncode(fishData));
     }
     return data;
   }
@@ -168,77 +257,20 @@ class ActivationBreedController extends GetxController {
     // print(buildJsonFish());
 
     List<dynamic> fish = buildJsonFish();
-    if (isNoFist.value == true) {
-      showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-                title: const Text('Input Error',
-                    style: TextStyle(color: Colors.red)),
-                content: const Text(
-                  'Wajib Pilih Salah 1 Ikan',
-                  style: TextStyle(color: Colors.white),
-                ),
-                backgroundColor: backgroundColor1,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(16.0))),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () => Navigator.pop(context, 'OK'),
-                    child: const Text('OK'),
-                  ),
-                ],
-              ));
-    } else {
-      if (isZeroInput.value == true ||
-          waterHeightController.value.text == '' ||
-          waterHeightController.value.text == '0') {
-        showDialog<String>(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Input Error',
-                      style: TextStyle(color: Colors.red)),
-                  content: const Text(
-                    'Input Tidak boleh 0/Kosong',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  backgroundColor: backgroundColor1,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(16.0))),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ));
-      } else {
-        print("masuk ini");
-        isActivationProgress.value = true;
-
-        try {
-          await service.postActivation(
-              pondId: pond.id,
-              fish: fish,
-              isWaterPreparation: false,
-              waterLevel: waterHeightController.value.text,
-              doInPost: doInPost);
-          postDataLog(fitur);
-        } catch (e) {
-          //
-        }
-        isActivationProgress.value = false;
-      }
+    try {
+      await service.postActivation(
+          pondId: pond.id,
+          fish: fish,
+          activationType: breedOptionController.selected.value,
+          benihType: benihOptionController.selected.value,
+          isWaterPreparation: false,
+          waterLevel: waterHeightController.value.text,
+          doInPost: doInPost);
+      postDataLog(fitur);
+    } catch (e) {
+      //
     }
-    // // Get.to(() => DetailPondPage(),
-    // //     arguments: Pond(
-    // //         id: pond.id,
-    // //         idInt: pond.idInt,
-    // //         alias: pond.alias,
-    // //         location: pond.location,
-    // //         shape: pond.shape,
-    // //         material: pond.material,
-    // //         isActive: true,
-    // //         pondStatus: PondStatus.active));
+    isActivationProgress.value = false;
   }
 
   Future<void> postDataLog(String fitur) async {

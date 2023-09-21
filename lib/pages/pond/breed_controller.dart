@@ -22,8 +22,8 @@ class BreedController extends GetxController {
 
   @override
   void onInit() async {
-    getFishChart(
-        activation_id: detailPondController.selectedActivation.value.id!);
+    // getFishChart(
+    //     activation_id: detailPondController.selectedActivation.value.id!);
     super.onInit();
   }
 

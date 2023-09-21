@@ -25,11 +25,9 @@ class DetailPondController extends GetxController {
 
   void updateSelectedActivationToLastActivation() {
     try {
-      selectedActivation.value =
-          activations.firstWhere((activation) => activation.isFinish == false);
+      selectedActivation.value = activations[0];
     } catch (e) {
-      selectedActivation = Rx<Activation>(
-          activations.firstWhere((activation) => activation.isFinish == false));
+      selectedActivation = Rx<Activation>(activations[0]);
     }
   }
 

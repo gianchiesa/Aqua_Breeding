@@ -87,7 +87,9 @@ class Pond {
         buildAt: json['build_at'],
         imageLink: json['image_link'],
         isActive: json['isActive'],
-        fishAlive: json['fish_alive'] ?? 0,
+        fishAlive: json['isActive'] == true
+            ? json['last_activation']['total_fish_alive']
+            : 0,
         lastActivationDate: json['activation_date'] ?? "-",
         rangeFromLastActivation: json['isActive'] == false
             ? "-"
@@ -98,18 +100,52 @@ class Pond {
         pondStatus: PondStatusConverter.toEnum(json["status"]),
         pondStatusStr: json["status"],
         pondPh: json["pondPh"],
-        pondPhDesc: json["pondPhDesc"],
+        pondPhDesc: getPondPhDescription(json["pondPh"]),
         pondDo: json["pondDo"],
-        pondDoDesc: json["pondDoDesc"],
+        pondDoDesc: getPondDoDescription(json["pondDo"]),
         pondTemp: json["pondTemp"],
-        waterLevel: json["water_level"],
-        waterVolume: json["water_volume"],
+        waterLevel: json['isActive'] == true ? json['water_level'] : 0,
+        waterVolume: json['isActive'] == true ? json['water_volume'] : 0,
         status: json["status"]);
   }
 
   static DateTime stringToDate(String dateString) {
     DateTime parseDate = DateFormat("dd-MM-yyyy").parse(dateString);
     return parseDate;
+  }
+
+  static String getPondPhDescription(num pondPh) {
+    if (pondPh < 6 || pondPh > 8) {
+      return 'Berbahaya';
+    }
+    return "Normal";
+  }
+
+  Color getPondPhColor() {
+    if (pondPh! < 6 || pondPh! > 8) {
+      return Colors.red.shade300;
+    }
+    return Colors.green;
+  }
+
+  static String getPondDoDescription(num pondDo) {
+    if (pondDo < 3 || pondDo > 7.5) {
+      return 'Berbahaya';
+    }
+    if (pondDo < 4 || pondDo > 6) {
+      return 'Semi Berbahaya';
+    }
+    return "Normal";
+  }
+
+  Color getPondDoColor() {
+    if (pondDo! < 3 || pondDo! > 7.5) {
+      return Colors.red.shade300;
+    }
+    if (pondDo! < 4 || pondDo! > 6) {
+      return Colors.amber;
+    }
+    return Colors.green;
   }
 
   String getStringEydDate(String strDate) {
@@ -122,6 +158,9 @@ class Pond {
   String getLastActivationDateEYD() => getStringEydDate(lastActivationDate!);
 
   String getRatioVolumePerFishAlive() {
+    if (isActive == false) {
+      return '0';
+    }
     try {
       String result = (waterLevel! * 1000 / fishAlive!).toStringAsFixed(2);
       return result;

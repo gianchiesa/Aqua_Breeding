@@ -2,39 +2,36 @@ import 'package:intl/intl.dart';
 
 class FishGrading {
   String? id;
-  String? fishType;
-  num? samplingAmount;
-  num? avgFishWeight;
-  num? avgFishLong;
-  num? normalFish;
-  num? oversizeFish;
-  num? undersizeFish;
   DateTime? gradingAt;
+  String? type;
+  List<dynamic>? fishList;
+  num? sampleAmount;
+  num? sampleWeight;
+  num? sampleLength;
+  num? fcr;
 
   FishGrading({
     required this.id,
-    required this.fishType,
-    required this.samplingAmount,
-    required this.avgFishWeight,
-    this.avgFishLong,
-    this.normalFish,
-    this.oversizeFish,
-    this.undersizeFish,
-    this.gradingAt,
+    required this.gradingAt,
+    required this.fishList,
+    this.type,
+    this.sampleAmount = 0,
+    this.sampleWeight = 0,
+    this.sampleLength = 0,
+    this.fcr = 0,
   });
 
   factory FishGrading.fromJson(Map<String, dynamic> json) {
     print(json);
     return FishGrading(
       id: json['_id'],
-      fishType: json['fish_type'],
-      samplingAmount: json['sampling_amount'],
-      avgFishWeight: json['avg_fish_weight'],
-      avgFishLong: json['avg_fish_long'],
-      normalFish: json['amount_normal_fish'],
-      oversizeFish: json['amount_oversize_fish'],
-      undersizeFish: json['amount_undersize_fish'],
       gradingAt: DateTime.tryParse(json['grading_at']),
+      fishList: json['fish'],
+      type: json['event_desc'],
+      sampleAmount: json['sample_amount'] ?? 0,
+      sampleWeight: json['sample_weight'] ?? 0,
+      sampleLength: json['sample_long'] ?? 0,
+      fcr: json['fcr'] ?? 0,
     );
   }
 
@@ -46,5 +43,6 @@ class FishGrading {
     return fishgradings;
   }
 
-  String getDate() => DateFormat('dd-MM-yyyy ').format(gradingAt!);
+  String getDate() =>
+      DateFormat('EEEE, d MMM yyyy', 'id_ID').format(gradingAt!);
 }

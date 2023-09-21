@@ -59,6 +59,8 @@ class ActivationService {
       required List? fish,
       required bool? isWaterPreparation,
       required String? waterLevel,
+      required String? activationType,
+      required String? benihType,
       required Function doInPost}) async {
     final response = await http.post(Uri.parse(Urls.pondActivation(pondId)),
         headers: {
@@ -69,6 +71,8 @@ class ActivationService {
           "fish": fish.toString(),
           "isWaterPreparation": false.toString(),
           "water_level": waterLevel,
+          "activationType": activationType,
+          "benihType": benihType,
         });
 
     if (response.statusCode == 200) {

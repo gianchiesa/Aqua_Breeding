@@ -55,4 +55,24 @@ class StatisticModel {
     floc_normal = json['water_quality']['floc']['normal'];
     floc_abnormal = json['water_quality']['floc']['abnormal'];
   }
+
+  StatisticModel.defaultValue() {
+    total_pond = 0;
+    active_pond = 0;
+    fish_live = 0;
+    fish_death = 0;
+    fish_harvested = 0;
+    total_feed_dose = 0;
+    fishes_weight_nilahitam = 0;
+    fishes_weight_nilamerah = 0;
+    fishes_weight_lele = 0;
+    fishes_weight_patin = 0;
+    fishes_weight_mas = 0;
+    ph_normal = 0;
+    ph_abnormal = 0;
+    do_normal = 0;
+    do_abnormal = 0;
+    floc_normal = 0;
+    floc_abnormal = 0;
+  }
 }
